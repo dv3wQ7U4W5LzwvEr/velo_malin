@@ -14,15 +14,8 @@ import java.util.logging.Logger;
 
 public class MysqlVersion {
 	
-	 public static Connection getConnection() throws Exception {
-		    // load the Oracle JDBC Driver
-		    Class.forName("oracle.jdbc.driver.OracleDriver");
-		    // define database connection parameters
-		    return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:database", "userName",
-		        "password");
-		 }
 	
-    public static void main(String[] args) throws SQLException {      
+    public static void main(String[] args) throws Exception {      
     	
     	Connection con = null;
         Statement st = null;
@@ -38,12 +31,32 @@ public class MysqlVersion {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
-            rs = st.executeQuery("SELECT VERSION()");
+            rs = st.executeQuery("SELECT * FROM Client");
 
+          //On récupère les MetaData
+          // ResultSetMetaData resultMeta = result.getMetaData();
+         
+         //On affiche le nom des colonnes
+         //   for(int i = 1; i <= resultMeta.getColumnCount(); i++){
+         //    System.out.print("\t" + resultMeta.getColumnName(i).toUpperCase() + "\t *");}
+            
+         /*   
             if (rs.next()) {
                 System.out.println(rs.getString(1));
             }
+        */
+            
+            
+            while(rs.next()){         
+                for(int i = 1; i < 2; i++){
+                  System.out.print("\t" + rs.getObject(i).toString() + "\t");
+                  System.out.println("\n---------------------------------");
+                }
 
+                        
+            }
+            
+     
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlVersion.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
