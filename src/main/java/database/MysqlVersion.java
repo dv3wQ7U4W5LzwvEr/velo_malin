@@ -11,17 +11,29 @@ import java.util.logging.Logger;
 /**
  * Created by florian on 2015-10-10.
  */
+
 public class MysqlVersion {
-
-    public static void main(String[] args) {
-
-        Connection con = null;
+	
+	 public static Connection getConnection() throws Exception {
+		    // load the Oracle JDBC Driver
+		    Class.forName("oracle.jdbc.driver.OracleDriver");
+		    // define database connection parameters
+		    return DriverManager.getConnection("jdbc:oracle:thin:@localhost:1521:database", "userName",
+		        "password");
+		 }
+	
+    public static void main(String[] args) throws SQLException {      
+    	
+    	Connection con = null;
         Statement st = null;
         ResultSet rs = null;
-
-        String url = "jdbc:mysql://localhost:3306/testdb";
-        String user = "testuser";
-        String password = "test623";
+        
+        String driver = "com.mysql.jdbc.Driver";
+        String url = "jdbc:mysql://localhost:3306/velo_malin";
+        String user = "root";
+        String password = "";
+        
+        Class.forName(driver);
 
         try {
             con = DriverManager.getConnection(url, user, password);
