@@ -1,6 +1,7 @@
 package database;
 
-import was.model.Station;
+
+import model.Station;
 
 import java.sql.*;
 import java.util.logging.Level;
@@ -71,7 +72,31 @@ public class MysqlConnecter {
         MysqlConnecter();
     }
 
-    public void insertStationStatistique(Station station) {
+    public void majStations() {
+        try {
+            st = con.createStatement();
+            String request = "INSERT INTO STATIONS (id_station, nom, adresse, latitude, longitude, places) " +
+                     "values ( '', station.getNom(), station.getAdresse(), station.getLatitude(), station.getLongitude(), station.getPlaces())";
+            rs = st.executeQuery(request);
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.WARNING, ex.getMessage(), ex);
+        } finally {
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (st != null) {
+                    st.close();
+                }
+                if (con != null) {
+                    con.close();
+                }
 
+            } catch (SQLException ex) {
+                Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+                lgr.log(Level.WARNING, ex.getMessage(), ex);
+            }
+        }
     }
 }

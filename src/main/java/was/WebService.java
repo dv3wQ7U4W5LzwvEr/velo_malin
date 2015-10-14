@@ -5,11 +5,9 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import was.model.Station;
+import was.model.StationWas;
 
 import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileWriter;
 import java.io.InputStreamReader;
 import java.text.DateFormat;
 import java.util.Date;
@@ -33,7 +31,7 @@ public class WebService extends TimerTask{
             // D�s�rialisation des don  n�es
             String data = rd.readLine();
             Gson gson = new Gson();
-            Station[] stations = gson.fromJson(data, Station[].class);
+            StationWas[] stations = gson.fromJson(data, StationWas[].class);
 
             // sauvegarde dans un fichier
             DateFormat shortDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
