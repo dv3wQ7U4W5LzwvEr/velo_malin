@@ -3,6 +3,8 @@ package model;
 public class Station {
 
     private int id_station;
+		latitude,
+		longitude,
 
     private String nom;
 
