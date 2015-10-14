@@ -8,9 +8,9 @@ public class Station {
 
     private String adresse;
 
-    private int latitude;
+    private String latitude;
 
-    private int longitude;
+    private String longitude;
 
     private int places;
 
@@ -26,15 +26,39 @@ public class Station {
         return adresse;
     }
 
-    public int getLatitude() {
+    public String getLatitude() {
         return latitude;
     }
 
-    public int getLongitude() {
+    public String getLongitude() {
         return longitude;
     }
 
     public int getPlaces() {
         return places;
+    }
+
+    public void setId_station(int id_station) {
+        this.id_station = id_station;
+    }
+
+    public void setNom(String nom) {
+        this.nom = nom;
+    }
+
+    public void setAdresse(String adresse) {
+        this.adresse = adresse;
+    }
+
+    public void setLatitude(String latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(String longitude) {
+        this.longitude = longitude;
+    }
+
+    public void setPlaces(int places) {
+        this.places = places;
     }
 }

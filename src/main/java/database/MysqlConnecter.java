@@ -20,7 +20,7 @@ public class MysqlConnecter {
     private String user = "root";
     private String password = "root";
 
-    private void MysqlConnecter() {
+    public void MysqlConnecter() {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
@@ -72,7 +72,7 @@ public class MysqlConnecter {
         MysqlConnecter();
     }
 
-    public void majStations() {
+    public void majStation(Station station) {
         try {
             st = con.createStatement();
             String request = "INSERT INTO STATIONS (id_station, nom, adresse, latitude, longitude, places) " +
