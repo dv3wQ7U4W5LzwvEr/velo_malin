@@ -19,10 +19,8 @@ public class MysqlConnecter {
     private String user = "root";
     private String password = "root";
 
-    private void MysqlConnecter()
-    {
-        try
-        {
+    private void MysqlConnecter() {
+        try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             rs = st.executeQuery("SELECT VERSION()");
@@ -31,7 +29,7 @@ public class MysqlConnecter {
                 System.out.println(rs.getString(1));
             }
         } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(MysqlVersion.class.getName());
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur");
         } finally {
@@ -47,19 +45,33 @@ public class MysqlConnecter {
                 }
 
             } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(MysqlVersion.class.getName());
+                Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
+            } finally {
+                try {
+                    if (rs != null) {
+                        rs.close();
+                    }
+                    if (st != null) {
+                        st.close();
+                    }
+                    if (con != null) {
+                        con.close();
+                    }
+
+                } catch (SQLException ex) {
+                    Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+                    lgr.log(Level.WARNING, ex.getMessage(), ex);
+                }
             }
         }
     }
 
-    public void connect()
-    {
+    public void connect() {
         MysqlConnecter();
     }
 
-    public void insertStationStatistique(Station station)
-    {
+    public void insertStationStatistique(Station station) {
 
     }
 }
