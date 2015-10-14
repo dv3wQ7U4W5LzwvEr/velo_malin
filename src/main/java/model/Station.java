@@ -3,16 +3,14 @@ package model;
 public class Station {
 
     private int id_station;
-		latitude,
-		longitude,
 
     private String nom;
 
     private String adresse;
 
-    private String latitude;
+    private double latitude;
 
-    private String longitude;
+    private double longitude;
 
     private int places;
 
@@ -28,11 +26,11 @@ public class Station {
         return adresse;
     }
 
-    public String getLatitude() {
+    public double getLatitude() {
         return latitude;
     }
 
-    public String getLongitude() {
+    public double getLongitude() {
         return longitude;
     }
 
@@ -52,11 +50,11 @@ public class Station {
         this.adresse = adresse;
     }
 
-    public void setLatitude(String latitude) {
+    public void setLatitude(double latitude) {
         this.latitude = latitude;
     }
 
-    public void setLongitude(String longitude) {
+    public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
 
