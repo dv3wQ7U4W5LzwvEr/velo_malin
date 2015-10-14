@@ -11,6 +11,7 @@ public class Fenetre {
 		   JFrame fenetre = new JFrame();
 		   JPanel pan = new JPanel();
 		   JTabbedPane onglets = new JTabbedPane();
+		   String stations;
 		   
 		   JMenuBar menuBar = new JMenuBar();                
            JMenu menu1 = new JMenu("Programmer son itinéraire");
@@ -30,6 +31,7 @@ public class Fenetre {
 		    JLabel label1 = new JLabel("Toutes les stations",JLabel.CENTER);
 		    
 		    JLabel liste_station = new JLabel();
+		    liste_station.setText(String Stations);
  
            onglets.setMinimumSize(new Dimension(200,100));
            onglets.setBackground(Color.gray);
