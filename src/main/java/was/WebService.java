@@ -61,6 +61,47 @@ public class WebService extends TimerTask{
             System.out.println(e);
         }
     }
+    
+    public StationWas[] demo()
+    {
+        try {
+            // Recuperation du flux de donn�es depuis JcDecaux
+            HttpClient client = new DefaultHttpClient();
+            HttpGet request = new HttpGet(buildRequest());
+            HttpResponse response = client.execute(request);
+            BufferedReader rd = new BufferedReader(new InputStreamReader(response.getEntity().getContent()));
+
+            // D�s�rialisation des don  n�es
+            String data = rd.readLine();
+            Gson gson = new Gson();
+            StationWas[] stations = gson.fromJson(data, StationWas[].class);
+
+            MysqlConnecter mysqlConnecter = new MysqlConnecter();
+            
+  /*          for (int i = 0 ; i < stations.length ; i++)
+            {
+
+                Station station = new Station();
+                station.setNom(stations[i].getName());
+                station.setAdresse(stations[i].getAddress());
+                station.setLatitude(stations[i].getPosition().getLatitude());
+                station.setLongitude(stations[i].getPosition().getLongitude());
+                station.setPlaces(stations[i].getBike_stands());
+                	
+                
+                /*
+                mysqlConnecter.majStation(station);
+            }*/
+
+            // sauvegarde dans un fichier
+            DateFormat shortDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
+            String date = shortDateFormat.format(new Date());
+            System.out.println("Date : " + new Date()); return stations;
+        } catch (Exception e) {
+            System.out.println(e);
+        }
+		return null;    	
+    }
 
     private String buildRequest() {
         return requestBase + apiKey;

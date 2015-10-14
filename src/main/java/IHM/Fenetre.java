@@ -3,6 +3,9 @@ package IHM;
 import java.awt.*;
 import javax.swing.*;
 
+import was.WebService;
+import was.model.StationWas;
+
 
 
 public class Fenetre {
@@ -28,11 +31,22 @@ public class Fenetre {
 		    
 		    
 		    //titre liste station
-		    JLabel label1 = new JLabel("Toutes les stations",JLabel.CENTER);
+		    //JLabel label1 = new JLabel("Toutes les stations",JLabel.CENTER);
 		    
-		    JLabel liste_station = new JLabel();
-		    liste_station.setText(String Stations);
+		    //JLabel liste_station = new JLabel();
+		    //liste_station.setText(String Stations);
  
+		    WebService webService = new WebService();
+		    StationWas[] stat = webService.demo();
+		    JPanel PanStation = new JPanel();
+		    JLabel nom = new JLabel("Nom : " + stat[0].getName());
+		    JLabel adresse = new JLabel("adresse : " + stat[0].getAddress());
+		    JLabel dispo = new JLabel(String.valueOf(stat[0].getBike_stands()) + " vélos disponible");
+		    PanStation.add(nom);
+		    PanStation.add(adresse);
+		    PanStation.add(dispo);
+		 
+		    
            onglets.setMinimumSize(new Dimension(200,100));
            onglets.setBackground(Color.gray);
 		   
@@ -42,8 +56,8 @@ public class Fenetre {
            JPanel panel2 = new JPanel();
            JPanel panel3 = new JPanel();
            JPanel panel4 = new JPanel();
-           
-           panel0.add(label0);
+           panel0.add(PanStation);
+           // panel0.add(label0);
            
            onglets.addTab("Accueil", panel0);
            onglets.addTab("Programmer son itinéraire", panel1);
@@ -67,6 +81,8 @@ public class Fenetre {
 		    fenetre.add(pan); 
 		    fenetre.add(onglets);
 		    fenetre.setVisible(true);
+		    
+		    
 	 }
 
 }
