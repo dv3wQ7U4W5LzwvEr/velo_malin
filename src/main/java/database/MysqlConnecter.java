@@ -1,29 +1,28 @@
 package database;
 
-import java.sql.Connection;
-import java.sql.DriverManager;
-import java.sql.ResultSet;
-import java.sql.SQLException;
-import java.sql.Statement;
+import was.model.Station;
+
+import java.sql.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- * Created by florian on 2015-10-10.
+ * Created by flauve on 2015-10-14.
  */
-public class MysqlVersion {
+public class MysqlConnecter {
 
-    public static void main(String[] args) {
+    private Connection con = null;
+    private Statement st = null;
+    private ResultSet rs = null;
 
-        Connection con = null;
-        Statement st = null;
-        ResultSet rs = null;
+    private String url = "jdbc:mysql://localhost:3306/";
+    private String user = "root";
+    private String password = "root";
 
-        String url = "jdbc:mysql://localhost:3306/";
-        String user = "root";
-        String password = "root";
-
-        try {
+    private void MysqlConnecter()
+    {
+        try
+        {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             rs = st.executeQuery("SELECT VERSION()");
@@ -31,7 +30,6 @@ public class MysqlVersion {
             if (rs.next()) {
                 System.out.println(rs.getString(1));
             }
-
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlVersion.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
@@ -55,4 +53,13 @@ public class MysqlVersion {
         }
     }
 
+    public void connect()
+    {
+        MysqlConnecter();
+    }
+
+    public void insertStationStatistique(Station station)
+    {
+
+    }
 }
