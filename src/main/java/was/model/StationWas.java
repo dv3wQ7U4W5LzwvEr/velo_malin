@@ -6,10 +6,10 @@ import java.util.ArrayList;
  * Created by florian on 2015-10-11.
  */
 
-/* Ce modèle est une representation en java de ce que retourne le service web,
+/* Ce modï¿½le est une representation en java de ce que retourne le service web,
     NE PAS MODIFIER
  */
-public class Station
+public class StationWas
 {
     private int number;
     private String contract_name;
