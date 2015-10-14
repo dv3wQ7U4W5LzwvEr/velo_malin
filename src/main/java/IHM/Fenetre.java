@@ -14,7 +14,6 @@ public class Fenetre {
 		   JFrame fenetre = new JFrame();
 		   JPanel pan = new JPanel();
 		   JTabbedPane onglets = new JTabbedPane();
-		   String stations;
 		   
 		   JMenuBar menuBar = new JMenuBar();                
            JMenu menu1 = new JMenu("Programmer son itinéraire");
@@ -22,14 +21,13 @@ public class Fenetre {
            JMenu menu3 = new JMenu("Recherche de station");
            JMenu menu4 = new JMenu("Alertes");           
            
-		    menuBar.add(menu1);
-		    menuBar.add(menu2);
-		    menuBar.add(menu3);
-		    menuBar.add(menu4);
+		   menuBar.add(menu1);
+		   menuBar.add(menu2);
+		   menuBar.add(menu3);
+		   menuBar.add(menu4);
 		    
-		    JLabel label0 = new JLabel("Cliquer sur les boutons",JLabel.CENTER);
-		    
-		    
+		   JLabel label0 = new JLabel("Cliquer sur les boutons",JLabel.CENTER);
+		    		    
 		    //titre liste station
 		    //JLabel label1 = new JLabel("Toutes les stations",JLabel.CENTER);
 		    
@@ -64,23 +62,18 @@ public class Fenetre {
            onglets.addTab("Lancer une recherche", panel2);
            onglets.addTab("Recherche de station", panel3);
            onglets.addTab("Alertes", panel4);
-           
-           //onglets.setMnemonicAt(0, KeyEvent.VK_1);
 
-		    fenetre.setTitle("Velo Malin");
-		    fenetre.setSize(800, 400);
-		    fenetre.setLocationRelativeTo(null);
-		    fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		   fenetre.setTitle("Velo Malin");
+		   fenetre.setSize(800, 400);
+		   fenetre.setLocationRelativeTo(null);
+		   fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		    
-		    	    
-		    
-		    
-		    //pan.add(menuBar, BorderLayout.NORTH);
-		    pan.setBackground(Color.RED);	    
+		   //pan.add(menuBar, BorderLayout.NORTH);
+		   pan.setBackground(Color.RED);	    
 
-		    fenetre.add(pan); 
-		    fenetre.add(onglets);
-		    fenetre.setVisible(true);
+		   fenetre.add(pan); 
+		   fenetre.add(onglets);
+		   fenetre.setVisible(true);
 		    
 		    
 	 }
