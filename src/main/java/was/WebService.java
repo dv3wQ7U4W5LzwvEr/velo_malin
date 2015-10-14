@@ -36,8 +36,10 @@ public class WebService extends TimerTask{
             StationWas[] stations = gson.fromJson(data, StationWas[].class);
 
             MysqlConnecter mysqlConnecter = new MysqlConnecter();
+
             for (int i = 0 ; i < stations.length ; i++)
             {
+
                 Station station = new Station();
                 station.setNom(stations[i].getName());
                 station.setAdresse(stations[i].getAddress());
@@ -45,14 +47,15 @@ public class WebService extends TimerTask{
                 station.setLongitude(stations[i].getPosition().getLongitude());
                 station.setPlaces(stations[i].getBike_stands());
 
-                mysqlConnecter.majStation(station);
+                
+                /*
+                mysqlConnecter.majStation(station);*/
             }
 
             // sauvegarde dans un fichier
             DateFormat shortDateFormat = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.SHORT);
             String date = shortDateFormat.format(new Date());
             System.out.println("Date : " + new Date());
-
 
         } catch (Exception e) {
             System.out.println(e);

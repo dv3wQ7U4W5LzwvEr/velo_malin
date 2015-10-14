@@ -86,4 +86,6 @@ public class MysqlConnecter {
             }
         }
     }
+
+    // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 }
