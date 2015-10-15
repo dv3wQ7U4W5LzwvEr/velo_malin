@@ -5,8 +5,8 @@ import java.util.List;
 
 public class StationsProximitees {
 	
-	List getStationsProximité(int longitude, int latitude, int nb_stations){
-		
+	public List getStationsProximite(int longitude, int latitude, int nb_stations){
+
 		List listStations = new ArrayList();
 		
 		double distance = 0.0045,
@@ -21,8 +21,6 @@ public class StationsProximitees {
 //		String sqlQuery = "SELECT id_station FROM Stations WHERE latitude BETWEEN "+ latitudeMin +" AND "+ latitudeMax +" AND longitude BETWEEN "+ longitudeMin +" AND "+ longitudeMax;
 		
 		return listStations;
-		
-		
 	}
 	
 }

@@ -39,14 +39,14 @@ public class WebService extends TimerTask{
 
             for (int i = 0 ; i < stations.length ; i++)
             {
-
+/*
                 Station station = new Station();
                 station.setNom(stations[i].getName());
                 station.setAdresse(stations[i].getAddress());
                 station.setLatitude(stations[i].getPosition().getLatitude());
                 station.setLongitude(stations[i].getPosition().getLongitude());
                 station.setPlaces(stations[i].getBike_stands());
-
+*/
                 
                 /*
                 mysqlConnecter.majStation(station);*/
