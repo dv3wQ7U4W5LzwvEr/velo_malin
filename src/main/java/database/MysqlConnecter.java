@@ -38,6 +38,34 @@ public class MysqlConnecter {
     }
 
     public void disconnect() {
+        try {
+            if (rs != null) {
+                rs.close();
+            }
+            if (st != null) {
+                st.close();
+            }
+            if (con != null) {
+                con.close();
+            }
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.WARNING, ex.getMessage(), ex);
+        }
+    }
+
+    // @todo ajouter le system de recupération d une station à partir de l adresse
+    public void majInformationsStation(Station station) {
+        try {
+            st = con.createStatement();
+            String request = "INSERT INTO STATIONS (id_station, nom, adresse, latitude, longitude, places) " +
+                    "values ( " + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + "," + station.getLongitude() + "," + station.getPlaces() + ")";
+            rs = st.executeQuery(request);
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.WARNING, ex.getMessage(), ex);
+        } finally {
             try {
                 if (rs != null) {
                     rs.close();
@@ -53,17 +81,18 @@ public class MysqlConnecter {
                 Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
             }
+        }
     }
 
-    public void majStation(Station station) {
+    // todo identifier station et maj de de la table avec cette valeur
+    public void majUtilisationsStations(Station station) {
         try {
             st = con.createStatement();
-            Random rand = new Random();
-            int max = 99999;
-            int min = 1;
-            int nombreAleatoire = rand.nextInt(max - min + 1) + min;
-            String request = "INSERT INTO STATIONS (id_station, nom, adresse, latitude, longitude, places) " +
-                     "values ( " + nombreAleatoire + "," + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + "," + station.getLongitude() + "," + station.getPlaces() + ")";
+            String request = "INSERT INTO STATIONSDISPONIBILITE (id_stationdisponibilite, id_station, date_maj_attente," +
+                    " place_occuppees, places_disponibles, date_maj_jcdecaux, jour_special, vacances_scolaires)" +
+                    "values ( " +
+                    "" + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + ","
+                    + station.getLongitude() + "," + station.getPlaces() + ")";
             rs = st.executeQuery(request);
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
