@@ -4,6 +4,8 @@ package database;
 import model.Station;
 
 import java.sql.*;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -104,6 +106,51 @@ public class MysqlConnecter {
             }
         }
     }
+    
+    public ResultSet executerRequete(String sqlQuery){
+    	try{
+    		
+	    	this.rs = this.st.executeQuery(sqlQuery);
+	    	
+    	} catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: "+ ex);
+        }
+    	
+		return this.rs;
+    }
+    
+	public double getMoyenneVeloSurStation(int id_station, Date dateX, Date dateY){
+
+//		Obtenir un intervalle depuis une date.	
+//		long offSet = 60000*5;	//5 minites in millisecs
+//		long long = jour.getTime();
+//		
+//		Date jourX = new Date(longJour + (10 * offSet));
+//		Date jourY = new Date(longJour + (10 * offSet));
+		
+		SimpleDateFormat datetime = new SimpleDateFormat ("yyyyMMdd hh:mm:ss");
+		
+		String sqlQuery = "SELECT AVG(places_occupees) FROM stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux BETWEEN '"+ datetime.format(dateX) +"' AND '"+ datetime.format(dateY) + "'";
+		
+		MysqlConnecter msc = new MysqlConnecter();
+		ResultSet rs = msc.executerRequete(sqlQuery);
+		
+		double moyenne = -1;
+		try {
+			moyenne = Double.parseDouble(rs.getString("places_occupees"));
+		} catch (NumberFormatException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+		
+		return moyenne;
+		
+	}
 
     // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 }
