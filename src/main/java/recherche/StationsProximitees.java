@@ -4,14 +4,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StationsProximitees {
-	
-<<<<<<< HEAD
+
 	public List getStationsProximite(int longitude, int latitude, int nb_stations){
 
-=======
-	List getStationsProximite(int longitude, int latitude, int nb_stations){
-		
->>>>>>> suite du précédent commit
 		List listStations = new ArrayList();
 		
 		double distance = 0.0045,

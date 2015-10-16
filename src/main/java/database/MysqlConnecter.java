@@ -56,30 +56,19 @@ public class MysqlConnecter {
     }
 
     // @todo ajouter le system de recupération d une station à partir de l adresse
-    public void majInformationsStation(Station station) {
-        try {
-            st = con.createStatement();
-            String request = "INSERT INTO STATIONS (id_station, nom, adresse, latitude, longitude, places) " +
-                    "values ( " + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + "," + station.getLongitude() + "," + station.getPlaces() + ")";
-            rs = st.executeQuery(request);
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-            lgr.log(Level.WARNING, ex.getMessage(), ex);
-        } finally {
+    public void majInformationsStation(Station station){
+        if (! station.getNom().equals(""))
+        {
+            String request = "INSERT INTO VELO_MALIN.STATIONS (nom, adresse, latitude, longitude, places) " +
+                    "values ( '" + station.getNom() + "', '" + station.getAdresse() + "','" + station.getLatitude() + "', '" + station.getLongitude() + "', '" + station.getPlaces() + "')";
             try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
-
+                PreparedStatement pstmt = con.prepareStatement(request);
+                pstmt.execute();
             } catch (SQLException ex) {
                 Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
                 lgr.log(Level.WARNING, ex.getMessage(), ex);
+                System.out.println("Erreur lors l execution de la requete sur la station :");
+                System.out.println(request);
             }
         }
     }
@@ -88,12 +77,12 @@ public class MysqlConnecter {
     public void majUtilisationsStations(Station station) {
         try {
             st = con.createStatement();
-            String request = "INSERT INTO STATIONSDISPONIBILITE (id_stationdisponibilite, id_station, date_maj_attente," +
+            String request = "INSERT INTO VELO_MALIN.STATIONSDISPONIBILITE (id_stationdisponibilite, id_station, date_maj_attente," +
                     " place_occuppees, places_disponibles, date_maj_jcdecaux, jour_special, vacances_scolaires)" +
                     "values ( " +
                     "" + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + ","
                     + station.getLongitude() + "," + station.getPlaces() + ")";
-            rs = st.executeQuery(request);
+            st.executeUpdate(request);
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.WARNING, ex.getMessage(), ex);

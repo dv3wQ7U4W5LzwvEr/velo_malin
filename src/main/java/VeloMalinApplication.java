@@ -9,6 +9,8 @@ public class VeloMalinApplication {
 
   public static void main(String[] args) {
     Timer timer = new Timer();
+    WebService was = new WebService();
+    was.creationDesInformationsSurLesStations();
     timer.schedule(new WebService(), 0, 30000);
   }
 
