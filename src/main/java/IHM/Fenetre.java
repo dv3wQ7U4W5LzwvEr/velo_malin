@@ -1,22 +1,16 @@
 package IHM;
 
-import java.awt.*;
-import java.awt.image.ImageObserver;
-import java.awt.image.ImageProducer;
-import javax.imageio.ImageIO;
 import javax.swing.*;
-
-import was.WebService;
-import was.model.StationWas;
+import java.awt.*;
 
 
 
-public class Fenetre {
+public class Fenetre extends JFrame {
 	public static void main(String[] args) {
 		JFrame fenetre = new JFrame();
 
 		fenetre.setTitle("Velo Malin");
-		fenetre.setSize(800, 400);
+		fenetre.setSize(800, 800);
 		fenetre.setLocationRelativeTo(null);
 		fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
@@ -56,10 +50,42 @@ public class Fenetre {
 		onglets.addTab("Statistiques de station",icon3, panel3);
 		onglets.addTab("Alertes",icon4, panel4);
 
-        //Accueil
+        /*---------*\
+        *  Accueil  * src/main/resources/img/image_velovs.jpg
+        \*---------*/
         panAccueil.setBackground(Color.red);
+        panAccueil.setLayout(new BorderLayout());
 
-        //Itinéraire
+        //mise en forme
+        GridBagConstraints gbc = new GridBagConstraints();
+        //première ligne
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
+
+        JLabel nom = new JLabel("VELO MALIN");
+        Font f = new Font("Arial", Font.PLAIN, 50);
+        nom.setFont(f);
+        nom.setForeground(Color.white);
+        nom.setSize(500, 300);
+        nom.setHorizontalTextPosition(JLabel.CENTER);
+        nom.setVerticalTextPosition(JLabel.TOP);
+
+        panAccueil.add(nom, gbc);
+
+        ImageIcon icon5 = new ImageIcon("src/main/resources/img/image_velovs.jpg");
+        JLabel label_image = new JLabel(icon5);
+        label_image.setSize(200, 200);
+        label_image.setVerticalTextPosition(JLabel.CENTER);
+        label_image.setHorizontalTextPosition(JLabel.CENTER);
+
+        panAccueil.add(label_image);
+
+        /*----------*\
+        * Itinéraire *
+        \*----------*/
         JPanel panDepart = new JPanel();
 
         panDepart.setBackground(Color.white);
@@ -112,6 +138,8 @@ public class Fenetre {
         JLabel lab_min = new JLabel("min");
 
         JCheckBox comb_jour = new JCheckBox();
+
+
 
         panDepart.add(lab_rue);
         panDepart.add(adresse);
