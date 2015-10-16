@@ -1,0 +1,159 @@
+-- MySQL dump 10.13  Distrib 5.6.24, for Win64 (x86_64)
+--
+-- Host: 127.0.0.1    Database: velo_malin
+-- ------------------------------------------------------
+-- Server version	5.6.20-log
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
+/*!40103 SET TIME_ZONE='+00:00' */;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+
+create database velo_malin;
+use velo_malin;
+
+
+--
+-- Table structure for table `alertes`
+--
+
+DROP TABLE IF EXISTS `alertes`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `alertes` (
+  `id_alerte` int(11) NOT NULL AUTO_INCREMENT,
+  `id_client` int(11) DEFAULT NULL,
+  `id_itinerairefavori` int(11) DEFAULT NULL,
+  `heure` datetime DEFAULT NULL,
+  PRIMARY KEY (`id_alerte`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `alertes`
+--
+
+
+--
+-- Table structure for table `client`
+--
+
+DROP TABLE IF EXISTS `client`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `client` (
+  `id_client` int(11) NOT NULL AUTO_INCREMENT,
+  PRIMARY KEY (`id_client`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `client`
+--
+
+
+--
+-- Table structure for table `itinerairesfavoris`
+--
+
+DROP TABLE IF EXISTS `itinerairesfavoris`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `itinerairesfavoris` (
+  `id_itinerairefavori` int(11) NOT NULL AUTO_INCREMENT,
+  `id_client` int(11) DEFAULT NULL,
+  `id_station_depart` int(11) DEFAULT NULL,
+  `id_station_arrivee` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_itinerairefavori`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `itinerairesfavoris`
+--
+
+--
+-- Table structure for table `stations`
+--
+
+DROP TABLE IF EXISTS `stations`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stations` (
+  `id_station` int(11) NOT NULL AUTO_INCREMENT,
+  `nom` varchar(255) DEFAULT NULL,
+  `adresse` varchar(255) DEFAULT NULL,
+  `latitude` varchar(45) DEFAULT NULL,
+  `longitude` varchar(45) DEFAULT NULL,
+  `places` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_station`)
+) ENGINE=InnoDB AUTO_INCREMENT=5487 DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stations`
+--
+
+--
+-- Table structure for table `stationsdisponibilites`
+--
+
+DROP TABLE IF EXISTS `stationsdisponibilites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stationsdisponibilites` (
+  `id_stationdisponible` int(11) NOT NULL AUTO_INCREMENT,
+  `id_station` int(11) DEFAULT NULL,
+  `date_MAJ` datetime DEFAULT NULL,
+  `places_occupees` int(11) DEFAULT NULL,
+  `places_disponibles` int(11) DEFAULT NULL,
+  `date_MAJ_JCDecaux` datetime DEFAULT NULL,
+  `jour_special` tinyint(1) DEFAULT NULL,
+  `vacances_scolaires` tinyint(1) DEFAULT NULL,
+  `jour` enum('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche') DEFAULT NULL,
+  PRIMARY KEY (`id_stationdisponible`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stationsdisponibilites`
+--
+
+--
+-- Table structure for table `stationsfavorites`
+--
+
+DROP TABLE IF EXISTS `stationsfavorites`;
+/*!40101 SET @saved_cs_client     = @@character_set_client */;
+/*!40101 SET character_set_client = utf8 */;
+CREATE TABLE `stationsfavorites` (
+  `id_stationfavorite` int(11) NOT NULL AUTO_INCREMENT,
+  `id_client` int(11) DEFAULT NULL,
+  `id_station` int(11) DEFAULT NULL,
+  PRIMARY KEY (`id_stationfavorite`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+/*!40101 SET character_set_client = @saved_cs_client */;
+
+--
+-- Dumping data for table `stationsfavorites`
+--
+
+
+
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2015-10-16 10:02:46
