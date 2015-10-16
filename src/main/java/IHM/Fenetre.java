@@ -5,7 +5,7 @@ import java.awt.*;
 
 
 
-public class Fenetre {
+public class Fenetre extends JFrame {
 	public static void main(String[] args) {
 		JFrame fenetre = new JFrame();
 
@@ -50,9 +50,20 @@ public class Fenetre {
 		onglets.addTab("Statistiques de station",icon3, panel3);
 		onglets.addTab("Alertes",icon4, panel4);
 
-        //*Accueil src/main/resources/img/image_velovs.jpg
+        /*---------*\
+        *  Accueil  * src/main/resources/img/image_velovs.jpg
+        \*---------*/
         panAccueil.setBackground(Color.red);
         panAccueil.setLayout(new BorderLayout());
+
+        //mise en forme
+        GridBagConstraints gbc = new GridBagConstraints();
+        //première ligne
+        gbc.gridx = 0;
+        gbc.gridy = 0;
+        gbc.gridheight = 1;
+        gbc.fill = GridBagConstraints.HORIZONTAL;
+        gbc.gridwidth = GridBagConstraints.REMAINDER;
 
         JLabel nom = new JLabel("VELO MALIN");
         Font f = new Font("Arial", Font.PLAIN, 50);
@@ -62,16 +73,19 @@ public class Fenetre {
         nom.setHorizontalTextPosition(JLabel.CENTER);
         nom.setVerticalTextPosition(JLabel.TOP);
 
+        panAccueil.add(nom);
+
         ImageIcon icon5 = new ImageIcon("src/main/resources/img/image_velovs.jpg");
         JLabel label_image = new JLabel(icon5);
         label_image.setSize(200, 200);
         label_image.setVerticalTextPosition(JLabel.CENTER);
         label_image.setHorizontalTextPosition(JLabel.CENTER);
-        
-        panAccueil.add(nom);
+
         panAccueil.add(label_image);
 
-        //Itinéraire
+        /*----------*\
+        * Itinéraire *
+        \*----------*/
         JPanel panDepart = new JPanel();
 
         panDepart.setBackground(Color.white);
