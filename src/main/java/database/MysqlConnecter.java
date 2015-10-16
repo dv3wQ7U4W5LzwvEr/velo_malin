@@ -153,4 +153,26 @@ public class MysqlConnecter {
 	}
 
     // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
+
+	public double insertStationFavorite(int station){		
+		
+		String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + station.getId_station() + ")";
+		//si pb : mettre simple quote pour valeur variable
+		
+		MysqlConnecter msc = new MysqlConnecter();
+		ResultSet rs = msc.executerRequete(sqlQuery);
+		
+		
+		try {
+			//traitement java pur
+			
+		} catch (NumberFormatException e) {
+			e.printStackTrace();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		
+		return moyenne;
+		
+	}
 }
