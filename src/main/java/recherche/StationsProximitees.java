@@ -15,10 +15,12 @@ public class StationsProximitees {
 			longitudeMin= longitude-distance,
 			longitudeMax= longitude+distance;
 		
-		String sqlQuery = "SELECT id_station FROM Stations WHERE latitude > "+ latitudeMin +" AND latitude < "+ latitudeMax +" AND longitude > "+ longitudeMin +" AND longitude < "+ longitudeMax;
+		String sqlQuery = "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE latitude > "+ latitudeMin +" AND latitude < "+ latitudeMax +" AND longitude > "+ longitudeMin +" AND longitude < "+ longitudeMax;
 		
 //		ou
 //		String sqlQuery = "SELECT id_station FROM Stations WHERE latitude BETWEEN "+ latitudeMin +" AND "+ latitudeMax +" AND longitude BETWEEN "+ longitudeMin +" AND "+ longitudeMax;
+		
+//		listStations = retour Sql query;
 		
 		return listStations;
 	}
