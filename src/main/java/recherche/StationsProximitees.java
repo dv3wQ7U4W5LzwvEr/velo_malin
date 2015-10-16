@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class StationsProximitees {
-	
+
 	public List getStationsProximite(int longitude, int latitude, int nb_stations){
 
 		List listStations = new ArrayList();
