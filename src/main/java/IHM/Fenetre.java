@@ -73,7 +73,7 @@ public class Fenetre extends JFrame {
         nom.setHorizontalTextPosition(JLabel.CENTER);
         nom.setVerticalTextPosition(JLabel.TOP);
 
-        panAccueil.add(nom);
+        panAccueil.add(nom, gbc);
 
         ImageIcon icon5 = new ImageIcon("src/main/resources/img/image_velovs.jpg");
         JLabel label_image = new JLabel(icon5);
