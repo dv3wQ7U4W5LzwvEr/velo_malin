@@ -1,6 +1,7 @@
 package database;
 
 
+import model.Client;
 import model.Station;
 
 import java.sql.*;
@@ -154,7 +155,9 @@ public class MysqlConnecter {
 
     // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 
-	public double insertStationFavorite(int station){		
+	public boolean insertStationFavorite(Client client, Station station){		
+		
+		boolean result_insertion = false;
 		
 		String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + station.getId_station() + ")";
 		//si pb : mettre simple quote pour valeur variable
@@ -166,13 +169,41 @@ public class MysqlConnecter {
 		try {
 			//traitement java pur
 			
+			//result_insertion = true;
 		} catch (NumberFormatException e) {
+			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}
 		
-		return moyenne;
+		return result_insertion;
+	}
+	
+	public boolean insertItineraireFavorit(Client client,Station station_depart,Station station_arrivee){		
 		
+		boolean result_insertion = false;
+		
+		String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, id_station_depart, id_station_arrivee) VALUES ( " + client.getId_client() + "," + station_depart.getId_station() + "," + station_arrivee.getId_station() + ")";
+		//si pb : mettre simple quote pour valeur variable
+		
+		MysqlConnecter msc = new MysqlConnecter();
+		ResultSet rs = msc.executerRequete(sqlQuery);
+		
+		
+		try {
+			//traitement java pur
+			
+			//result_insertion = true;
+		} catch (NumberFormatException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+		
+		return result_insertion;
 	}
 }
