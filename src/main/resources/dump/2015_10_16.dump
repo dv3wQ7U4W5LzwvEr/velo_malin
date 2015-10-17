@@ -89,8 +89,8 @@ CREATE TABLE `stations` (
   `id_station` int(11) NOT NULL AUTO_INCREMENT,
   `nom` varchar(255) DEFAULT NULL,
   `adresse` varchar(255) DEFAULT NULL,
-  `latitude` varchar(45) DEFAULT NULL,
-  `longitude` varchar(45) DEFAULT NULL,
+  `lat` varchar(45) DEFAULT NULL,
+  `lng` varchar(45) DEFAULT NULL,
   `places` int(11) DEFAULT NULL,
   PRIMARY KEY (`id_station`)
 ) ENGINE=InnoDB AUTO_INCREMENT=5487 DEFAULT CHARSET=latin1;
@@ -108,16 +108,16 @@ DROP TABLE IF EXISTS `stationsdisponibilites`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `stationsdisponibilites` (
-  `id_stationdisponible` int(11) NOT NULL AUTO_INCREMENT,
+  `id_stationDisponible` int(11) NOT NULL AUTO_INCREMENT,
   `id_station` int(11) DEFAULT NULL,
   `date_MAJ` datetime DEFAULT NULL,
-  `places_occupees` int(11) DEFAULT NULL,
-  `places_disponibles` int(11) DEFAULT NULL,
-  `date_MAJ_JCDecaux` datetime DEFAULT NULL,
-  `jour_special` tinyint(1) DEFAULT NULL,
-  `vacances_scolaires` tinyint(1) DEFAULT NULL,
+  `placesOccupees` int(11) DEFAULT NULL,
+  `placesDisponibles` int(11) DEFAULT NULL,
+  `dateMajJCdecaux` datetime DEFAULT NULL,
+  `jourSpecial` tinyint(1) DEFAULT NULL,
+  `vacancesScolaires` tinyint(1) DEFAULT NULL,
   `jour` enum('Lundi','Mardi','Mercredi','Jeudi','Vendredi','Samedi','Dimanche') DEFAULT NULL,
-  PRIMARY KEY (`id_stationdisponible`)
+  PRIMARY KEY (`id_stationDisponible`)
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 

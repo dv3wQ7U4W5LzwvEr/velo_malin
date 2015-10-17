@@ -1,4 +1,4 @@
-import was.WebService;
+import was.ServiceWeb;
 
 import java.util.Timer;
 
@@ -9,9 +9,9 @@ public class VeloMalinApplication {
 
   public static void main(String[] args) {
     Timer timer = new Timer();
-    WebService was = new WebService();
+    ServiceWeb was = new ServiceWeb();
     was.creationDesInformationsSurLesStations();
-    timer.schedule(new WebService(), 0, 30000);
+    timer.schedule(new ServiceWeb(), 0, 100000);
   }
 
 }

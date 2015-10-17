@@ -2,12 +2,14 @@ package database;
 
 
 import model.Client;
+import model.Jours;
 import model.Station;
+import model.StationDisponibilites;
 
 import java.sql.*;
 import java.text.SimpleDateFormat;
+import java.util.*;
 import java.util.Date;
-import java.util.Random;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -16,15 +18,17 @@ import java.util.logging.Logger;
  */
 public class MysqlConnecter {
 
-    private Connection con = null;
-    private Statement st = null;
-    private ResultSet rs = null;
+    private static MysqlConnecter instance = null;
+
+    private static Connection con = null;
+    private static Statement st = null;
+    private static ResultSet rs = null;
 
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root";
     private String password = "root";
 
-    public MysqlConnecter() {
+    private MysqlConnecter() {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
@@ -40,89 +44,159 @@ public class MysqlConnecter {
         }
     }
 
-    public void disconnect() {
-        try {
-            if (rs != null) {
-                rs.close();
-            }
-            if (st != null) {
-                st.close();
-            }
-            if (con != null) {
-                con.close();
-            }
-
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-            lgr.log(Level.WARNING, ex.getMessage(), ex);
+    public static MysqlConnecter getInstance() {
+        if(instance == null) {
+            instance = new MysqlConnecter();
         }
+        return instance;
     }
 
-    // @todo ajouter le system de recupÃ©ration d une station Ã  partir de l adresse
-    public void majInformationsStation(Station station){
-        if (! station.getNom().equals(""))
+    /**
+     * Insert les donnees statiques sur les stations (nom, adresse, position etc);
+     * @param stations
+     */
+    public void insertStationDonneesStatiques(List<Station> stations) {
+        Map<String, Integer> listeDesStations = getTousLesIdDesStationsParNom();
+        String nom, adresse;
+        for(Station s:stations)
         {
-            String request = "INSERT INTO VELO_MALIN.STATIONS (nom, adresse, latitude, longitude, places) " +
-                    "values ( '" + station.getNom() + "', '" + station.getAdresse() + "','" + station.getLatitude() + "', '" + station.getLongitude() + "', '" + station.getPlaces() + "')";
-            try {
-                PreparedStatement pstmt = con.prepareStatement(request);
-                pstmt.execute();
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
-                System.out.println("Erreur lors l execution de la requete sur la station :");
-                System.out.println(request);
+            nom = s.getNom().replace("'", "\\'");
+            adresse = s.getAdresse().replace("'", "\\'");
+            if (! nom.equals("")) {
+                if(listeDesStations.get(nom) == null)
+                {
+                    String requete = "INSERT INTO VELO_MALIN.STATIONS (nom, adresse, latitude, longitude, places) " +
+                            "values ( '" + nom + "', '" + adresse + "','" + s.getLatitude() + "', '" + s.getLongitude() + "', '" + s.getPlaces() + "')";
+                    executerRequeteInsertDeleteUpdate(requete);
+                    System.out.println("Creation de la station pour: " + nom);
+                }
             }
         }
     }
 
-    // todo identifier station et maj de de la table avec cette valeur
-    public void majUtilisationsStations(Station station) {
-        try {
-            st = con.createStatement();
-            String request = "INSERT INTO VELO_MALIN.STATIONSDISPONIBILITE (id_stationdisponibilite, id_station, date_maj_attente," +
-                    " place_occuppees, places_disponibles, date_maj_jcdecaux, jour_special, vacances_scolaires)" +
-                    "values ( " +
-                    "" + station.getNom() + "," + station.getAdresse() + "," + station.getLatitude() + ","
-                    + station.getLongitude() + "," + station.getPlaces() + ")";
-            st.executeUpdate(request);
-        } catch (SQLException ex) {
-            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-            lgr.log(Level.WARNING, ex.getMessage(), ex);
-        } finally {
-            try {
-                if (rs != null) {
-                    rs.close();
-                }
-                if (st != null) {
-                    st.close();
-                }
-                if (con != null) {
-                    con.close();
-                }
+    /**
+     * Insert les donnees dynamiques sur les stations (nombre de velos utilises, date de maj etc);
+     * @param stations
+     * @todo faire la gestion des jours, jours fÃ©ries et vacance
+     */
+    public void insertStationDonneesDynamiques(List<StationDisponibilites> stations) {
+        Map<String, Integer> listeDesStations = getTousLesIdDesStationsParNom();
+        int idStation;
+        Calendar dateMAJ = Calendar.getInstance();
+        Calendar dateMajJCDecaux = Calendar.getInstance();
 
-            } catch (SQLException ex) {
-                Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-                lgr.log(Level.WARNING, ex.getMessage(), ex);
+        String nom, adresse;
+        for(StationDisponibilites s:stations)
+        {
+            nom = s.getNom().replace("'", "\\'");
+            if (! nom.equals("")) {
+                idStation = listeDesStations.get(nom);
+                dateMAJ.setTime(s.getDate_MAJ());
+                dateMAJ.set(Calendar.MILLISECOND, 0);
+                dateMajJCDecaux.setTime(s.getDateMajJCdecaux());
+                dateMajJCDecaux.set(Calendar.MILLISECOND, 0);
+
+                String requete =  "INSERT INTO VELO_MALIN.STATIONSDISPONIBILITES (id_station, date_MAJ," +
+                        " places_occupees, places_disponibles, date_MAJ_JCDecaux, jour_special, vacances_scolaires, jour)" +
+                        "values (' " + idStation + "','" + new java.sql.Timestamp(dateMAJ.getTimeInMillis()) + "','" + s.getPlacesOccupees() + "','" + s.getPlacesDisponibles() + "','"
+                        +  new java.sql.Timestamp(dateMajJCDecaux.getTimeInMillis()) + "','" + 0 + "','" + 0 + "','" + Jours.LUNDI + "')";
+                executerRequeteInsertDeleteUpdate(requete);
+                System.out.println("Insertion ok pour: " + nom + " a : " + new Date());
             }
         }
+        System.out.println("Insertion des donnees dynamique terminees");
     }
-    
-    public ResultSet executerRequete(String sqlQuery){
-    	try{
-    		
-	    	this.rs = this.st.executeQuery(sqlQuery);
-	    	
-    	} catch (SQLException ex) {
+
+    private Map<Integer, Station> getToutesLesStationsParId()
+    {
+        String requete = "SELECT * FROM VELO_MALIN.STATIONS";
+        ResultSet resultat = executerRequete(requete);
+        Map<Integer, Station> listeDesStations = new HashMap<Integer, Station>();
+        Station s;
+        try
+        {
+            while(resultat.next())
+            {
+                s = new Station();
+                int idStation = resultat.getInt("id_station");
+                s.setId_station(idStation);
+                s.setNom(resultat.getString("nom").replace("'", "\\'"));
+                listeDesStations.put(new Integer(idStation), s);
+            }
+        }
+        catch(SQLException ex)
+        {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
-            System.out.println("Erreur: "+ ex);
+            System.out.println("Erreur: " + ex);
         }
-    	
-		return this.rs;
+        return listeDesStations;
     }
-    
-	public double getMoyenneVeloSurStation(int id_station, Date dateX, Date dateY){
+
+    private Map<String, Integer> getTousLesIdDesStationsParNom()
+    {
+        String requete = "SELECT * FROM VELO_MALIN.STATIONS";
+        ResultSet resultat = executerRequete(requete);
+        Map<String, Integer> listeDesStations = new HashMap<String, Integer>();
+        Station s;
+        String nom;
+        try
+        {
+            while(resultat.next())
+            {
+                s = new Station();
+                int idStation = resultat.getInt("id_station");
+                s.setId_station(idStation);
+                nom = resultat.getString("nom").replace("'", "\\'");
+                s.setNom(nom);
+                listeDesStations.put(nom, idStation);
+            }
+        }
+        catch(SQLException ex)
+        {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return listeDesStations;
+    }
+
+    /**
+     * Methode pour executer les requetes qui NE modifient PAS la base de donnees (select, etc)
+      * @param requete
+     * @return
+     */
+    private ResultSet executerRequete(String requete) {
+        try {
+            st = con.createStatement();
+            rs = st.executeQuery(requete);
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return rs;
+    }
+
+    /**
+     * Methode pour executer les requetes qui MODIFIENT pas la base de donnees (select, etc)
+     * @param requete
+     * @return
+     */
+    private void executerRequeteInsertDeleteUpdate(String requete) {
+        try {
+            st = con.createStatement();
+            st.executeUpdate(requete);
+
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+    }
+
+    public double getMoyenneVeloSurStation(int id_station, Date dateX, Date dateY) {
 
 //		Obtenir un intervalle depuis une date.	
 //		long offSet = 60000*5;	//5 minites in millisecs
@@ -130,80 +204,77 @@ public class MysqlConnecter {
 //		
 //		Date jourX = new Date(longJour + (10 * offSet));
 //		Date jourY = new Date(longJour + (10 * offSet));
-		
-		SimpleDateFormat datetime = new SimpleDateFormat ("yyyyMMdd hh:mm:ss");
-		
-		String sqlQuery = "SELECT AVG(places_occupees) FROM stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux BETWEEN '"+ datetime.format(dateX) +"' AND '"+ datetime.format(dateY) + "'";
-		
-		MysqlConnecter msc = new MysqlConnecter();
-		ResultSet rs = msc.executerRequete(sqlQuery);
-		
-		double moyenne = -1;
-		try {
-			moyenne = Double.parseDouble(rs.getString("places_occupees"));
-		} catch (NumberFormatException e) {
-			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
-		}
-		
-		return moyenne;
-		
-	}
+
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+
+        String sqlQuery = "SELECT AVG(places_occupees) FROM stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
+
+        ResultSet rs = executerRequete(sqlQuery);
+
+        double moyenne = -1;
+        try {
+            moyenne = Double.parseDouble(rs.getString("places_occupees"));
+        } catch (NumberFormatException e) {
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            e.printStackTrace();
+        }
+
+        return moyenne;
+
+    }
 
     // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 
-	public boolean insertStationFavorite(Client client, Station station){		
-		
-		boolean result_insertion = false;
-		
-		String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + station.getId_station() + ")";
-		//si pb : mettre simple quote pour valeur variable
-		
-		MysqlConnecter msc = new MysqlConnecter();
-		ResultSet rs = msc.executerRequete(sqlQuery);
-		
-		
-		try {
-			//traitement java pur
-			
-			//result_insertion = true;
-		} catch (NumberFormatException e) {
-			// TODO Bloc catch généré automatiquement
+    public boolean insertStationFavorite(Client client, Station station) {
+
+        boolean result_insertion = false;
+
+        String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + station.getId_station() + ")";
+        //si pb : mettre simple quote pour valeur variable
+
+        ResultSet rs = executerRequete(sqlQuery);
+
+
+        try {
+            //traitement java pur
+
+            //result_insertion = true;
+        } catch (NumberFormatException e) {
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            e.printStackTrace();
+        } /*catch (SQLException e) {
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
+		}*/
+
+        return result_insertion;
+    }
+
+    public boolean insertItineraireFavorit(Client client, Station station_depart, Station station_arrivee) {
+
+        boolean result_insertion = false;
+
+        String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, id_station_depart, id_station_arrivee) VALUES ( " + client.getId_client() + "," + station_depart.getId_station() + "," + station_arrivee.getId_station() + ")";
+        //si pb : mettre simple quote pour valeur variable
+
+        ResultSet rs = executerRequete(sqlQuery);
+
+
+        try {
+            //traitement java pur
+
+            //result_insertion = true;
+        } catch (NumberFormatException e) {
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            e.printStackTrace();
+        } /*catch (SQLException e) {
+			// TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
-		}
-		
-		return result_insertion;
-	}
-	
-	public boolean insertItineraireFavorit(Client client,Station station_depart,Station station_arrivee){		
-		
-		boolean result_insertion = false;
-		
-		String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, id_station_depart, id_station_arrivee) VALUES ( " + client.getId_client() + "," + station_depart.getId_station() + "," + station_arrivee.getId_station() + ")";
-		//si pb : mettre simple quote pour valeur variable
-		
-		MysqlConnecter msc = new MysqlConnecter();
-		ResultSet rs = msc.executerRequete(sqlQuery);
-		
-		
-		try {
-			//traitement java pur
-			
-			//result_insertion = true;
-		} catch (NumberFormatException e) {
-			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
-		} catch (SQLException e) {
-			// TODO Bloc catch généré automatiquement
-			e.printStackTrace();
-		}
-		
-		return result_insertion;
-	}
+		} */
+
+        return result_insertion;
+    }
 }

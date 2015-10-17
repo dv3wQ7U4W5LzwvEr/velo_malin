@@ -1,7 +1,5 @@
 package was.model;
 
-import java.util.ArrayList;
-
 /**
  * Created by florian on 2015-10-11.
  */
@@ -15,7 +13,7 @@ public class StationWas
     private String contract_name;
     private String name;
     private String address;
-    private Position position;
+    private PositionWas position;
     private boolean banking;
     private boolean bonus;
     private String status;
@@ -40,7 +38,7 @@ public class StationWas
         return address;
     }
 
-    public Position getPosition() {
+    public PositionWas getPosition() {
         return position;
     }
 
@@ -70,53 +68,5 @@ public class StationWas
 
     public double getLast_update() {
         return last_update;
-    }
-
-    public void setNumber(int number) {
-        this.number = number;
-    }
-
-    public void setContract_name(String contract_name) {
-        this.contract_name = contract_name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public void setPosition(Position position) {
-        this.position = position;
-    }
-
-    public void setBanking(boolean banking) {
-        this.banking = banking;
-    }
-
-    public void setBonus(boolean bonus) {
-        this.bonus = bonus;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public void setBike_stands(int bike_stands) {
-        this.bike_stands = bike_stands;
-    }
-
-    public void setAvailable_bike_stands(int available_bike_stands) {
-        this.available_bike_stands = available_bike_stands;
-    }
-
-    public void setAvailable_bikes(int available_bikes) {
-        this.available_bikes = available_bikes;
-    }
-
-    public void setLast_update(double last_update) {
-        this.last_update = last_update;
     }
 }
