@@ -7,12 +7,12 @@ import java.util.Timer;
  */
 public class VeloMalinApplication {
 
-  public static void main(String[] args) {
-    Timer timer = new Timer();
-    ServiceWeb was = new ServiceWeb();
-    was.creationDesInformationsSurLesStations();
-    timer.schedule(new ServiceWeb(), 0, 100000);
-  }
+    public static void main(String[] args) {
+        Timer timer = new Timer();
+        ServiceWeb was = new ServiceWeb();
+        was.creationDesInformationsSurLesStations();
+        timer.schedule(new ServiceWeb(), 0, 10000);
+    }
 
 }
 

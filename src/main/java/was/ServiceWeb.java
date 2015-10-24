@@ -29,6 +29,7 @@ public class ServiceWeb extends TimerTask {
     public void run() {
         try {
             majDesStationsDisponibilites();
+            System.out.println("  -----  ");
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -54,7 +55,6 @@ public class ServiceWeb extends TimerTask {
             MysqlConnecter mysqlConnecter = MysqlConnecter.getInstance();
             mysqlConnecter.insertStationDonneesStatiques(stations);
 
-            System.out.println("Creation des informations statiques sur les stations terminees : " + new Date());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -73,14 +73,13 @@ public class ServiceWeb extends TimerTask {
                 s.setDate_MAJ(new Date());
                 s.setPlacesOccupees(stationsFromJson[i].getAvailable_bikes());
                 s.setPlacesDisponibles(stationsFromJson[i].getAvailable_bike_stands());
-                s.setDateMajJCdecaux( new Date((long) stationsFromJson[i].getLast_update()));
+                s.setDateMajJCdecaux(new Date((long) stationsFromJson[i].getLast_update()));
                 stations.add(s);
             }
 
             MysqlConnecter mysqlConnecter = MysqlConnecter.getInstance();
             mysqlConnecter.insertStationDonneesDynamiques(stations);
 
-            System.out.println("Creation des informations dynamiques sur les stations terminees : " + new Date());
         } catch (Exception e) {
             System.out.println(e);
         }
@@ -98,6 +97,7 @@ public class ServiceWeb extends TimerTask {
 
     /**
      * Recuperation des donnees depuis le service web
+     *
      * @return
      * @throws URISyntaxException
      * @throws HttpException
