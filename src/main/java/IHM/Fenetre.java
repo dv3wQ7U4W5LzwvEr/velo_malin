@@ -1,6 +1,9 @@
 package IHM;
 
 import javax.swing.*;
+
+import model.Station;
+
 import java.awt.*;
 
 
@@ -162,11 +165,34 @@ public class Fenetre extends JFrame {
         panel1.add(panDepart);
 
 
+        //Ajout Tof pour test en lien avec requetes SQL
+        //Résultat de recherches
+        //Test pour récupérer valeurs Stations et Itinéraires favoris (qui seront dan onglet "Résultat de Recherches") à insérer dans BDD  
         /*
-        ----------------Test pour récupérer valeur saisie dans champs JTextField-------------------------
-        */ 
-        //cp.getText();
-        //ville.getText();
+         * 
+        JPanel panResultats = new JPanel();
+
+        panResultats.setBackground(Color.white);
+
+        
+        int id_station;
+        Station station_init = new Station();
+        station_init.getId_station();
+        
+        String nom_station;
+        nom_station = station_init.getNom();
+        
+        JLabel lab_station_favorite = new JLabel(nom_station);
+        
+        panResultats.add(lab_station_favorite);
+
+        
+        panel2.add(panResultats);
+        
+        */
+
+
+
  
         
         

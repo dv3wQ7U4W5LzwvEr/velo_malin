@@ -181,7 +181,7 @@ public class MysqlConnecter {
     }
 
     /**
-     * Methode pour executer les requetes qui MODIFIENT pas la base de donnees (select, etc)
+     * Methode pour executer les requetes qui MODIFIENT la base de donnees (select, etc)
      *
      * @param requete
      * @return
@@ -232,6 +232,35 @@ public class MysqlConnecter {
     // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites
     // ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 
+    public int getIdUneStation(String nom_station) {
+    	
+    	int id_station;
+        String sqlQuery = "SELECT id_station FROM VELO_MALIN.STATIONS WHERE nom = '" + nom_station + "' ";
+
+        ResultSet rs = executerRequete(sqlQuery);
+
+        try {
+        	
+        } catch (NumberFormatException e) {
+            // TODO Bloc catch g�n�r� automatiquement
+            e.printStackTrace();
+        } catch (SQLException e) {
+            // TODO Bloc catch g�n�r� automatiquement
+            e.printStackTrace();
+        }
+        return id_station;
+    }
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
+    
     public boolean insertStationFavorite(Client client, Station station) {
 
         boolean result_insertion = false;
@@ -240,7 +269,7 @@ public class MysqlConnecter {
                 ")";
         //si pb : mettre simple quote pour valeur variable
 
-        ResultSet rs = executerRequete(sqlQuery);
+        executerRequeteInsertDeleteUpdate(sqlQuery);
 
 
         try {
@@ -266,7 +295,7 @@ public class MysqlConnecter {
                 + station_depart.getId_station() + "," + station_arrivee.getId_station() + ")";
         //si pb : mettre simple quote pour valeur variable
 
-        ResultSet rs = executerRequete(sqlQuery);
+        executerRequeteInsertDeleteUpdate(sqlQuery);
 
 
         try {
