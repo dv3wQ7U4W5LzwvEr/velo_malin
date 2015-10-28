@@ -6,6 +6,11 @@ import java.awt.*;
 
 
 public class Fenetre extends JFrame {
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+
 	public static void main(String[] args) {
 		JFrame fenetre = new JFrame();
 
@@ -73,7 +78,7 @@ public class Fenetre extends JFrame {
         nom.setHorizontalTextPosition(JLabel.CENTER);
         nom.setVerticalTextPosition(JLabel.TOP);
 
-        panAccueil.add(nom, gbc);
+        //panAccueil.add(nom, gbc);
 
         ImageIcon icon5 = new ImageIcon("src/main/resources/img/image_velovs.jpg");
         JLabel label_image = new JLabel(icon5);
@@ -98,10 +103,12 @@ public class Fenetre extends JFrame {
 
         JLabel lab_cp = new JLabel("Code Postal:");
         JTextField cp = new JTextField();
+        cp.setText("");
         cp.setPreferredSize(new Dimension(60, 25));
 
         JLabel lab_ville = new JLabel("Ville: ");
         JTextField ville = new JTextField();
+        ville.setText("");
         ville.setPreferredSize(new Dimension(120, 25));
 
         JComboBox comb_heure = new JComboBox();
@@ -155,6 +162,19 @@ public class Fenetre extends JFrame {
         panel1.add(panDepart);
 
 
+        /*
+        ----------------Test pour récupérer valeur saisie dans champs JTextField-------------------------
+        */ 
+        //cp.getText();
+        //ville.getText();
+ 
+        
+        
+        
+         
+        
+        
+        
         //Résultat
         //Stat
         //Alerte

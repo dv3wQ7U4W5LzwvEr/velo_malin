@@ -26,9 +26,9 @@ public class MysqlConnecter {
 
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root";
-    private String password = "root";
+    private String password = "";
 
-    private MysqlConnecter() {
+    public MysqlConnecter() {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
