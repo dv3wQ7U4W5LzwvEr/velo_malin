@@ -198,6 +198,7 @@ public class MysqlConnecter {
         }
     }
 
+
     public double getMoyenneVeloSurStation(int id_station, Date dateX, Date dateY) {
 
 //		Obtenir un intervalle depuis une date.	
@@ -233,34 +234,25 @@ public class MysqlConnecter {
     // ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
 
     public int getIdUneStation(String nom_station) {
-    	
-    	int id_station;
+
+        int id_station = 0;
         String sqlQuery = "SELECT id_station FROM VELO_MALIN.STATIONS WHERE nom = '" + nom_station + "' ";
 
-        ResultSet rs = executerRequete(sqlQuery);
 
         try {
-        	
+            ResultSet rs = executerRequete(sqlQuery);
+
         } catch (NumberFormatException e) {
             // TODO Bloc catch g�n�r� automatiquement
             e.printStackTrace();
-        } catch (SQLException e) {
+        } /*catch (SQLException e) {
             // TODO Bloc catch g�n�r� automatiquement
             e.printStackTrace();
-        }
+        }*/
         return id_station;
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
     public boolean insertStationFavorite(Client client, Station station) {
 
         boolean result_insertion = false;
