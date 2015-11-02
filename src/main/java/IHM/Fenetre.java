@@ -1,16 +1,14 @@
 package IHM;
 
-import javax.swing.*;
-
 import database.MysqlConnecter;
-import model.*;
-import recherche.StatisquesStation;
+import model.Client;
+import model.Station;
+import model.StationDisponibilites;
 
+import javax.swing.*;
 import java.awt.*;
-import java.util.Date;
-import java.util.List;
-import java.util.Map;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 
 public class Fenetre extends JFrame {
@@ -211,7 +209,7 @@ public class Fenetre extends JFrame {
              JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
              
              but_station_favorite.addActionListener(new Ecouteur_station_favorie());
-             
+        
              //panResultats.add(lab_selection_station);    
              /*
              panResultats.add(lab_station_nom);
