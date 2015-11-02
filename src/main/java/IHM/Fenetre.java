@@ -165,90 +165,50 @@ public class Fenetre extends JFrame {
             panel1.add(panDepart);
 
 
-        //Ajout Tof pour test en lien avec requetes SQL
-        //RÃ©sultat de recherches
-        //Test pour rï¿½cupï¿½rer valeurs Stations et Itinï¿½raires favoris (qui seront dan onglet "Rï¿½sultat de Recherches") ï¿½ insï¿½rer dans BDD  
-        /*
-         * 
-        JPanel panResultats = new JPanel();
 
-        panResultats.setBackground(Color.white);
-
-        
-        int id_station;
-        Station station_init = new Station();
-        station_init.getId_station();
-        
-        String nom_station;
-        nom_station = station_init.getNom();
-        
-        JLabel lab_station_favorite = new JLabel(nom_station);
-        
-        panResultats.add(lab_station_favorite);
-
-        
-        panel2.add(panResultats);
-        
-        */
 
             /*----------*\
              * RÃ©sultats *
              \*----------*/
              JPanel panResultats = new JPanel();
              
-             GridLayout gl = new GridLayout(3,4); //3 : nombre de ligne / 5 : nombre de colonnes
+             GridLayout gl = new GridLayout(3,4); 
              panResultats.setLayout(gl);
-             
-             
+                    
              panResultats.setBackground(Color.white);
-             //panResultats.setPreferredSize(new Dimension(1000, 250));
-             panResultats.setBorder(BorderFactory.createTitledBorder("RÃ©sultats de recherche"));
+             panResultats.setBorder(BorderFactory.createTitledBorder("Résultats de recherche"));
 
-             JLabel lab_selection_station = new JLabel("Stations conseillÃ©es :");
+             JLabel lab_selection_station = new JLabel("Stations conseillées :");
              
              JLabel lab_station_nom = new JLabel("NOM");
              JLabel lab_station_adr = new JLabel("ADRESSE");
              JLabel lab_station_nbplace = new JLabel("NOMBRE PLACES VIDES DISPONIBLES");
              JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
-             JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
              
-             //panResultats.add(lab_selection_station);    
-             /*
-             panResultats.add(lab_station_nom);
-             panResultats.add(lab_station_adr);
-             panResultats.add(lab_station_nbplace);
-             panResultats.add(lab_station_nbvelovs);
-             panResultats.add(but_station_favorite);
-             */
+             //panResultats.add(lab_selection_station);     
              //panResultats.add(but_station_favorite);
-             
-             //panResultats.add(lab_selection_station);
+
                          
      		MysqlConnecter mysql;
     		mysql = new MysqlConnecter(); 
              
-     		Station station_test,station_test_2,station_test_donnees;
+     		Station station_test,station_test_2;
     		station_test = new Station();
     		station_test_2 = new Station();
-    		station_test_donnees = new Station();
 
     		station_test.setId_station(2469);
     		station_test_2.setId_station(2470);
     		
-    		//station_test_donnees = mysql.getStation(station_test_2.getId_station());
+    		//préparation pour enregistrement station dans favoris
+            //int Id_station =  station_test.getId_station();
+            //but_station_favorite.addActionListener(new Ecouteur_station_favorie(Id_station));  
     		
-            int Id_station =  station_test.getId_station();
-            but_station_favorite.addActionListener(new Ecouteur_station_favorie(Id_station));
-       
-    		
-    		StationDisponibilites station_test_calcul;
-    		station_test_calcul = new StationDisponibilites();
-    			
+    		//StationDisponibilites station_test_calcul;
+    		//station_test_calcul = new StationDisponibilites();			
     		  		
     		List<Station> données_statiques_stations = new ArrayList<Station>();
     		données_statiques_stations.add(station_test);
     		données_statiques_stations.add(station_test_2);
-    		données_statiques_stations.add(station_test_donnees);
     		
     		/*
     		List<Station> données_dynamiques_stations = new ArrayList<Station>();
@@ -260,32 +220,29 @@ public class Fenetre extends JFrame {
     		Iterator<Station> it = données_statiques_stations.iterator();
 
     		while (it.hasNext()) { 			
-    			Station s = it.next();
-    			
+    			Station s = it.next();   			
     			Station station_actuelle = mysql.getStation(s.getId_station());
     			
     			JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " "); 
     			JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " "); 
     			JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " "); 
-    			
+                JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
+                
     			panResultats.add(lab_res_id);    		
     			panResultats.add(lab_res_nom);    	
-    			panResultats.add(lab_res_adresse);    	
+    			panResultats.add(lab_res_adresse);
+    			but_station_favorite.addActionListener(new Ecouteur_station_favorie(station_actuelle.getId_station()));  
     			panResultats.add(but_station_favorite);
+    			
     		}
-    		       
-             
-             
-             
-
-             
+    		               
              panel2.add(panResultats);
         
          
         
         
         
-            //RÃ©sultat
+            //Résultat
             //Stat
             //Alerte
 
@@ -297,12 +254,11 @@ public class Fenetre extends JFrame {
 }
 
 class Ecouteur_station_favorie implements ActionListener {
-    private int id_station;
-
+	private int id_station;
+	
 	public Ecouteur_station_favorie(int id_station) {
 		// TODO Auto-generated constructor stub
-    	int id = 0;
-    	this.id_station = id;
+    	this.id_station = id_station;
 	}
 
 	public void actionPerformed(ActionEvent e){ 	
@@ -315,7 +271,10 @@ class Ecouteur_station_favorie implements ActionListener {
 		
 		mysql.insertStationFavorite(client_actuel,id_station);
 		
-
+	    JOptionPane confirm;      
+	    confirm = new JOptionPane();
+	    ImageIcon img = new ImageIcon("images/cloud_alert.png");
+	    confirm.showMessageDialog(null, "Station bien enregistrée dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);  
 		
     	
     }
