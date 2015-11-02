@@ -1,10 +1,15 @@
 package IHM;
 
 import javax.swing.*;
+import model.Station;
 import java.awt.*;
+import java.util.Date;
+import java.util.Map;
+import java.awt.event.*;
 
 
 public class Fenetre extends JFrame {
+
 	/**
 	 * 
 	 */
@@ -100,7 +105,7 @@ public class Fenetre extends JFrame {
 
             JLabel lab_ville = new JLabel("Ville: ");
             JTextField ville = new JTextField();
-        ville.setText("");
+            ville.setText("");
             ville.setPreferredSize(new Dimension(120, 25));
 
             JComboBox comb_heure = new JComboBox();
@@ -184,14 +189,13 @@ public class Fenetre extends JFrame {
              \*----------*/
              JPanel panResultats = new JPanel();
              
-             GridLayout gl = new GridLayout(3,1);
+             GridLayout gl = new GridLayout(1,4,2,2); //3 : nombre de ligne / 5 : nombre de colonnes
              panResultats.setLayout(gl);           
              
              panResultats.setBackground(Color.white);
-             //panResultats.setPreferredSize(new Dimension(500, 130));
              panResultats.setBorder(BorderFactory.createTitledBorder("Résultats de recherche"));
 
-             //JLabel lab_selection_station = new JLabel("Stations conseillées :");
+             JLabel lab_selection_station = new JLabel("Stations conseillées :");
              
              JLabel lab_station_nom = new JLabel("NOM");
              JLabel lab_station_adr = new JLabel("ADRESSE");
@@ -199,13 +203,19 @@ public class Fenetre extends JFrame {
              JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
              JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
              
-             //panResultats.add(lab_selection_station);
+             but_station_favorite.addActionListener(new Ecouteur_station_favorie());
              
+             //panResultats.add(lab_selection_station);         
              panResultats.add(lab_station_nom);
              panResultats.add(lab_station_adr);
              panResultats.add(lab_station_nbplace);
              panResultats.add(lab_station_nbvelovs);
              panResultats.add(but_station_favorite);
+             
+             //panResultats.add(lab_selection_station);
+             
+        
+
              
              
              
@@ -225,4 +235,15 @@ public class Fenetre extends JFrame {
             fenetre.setVisible(true);
 
     }
+
 }
+
+class Ecouteur_station_favorie implements ActionListener {
+    public void actionPerformed(ActionEvent e){ 	
+    	
+    	
+    }
+}
+
+
+
