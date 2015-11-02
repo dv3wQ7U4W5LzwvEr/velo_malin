@@ -55,7 +55,6 @@ public class MysqlConnecter {
 
     /**
      * Insert les donnees statiques sur les stations (nom, adresse, position etc);
-     *
      * @param stations
      */
     public void insertStationDonneesStatiques(List<Station> stations) {
@@ -84,7 +83,6 @@ public class MysqlConnecter {
      *
      * @param stations
      * @todo faire la gestion des jours, jours féries et vacance
-     * @todo tester la non insertion des dispos si pas de modifications pour eviter de surcharger la base inutilement
      */
     public void insertStationDonneesDynamiques(List<StationDisponibilites> stations) {
         Map<String, Integer> listeDesStations = getTousLesIdDesStationsParNom();
@@ -204,16 +202,16 @@ public class MysqlConnecter {
     }
 
 
-    public static List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY) {
+    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY) {
 
     	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
-        String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
-                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
+        String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station +
+                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
 
         ResultSet rs = executerRequete(sqlQuery);
+        List<Integer> nbVeloList = new ArrayList<Integer>();
         int numberOfColumns;
-        List<Integer> nbVeloList = new ArrayList<Integer>(); 
 		try {
 			numberOfColumns = rs.getMetaData().getColumnCount();
 	        while (rs.next()) {              
@@ -223,7 +221,6 @@ public class MysqlConnecter {
 	                }
 	        }
 		} catch (SQLException e) {
-			// TODO Bloc catch g�n�r� automatiquement
 			e.printStackTrace();
 		}
 
