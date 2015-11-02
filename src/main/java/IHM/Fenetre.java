@@ -206,5 +206,30 @@ class Ecouteur_station_favorie implements ActionListener {
     }
 }
 
+class Ecouteur_itineraire_favori implements ActionListener {
+	private int id_station;
+	
+	public Ecouteur_itineraire_favori(int id_station) {
+		// TODO Auto-generated constructor stub
+    	this.id_station = id_station;
+	}
 
+	public void actionPerformed(ActionEvent e){ 	
+    	
+		MysqlConnecter mysql;
+		mysql = new MysqlConnecter();
+		
+		Client client_actuel;
+		client_actuel = new Client();		
+		
+		mysql.insertStationFavorite(client_actuel,id_station);
+		
+	    JOptionPane confirm;      
+	    confirm = new JOptionPane();
+	    ImageIcon img = new ImageIcon("images/cloud_alert.png");
+	    confirm.showMessageDialog(null, "Station bien enregistrée dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);  
+		
+    	
+    }
+}
 
