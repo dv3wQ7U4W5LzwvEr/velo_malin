@@ -13,6 +13,8 @@ import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import org.w3c.dom.ls.LSInput;
+
 /**
  * Created by flauve on 2015-10-14.
  */
@@ -211,7 +213,7 @@ public class MysqlConnecter {
 
         ResultSet rs = executerRequete(sqlQuery);
         int numberOfColumns;
-        ArrayList<Integer> nbVeloList = new ArrayList<Integer>(); 
+        List<Integer> nbVeloList = new ArrayList<Integer>(); 
 		try {
 			numberOfColumns = rs.getMetaData().getColumnCount();
 	        while (rs.next()) {              
@@ -237,7 +239,7 @@ public class MysqlConnecter {
 
         ResultSet rs = executerRequete(sqlQuery);
         int numberOfColumns;
-        ArrayList<Integer> nbPlaceList = new ArrayList<Integer>(); 
+        List<Integer> nbPlaceList = new ArrayList<Integer>(); 
 		try {
 			numberOfColumns = rs.getMetaData().getColumnCount();
 	        while (rs.next()) {              
@@ -281,25 +283,42 @@ public class MysqlConnecter {
     	
     	return station;
     }
+    
+	public static List<Integer> getStationsProximite( double latitude, double longitude, int nb_stations, double cote){
 
-    public int getIdUneStation(String nom_station) {
+		List<Integer> listStations = new ArrayList<Integer>();
+		
+		double distLatParis = 72.2; //km pour 1°
+		double distLongParis = 47.5; //km pour 1°
+		
+		double distLatRad = cote/distLatParis;
+		double distLongRad = cote/distLongParis;
+		
+		double latitudeMin= latitude-distLatRad,
+			latitudeMax= latitude+distLatRad,
+			longitudeMin= longitude-distLongRad,
+			longitudeMax= longitude+distLongRad;
 
-        int id_station = 0;
-        String sqlQuery = "SELECT id_station FROM VELO_MALIN.STATIONS WHERE nom = '" + nom_station + "' ";
-
-
-        try {
-            ResultSet rs = executerRequete(sqlQuery);
-
-        } catch (NumberFormatException e) {
-            // TODO Bloc catch g�n�r� automatiquement
-            e.printStackTrace();
-        } /*catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
-            e.printStackTrace();
-        }*/
-        return id_station;
-    }
+		String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude BETWEEN "+ latitudeMin +" AND "+ latitudeMax +" AND longitude BETWEEN "+ longitudeMin +" AND "+ longitudeMax;
+		
+		ResultSet rs = executerRequete(sqlQuery);
+        int numberOfColumns;
+		try {
+			numberOfColumns = rs.getMetaData().getColumnCount();
+	        while (rs.next()) {     
+	        	System.out.println(rs.getString("id_station"));
+	                int i = 1;
+	                while(i <= numberOfColumns) {
+	                    listStations.add(Integer.parseInt(rs.getString(i++)));
+	                }
+	        }
+		} catch (SQLException e) {
+			// TODO Bloc catch g�n�r� automatiquement
+			e.printStackTrace();
+		}
+		
+		return listStations;
+	}
 
 
     public boolean insertStationFavorite(Client client, int Id_station) {
