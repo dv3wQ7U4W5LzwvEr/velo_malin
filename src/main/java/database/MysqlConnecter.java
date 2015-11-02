@@ -26,7 +26,7 @@ public class MysqlConnecter {
 
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root";
-    private String password = "";
+    private String password = "root";
 
     public MysqlConnecter() {
         try {
@@ -199,34 +199,46 @@ public class MysqlConnecter {
     }
 
 
-    public double getMoyenneVeloSurStation(int id_station, Date dateX, Date dateY) {
+    public List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY) {
 
 //		Obtenir un intervalle depuis une date.	
 //		long offSet = 60000*5;	//5 minites in millisecs
-//		long long = jour.getTime();
+//		long longJour = jour.getTime();
 //		
 //		Date jourX = new Date(longJour + (10 * offSet));
 //		Date jourY = new Date(longJour + (10 * offSet));
 
-        SimpleDateFormat datetime = new SimpleDateFormat("yyyyMMdd hh:mm:ss");
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 
-        String sqlQuery = "SELECT AVG(places_occupees) FROM stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
+        String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
                 datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
 
         ResultSet rs = executerRequete(sqlQuery);
+        int numberOfColumns;
+        ArrayList<Integer> nbVeloList = new ArrayList<Integer>(); 
+		try {
+			numberOfColumns = rs.getMetaData().getColumnCount();
+	        while (rs.next()) {              
+	                int i = 1;
+	                while(i <= numberOfColumns) {
+	                    nbVeloList.add(Integer.parseInt(rs.getString(i++)));
+	                }
+	        }
+		} catch (SQLException e) {
+			// TODO Bloc catch g�n�r� automatiquement
+			e.printStackTrace();
+		}
+        
+//        double moyenne = -1;
+//        try {
+//            moyenne = Double.parseDouble(rs.getString("places_occupees"));
+//        } catch (NumberFormatException e) {
+//            e.printStackTrace();
+//        } catch (SQLException e) {
+//            e.printStackTrace();
+//        }
 
-        double moyenne = -1;
-        try {
-            moyenne = Double.parseDouble(rs.getString("places_occupees"));
-        } catch (NumberFormatException e) {
-            // TODO Bloc catch g�n�r� automatiquement
-            e.printStackTrace();
-        } catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
-            e.printStackTrace();
-        }
-
-        return moyenne;
+        return nbVeloList;
 
     }
 
