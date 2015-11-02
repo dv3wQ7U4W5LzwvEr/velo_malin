@@ -196,7 +196,7 @@ public class Fenetre extends JFrame {
              \*----------*/
              JPanel panResultats = new JPanel();
              
-             GridLayout gl = new GridLayout(1,5); //3 : nombre de ligne / 5 : nombre de colonnes
+             GridLayout gl = new GridLayout(3,4); //3 : nombre de ligne / 5 : nombre de colonnes
              panResultats.setLayout(gl);
              
              
@@ -220,16 +220,22 @@ public class Fenetre extends JFrame {
              panResultats.add(lab_station_nbvelovs);
              panResultats.add(but_station_favorite);
              */
-             panResultats.add(but_station_favorite);
+             //panResultats.add(but_station_favorite);
              
              //panResultats.add(lab_selection_station);
                          
-     		Station station_test,station_test_2;
+     		MysqlConnecter mysql;
+    		mysql = new MysqlConnecter(); 
+             
+     		Station station_test,station_test_2,station_test_donnees;
     		station_test = new Station();
     		station_test_2 = new Station();
+    		station_test_donnees = new Station();
 
     		station_test.setId_station(2469);
-    		station_test_2.setId_station(2500);
+    		station_test_2.setId_station(2470);
+    		
+    		//station_test_donnees = mysql.getStation(station_test_2.getId_station());
     		
             int Id_station =  station_test.getId_station();
             but_station_favorite.addActionListener(new Ecouteur_station_favorie(Id_station));
@@ -242,6 +248,7 @@ public class Fenetre extends JFrame {
     		List<Station> données_statiques_stations = new ArrayList<Station>();
     		données_statiques_stations.add(station_test);
     		données_statiques_stations.add(station_test_2);
+    		données_statiques_stations.add(station_test_donnees);
     		
     		/*
     		List<Station> données_dynamiques_stations = new ArrayList<Station>();
@@ -254,26 +261,19 @@ public class Fenetre extends JFrame {
 
     		while (it.hasNext()) { 			
     			Station s = it.next();
-    			JLabel lab_res_id = new JLabel(String.valueOf(s.getId_station()) + " "); 
-    			panResultats.add(lab_res_id);    			
-    			//s.getAdresse();
+    			
+    			Station station_actuelle = mysql.getStation(s.getId_station());
+    			
+    			JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " "); 
+    			JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " "); 
+    			JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " "); 
+    			
+    			panResultats.add(lab_res_id);    		
+    			panResultats.add(lab_res_nom);    	
+    			panResultats.add(lab_res_adresse);    	
+    			panResultats.add(but_station_favorite);
     		}
     		       
-    		
-    		
-    		
-             
-    		//JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
- 		    JLabel lab_res_nom = new JLabel(station_test.getNom());
- 		    JLabel lab_res_adresse = new JLabel(station_test.getAdresse());
- 		    //JLabel lab_res_placesdispos = new JLabel(String.valueOf(station_test_calcul.getPlaces()));
- 		    /*JLabel lab_res_velovsdispos = new JLabel(String.valueOf(station_test.getPlaces()) );*/
- 		   
- 		    //panResultats.add(lab_res_id);
- 		    panResultats.add(lab_res_nom);
- 		    panResultats.add(lab_res_adresse);
- 		    //panResultats.add(lab_res_placesdispos);
- 		    //panResultats.add(lab_res_velovsdispos);
              
              
              
@@ -297,8 +297,12 @@ public class Fenetre extends JFrame {
 }
 
 class Ecouteur_station_favorie implements ActionListener {
-    public Ecouteur_station_favorie(int id_station) {
+    private int id_station;
+
+	public Ecouteur_station_favorie(int id_station) {
 		// TODO Auto-generated constructor stub
+    	int id = 0;
+    	this.id_station = id;
 	}
 
 	public void actionPerformed(ActionEvent e){ 	
@@ -307,11 +311,9 @@ class Ecouteur_station_favorie implements ActionListener {
 		mysql = new MysqlConnecter();
 		
 		Client client_actuel;
-		client_actuel = new Client();
-		int id;
+		client_actuel = new Client();		
 		
-		
-		//mysql.insertStationFavorite(client_actuel,id_station);
+		mysql.insertStationFavorite(client_actuel,id_station);
 		
 
 		
