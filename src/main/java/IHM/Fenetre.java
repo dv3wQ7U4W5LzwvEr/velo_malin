@@ -28,7 +28,7 @@ public class Fenetre extends JFrame {
 		    JPanel PanStation = new JPanel();
 		    JLabel nom = new JLabel("Nom : " + stat[0].getName());
 		    JLabel adresse = new JLabel("adresse : " + stat[0].getAddress());
-		    JLabel dispo = new JLabel(String.valueOf(stat[0].getBike_stands()) + " vélos disponible");
+		    JLabel dispo = new JLabel(String.valueOf(stat[0].getBike_stands()) + " vï¿½los disponible");
 		    PanStation.add(nom);
 		    PanStation.add(adresse);
 		    PanStation.add(dispo);*/
@@ -51,8 +51,8 @@ public class Fenetre extends JFrame {
             ImageIcon icon4 = new ImageIcon("src/main/resources/img/cloud.png");
 
             onglets.addTab("Accueil", icon0, panAccueil);
-            onglets.addTab("Programmer son itinéraire", icon1, panel1);
-            onglets.addTab("Résultats de recherche", icon2, panel2);
+            onglets.addTab("Programmer son itinï¿½raire", icon1, panel1);
+            onglets.addTab("Rï¿½sultats de recherche", icon2, panel2);
             onglets.addTab("Statistiques de station", icon3, panel3);
             onglets.addTab("Alertes", icon4, panel4);
 
@@ -82,15 +82,15 @@ public class Fenetre extends JFrame {
             panAccueil.add(label_image);
 
         /*----------*\
-        * Itinéraire *
+        * Itinï¿½raire *
         \*----------*/
             JPanel panDepart = new JPanel();
 
             panDepart.setBackground(Color.white);
             //panDepart.setPreferredSize(new Dimension(500, 130));
-            panDepart.setBorder(BorderFactory.createTitledBorder("Adresse de départ"));
+            panDepart.setBorder(BorderFactory.createTitledBorder("Adresse de dï¿½part"));
 
-            JLabel lab_rue = new JLabel("N° et rue:");
+            JLabel lab_rue = new JLabel("Nï¿½ et rue:");
             JTextField adresse = new JTextField();
             adresse.setPreferredSize(new Dimension(120, 25));
 
@@ -154,8 +154,8 @@ public class Fenetre extends JFrame {
 
 
         //Ajout Tof pour test en lien avec requetes SQL
-        //Résultat de recherches
-        //Test pour récupérer valeurs Stations et Itinéraires favoris (qui seront dan onglet "Résultat de Recherches") à insérer dans BDD  
+        //RÃ©sultat de recherches
+        //Test pour rï¿½cupï¿½rer valeurs Stations et Itinï¿½raires favoris (qui seront dan onglet "Rï¿½sultat de Recherches") ï¿½ insï¿½rer dans BDD  
         /*
          * 
         JPanel panResultats = new JPanel();
@@ -179,17 +179,43 @@ public class Fenetre extends JFrame {
         
         */
 
+            /*----------*\
+             * RÃ©sultats *
+             \*----------*/
+             JPanel panResultats = new JPanel();
+             
+             GridLayout gl = new GridLayout(3,1);
+             panResultats.setLayout(gl);           
+             
+             panResultats.setBackground(Color.white);
+             //panResultats.setPreferredSize(new Dimension(500, 130));
+             panResultats.setBorder(BorderFactory.createTitledBorder("RÃ©sultats de recherche"));
 
+             JLabel lab_selection_station = new JLabel("Stations conseillÃ©es :");
+             JLabel lab_station_nom = new JLabel("NOM");
+             JLabel lab_station_adr = new JLabel("ADRESSE");
+             JLabel lab_station_nbplace = new JLabel("NOMBRE PLACES VIDES DISPONIBLES");
+             JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
+             JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
+             
+             panResultats.add(lab_selection_station);
+             panResultats.add(lab_station_nom);
+             panResultats.add(lab_station_adr);
+             panResultats.add(lab_station_nbplace);
+             panResultats.add(lab_station_nbvelovs);
+             panResultats.add(but_station_favorite);
+             
+             
+             
 
- 
-        
-        
+             
+             panel2.add(panResultats);
         
          
         
         
         
-            //Résultat
+            //RÃ©sultat
             //Stat
             //Alerte
 
