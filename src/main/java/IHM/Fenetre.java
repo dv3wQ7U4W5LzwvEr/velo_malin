@@ -10,6 +10,10 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Iterator;
+
 
 public class Fenetre extends JFrame {
 
@@ -221,25 +225,54 @@ public class Fenetre extends JFrame {
              
              //panResultats.add(lab_selection_station);
                          
-     		Station station_test;
+     		Station station_test,station_test_2;
     		station_test = new Station();
+    		station_test_2 = new Station();
+
+    		station_test.setId_station(2469);
+    		station_test_2.setId_station(2500);
     		
     		StationDisponibilites station_test_calcul;
     		station_test_calcul = new StationDisponibilites();
+    			
     		  		
-    		//List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY);
-    		//List<Date> dateXY = StatisquesStation.calculInterval(date, 5);
-    		//int moy = StatisquesStation.getMoyVeloStation(2863, dateXY.get(0), dateXY.get(1));
+    		List<Station> données_statiques_stations = new ArrayList<Station>();
+    		données_statiques_stations.add(station_test);
+    		données_statiques_stations.add(station_test_2);
     		
-    		station_test.setId_station(2469);
+    		/*
+    		List<Station> données_dynamiques_stations = new ArrayList<Station>();
+    		données_dynamiques_stations.add(station_test);
+    		données_dynamiques_stations.add(station_test_2);
+    		*/
+
+    				
+    		Iterator<Station> it = données_statiques_stations.iterator();
+
+    		while (it.hasNext()) { 			
+    			Station s = it.next();
+    			JLabel lab_res_id = new JLabel(String.valueOf(s.getId_station())); 
+    			panResultats.add(lab_res_id); 			
+    			//s.getAdresse();
+    		}
+    		       
+    		 
+    		/*
+    		for(int i = 0; i < liste_stations.size(); i++){
+		    Station [] s = (Station []) list.get(i);
+			}
+    		*/
+    		
+    		
+    		
              
-    		JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
+    		//JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
  		    JLabel lab_res_nom = new JLabel(station_test.getNom());
  		    JLabel lab_res_adresse = new JLabel(station_test.getAdresse());
  		    //JLabel lab_res_placesdispos = new JLabel(String.valueOf(station_test_calcul.getPlaces()));
  		    /*JLabel lab_res_velovsdispos = new JLabel(String.valueOf(station_test.getPlaces()) );*/
  		   
- 		    panResultats.add(lab_res_id);
+ 		    //panResultats.add(lab_res_id);
  		    panResultats.add(lab_res_nom);
  		    panResultats.add(lab_res_adresse);
  		    //panResultats.add(lab_res_placesdispos);
