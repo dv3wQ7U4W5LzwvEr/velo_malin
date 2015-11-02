@@ -212,8 +212,6 @@ public class Fenetre extends JFrame {
              JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
              JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
              
-             but_station_favorite.addActionListener(new Ecouteur_station_favorie());
-        
              //panResultats.add(lab_selection_station);    
              /*
              panResultats.add(lab_station_nom);
@@ -222,6 +220,7 @@ public class Fenetre extends JFrame {
              panResultats.add(lab_station_nbvelovs);
              panResultats.add(but_station_favorite);
              */
+             panResultats.add(but_station_favorite);
              
              //panResultats.add(lab_selection_station);
                          
@@ -231,6 +230,10 @@ public class Fenetre extends JFrame {
 
     		station_test.setId_station(2469);
     		station_test_2.setId_station(2500);
+    		
+            int Id_station =  station_test.getId_station();
+            but_station_favorite.addActionListener(new Ecouteur_station_favorie(Id_station));
+       
     		
     		StationDisponibilites station_test_calcul;
     		station_test_calcul = new StationDisponibilites();
@@ -251,17 +254,11 @@ public class Fenetre extends JFrame {
 
     		while (it.hasNext()) { 			
     			Station s = it.next();
-    			JLabel lab_res_id = new JLabel(String.valueOf(s.getId_station())); 
-    			panResultats.add(lab_res_id); 			
+    			JLabel lab_res_id = new JLabel(String.valueOf(s.getId_station()) + " "); 
+    			panResultats.add(lab_res_id);    			
     			//s.getAdresse();
     		}
     		       
-    		 
-    		/*
-    		for(int i = 0; i < liste_stations.size(); i++){
-		    Station [] s = (Station []) list.get(i);
-			}
-    		*/
     		
     		
     		
@@ -300,18 +297,21 @@ public class Fenetre extends JFrame {
 }
 
 class Ecouteur_station_favorie implements ActionListener {
-    public void actionPerformed(ActionEvent e){ 	
+    public Ecouteur_station_favorie(int id_station) {
+		// TODO Auto-generated constructor stub
+	}
+
+	public void actionPerformed(ActionEvent e){ 	
     	
 		MysqlConnecter mysql;
 		mysql = new MysqlConnecter();
 		
 		Client client_actuel;
 		client_actuel = new Client();
+		int id;
 		
-		Station station_1;
-		station_1 = new Station();
 		
-		mysql.insertStationFavorite(client_actuel,station_1);
+		//mysql.insertStationFavorite(client_actuel,id_station);
 		
 
 		

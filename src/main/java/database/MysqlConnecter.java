@@ -302,11 +302,11 @@ public class MysqlConnecter {
     }
 
 
-    public boolean insertStationFavorite(Client client, Station station) {
+    public boolean insertStationFavorite(Client client, int Id_station) {
 
         boolean result_insertion = false;
 
-        String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + station.getId_station() +
+        String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + Id_station +
                 ")";
         //si pb : mettre simple quote pour valeur variable
 
