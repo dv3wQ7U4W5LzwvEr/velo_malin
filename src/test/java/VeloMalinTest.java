@@ -50,9 +50,11 @@ public class VeloMalinTest {
 		Date date = cal.getTime();		
 
 		List<Date> dateXY = StatisquesStation.calculInterval(date, 5);
-		int moy = StatisquesStation.getMoyVeloStation(2863, dateXY.get(0), dateXY.get(1));
+		int moyVelo = StatisquesStation.getMoyVeloStation(2470, dateXY.get(0), dateXY.get(1));
+		System.out.println(moyVelo +" velos le "+ date);
 		
-		System.out.println(moy);
+		int moyPlace = StatisquesStation.getMoyPlaceStation(2470, dateXY.get(0), dateXY.get(1));
+		System.out.println(moyPlace +" place vers "+ date);
 		
 		System.out.println(MysqlConnecter.getStation(2470));
 		

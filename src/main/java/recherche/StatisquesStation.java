@@ -37,4 +37,19 @@ public class StatisquesStation {
 		return moyenne;
 	}
 	
+	public static int getMoyPlaceStation(int id_station, Date dateX, Date dateY){
+		List<Integer> nbPlace = MysqlConnecter.getPlaceSurStation(id_station, dateX, dateY);
+		
+		Integer sum = 0;
+		int moyenne = 0;
+		if(!nbPlace.isEmpty()) {
+			for (Integer velo : nbPlace) {
+				sum += velo;
+			}
+			moyenne = (int) (sum.doubleValue() / nbPlace.size());
+		}
+		
+		return moyenne;
+	}
+	
 }

@@ -228,6 +228,32 @@ public class MysqlConnecter {
 		return nbVeloList;
     }
     
+    public static List<Integer> getPlaceSurStation(int id_station, Date dateX, Date dateY) {
+
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
+                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        int numberOfColumns;
+        ArrayList<Integer> nbPlaceList = new ArrayList<Integer>(); 
+		try {
+			numberOfColumns = rs.getMetaData().getColumnCount();
+	        while (rs.next()) {              
+	                int i = 1;
+	                while(i <= numberOfColumns) {
+	                    nbPlaceList.add(Integer.parseInt(rs.getString(i++)));
+	                }
+	        }
+		} catch (SQLException e) {
+			// TODO Bloc catch g�n�r� automatiquement
+			e.printStackTrace();
+		}
+
+		return nbPlaceList;
+    }
+    
     public static Station getStation(int id_station){
     	
     	Station station = new Station();
