@@ -23,7 +23,7 @@ public class StatisquesStation {
 	}
 
 	public static int getMoyVeloStation(int id_station, Date dateX, Date dateY){
-		List<Integer> nbVelo = MysqlConnecter.getVeloSurStation(id_station, dateX, dateY);
+		List<Integer> nbVelo = MysqlConnecter.getNombreDeVelosSurStation(id_station, dateX, dateY);
 		
 		Integer sum = 0;
 		int moyenne = 0;
