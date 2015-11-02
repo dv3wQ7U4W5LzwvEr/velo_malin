@@ -1,27 +1,16 @@
 package IHM;
-
-/**
- * Created by QKFD7244 on 02/11/2015.
- *//*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
-
-
 /**
  *
  * @author QKFD724
  */
-public class FenetrePanel extends javax.swing.JPanel {
+public class ItinerairePanel extends javax.swing.JPanel {
 
     /**
      * Creates new form NewJPanel
+     * Constructeur
      */
-
-
-    public FenetrePanel() {
-        initComponents();
+    public ItinerairePanel() {
+        initItineraire();
     }
 
     /**
@@ -31,7 +20,7 @@ public class FenetrePanel extends javax.swing.JPanel {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">
-    private void initComponents() {
+    private void initItineraire() {
 
         panItineraire = new javax.swing.JPanel();
         depart = new javax.swing.JPanel();
