@@ -23,7 +23,8 @@ public class Station {
     }
 
     public String getAdresse() {
-        return adresse;
+        
+    	return adresse;
     }
 
     public String getLatitude() {
