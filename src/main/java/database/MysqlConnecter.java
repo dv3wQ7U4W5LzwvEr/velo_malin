@@ -302,8 +302,7 @@ public class MysqlConnecter {
         int numberOfColumns;
 		try {
 			numberOfColumns = rs.getMetaData().getColumnCount();
-	        while (rs.next()) {     
-	        	System.out.println(rs.getString("id_station"));
+	        while (rs.next()) {
 	                int i = 1;
 	                while(i <= numberOfColumns) {
 	                    listStations.add(Integer.parseInt(rs.getString(i++)));
