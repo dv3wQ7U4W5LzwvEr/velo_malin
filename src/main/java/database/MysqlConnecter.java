@@ -26,7 +26,7 @@ public class MysqlConnecter {
 
     private String url = "jdbc:mysql://localhost:3306/";
     private String user = "root";
-    private String password = "root";
+    private String password = "";
 
     public MysqlConnecter() {
         try {

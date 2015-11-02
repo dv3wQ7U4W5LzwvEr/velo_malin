@@ -1,7 +1,9 @@
 package IHM;
 
 import javax.swing.*;
-import model.Station;
+
+import database.MysqlConnecter;
+import model.*;
 import java.awt.*;
 import java.util.Date;
 import java.util.Map;
@@ -189,10 +191,12 @@ public class Fenetre extends JFrame {
              \*----------*/
              JPanel panResultats = new JPanel();
              
-             GridLayout gl = new GridLayout(1,4,2,2); //3 : nombre de ligne / 5 : nombre de colonnes
-             panResultats.setLayout(gl);           
+             GridLayout gl = new GridLayout(1,5); //3 : nombre de ligne / 5 : nombre de colonnes
+             panResultats.setLayout(gl);
+             
              
              panResultats.setBackground(Color.white);
+             //panResultats.setPreferredSize(new Dimension(1000, 250));
              panResultats.setBorder(BorderFactory.createTitledBorder("Résultats de recherche"));
 
              JLabel lab_selection_station = new JLabel("Stations conseillées :");
@@ -205,17 +209,36 @@ public class Fenetre extends JFrame {
              
              but_station_favorite.addActionListener(new Ecouteur_station_favorie());
              
-             //panResultats.add(lab_selection_station);         
+             //panResultats.add(lab_selection_station);    
+             /*
              panResultats.add(lab_station_nom);
              panResultats.add(lab_station_adr);
              panResultats.add(lab_station_nbplace);
              panResultats.add(lab_station_nbvelovs);
              panResultats.add(but_station_favorite);
+             */
              
              //panResultats.add(lab_selection_station);
+                         
+     		Station station_test;
+    		station_test = new Station();
+    		
+    		StationDisponibilites station_test_calcul;
+    		station_test_calcul = new StationDisponibilites();
+    		  		
+    		station_test.setId_station(2469);
              
-        
-
+    		JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
+ 		    JLabel lab_res_nom = new JLabel(station_test.getNom());
+ 		    JLabel lab_res_adresse = new JLabel(station_test.getAdresse());
+ 		    //JLabel lab_res_placesdispos = new JLabel(String.valueOf(station_test_calcul.getPlaces()));
+ 		    /*JLabel lab_res_velovsdispos = new JLabel(String.valueOf(station_test.getPlaces()) );*/
+ 		   
+ 		   panResultats.add(lab_res_id);
+ 		    panResultats.add(lab_res_nom);
+ 		    panResultats.add(lab_res_adresse);
+ 		    //panResultats.add(lab_res_placesdispos);
+ 		    //panResultats.add(lab_res_velovsdispos);
              
              
              
@@ -241,6 +264,19 @@ public class Fenetre extends JFrame {
 class Ecouteur_station_favorie implements ActionListener {
     public void actionPerformed(ActionEvent e){ 	
     	
+		MysqlConnecter mysql;
+		mysql = new MysqlConnecter();
+		
+		Client client_actuel;
+		client_actuel = new Client();
+		
+		Station station_1;
+		station_1 = new Station();
+		
+		mysql.insertStationFavorite(client_actuel,station_1);
+		
+
+		
     	
     }
 }
