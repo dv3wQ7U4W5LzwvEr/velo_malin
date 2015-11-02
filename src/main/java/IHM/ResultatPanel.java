@@ -1,6 +1,6 @@
 package IHM;
 
-import model.Station;
+import model.*;
 import database.MysqlConnecter;
 
 import javax.swing.*;
@@ -8,8 +8,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.io.*;
 
 
 /**
@@ -54,15 +57,36 @@ public class ResultatPanel extends javax.swing.JPanel{
 		données_statiques_stations.add(station_test);
 		données_statiques_stations.add(station_test_2);
 		
-		/*
-		List<Station> données_dynamiques_stations = new ArrayList<Station>();
-		données_dynamiques_stations.add(station_test);
-		données_dynamiques_stations.add(station_test_2);
-		*/
+		
+		List<StationDisponibilites> données_dynamiques_stations = new ArrayList<StationDisponibilites>();
+		//données_dynamiques_stations.add(station_test);
+		//données_dynamiques_stations.add(station_test_2);	
 
 		
+		//test pour résultat de recherche : stations à proximités
+		List<Integer> liste_stations_proximites = new ArrayList<Integer>();
+		Station station_recherchee = MysqlConnecter.getStation(station_test.getId_station());
+		liste_stations_proximites = MysqlConnecter.getStationsProximite(Double.parseDouble(station_recherchee.getLatitude()),Double.parseDouble(station_recherchee.getLongitude()),10,100);	
+	
+		/*
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 10-1, 28, 13, 00, 00);
+		Date dateX = cal.getTime();		
+		cal.set(2015, 10-1, 28, 13, 00, 30);
+		Date dateY = cal.getTime();		
+		*/
+	
 		
-				
+		for(int i = 0 ; i < liste_stations_proximites.size();i++){
+			//List<Integer> nb_place;
+			//nb_place = MysqlConnecter.getPlaceSurStation(liste_stations_proximites.get(i),dateX,dateY);
+			
+		}
+		
+	
+		
+		//mettre liste de stations récupérées getId dans liste Station
+		
 		Iterator<Station> it = données_statiques_stations.iterator();
 
 		while (it.hasNext()) { 			
@@ -72,11 +96,17 @@ public class ResultatPanel extends javax.swing.JPanel{
 			JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " "); 
 			JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " "); 
 			JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " "); 
+			JLabel lab_res_nbplace = new JLabel(dateX + " " + dateY); 
+			//JLabel lab_res_nbvelovs = new JLabel( + " "); 
+			
             JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
            
 			add(lab_res_id);    		
 			add(lab_res_nom);    	
 			add(lab_res_adresse);
+			add(lab_res_nbplace);
+			//add(lab_res_nbvelovs);
+			
 			but_station_favorite.addActionListener(new Ecouteur_station_favorie(station_actuelle.getId_station()));  
 			add(but_station_favorite);
 		}

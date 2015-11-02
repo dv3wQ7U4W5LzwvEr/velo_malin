@@ -112,7 +112,7 @@ class Ecouteur_station_favorie implements ActionListener {
 	    ImageIcon img = new ImageIcon("images/cloud_alert.png");
 	    confirm.showMessageDialog(null, "Station bien enregistrée dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);  
 		
-	    //onglets.setSelectedIndex( int i);
+	    //onglets.setSelectedIndex( int i); //pour basculer d'un onglet à un autre
     }
 }
 
