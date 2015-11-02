@@ -10,15 +10,11 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Iterator;
-
 
 public class Fenetre extends JFrame {
 
 	/**
-	 * 
+	 *
 	 */
 	private static final long serialVersionUID = 1L;
 
@@ -93,76 +89,18 @@ public class Fenetre extends JFrame {
 
             panAccueil.add(label_image);
 
+
         /*----------*\
-        * Itinï¿½raire *
+        * Itinéraire *
         \*----------*/
-            JPanel panDepart = new JPanel();
-
-            panDepart.setBackground(Color.white);
-            //panDepart.setPreferredSize(new Dimension(500, 130));
-            panDepart.setBorder(BorderFactory.createTitledBorder("Adresse de dÃ©part"));
-
-            JLabel lab_rue = new JLabel("NÂ° et rue:");
-            JTextField adresse = new JTextField();
-            adresse.setPreferredSize(new Dimension(120, 25));
-
-            JLabel lab_cp = new JLabel("Code Postal:");
-            JTextField cp = new JTextField();
-            cp.setPreferredSize(new Dimension(60, 25));
-
-            JLabel lab_ville = new JLabel("Ville: ");
-            JTextField ville = new JTextField();
-            ville.setText("");
-            ville.setPreferredSize(new Dimension(120, 25));
-
-            JComboBox comb_heure = new JComboBox();
-            comb_heure.addItem("0");
-            comb_heure.addItem("1");
-            comb_heure.addItem("2");
-            comb_heure.addItem("3");
-            comb_heure.addItem("4");
-            comb_heure.addItem("5");
-            comb_heure.addItem("6");
-            comb_heure.addItem("7");
-            comb_heure.addItem("8");
-            comb_heure.addItem("9");
-            comb_heure.addItem("10");
-            comb_heure.addItem("11");
-            comb_heure.addItem("12");
-            comb_heure.addItem("13");
-            comb_heure.addItem("14");
-            comb_heure.addItem("15");
-            comb_heure.addItem("16");
-            comb_heure.addItem("17");
-            comb_heure.addItem("18");
-            comb_heure.addItem("19");
-            comb_heure.addItem("20");
-            comb_heure.addItem("21");
-            comb_heure.addItem("22");
-            comb_heure.addItem("23");
-            JLabel lab_heure = new JLabel("h");
-            JComboBox comb_min = new JComboBox();
-            comb_min.addItem("00");
-            comb_min.addItem("15");
-            comb_min.addItem("30");
-            comb_min.addItem("45");
-            JLabel lab_min = new JLabel("min");
-
-            JCheckBox comb_jour = new JCheckBox();
+        FenetrePanel fenetrePanel = new FenetrePanel();
+        panel1.add(fenetrePanel);
 
 
-            panDepart.add(lab_rue);
-            panDepart.add(adresse);
-            panDepart.add(lab_cp);
-            panDepart.add(cp);
-            panDepart.add(lab_ville);
-            panDepart.add(ville);
-            panDepart.add(comb_heure);
-            panDepart.add(lab_heure);
-            panDepart.add(comb_min);
-            panDepart.add(lab_min);
 
-            panel1.add(panDepart);
+        //Test pour rï¿½cupï¿½rer valeurs Stations et Itinï¿½raires favoris (qui seront dan onglet "Rï¿½sultat de Recherches") ï¿½ insï¿½rer dans BDD
+
+
 
 
 
@@ -171,77 +109,60 @@ public class Fenetre extends JFrame {
              * RÃ©sultats *
              \*----------*/
              JPanel panResultats = new JPanel();
-             
+
              GridLayout gl = new GridLayout(3,4); 
              panResultats.setLayout(gl);
-                    
+
+
              panResultats.setBackground(Color.white);
              panResultats.setBorder(BorderFactory.createTitledBorder("Résultats de recherche"));
 
              JLabel lab_selection_station = new JLabel("Stations conseillées :");
-             
+
              JLabel lab_station_nom = new JLabel("NOM");
              JLabel lab_station_adr = new JLabel("ADRESSE");
              JLabel lab_station_nbplace = new JLabel("NOMBRE PLACES VIDES DISPONIBLES");
              JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
-             
-             //panResultats.add(lab_selection_station);     
-             //panResultats.add(but_station_favorite);
 
-                         
-     		MysqlConnecter mysql;
-    		mysql = new MysqlConnecter(); 
-             
+             but_station_favorite.addActionListener(new Ecouteur_station_favorie());
+
+             //panResultats.add(lab_selection_station);
+
+
+     		Station station_test;
      		Station station_test,station_test_2;
     		station_test = new Station();
-    		station_test_2 = new Station();
-
-    		station_test.setId_station(2469);
-    		station_test_2.setId_station(2470);
-    		
     		//préparation pour enregistrement station dans favoris
             //int Id_station =  station_test.getId_station();
             //but_station_favorite.addActionListener(new Ecouteur_station_favorie(Id_station));  
     		
     		//StationDisponibilites station_test_calcul;
     		//station_test_calcul = new StationDisponibilites();			
-    		  		
-    		List<Station> données_statiques_stations = new ArrayList<Station>();
-    		données_statiques_stations.add(station_test);
-    		données_statiques_stations.add(station_test_2);
-    		
-    		/*
-    		List<Station> données_dynamiques_stations = new ArrayList<Station>();
-    		données_dynamiques_stations.add(station_test);
-    		données_dynamiques_stations.add(station_test_2);
-    		*/
+    		//int moy = StatisquesStation.getMoyVeloStation(2863, dateXY.get(0), dateXY.get(1));
 
-    				
-    		Iterator<Station> it = données_statiques_stations.iterator();
-
-    		while (it.hasNext()) { 			
+    		station_test.setId_station(2469);
     			Station s = it.next();   			
-    			Station station_actuelle = mysql.getStation(s.getId_station());
-    			
-    			JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " "); 
-    			JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " "); 
-    			JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " "); 
+
+    		JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
+ 		    JLabel lab_res_nom = new JLabel(station_test.getNom());
+ 		    JLabel lab_res_adresse = new JLabel(station_test.getAdresse());
                 JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
+ 		    /*JLabel lab_res_velovsdispos = new JLabel(String.valueOf(station_test.getPlaces()) );*/
                 
-    			panResultats.add(lab_res_id);    		
-    			panResultats.add(lab_res_nom);    	
+ 		   panResultats.add(lab_res_id);
+ 		    panResultats.add(lab_res_nom);
     			panResultats.add(lab_res_adresse);
     			but_station_favorite.addActionListener(new Ecouteur_station_favorie(station_actuelle.getId_station()));  
-    			panResultats.add(but_station_favorite);
+ 		    //panResultats.add(lab_res_velovsdispos);
     			
     		}
     		               
              panel2.add(panResultats);
-        
-         
-        
-        
-        
+
+
+
+
+
             //Résultat
             //Stat
             //Alerte
@@ -259,17 +180,22 @@ class Ecouteur_station_favorie implements ActionListener {
 	public Ecouteur_station_favorie(int id_station) {
 		// TODO Auto-generated constructor stub
     	this.id_station = id_station;
+    public void actionPerformed(ActionEvent e){
+
 	}
 
 	public void actionPerformed(ActionEvent e){ 	
     	
 		MysqlConnecter mysql;
 		mysql = new MysqlConnecter();
-		
+
 		Client client_actuel;
-		client_actuel = new Client();		
-		
-		mysql.insertStationFavorite(client_actuel,id_station);
+		client_actuel = new Client();
+
+		Station station_1;
+		station_1 = new Station();
+
+		//mysql.insertStationFavorite(client_actuel,station_1);
 		
 	    JOptionPane confirm;      
 	    confirm = new JOptionPane();
