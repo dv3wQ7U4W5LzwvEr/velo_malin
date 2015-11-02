@@ -239,7 +239,7 @@ public class Fenetre extends JFrame {
  		    //JLabel lab_res_placesdispos = new JLabel(String.valueOf(station_test_calcul.getPlaces()));
  		    /*JLabel lab_res_velovsdispos = new JLabel(String.valueOf(station_test.getPlaces()) );*/
  		   
- 		   panResultats.add(lab_res_id);
+ 		    panResultats.add(lab_res_id);
  		    panResultats.add(lab_res_nom);
  		    panResultats.add(lab_res_adresse);
  		    //panResultats.add(lab_res_placesdispos);
