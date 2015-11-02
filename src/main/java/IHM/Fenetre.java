@@ -4,8 +4,11 @@ import javax.swing.*;
 
 import database.MysqlConnecter;
 import model.*;
+import recherche.StatisquesStation;
+
 import java.awt.*;
 import java.util.Date;
+import java.util.List;
 import java.util.Map;
 import java.awt.event.*;
 
@@ -226,6 +229,10 @@ public class Fenetre extends JFrame {
     		StationDisponibilites station_test_calcul;
     		station_test_calcul = new StationDisponibilites();
     		  		
+    		//List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY);
+    		//List<Date> dateXY = StatisquesStation.calculInterval(date, 5);
+    		//int moy = StatisquesStation.getMoyVeloStation(2863, dateXY.get(0), dateXY.get(1));
+    		
     		station_test.setId_station(2469);
              
     		JLabel lab_res_id = new JLabel(String.valueOf(station_test.getId_station()));
