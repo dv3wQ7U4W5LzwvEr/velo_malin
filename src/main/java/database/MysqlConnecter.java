@@ -204,14 +204,7 @@ public class MysqlConnecter {
 
     public static List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY) {
 
-//		Obtenir un intervalle depuis une date.	
-//		long offSet = 60000*5;	//5 minites in millisecs
-//		long longJour = jour.getTime();
-//		
-//		Date jourX = new Date(longJour + (10 * offSet));
-//		Date jourY = new Date(longJour + (10 * offSet));
-
-        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
                 datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
@@ -231,22 +224,37 @@ public class MysqlConnecter {
 			// TODO Bloc catch g�n�r� automatiquement
 			e.printStackTrace();
 		}
-        
-//        double moyenne = -1;
-//        try {
-//            moyenne = Double.parseDouble(rs.getString("places_occupees"));
-//        } catch (NumberFormatException e) {
-//            e.printStackTrace();
-//        } catch (SQLException e) {
-//            e.printStackTrace();
-//        }
 
-        return nbVeloList;
-
+		return nbVeloList;
     }
-
-    // String sqlQuery= "SELECT nom, adresse, latitude, longitude, places, places_occupees, places_disponibles FROM Stations INNER JOIN StationsDisponibilites
-    // ON Stations.id_station = StationDisponibilites.id_station WHERE id_station="+ id_station;
+    
+    public static Station getStation(int id_station){
+    	
+    	Station station = new Station();
+    	
+    	String sqlQuery = "SELECT * FROM velo_malin.stations WHERE id_station='"+ id_station +"';";
+    	
+    	ResultSet rs = executerRequete(sqlQuery);
+    	   	
+    	try {
+			if(rs.next()){
+	    		station.setId_station(Integer.parseInt(rs.getString("id_station")));
+				station.setNom(rs.getString("nom"));
+				station.setAdresse(rs.getString("adresse"));
+		       	station.setLatitude(rs.getString("latitude"));
+				station.setLongitude(rs.getString("longitude"));
+				station.setPlaces(Integer.parseInt(rs.getString("places")));
+			}
+		} catch (NumberFormatException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		} catch (SQLException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+    	
+    	return station;
+    }
 
     public int getIdUneStation(String nom_station) {
 

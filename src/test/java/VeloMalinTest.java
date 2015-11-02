@@ -54,6 +54,8 @@ public class VeloMalinTest {
 		
 		System.out.println(moy);
 		
+		System.out.println(MysqlConnecter.getStation(2470));
+		
 	}
 
 }
