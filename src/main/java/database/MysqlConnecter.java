@@ -69,6 +69,9 @@ public class MysqlConnecter {
                     executerRequeteInsertDeleteUpdate(requete);
                     System.out.println("Creation de la station pour: " + nom);
                 }
+                else{
+                    System.out.println("Pas de maj pour la station pour: " + nom);
+                }
             }
         }
         System.out.println("Insertion des donnees statiques terminees a : " + new Date());

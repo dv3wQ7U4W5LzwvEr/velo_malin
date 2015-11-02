@@ -28,6 +28,7 @@ public class ServiceWeb extends TimerTask {
 
     public void run() {
         try {
+            majDesStationsInformationsFixes();
             majDesStationsDisponibilites();
             System.out.println("  -----  ");
         } catch (Exception e) {
@@ -35,7 +36,7 @@ public class ServiceWeb extends TimerTask {
         }
     }
 
-    public void creationDesInformationsSurLesStations() {
+    private void majDesStationsInformationsFixes() {
         try {
             StationWas[] stationsFromJson = getStationsInformationsFromJson();
 
