@@ -170,7 +170,7 @@ public class MysqlConnecter {
      * @param requete
      * @return
      */
-    private ResultSet executerRequete(String requete) {
+    private static ResultSet executerRequete(String requete) {
         try {
             st = con.createStatement();
             rs = st.executeQuery(requete);
@@ -202,7 +202,7 @@ public class MysqlConnecter {
     }
 
 
-    public List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY) {
+    public static List<Integer> getVeloSurStation(int id_station, Date dateX, Date dateY) {
 
 //		Obtenir un intervalle depuis une date.	
 //		long offSet = 60000*5;	//5 minites in millisecs
@@ -211,7 +211,7 @@ public class MysqlConnecter {
 //		Date jourX = new Date(longJour + (10 * offSet));
 //		Date jourY = new Date(longJour + (10 * offSet));
 
-        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
                 datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";

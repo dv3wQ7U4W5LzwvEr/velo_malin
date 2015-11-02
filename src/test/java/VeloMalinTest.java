@@ -1,7 +1,10 @@
 import model.Client;
 import model.Station;
+import recherche.StatisquesStation;
 import database.MysqlConnecter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -32,9 +35,8 @@ public class VeloMalinTest {
 //		station_arrivee.setId_station(20);
 //		
 //		//test_client_actuel.getId_client();
-		
-		MysqlConnecter mysql;
-		mysql = new MysqlConnecter();
+//		
+		MysqlConnecter mysql = new MysqlConnecter();
 	
 //		//test de base g�n�ral
 //		resultat_test = mysql.insertStationFavorite(test_client,test_station);
@@ -42,19 +44,15 @@ public class VeloMalinTest {
 //		
 //		//test plus r�aliste : avec id r�cup�r� du client actuel
 //		//resultat_test = mysql.insertStationFavorite(test_client_actuel,test_station);
+	
+		Calendar cal = Calendar.getInstance();
+		cal.set(2015, 10-1, 28, 13, 00, 00);
+		Date date = cal.getTime();		
+
+		List<Date> dateXY = StatisquesStation.calculInterval(date, 5);
+		int moy = StatisquesStation.getMoyVeloStation(2863, dateXY.get(0), dateXY.get(1));
 		
-//		Obtenir un intervalle depuis une date.	
-		Date jour = new Date(2015, 10, 28, 13, 00);
-		long offSet = 60000*5;	//5 minites in millisecs
-		long longJour = jour.getTime();
-		
-		Date jourX = new Date(longJour + (10 * offSet));
-		Date jourY = new Date(longJour + (10 * offSet));
-		
-		List<Integer> nbVelo = mysql.getVeloSurStation(2863, jourX, jourY);
-		
-		System.out.println(nbVelo.size());
-		
+		System.out.println(moy);
 		
 	}
 

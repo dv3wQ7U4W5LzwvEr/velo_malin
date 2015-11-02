@@ -1,43 +1,40 @@
 package recherche;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
+
+import database.MysqlConnecter;
 
 public class StatisquesStation {
-
-	public int getMoyPlaceAllTimeOnStation(int id_station){
-		
-		String sqlQuery = "SELECT SUM(places_disponibles) FROM stationsdisponibilites WHERE id_station="+ id_station;
-
-//		int moyenne = resultat requete;
 	
-		return 0; // moyenne;
+	public static List<Date> calculInterval(Date date, int intervalMinutes){	
+		long offSet = 6000*intervalMinutes;	//5 minites in millisecs
+		long longDate = date.getTime();
 		
+		Date dateX = new Date(longDate - (10 * offSet));
+		Date dateY = new Date(longDate + (10 * offSet));
+		
+		List<Date> dateXY = new ArrayList<Date>();
+		dateXY.add(dateX);
+		dateXY.add(dateY);
+		
+		return dateXY;		
 	}
-	
-	public int getMoyVeloAllTimeOnStation(int id_station){
-			
-			String sqlQuery = "SELECT SUM(places_occupees) FROM stationsdisponibilites WHERE id_station="+ id_station;
-			
-//			int moyenne = resultat requete;
-			
-			return 0; // moyenne;
-			
+
+	public static int getMoyVeloStation(int id_station, Date dateX, Date dateY){
+		List<Integer> nbVelo = MysqlConnecter.getVeloSurStation(id_station, dateX, dateY);
+		
+		Integer sum = 0;
+		int moyenne = 0;
+		if(!nbVelo.isEmpty()) {
+			for (Integer velo : nbVelo) {
+				sum += velo;
+			}
+			moyenne = (int) (sum.doubleValue() / nbVelo.size());
+		}
+		
+		return moyenne;
 	}
-	
-	public int getMoyVeloOnTimeOnStation(int id_station, Date jour){
-	    
-		long offSet = 60000*5;	//5 minites in millisecs
-		long longJour = jour.getTime();
-		
-		Date jourX = new Date(longJour + (10 * offSet));
-		Date jourY = new Date(longJour + (10 * offSet));
-		
-		String sqlQuery = "SELECT SUM(places_occupees) FROM stationsdisponibilites WHERE id_station="+ id_station +" AND jour BETWEEN "+ jourX +" AND "+ jourY;
-		
-//		int moyenne = resultat requete;
-		
-		return 0; // moyenne;
-		
-}
 	
 }
