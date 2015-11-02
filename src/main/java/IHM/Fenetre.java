@@ -67,7 +67,7 @@ public class Fenetre extends JFrame {
 
             //mise en forme
 
-            JLabel nom = new JLabel("      VELO MALIN");
+            JLabel nom = new JLabel("      Velo Malin");
             nom.setFont(new Font("Arial", Font.PLAIN, 50));
             nom.setForeground(Color.white);
             nom.setSize(500, 300);
