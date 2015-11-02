@@ -347,7 +347,6 @@ public class MysqlConnecter {
 
         String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, id_station_depart, id_station_arrivee) VALUES ( " + client.getId_client() + ","
                 + station_depart + "," + station_arrivee + ")";
-        //si pb : mettre simple quote pour valeur variable
 
         executerRequeteInsertDeleteUpdate(sqlQuery);
 
