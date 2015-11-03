@@ -585,26 +585,12 @@ public class ResultatPanel extends javax.swing.JPanel {
         
         //pour test (en attente lien avec IHM)
         Station station_test = new Station();
-        station_test.setId_station(2473);
-        
-        /*
-        Station station_liste = new Station();
-        Station station_liste2 = new Station();
-        Station station_liste3 = new Station();
-        
-        station_liste.setId_station(2469);
-        station_liste2.setId_station(2474);
-        station_liste3.setId_station(2470);    
-        */
+        station_test.setId_station(2903);
+
         Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
         
         List<Station> liste_stations_proximites = new ArrayList<Station>();      
         liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 20, 500);
-        /*
-        liste_stations_proximites.add(station_liste);
-        liste_stations_proximites.add(station_liste2);
-        liste_stations_proximites.add(station_liste3);
-        */
         
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 10-1, 28, 13, 00, 00);
@@ -618,9 +604,12 @@ public class ResultatPanel extends javax.swing.JPanel {
             Station s = it.next();
             Station station_actuelle = MysqlRequester.getStation(s.getId_station());
             
-            int nbvelos = StatistiquesStation.getMoyVeloStation(station_actuelle.getId_station(), dateX, dateY);
-            int nbplaces = StatistiquesStation.getMoyPlaceStation(station_actuelle.getId_station(), dateX, dateY);
-
+            //int nbvelos = StatistiquesStation.getMoyVeloStation(station_actuelle.getId_station(), dateX, dateY);
+            //int nbplaces = StatistiquesStation.getMoyPlaceStation(station_actuelle.getId_station(), dateX, dateY);
+            int nbvelos = StatistiquesStation.getMoyVeloStation(2902, dateX, dateY);
+            int nbplaces = StatistiquesStation.getMoyPlaceStation(2902, dateX, dateY);
+            
+            
             JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " ");
             JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " ");
             JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " ");
