@@ -6,8 +6,12 @@ import model.Station;
 import recherche.StatistiquesStation;
 
 import javax.swing.*;
+
+import IHM.listeners.EcouteurItineraireFavori;
+
 import java.util.*;
-import java.util.Map.Entry;
+import java.util.Map.*;
+import java.util.Set;
 
 
 /**
@@ -68,96 +72,93 @@ public class ResultatPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelCarteResultats;
     private javax.swing.JRadioButton selctA1;
     private javax.swing.JRadioButton selctA2;
+	private String tab_nom_stations[];
 
 
     
     /*
     Methodes
      */
-    private void initResultat() {
+	private void initResultat() {
 
     	
         //Traitement listener et récup données ----------------------------
         
-        //pour test (en attente lien avec IHM)
+        //pour test station de départ (en attente lien avec IHM)
         Station station_test = new Station();
         station_test.setId_station(2903);
 
-        Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
-        
-        Map<Station, Double> liste_stations_proximites = new HashMap<Station, Double>();      
-        liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 3, 500);
+        Station station_recherchee_depart = MysqlRequester.getStation(station_test.getId_station());
+            
+        Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_depart.getLatitude()), Double.parseDouble(station_recherchee_depart.getLongitude()), 3, 500);
         
     	Calendar cal = Calendar.getInstance();
     	cal.set(2015, 10-1, 28, 13, 00, 00);
     	Date dateX = cal.getTime();
     	cal.set(2015, 10-1, 28, 13, 05, 00);
     	Date dateY = cal.getTime();
+    	
+    	//Stations résultats de départ
+    	List<String> tab_nom_stations = new ArrayList<String>();
+    	List<String> tab_adresse_stations = new ArrayList<String>();
+    	List<Integer> tab_id_stations = new ArrayList<Integer>();
+    	List<Integer> tab_nbplaces_stations = new ArrayList<Integer>();
+    	List<Integer> tab_nbvelos_stations = new ArrayList<Integer>();
+    	    	
+    	Iterator<Station> it = liste_stations_proximites_depart.keySet().iterator();
+    	
+    	while (it.hasNext()){
+    		Station s = (Station) it.next();	   		
+	
+            int nbvelos = StatistiquesStation.getMoyVeloStation(s.getId_station(), dateX, dateY);
+            int nbplaces = StatistiquesStation.getMoyPlaceStation(s.getId_station(), dateX, dateY);
+    		
+    		tab_id_stations.add(s.getId_station());
+    		tab_nom_stations.add(s.getNom());
+	   		tab_adresse_stations.add(s.getAdresse());
+	   		tab_nbplaces_stations.add(nbplaces);
+	   		tab_nbvelos_stations.add(nbvelos);
+    	}   	
+    	
+        //pour test station arrivee (en attente lien avec IHM)
+        Station station_arrivee = new Station();
+        station_arrivee.setId_station(2469);
 
-        //Iterator<Station> it = liste_stations_proximites.iterator();
-
-    	//Map<String, String> map = new HashMap<String, String>();
-    	
-    	//key = station et Double = value
-    	for (Entry<Station, Double> entry : liste_stations_proximites.entrySet()) {
-    		//System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
-    		Station s = entry.getKey();
-    		Station station_actuelle = MysqlRequester.getStation(s.getId_station());
-            int cpt = 0;
-            
-            String tab_nom_stations[] = null;
-            
-            cpt++;
-    	}
-    	
-    	
-        //Iterator it = liste_stations_proximites.entrySet().iterator();        
+        Station station_recherchee_arrivee = MysqlRequester.getStation(station_test.getId_station());
         
-    	/*
-        while (it.hasNext()) {
-            Station s = (Station)it.next();         
-            Station station_actuelle = MysqlRequester.getStation(s.getId_station());
-            int cpt = 0;
-            
-            //int nbvelos = StatistiquesStation.getMoyVeloStation(station_actuelle.getId_station(), dateX, dateY);
-            //int nbplaces = StatistiquesStation.getMoyPlaceStation(station_actuelle.getId_station(), dateX, dateY);
-            int nbvelos = StatistiquesStation.getMoyVeloStation(2902, dateX, dateY);
-            int nbplaces = StatistiquesStation.getMoyPlaceStation(2902, dateX, dateY);
-            
-            String tab_nom_stations[] = null;
-            String tab_adresse_stations[] = null;
-            
-            tab_nom_stations[cpt] = station_actuelle.getNom();
-            
-            cpt++;
+        Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_arrivee.getLatitude()), Double.parseDouble(station_recherchee_arrivee.getLongitude()), 3, 500);
+        
+        /*
+    	Calendar cal = Calendar.getInstance();
+    	cal.set(2015, 10-1, 28, 13, 00, 00);
+    	Date dateX = cal.getTime();
+    	cal.set(2015, 10-1, 28, 13, 05, 00);
+    	Date dateY = cal.getTime();
+    	*/
     	
-            /*
-            JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " ");
-            JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " ");
-            JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " ");
-            JLabel lab_res_nbplace = new JLabel(nbplaces + " ");
-            JLabel lab_res_nbvelovs = new JLabel(nbvelos + " ");
-			*/
-            
-            //JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
-
-            /*
-            add(lab_res_id);
-            add(lab_res_nom);
-            add(lab_res_adresse);
-            add(lab_res_nbplace);
-            add(lab_res_nbvelovs);
-            */
-
-            //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
-            //add(but_station_favorite);
-        //}
+    	//Stations résultats d arrivee
+    	List<String> tab_nom_stations_arrivee = new ArrayList<String>();
+    	List<String> tab_adresse_stations_arrivee = new ArrayList<String>();
+    	List<Integer> tab_id_stations_arrivee = new ArrayList<Integer>();
+    	List<Integer> tab_nbplaces_stations_arrivee = new ArrayList<Integer>();
+    	List<Integer> tab_nbvelos_stations_arrivee = new ArrayList<Integer>();
+    	    	
+    	Iterator<Station> it2 = liste_stations_proximites_arrivee.keySet().iterator();
     	
-    
-        //preparation bouton pour enregistrement itineraire favori
-        //JButton but_itineraire_favori = new JButton("Enregister l' itineraire dans vos favoris");
-        //but_itineraire_favori.addActionListener(new EcouteurItineraireFavori(station_test.getId_station(), station_test_2.getId_station()));
-        //add(but_itineraire_favori);
+    	while (it2.hasNext()){
+    		Station s = (Station) it2.next();	   		
+	
+            int nbvelos = StatistiquesStation.getMoyVeloStation(s.getId_station(), dateX, dateY);
+            int nbplaces = StatistiquesStation.getMoyPlaceStation(s.getId_station(), dateX, dateY);
+    		
+    		tab_id_stations_arrivee.add(s.getId_station());
+    		tab_nom_stations_arrivee.add(s.getNom());
+    		tab_adresse_stations_arrivee.add(s.getAdresse());
+    		tab_nbplaces_stations_arrivee.add(nbplaces);
+    		tab_nbvelos_stations_arrivee.add(nbvelos);
+    	}  
+    	
+          //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
         
     	
         /*----Code généré*/
@@ -229,21 +230,18 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelDateDepart.setText("Le jj/mm/aaaa");
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomDepart1.setText("Nom de la station");
+        labelNomDepart1.setText(tab_nom_stations.get(0));   
         
-        
-        
-
         labelAdresseDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseDepart1.setText("Adresse");
+        labelAdresseDepart1.setText(tab_adresse_stations.get(0));       
 
         labelTotalStation1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation1.setIcon(new javax.swing.ImageIcon(getClass().getResource(""))); // NOI18N
-        labelTotalStation1.setText("nb places total");
+        labelTotalStation1.setText(String.valueOf(tab_nbplaces_stations.get(0)));
 
         labelDispoDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDispoDepart1.setIcon(new javax.swing.ImageIcon("/src/main/resources/img/velo.png")); // NOI18N
-        labelDispoDepart1.setText("nb velo dispo");
+        labelDispoDepart1.setText(String.valueOf(tab_nbvelos_stations.get(0)));
 
         labelHeureDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelHeureDepart1.setText("Pour hh:mm");
@@ -282,32 +280,32 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelHeureDepart2.setText("Pour hh:mm");
 
         labelNomDepart2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomDepart2.setText("Nom de la station");
+        labelNomDepart2.setText(tab_nom_stations.get(1));
 
         labelNomDepart3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomDepart3.setText("Nom de la station");
+        labelNomDepart3.setText(tab_nom_stations.get(2));
 
         labelDispoDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDispoDepart2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
-        labelDispoDepart2.setText("nb velo dispo");
+        labelDispoDepart2.setText(String.valueOf(tab_nbvelos_stations.get(1)));
 
         labelTotalStation2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-        labelTotalStation2.setText("nb places total");
+        labelTotalStation2.setText(String.valueOf(tab_nbplaces_stations.get(1)));
 
         labelAdresseDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseDepart2.setText("Adresse");
+        labelAdresseDepart2.setText(tab_adresse_stations.get(1));
 
         labelAdresseDepart3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseDepart3.setText("Adresse");
+        labelAdresseDepart3.setText(tab_adresse_stations.get(2));
 
         labelTotalStation3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
-        labelTotalStation3.setText("nb places total");
+        labelTotalStation3.setText(String.valueOf(tab_nbplaces_stations.get(2)));
 
         labelDispoDepart3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDispoDepart3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-        labelDispoDepart3.setText("nb velo dispo");
+        labelDispoDepart3.setText(String.valueOf(tab_nbvelos_stations.get(2)));
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -428,21 +426,21 @@ public class ResultatPanel extends javax.swing.JPanel {
         
         //Champs arrivée
         labelNomArrivee1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomArrivee1.setText("Nom de la station");
+        labelNomArrivee1.setText(tab_nom_stations_arrivee.get(0));
 
         labelAdresseArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseArrivee1.setText("Adresse");
+        labelAdresseArrivee1.setText(tab_adresse_stations_arrivee.get(0));
 
         labelHeureArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelHeureArrivee1.setText("Pour hh:mm");
 
         labelPlaceArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaceArrivee1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
-        labelPlaceArrivee1.setText("nb places vides");
+        labelPlaceArrivee1.setText(String.valueOf(tab_nbvelos_stations_arrivee.get(0)));
 
         labelTotalStation4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation4.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
-        labelTotalStation4.setText("nb places total");
+        labelTotalStation4.setText(String.valueOf(tab_nbplaces_stations_arrivee.get(0)));
 
         labelDateArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDateArrivee.setText("Le jj/mm/aaaa");
@@ -457,10 +455,10 @@ public class ResultatPanel extends javax.swing.JPanel {
         });
 
         labelNomArrivee2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomArrivee2.setText("Nom de la station");
+        labelNomArrivee2.setText(tab_nom_stations_arrivee.get(1));
 
         labelAdresseArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseArrivee2.setText("Adresse");
+        labelAdresseArrivee2.setText(tab_adresse_stations_arrivee.get(1));
 
         labelTotalStatio5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStatio5.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
@@ -468,7 +466,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         labelPlaceArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaceArrivee2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
-        labelPlaceArrivee2.setText("nb places vides");
+        labelPlaceArrivee2.setText(String.valueOf(tab_nbplaces_stations_arrivee.get(1)));
 
         labelHeureArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelHeureArrivee2.setText("Pour hh:mm");
@@ -478,7 +476,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelTotalStation6.setText("nb places total");
 
         labelNomArrivee3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomArrivee3.setText("Nom de la station");
+        labelNomArrivee3.setText(tab_nom_stations_arrivee.get(2));
 
         groupeArrivee.add(boutonArrivee5);
         boutonArrivee5.setEnabled(false);
@@ -494,10 +492,10 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         labelPlaceArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaceArrivee3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
-        labelPlaceArrivee3.setText("nb places vides");
+        labelPlaceArrivee3.setText(String.valueOf(tab_nbplaces_stations_arrivee.get(2)));
 
         labelAdresseArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseArrivee3.setText("Adresse");
+        labelAdresseArrivee3.setText(tab_adresse_stations_arrivee.get(2));
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -628,12 +626,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setContentAreaFilled(false);
         boutonAjouterFavori.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonAjouterFavori.setOpaque(true);
-        boutonAjouterFavori.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonAjouterFavoriActionPerformed(evt);
-            }
-        });
-
+        boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(station_test.getId_station(), station_test.getId_station())); 
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
