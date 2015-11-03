@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-import database.MysqlConnecter;
 import database.MysqlRequester;
 
 public class StatistiquesStation {

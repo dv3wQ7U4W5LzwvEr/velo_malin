@@ -219,9 +219,9 @@ public class MysqlRequester {
         return station;
     }
 
-    public static List<Integer> getStationsProximite(double latitude, double longitude, int nb_stations, double cote) {
+    public static List<Station> getStationsProximitees(double latitude, double longitude, int nb_stations, double cote) {
 
-        List<Integer> listStations = new ArrayList<Integer>();
+        List<Station> listStations = new ArrayList<Station>();
 
         double distLatParis = 72.2; //km pour 1°
         double distLongParis = 47.5; //km pour 1°
@@ -234,12 +234,20 @@ public class MysqlRequester {
                 longitudeMin = longitude - distLongRad,
                 longitudeMax = longitude + distLongRad;
 
-        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude BETWEEN " + latitudeMin + " AND " + latitudeMax + " AND longitude BETWEEN " + longitudeMin + " AND " + longitudeMax;
+        String sqlQuery = "SELECT * FROM velo_malin.stations WHERE latitude BETWEEN " + latitudeMin + " AND " + latitudeMax + " AND longitude BETWEEN " + longitudeMin + " AND " + longitudeMax;
 
         ResultSet rs = executerRequete(sqlQuery);
+        Station station = new Station();
+        
         try {
             while (rs.next()) {
-                    listStations.add(rs.getInt("id_station"));
+            	station.setId_station(rs.getInt("id_station"));
+                station.setNom(rs.getString("nom"));
+                station.setAdresse(rs.getString("adresse"));
+                station.setLatitude(rs.getString("latitude"));
+                station.setLongitude(rs.getString("longitude"));
+                station.setPlaces(rs.getInt("places"));
+                listStations.add(station);
             }
         } catch (SQLException e) {
             // TODO Bloc catch généré automatiquement

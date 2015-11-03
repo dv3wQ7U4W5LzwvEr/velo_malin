@@ -54,7 +54,7 @@ public class VeloMalinTest {
 		
 		System.out.println(MysqlRequester.getStation(2470));
 		
-		System.out.println(MysqlRequester.getStationsProximite(45.783791, 4.868972, 0, 0.25));
+		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 0, 0.25));
 		
 	}
 

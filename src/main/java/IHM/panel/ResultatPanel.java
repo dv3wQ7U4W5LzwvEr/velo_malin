@@ -70,9 +70,9 @@ public class ResultatPanel extends javax.swing.JPanel {
 
 
         //test pour r�sultat de recherche : stations � proximit�s
-        List<Integer> liste_stations_proximites = new ArrayList<Integer>();
+        List<Station> liste_stations_proximites = new ArrayList<Station>();
         Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
-        liste_stations_proximites = MysqlRequester.getStationsProximite(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 10, 100);
+        liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 10, 100);
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 10-1, 28, 13, 00, 00);
