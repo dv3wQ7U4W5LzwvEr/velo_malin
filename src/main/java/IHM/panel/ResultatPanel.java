@@ -336,7 +336,8 @@ public class ResultatPanel extends javax.swing.JPanel {
                 selctA1ActionPerformed(evt);
             }
         });
-
+        
+        //Champs arrivée
         labelNomArrivee1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomArrivee1.setText("Nom de la station");
 
@@ -590,7 +591,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
         
         List<Station> liste_stations_proximites = new ArrayList<Station>();      
-        liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 20, 500);
+        liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 3, 500);
         
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 10-1, 28, 13, 00, 00);
