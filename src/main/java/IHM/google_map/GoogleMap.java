@@ -1,4 +1,4 @@
-package IHM;
+package IHM.google_map;
 import java.io.IOException;
 import javax.servlet.http.*;
 
