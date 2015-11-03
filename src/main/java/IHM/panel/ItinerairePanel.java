@@ -1,4 +1,4 @@
-package IHM;
+package IHM.panel;
 /**
  *
  * @author QKFD724

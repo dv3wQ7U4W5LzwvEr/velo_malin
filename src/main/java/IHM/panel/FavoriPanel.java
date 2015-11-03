@@ -1,4 +1,4 @@
-package IHM;
+package IHM.panel;
 
 /**
  * Created by QKFD7244 on 02/11/2015.

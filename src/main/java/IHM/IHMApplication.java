@@ -1,16 +1,12 @@
 package IHM;
 
-import database.MysqlConnecter;
-import model.Client;
-import model.Station;
+import IHM.panel.*;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
 
-public class Fenetre extends JFrame {
+public class IHMApplication extends JFrame {
 
 	/**
 	 *
@@ -19,7 +15,7 @@ public class Fenetre extends JFrame {
 
 	public static void main(String[] args) {
 
-            JFrame fenetre = new Fenetre();
+            JFrame fenetre = new IHMApplication();
 
             fenetre.setTitle("Velo Malin");
             fenetre.setSize(800, 800);
@@ -88,61 +84,4 @@ public class Fenetre extends JFrame {
     }
 }
 
-class Ecouteur_station_favorie implements ActionListener {
-	private int id_station;
-	
-	public Ecouteur_station_favorie(int id_station) {
-		// TODO Auto-generated constructor stub
-    	this.id_station = id_station;
-	}
-
-	public void actionPerformed(ActionEvent e){ 	
-    	
-		
-		MysqlConnecter mysql;
-		mysql = new MysqlConnecter();
-
-		Client client_actuel;
-		client_actuel = new Client();
-
-		mysql.insertStationFavorite(client_actuel,id_station);
-		
-	    JOptionPane confirm;      
-	    confirm = new JOptionPane();
-	    ImageIcon img = new ImageIcon("images/cloud_alert.png");
-	    confirm.showMessageDialog(null, "Station bien enregistrée dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);  
-		
-	    //onglets.setSelectedIndex( int i); //pour basculer d'un onglet à un autre
-    }
-}
-
-
-class Ecouteur_itineraire_favori implements ActionListener {
-	private int id_station_arrivee;
-	private int id_station_depart;
-	
-	public Ecouteur_itineraire_favori(int id_station_depart,int id_station_arrivee) {
-		// TODO Auto-generated constructor stub
-    	this.id_station_depart = id_station_depart;
-    	this.id_station_arrivee = id_station_arrivee;
-	}
-
-	public void actionPerformed(ActionEvent e){ 	
-    	
-		MysqlConnecter mysql;
-		mysql = new MysqlConnecter();
-		
-		Client client_actuel;
-		client_actuel = new Client();		
-		
-		mysql.insertItineraireFavorit(client_actuel,id_station_depart,id_station_arrivee);
-		
-	    JOptionPane confirm;      
-	    confirm = new JOptionPane();
-	    ImageIcon img = new ImageIcon("images/cloud_alert.png");
-	    confirm.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);  
-		
-    	
-    }
-}
 

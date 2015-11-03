@@ -1,14 +1,9 @@
-import model.Client;
-import model.Station;
 import recherche.StatisquesStation;
 import database.MysqlConnecter;
 
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-
-import IHM.Fenetre;
 
 /**
  * Created by florian on 2015-09-29.
