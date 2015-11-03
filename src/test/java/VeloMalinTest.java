@@ -1,5 +1,5 @@
 import database.MysqlRequester;
-import recherche.StatisquesStation;
+import recherche.StatistiquesStation;
 import database.MysqlConnecter;
 
 import java.util.Calendar;
@@ -45,11 +45,11 @@ public class VeloMalinTest {
 		cal.set(2015, 10-1, 28, 13, 00, 00);
 		Date date = cal.getTime();		
 
-		List<Date> dateXY = StatisquesStation.calculInterval(date, 5);
-		int moyVelo = StatisquesStation.getMoyVeloStation(2470, dateXY.get(0), dateXY.get(1));
+		List<Date> dateXY = StatistiquesStation.calculInterval(date, 5);
+		int moyVelo = StatistiquesStation.getMoyVeloStation(2470, dateXY.get(0), dateXY.get(1));
 		System.out.println(moyVelo +" velos le "+ date);
 		
-		int moyPlace = StatisquesStation.getMoyPlaceStation(2470, dateXY.get(0), dateXY.get(1));
+		int moyPlace = StatistiquesStation.getMoyPlaceStation(2470, dateXY.get(0), dateXY.get(1));
 		System.out.println(moyPlace +" place vers "+ date);
 		
 		System.out.println(MysqlRequester.getStation(2470));

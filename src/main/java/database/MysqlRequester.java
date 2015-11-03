@@ -163,10 +163,7 @@ public class MysqlRequester {
         try {
             numberOfColumns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                int i = 1;
-                while (i <= numberOfColumns) {
-                    nbVeloList.add(Integer.parseInt(rs.getString(i++)));
-                }
+                nbVeloList.add(rs.getInt("places_occupees"));
             }
         } catch (SQLException e) {
             e.printStackTrace();
@@ -175,7 +172,7 @@ public class MysqlRequester {
         return nbVeloList;
     }
 
-    public static List<Integer> getPlaceSurStation(int id_station, Date dateX, Date dateY) {
+    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY) {
 
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
@@ -188,10 +185,7 @@ public class MysqlRequester {
         try {
             numberOfColumns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                int i = 1;
-                while (i <= numberOfColumns) {
-                    nbPlaceList.add(Integer.parseInt(rs.getString(i++)));
-                }
+            	nbPlaceList.add(rs.getInt("places_disponibles"));
             }
         } catch (SQLException e) {
             // TODO Bloc catch g�n�r� automatiquement
@@ -211,12 +205,12 @@ public class MysqlRequester {
 
         try {
             if (rs.next()) {
-                station.setId_station(Integer.parseInt(rs.getString("id_station")));
+                station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
                 station.setAdresse(rs.getString("adresse"));
                 station.setLatitude(rs.getString("latitude"));
                 station.setLongitude(rs.getString("longitude"));
-                station.setPlaces(Integer.parseInt(rs.getString("places")));
+                station.setPlaces(rs.getInt("places"));
             }
         } catch (NumberFormatException e) {
             // TODO Bloc catch généré automatiquement
@@ -253,7 +247,7 @@ public class MysqlRequester {
             while (rs.next()) {
                 int i = 1;
                 while (i <= numberOfColumns) {
-                    listStations.add(Integer.parseInt(rs.getString(i++)));
+                    listStations.add(rs.getInt(i++));
                 }
             }
         } catch (SQLException e) {

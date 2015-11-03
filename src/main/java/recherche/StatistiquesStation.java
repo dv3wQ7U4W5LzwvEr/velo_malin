@@ -7,7 +7,7 @@ import java.util.List;
 import database.MysqlConnecter;
 import database.MysqlRequester;
 
-public class StatisquesStation {
+public class StatistiquesStation {
 	
 	public static List<Date> calculInterval(Date date, int intervalMinutes){	
 		long offSet = 6000*intervalMinutes;	//5 minites in millisecs
@@ -39,7 +39,7 @@ public class StatisquesStation {
 	}
 	
 	public static int getMoyPlaceStation(int id_station, Date dateX, Date dateY){
-		List<Integer> nbPlace = MysqlRequester.getPlaceSurStation(id_station, dateX, dateY);
+		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY);
 		
 		Integer sum = 0;
 		int moyenne = 0;
