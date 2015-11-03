@@ -1,7 +1,7 @@
 package was;
 
 import com.google.gson.Gson;
-import database.MysqlConnecter;
+import database.MysqlRequester;
 import model.Station;
 import model.StationDisponibilites;
 import org.apache.http.HttpException;
@@ -53,8 +53,7 @@ public class ServiceWeb extends TimerTask {
                 stations.add(s);
             }
 
-            MysqlConnecter mysqlConnecter = MysqlConnecter.getInstance();
-            mysqlConnecter.insertStationDonneesStatiques(stations);
+            MysqlRequester.insertStationDonneesStatiques(stations);
 
         } catch (Exception e) {
             System.out.println(e);
@@ -78,8 +77,7 @@ public class ServiceWeb extends TimerTask {
                 stations.add(s);
             }
 
-            MysqlConnecter mysqlConnecter = MysqlConnecter.getInstance();
-            mysqlConnecter.insertStationDonneesDynamiques(stations);
+            MysqlRequester.insertStationDonneesDynamiques(stations);
 
         } catch (Exception e) {
             System.out.println(e);

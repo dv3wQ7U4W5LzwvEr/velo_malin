@@ -2,6 +2,7 @@ package IHM.panel;
 
 import IHM.listeners.EcouteurItineraireFavori;
 import IHM.listeners.EcouteurStationFavorite;
+import database.MysqlRequester;
 import model.*;
 import database.MysqlConnecter;
 
@@ -67,8 +68,8 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         //test pour r�sultat de recherche : stations � proximit�s
         List<Integer> liste_stations_proximites = new ArrayList<Integer>();
-        Station station_recherchee = MysqlConnecter.getStation(station_test.getId_station());
-        liste_stations_proximites = MysqlConnecter.getStationsProximite(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 10, 100);
+        Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
+        liste_stations_proximites = MysqlRequester.getStationsProximite(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 10, 100);
 
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 10-1, 28, 13, 00, 00);
@@ -90,7 +91,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         while (it.hasNext()) {
             Station s = it.next();
-            Station station_actuelle = MysqlConnecter.getStation(s.getId_station());
+            Station station_actuelle = MysqlRequester.getStation(s.getId_station());
 
             JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " ");
             JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " ");

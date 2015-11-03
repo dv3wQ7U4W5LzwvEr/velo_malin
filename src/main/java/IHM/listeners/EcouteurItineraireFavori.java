@@ -1,6 +1,7 @@
 package IHM.listeners;
 
 import database.MysqlConnecter;
+import database.MysqlRequester;
 import model.Client;
 
 import javax.swing.*;
@@ -21,14 +22,10 @@ public class EcouteurItineraireFavori implements ActionListener{
     }
 
     public void actionPerformed(ActionEvent e) {
-
-        MysqlConnecter mysql;
-        mysql = new MysqlConnecter();
-
         Client client_actuel;
         client_actuel = new Client();
 
-        mysql.insertItineraireFavorit(client_actuel, id_station_depart, id_station_arrivee);
+        MysqlRequester.insertItineraireFavorit(client_actuel, id_station_depart, id_station_arrivee);
 
         JOptionPane confirm;
         confirm = new JOptionPane();
