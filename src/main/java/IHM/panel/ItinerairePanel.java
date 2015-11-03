@@ -1,6 +1,12 @@
 package IHM.panel;
+
+import IHM.google_map.GoogleMapIHM;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+
 /**
- *
  * @author QKFD724
  */
 public class ItinerairePanel extends javax.swing.JPanel {
@@ -200,6 +206,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        final JFXPanel panelCarte = new JFXPanel();
+
         panelCarte.setBorder(javax.swing.BorderFactory.createEtchedBorder());
         panelCarte.setPreferredSize(new java.awt.Dimension(522, 584));
 
@@ -213,6 +221,22 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 panelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 0, Short.MAX_VALUE)
         );
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                GoogleMapIHM googleMap = new GoogleMapIHM();
+                try {
+                    googleMap.start(new Stage());
+                } catch (Exception e) {
+
+                }
+                Scene scene = googleMap.getScene();
+                panelCarte.setScene(scene);
+                panelCarte.setSize(new java.awt.Dimension(522, 584));
+            }
+        });
+
 
         arrivee.setBackground(new java.awt.Color(153, 153, 255));
         arrivee.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "ADRESSE D'ARRIVEE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 10))); // NOI18N
