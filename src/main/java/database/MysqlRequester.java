@@ -308,4 +308,22 @@ public class MysqlRequester {
 
         return result_insertion;
     }
+    
+    public static List<Integer> getListeStationsFavories() {
+
+        String sqlQuery = "SELECT id_station FROM stationsfavorites";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        List<Integer> liste_station = new ArrayList<Integer>();
+        
+        try {
+            while (rs.next()) {
+            	liste_station.add(rs.getInt("id_station"));
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        return liste_station;
+    }
 }
