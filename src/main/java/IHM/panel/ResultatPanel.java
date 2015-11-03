@@ -98,10 +98,16 @@ public class ResultatPanel extends javax.swing.JPanel {
 
     	//Map<String, String> map = new HashMap<String, String>();
     	
-    	//loop a Map
+    	//key = station et Double = value
     	for (Entry<Station, Double> entry : liste_stations_proximites.entrySet()) {
-    		System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
-    		
+    		//System.out.println("Key : " + entry.getKey() + " Value : " + entry.getValue());
+    		Station s = entry.getKey();
+    		Station station_actuelle = MysqlRequester.getStation(s.getId_station());
+            int cpt = 0;
+            
+            String tab_nom_stations[] = null;
+            
+            cpt++;
     	}
     	
     	
