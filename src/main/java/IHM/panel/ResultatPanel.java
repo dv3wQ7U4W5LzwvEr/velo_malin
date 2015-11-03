@@ -30,22 +30,25 @@ public class ResultatPanel extends javax.swing.JPanel {
 
     private void initResultat() {
 
+    	/*
         GridLayout gl = new GridLayout(3, 5);
         setLayout(gl);
-
-        setBackground(Color.white);
-        setBorder(BorderFactory.createTitledBorder("R�sultats de recherche"));
-        
-        /*
-        JLabel lab_station_nom = new JLabel("NOM");
-        JLabel lab_station_adr = new JLabel("ADRESSE");
-        JLabel lab_station_nbplace = new JLabel("NOMBRE PLACES VIDES DISPONIBLES");
-        JLabel lab_station_nbvelovs = new JLabel("NOMBRE VELOVS DISPONIBLE");
         */
 
+    	/*
+        setBackground(Color.white);
+        setBorder(BorderFactory.createTitledBorder("R�sultats de recherche"));
+		*/
+        
+        
+        
+    	
+    	
+    	//A garder : Tof!----------------------------
         MysqlConnecter mysql;
         mysql = new MysqlConnecter();
 
+        
         Station station_test, station_test_2;
         station_test = new Station();
         station_test_2 = new Station();
@@ -115,5 +118,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         JButton but_itineraire_favori = new JButton("Enregister l' itineraire dans vos favoris");
         but_itineraire_favori.addActionListener(new EcouteurItineraireFavori(station_test.getId_station(), station_test_2.getId_station()));
         add(but_itineraire_favori);
+        
+        
+        
     }
 }
