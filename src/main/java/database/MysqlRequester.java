@@ -159,9 +159,7 @@ public class MysqlRequester {
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbVeloList = new ArrayList<Integer>();
-        int numberOfColumns;
         try {
-            numberOfColumns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
                 nbVeloList.add(rs.getInt("places_occupees"));
             }
@@ -180,15 +178,13 @@ public class MysqlRequester {
                 datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
 
         ResultSet rs = executerRequete(sqlQuery);
-        int numberOfColumns;
         List<Integer> nbPlaceList = new ArrayList<Integer>();
         try {
-            numberOfColumns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
             	nbPlaceList.add(rs.getInt("places_disponibles"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         }
 
@@ -213,10 +209,10 @@ public class MysqlRequester {
                 station.setPlaces(rs.getInt("places"));
             }
         } catch (NumberFormatException e) {
-            // TODO Bloc catch gÃ©nÃ©rÃ© automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Bloc catch gÃ©nÃ©rÃ© automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         }
 
@@ -227,8 +223,8 @@ public class MysqlRequester {
 
         List<Integer> listStations = new ArrayList<Integer>();
 
-        double distLatParis = 72.2; //km pour 1Â°
-        double distLongParis = 47.5; //km pour 1Â°
+        double distLatParis = 72.2; //km pour 1°
+        double distLongParis = 47.5; //km pour 1°
 
         double distLatRad = cote / distLatParis;
         double distLongRad = cote / distLongParis;
@@ -241,17 +237,12 @@ public class MysqlRequester {
         String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude BETWEEN " + latitudeMin + " AND " + latitudeMax + " AND longitude BETWEEN " + longitudeMin + " AND " + longitudeMax;
 
         ResultSet rs = executerRequete(sqlQuery);
-        int numberOfColumns;
         try {
-            numberOfColumns = rs.getMetaData().getColumnCount();
             while (rs.next()) {
-                int i = 1;
-                while (i <= numberOfColumns) {
-                    listStations.add(rs.getInt(i++));
-                }
+                    listStations.add(rs.getInt("id_station"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         }
 
@@ -275,10 +266,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            // TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		}*/
 
@@ -300,10 +291,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+            // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-      // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
+      // TODO Bloc catch généré automatiquement
 			e.printStackTrace();
 		} */
 
