@@ -232,11 +232,11 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelAdresseDepart1.setText("Adresse");
 
         labelTotalStation1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation1.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelTotalStation1.setIcon(new javax.swing.ImageIcon(getClass().getResource(""))); // NOI18N
         labelTotalStation1.setText("nb places total");
 
         labelDispoDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDispoDepart1.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/velo.png"))); // NOI18N
+        labelDispoDepart1.setIcon(new javax.swing.ImageIcon("/src/main/resources/img/velo.png")); // NOI18N
         labelDispoDepart1.setText("nb velo dispo");
 
         labelHeureDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -282,11 +282,11 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelNomDepart3.setText("Nom de la station");
 
         labelDispoDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDispoDepart2.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelDispoDepart2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelDispoDepart2.setText("nb velo dispo");
 
         labelTotalStation2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation2.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/velo.png"))); // NOI18N
+        labelTotalStation2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelTotalStation2.setText("nb places total");
 
         labelAdresseDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -296,11 +296,11 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelAdresseDepart3.setText("Adresse");
 
         labelTotalStation3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation3.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelTotalStation3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation3.setText("nb places total");
 
         labelDispoDepart3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDispoDepart3.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/velo.png"))); // NOI18N
+        labelDispoDepart3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelDispoDepart3.setText("nb velo dispo");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
@@ -431,11 +431,11 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelHeureArrivee1.setText("Pour hh:mm");
 
         labelPlaceArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPlaceArrivee1.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/mark.png"))); // NOI18N
+        labelPlaceArrivee1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
         labelPlaceArrivee1.setText("nb places vides");
 
         labelTotalStation4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation4.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelTotalStation4.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation4.setText("nb places total");
 
         labelDateArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -457,18 +457,18 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelAdresseArrivee2.setText("Adresse");
 
         labelTotalStatio5.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStatio5.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelTotalStatio5.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStatio5.setText("nb places total");
 
         labelPlaceArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPlaceArrivee2.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/mark.png"))); // NOI18N
+        labelPlaceArrivee2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
         labelPlaceArrivee2.setText("nb places vides");
 
         labelHeureArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelHeureArrivee2.setText("Pour hh:mm");
 
         labelTotalStation6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation6.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/station.png"))); // NOI18N
+        labelTotalStation6.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation6.setText("nb places total");
 
         labelNomArrivee3.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
@@ -487,7 +487,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelHeureArrivee3.setText("Pour hh:mm");
 
         labelPlaceArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelPlaceArrivee3.setIcon(new javax.swing.ImageIcon(getClass().getResource("src/main/resources/img/mark.png"))); // NOI18N
+        labelPlaceArrivee3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
         labelPlaceArrivee3.setText("nb places vides");
 
         labelAdresseArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
