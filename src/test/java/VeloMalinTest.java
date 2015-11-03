@@ -1,6 +1,5 @@
 import database.MysqlRequester;
 import recherche.StatistiquesStation;
-import database.MysqlConnecter;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -32,8 +31,8 @@ public class VeloMalinTest {
 //		
 //		//test_client_actuel.getId_client();
 //		
-		MysqlConnecter mysql = new MysqlConnecter();
-	
+//		MysqlConnecter mysql = new MysqlConnecter();
+//	
 //		//test de base g�n�ral
 //		resultat_test = mysql.insertStationFavorite(test_client,test_station);
 //		resultat_test = mysql.insertItineraireFavorit(test_client,station_depart,station_arrivee);
@@ -54,7 +53,7 @@ public class VeloMalinTest {
 		
 		System.out.println(MysqlRequester.getStation(2470));
 		
-		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 0, 0.25));
+		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
 		
 	}
 

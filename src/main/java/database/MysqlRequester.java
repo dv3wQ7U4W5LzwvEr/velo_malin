@@ -219,42 +219,45 @@ public class MysqlRequester {
         return station;
     }
 
-    public static List<Station> getStationsProximitees(double latitude, double longitude, int nb_stations, double cote) {
+    public static Map<Station, Double> getStationsProximitees(double latitude, double longitude, int nb_stations, double distance) {
 
-        List<Station> listStations = new ArrayList<Station>();
-
-        double distLatParis = 72.2; //km pour 1°
-        double distLongParis = 47.5; //km pour 1°
-
-        double distLatRad = cote / distLatParis;
-        double distLongRad = cote / distLongParis;
-
-        double latitudeMin = latitude - distLatRad,
-                latitudeMax = latitude + distLatRad,
-                longitudeMin = longitude - distLongRad,
-                longitudeMax = longitude + distLongRad;
-
-        String sqlQuery = "SELECT * FROM velo_malin.stations WHERE latitude BETWEEN " + latitudeMin + " AND " + latitudeMax + " AND longitude BETWEEN " + longitudeMin + " AND " + longitudeMax;
-
+        Map<Station, Double> mapStations = new HashMap<Station, Double>();
+//        double distLatParis = 72.2; //km pour 1°
+//        double distLongParis = 47.5; //km pour 1°
+//
+//        double distLatRad = cote / distLatParis;
+//        double distLongRad = cote / distLongParis;
+//
+//        double latitudeMin = latitude - distLatRad,
+//                latitudeMax = latitude + distLatRad,
+//                longitudeMin = longitude - distLongRad,
+//                longitudeMax = longitude + distLongRad;
+//
+//        String sqlQuery = "SELECT * FROM velo_malin.stations WHERE latitude BETWEEN " + latitudeMin + " AND " + latitudeMax + " AND longitude BETWEEN " + longitudeMin + " AND " + longitudeMax;
+        
+        // Merci à Oleksiy Kovyrin
+        String sqlQuery = "SELECT *,3956 * 2 * ASIN(SQRT( POWER(SIN(('"+ latitude +"' - abs(latitude)) * pi()/180 / 2),2) + COS('"+ latitude +"' * pi()/180 ) * COS( abs(latitude) *  pi()/180) * POWER(SIN(('"+ longitude +"' - longitude) *  pi()/180 / 2), 2) )) as distance FROM velo_malin.stations having distance < '"+ distance +"' ORDER BY distance limit "+ nb_stations +";";
+        
         ResultSet rs = executerRequete(sqlQuery);
-        Station station = new Station();
+        Station station;
         
         try {
             while (rs.next()) {
+            	station = new Station();
             	station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
                 station.setAdresse(rs.getString("adresse"));
                 station.setLatitude(rs.getString("latitude"));
                 station.setLongitude(rs.getString("longitude"));
                 station.setPlaces(rs.getInt("places"));
-                listStations.add(station);
+                mapStations.put(station, rs.getDouble("distance"));
             }
         } catch (SQLException e) {
             // TODO Bloc catch généré automatiquement
             e.printStackTrace();
         }
 
-        return listStations;
+        return mapStations;
     }
 
 
