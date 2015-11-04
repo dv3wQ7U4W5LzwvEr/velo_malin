@@ -84,7 +84,7 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
         //Traitement listener et récup données ----------------------------
         
-        //pour test station de départ (en attente lien avec IHM)
+        //pour test station de départ (en attente lien avec IHM Programmer son itinéraire)
         Station station_test = new Station();
         station_test.setId_station(2903);
 
@@ -156,9 +156,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     		tab_adresse_stations_arrivee.add(s.getAdresse());
     		tab_nbplaces_stations_arrivee.add(nbplaces);
     		tab_nbvelos_stations_arrivee.add(nbvelos);
-    	}  
-    	
-          //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
+    	}    	
+        //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
         
     	
         /*----Code généré*/
@@ -626,6 +625,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setContentAreaFilled(false);
         boutonAjouterFavori.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonAjouterFavori.setOpaque(true);
+        
         boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(station_test.getId_station(), station_test.getId_station())); 
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
@@ -661,63 +661,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
-        /*------Fin de code généré*/
-
-        
-    	//A garder : Tof!----------------------------
-        
-        //pour test (en attente lien avec IHM)
-        /*
-        Station station_test = new Station();
-        station_test.setId_station(2903);
-
-        Station station_recherchee = MysqlRequester.getStation(station_test.getId_station());
-        
-        List<Station> liste_stations_proximites = new ArrayList<Station>();      
-        liste_stations_proximites = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee.getLatitude()), Double.parseDouble(station_recherchee.getLongitude()), 3, 500);
-        
-		Calendar cal = Calendar.getInstance();
-		cal.set(2015, 10-1, 28, 13, 00, 00);
-		Date dateX = cal.getTime();
-		cal.set(2015, 10-1, 28, 13, 05, 00);
-		Date dateY = cal.getTime();
-
-        Iterator<Station> it = liste_stations_proximites.iterator();
-
-        while (it.hasNext()) {
-            Station s = it.next();
-            Station station_actuelle = MysqlRequester.getStation(s.getId_station());
-            
-            //int nbvelos = StatistiquesStation.getMoyVeloStation(station_actuelle.getId_station(), dateX, dateY);
-            //int nbplaces = StatistiquesStation.getMoyPlaceStation(station_actuelle.getId_station(), dateX, dateY);
-            int nbvelos = StatistiquesStation.getMoyVeloStation(2902, dateX, dateY);
-            int nbplaces = StatistiquesStation.getMoyPlaceStation(2902, dateX, dateY);
-            
-            
-            JLabel lab_res_id = new JLabel(String.valueOf(station_actuelle.getId_station()) + " ");
-            JLabel lab_res_nom = new JLabel(station_actuelle.getNom() + " ");
-            JLabel lab_res_adresse = new JLabel(station_actuelle.getAdresse() + " ");
-            JLabel lab_res_nbplace = new JLabel(nbplaces + " ");
-            JLabel lab_res_nbvelovs = new JLabel(nbvelos + " ");
-
-            //JButton but_station_favorite = new JButton("Enregister la station dans vos favoris");
-
-            add(lab_res_id);
-            add(lab_res_nom);
-            add(lab_res_adresse);
-            add(lab_res_nbplace);
-            add(lab_res_nbvelovs);
-
-            //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
-            //add(but_station_favorite);
-        }
-
-        //preparation bouton pour enregistrement itineraire favori
-        //JButton but_itineraire_favori = new JButton("Enregister l' itineraire dans vos favoris");
-        //but_itineraire_favori.addActionListener(new EcouteurItineraireFavori(station_test.getId_station(), station_test_2.getId_station()));
-        //add(but_itineraire_favori);
-        */
-        
+        /*------Fin de code généré*/      
         
     }
 
