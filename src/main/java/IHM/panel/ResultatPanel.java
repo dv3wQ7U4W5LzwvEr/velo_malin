@@ -124,7 +124,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         Station station_arrivee = new Station();
         station_arrivee.setId_station(2469);
 
-        Station station_recherchee_arrivee = MysqlRequester.getStation(station_test.getId_station());
+        Station station_recherchee_arrivee = MysqlRequester.getStation(station_arrivee.getId_station());
         
         Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_arrivee.getLatitude()), Double.parseDouble(station_recherchee_arrivee.getLongitude()), 3, 500);
         
