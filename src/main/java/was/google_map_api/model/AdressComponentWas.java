@@ -5,4 +5,5 @@ package was.google_map_api.model;
  */
 public class AdressComponentWas {
 
+    private AdressWas adress[];
 }

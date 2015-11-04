@@ -36,6 +36,39 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
     private Button btnHideMarker;
     private Button btnDeleteMarker;
 
+    private static GoogleMapIHM instance = null;
+
+    private GoogleMapIHM()
+    {
+        try
+        {
+            start(new Stage());
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
+    public static GoogleMapIHM getInstance() {
+        if (instance == null) {
+            instance = new GoogleMapIHM();
+        }
+        return instance;
+    }
+
+    public void reset()
+    {
+        try
+        {
+            start(new Stage());
+        }
+        catch (Exception e)
+        {
+
+        }
+    }
+
     @Override
     public void start(final Stage stage) throws Exception {
         mapComponent = new GoogleMapView();

@@ -20,7 +20,7 @@ public class MysqlConnecter {
     private String user = "root";
     private String password = "root";
 
-    public MysqlConnecter() {
+    private MysqlConnecter() {
         try {
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();

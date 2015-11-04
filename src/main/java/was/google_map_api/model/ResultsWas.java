@@ -3,15 +3,15 @@ package was.google_map_api.model;
 /**
  * Created by laurel on 04/11/2015.
  */
-public class ResultWas {
+public class ResultsWas {
 
-        private AdressComponentWas[] adress_components;
+        private AdressWas adress_components;
         private String formatted_address;
         private GeometryWas geometry;
         private String place_id;
         private String types[];
 
-        public AdressComponentWas[] getAdress_components() {
+        public AdressWas getAdress_components() {
                 return adress_components;
         }
 

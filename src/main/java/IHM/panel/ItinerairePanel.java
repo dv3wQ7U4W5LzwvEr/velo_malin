@@ -225,12 +225,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
-                GoogleMapIHM googleMap = new GoogleMapIHM();
-                try {
-                    googleMap.start(new Stage());
-                } catch (Exception e) {
-
-                }
+                GoogleMapIHM googleMap = GoogleMapIHM.getInstance();
                 Scene scene = googleMap.getScene();
                 panelCarte.setScene(scene);
                 panelCarte.setSize(new java.awt.Dimension(522, 584));
