@@ -34,7 +34,7 @@ public class AccueilPanel extends javax.swing.JPanel{
         setBackground(new java.awt.Color(255, 255, 255));
 
         imageAccueil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageAccueil.setIcon(new javax.swing.ImageIcon("C:\\Users\\QKFD7244\\Documents\\Z__Recherches\\projet\\velo_malin\\src\\main\\resources\\img\\image_velovs.jpg")); // NOI18N
+        imageAccueil.setIcon(new javax.swing.ImageIcon("src/main/ressources/img/image_velovs.jpg")); // NOI18N
         imageAccueil.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
 
         labelCredits.setBackground(new java.awt.Color(204, 204, 204));
