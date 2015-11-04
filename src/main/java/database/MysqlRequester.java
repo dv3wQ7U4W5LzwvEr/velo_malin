@@ -304,9 +304,19 @@ public class MysqlRequester {
 
         String sqlQuery = "SELECT id_station_depart,id_station_arrivee FROM itinerairesfavoris";
 
-        executerRequete(sqlQuery);
+        ResultSet rs = executerRequete(sqlQuery);
         Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
 
-        return liste_itineraires_favoris;
+        try {
+            while (rs.next()) {
+            	liste_itineraires_favoris.put(rs.getInt("id_station_depart"), rs.getInt("id_station_arrivee"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+      return liste_itineraires_favoris;
+ 
     }
 }

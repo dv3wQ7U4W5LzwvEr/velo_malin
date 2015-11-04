@@ -34,12 +34,13 @@ public class EcouteurItineraireFavori implements ActionListener{
         Map<Integer,Integer> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
  
         //pb : passe pas dans la boucle ou met pas à jour la variable dans la boucle
-        for (Map.Entry<Integer,Integer> currentEntry : liste_itineraires_favoris.entrySet()){      	
+        for (Map.Entry<Integer,Integer> currentEntry : liste_itineraires_favoris.entrySet()){      	      	
         	int station_depart  = currentEntry.getKey();
         	int station_arrivee = currentEntry.getValue();
-        	
+        	      	
     		if((id_station_depart == station_depart) && (id_station_arrivee == station_arrivee))
-    			deja_favori = false;
+    			deja_favori = true;
+    			
         }
         
         /*
