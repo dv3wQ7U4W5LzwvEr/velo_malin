@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.List;
 
 import database.MysqlRequester;
+import model.Jours;
 
 public class StatistiquesStation {
 	
@@ -22,8 +23,8 @@ public class StatistiquesStation {
 		return dateXY;		
 	}
 
-	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY){
-		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY);
+	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours){
+		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY, jours);
 		
 		Integer sum = 0;
 		int moyenne = 0;
@@ -37,8 +38,8 @@ public class StatistiquesStation {
 		return moyenne;
 	}
 	
-	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY){
-		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY);
+	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours){
+		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY, jours);
 		
 		Integer sum = 0;
 		int moyenne = 0;

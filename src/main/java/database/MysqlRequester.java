@@ -150,12 +150,25 @@ public class MysqlRequester {
         return listeDesStations;
     }
 
-    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY) {
-
+    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours) {
+    	
+    	String stringJours;
+    	if(jours == null){
+    		stringJours = "'LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'";
+    	} else {
+	    	StringBuilder sb = new StringBuilder();
+	    	String delim = "";
+	    	for (Jours jour : jours) {
+	    	    sb.append(delim).append("'").append(jour).append("'");
+	    	    delim = ",";
+	    	}
+	    	stringJours = sb.toString();
+    	}
+    	
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-
+        
         String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station +
-                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
+                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "' AND jour in ("+ stringJours +");";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbVeloList = new ArrayList<Integer>();
@@ -170,12 +183,25 @@ public class MysqlRequester {
         return nbVeloList;
     }
 
-    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY) {
+    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours) {
+    	
+    	String stringJours;
+    	if(jours == null){
+    		stringJours = "'LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'";
+    	} else {
+	    	StringBuilder sb = new StringBuilder();
+	    	String delim = "";
+	    	for (Jours jour : jours) {
+	    	    sb.append(delim).append("'").append(jour).append("'");
+	    	    delim = ",";
+	    	}
+	    	stringJours = sb.toString();
+    	}
 
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
-                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'";
+                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "' AND jour in ("+ stringJours +");";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbPlaceList = new ArrayList<Integer>();
@@ -184,7 +210,7 @@ public class MysqlRequester {
             	nbPlaceList.add(rs.getInt("places_disponibles"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         }
 
@@ -209,10 +235,10 @@ public class MysqlRequester {
                 station.setPlaces(rs.getInt("places"));
             }
         } catch (NumberFormatException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         }
 
@@ -223,7 +249,7 @@ public class MysqlRequester {
 
         Map<Station, Double> mapStations = new HashMap<Station, Double>();
         
-        // Merci à Oleksiy Kovyrin
+        // Merci ï¿½ Oleksiy Kovyrin
         String sqlQuery = "SELECT *,3956 * 2 * ASIN(SQRT( POWER(SIN(('"+ latitude +"' - abs(latitude)) * pi()/180 / 2),2) + COS('"+ latitude +"' * pi()/180 ) * COS( abs(latitude) *  pi()/180) * POWER(SIN(('"+ longitude +"' - longitude) *  pi()/180 / 2), 2) )) as distance FROM velo_malin.stations having distance < '"+ distance +"' ORDER BY distance limit "+ nb_stations +";";
         
         ResultSet rs = executerRequete(sqlQuery);
@@ -241,7 +267,7 @@ public class MysqlRequester {
                 mapStations.put(station, rs.getDouble("distance"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         }
 
@@ -265,10 +291,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
 		}*/
 
@@ -290,10 +316,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch généré automatiquement
+            // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-      // TODO Bloc catch généré automatiquement
+      // TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
 		} */
 

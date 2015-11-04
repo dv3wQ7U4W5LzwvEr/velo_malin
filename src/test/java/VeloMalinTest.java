@@ -1,9 +1,13 @@
 import database.MysqlRequester;
+import model.Jours;
 import recherche.StatistiquesStation;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
 
 /**
  * Created by florian on 2015-09-29.
@@ -43,18 +47,18 @@ public class VeloMalinTest {
 		Calendar cal = Calendar.getInstance();
 		cal.set(2015, 10-1, 28, 13, 00, 00);
 		Date date = cal.getTime();		
-
+		
 		List<Date> dateXY = StatistiquesStation.calculIntervalTemps(date, 5);
-		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1));
+		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1), null);
 		System.out.println(moyVelo +" velos le "+ date);
 		
-		int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1));
-		System.out.println(moyPlace +" place vers "+ date);
+		int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1), null);
+		System.out.println(moyPlace +" places vers "+ date);
 		
 		System.out.println(MysqlRequester.getStation(2470));
 		
 		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
-		
+
 	}
 
 }

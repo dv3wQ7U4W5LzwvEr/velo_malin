@@ -66,8 +66,13 @@ public class IHMApplication extends JFrame {
         /*----------*\
         * Station    *
         \*----------*/
-//        StationPanel stationPanel = new StationPanel();
+<<<<<<< HEAD
+        //StationPanel stationPanel = new StationPanel();
         //panel3.add(stationPanel);
+=======
+//        StationPanel stationPanel = new StationPanel();
+//        panel3.add(stationPanel);
+>>>>>>> Ajout possibilité de préciser les jours pour getMoyenneNbPlacesSurStation et getMoyenneNbVelosSurStation
 
         /*----------*\
         * Favori     *
