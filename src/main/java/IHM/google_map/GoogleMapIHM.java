@@ -126,7 +126,7 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
         /*
         
        // map.fitBounds(new LatLongBounds(new LatLong(30, 120), center));
-//        System.out.println("Bounds : " + map.getBounds());
+//        System.out.println("PositionWas : " + map.getBounds());
 
         lblCenter.setText(map.getCenter().toString());
         map.centerProperty().addListener((ObservableValue<? extends LatLong> obs, LatLong o, LatLong n) -> {

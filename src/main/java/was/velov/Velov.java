@@ -1,4 +1,4 @@
-package was;
+package was.velov;
 
 import com.google.gson.Gson;
 import database.MysqlRequester;
@@ -9,7 +9,7 @@ import org.apache.http.HttpResponse;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.impl.client.DefaultHttpClient;
-import was.model.StationWas;
+import was.velov.model.StationWas;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -20,7 +20,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.TimerTask;
 
-public class ServiceWeb extends TimerTask {
+public class Velov extends TimerTask {
 
     private String apiKey = "&apiKey=fa1d875bef00abe2c7a281f1087bcc122f62379a";
 

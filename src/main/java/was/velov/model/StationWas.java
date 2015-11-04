@@ -1,4 +1,4 @@
-package was.model;
+package was.velov.model;
 
 /**
  * Created by florian on 2015-10-11.
