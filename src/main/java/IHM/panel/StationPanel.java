@@ -1,5 +1,7 @@
 package IHM.panel;
 
+import java.awt.Container.*;
+
 /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
@@ -16,7 +18,7 @@ public class StationPanel extends javax.swing.JFrame {
      * Creates new form NewJFrame
      */
     public StationPanel() {
-        initComponents();
+        initStationPanel();
     }
 
     /**
@@ -26,7 +28,7 @@ public class StationPanel extends javax.swing.JFrame {
      */
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
-    private void initComponents() {
+    private void initStationPanel() {
 
         jPasswordField1 = new javax.swing.JPasswordField();
         jLabel1 = new javax.swing.JLabel();

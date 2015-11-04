@@ -40,7 +40,7 @@ public class IHMApplication extends JFrame {
             ImageIcon icon4 = new ImageIcon("src/main/resources/img/cloud.png");
 
             onglets.addTab("Accueil", icon0, panel0);
-            onglets.addTab("Programmer son itinéraire", icon1, panel1);
+            onglets.addTab("Programmer son itin�aire", icon1, panel1);
             onglets.addTab("Résultats de recherche", icon2, panel2);
             onglets.addTab("Statistiques de station", icon3, panel3);
             onglets.addTab("Alertes", icon4, panel4);
@@ -58,7 +58,7 @@ public class IHMApplication extends JFrame {
         panel1.add(itinerairePanel);
 
         /*----------*\
-        * R�sultats *
+        * Résultats *
         \*----------*/
         ResultatPanel resultatPanel = new ResultatPanel();
         panel2.add(resultatPanel);
@@ -67,7 +67,7 @@ public class IHMApplication extends JFrame {
         * Station    *
         \*----------*/
         //StationPanel stationPanel = new StationPanel();
-        // panel3.add(stationPanel);
+        //panel3.add(stationPanel);
 
         /*----------*\
         * Favori     *
@@ -77,7 +77,7 @@ public class IHMApplication extends JFrame {
 
 
         /*----------*\
-        * G�n�ration*
+        * Génération*
         \*----------*/
             fenetre.add(onglets);
             fenetre.setVisible(true);

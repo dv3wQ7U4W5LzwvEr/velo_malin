@@ -300,21 +300,13 @@ public class MysqlRequester {
         return result_insertion;
     }
     
-    public static List<Integer> getListeStationsFavories() {
+    public static Map<Integer,Integer> getListeItinerairesFavoris() {
 
-        String sqlQuery = "SELECT id_station FROM stationsfavorites";
+        String sqlQuery = "SELECT id_station_depart,id_station_arrivee FROM itinerairesfavoris";
 
-        ResultSet rs = executerRequete(sqlQuery);
-        List<Integer> liste_station = new ArrayList<Integer>();
-        
-        try {
-            while (rs.next()) {
-            	liste_station.add(rs.getInt("id_station"));
-            }
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
+        executerRequete(sqlQuery);
+        Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
 
-        return liste_station;
+        return liste_itineraires_favoris;
     }
 }
