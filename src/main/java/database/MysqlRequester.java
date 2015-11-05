@@ -179,7 +179,13 @@ public class MysqlRequester {
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbVeloList = new ArrayList<Integer>();
+        
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             while (rs.next()) {
                 nbVeloList.add(rs.getInt("places_occupees"));
             }
@@ -220,6 +226,11 @@ public class MysqlRequester {
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbPlaceList = new ArrayList<Integer>();
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             while (rs.next()) {
             	nbPlaceList.add(rs.getInt("places_disponibles"));
             }
@@ -239,6 +250,11 @@ public class MysqlRequester {
         ResultSet rs = executerRequete(sqlQuery);
 
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             if (rs.next()) {
                 station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
@@ -265,6 +281,11 @@ public class MysqlRequester {
         List<Station> stations = new ArrayList<>();
         Station station;
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             while(rs.next()) {
                 station = new Station();
                 station.setId_station(rs.getInt("id_station"));
@@ -292,6 +313,11 @@ public class MysqlRequester {
         Station station;
         
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             while (rs.next()) {
             	station = new Station();
             	station.setId_station(rs.getInt("id_station"));
@@ -370,6 +396,11 @@ public class MysqlRequester {
         Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
 
         try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
             while (rs.next()) {
             	liste_itineraires_favoris.put(rs.getInt("id_station_depart"), rs.getInt("id_station_arrivee"));
             }
