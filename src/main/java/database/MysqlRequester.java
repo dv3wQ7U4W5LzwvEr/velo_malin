@@ -218,7 +218,6 @@ public class MysqlRequester {
     }
 
     public static Station getStation(int id_station) {
-
         Station station = new Station();
 
         String sqlQuery = "SELECT * FROM velo_malin.stations WHERE id_station='" + id_station + "';";
@@ -243,6 +242,29 @@ public class MysqlRequester {
         }
 
         return station;
+    }
+
+    public static List<Station> getToutesLesStations() {
+        String sqlQuery = "SELECT * FROM velo_malin.stations;";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        List<Station> stations = new ArrayList<>();
+        Station station;
+        try {
+            while(rs.next()) {
+                station = new Station();
+                station.setId_station(rs.getInt("id_station"));
+                station.setNom(rs.getString("nom"));
+                station.setAdresse(rs.getString("adresse"));
+                station.setLatitude(rs.getString("latitude"));
+                station.setLongitude(rs.getString("longitude"));
+                station.setPlaces(rs.getInt("places"));
+                stations.add(station);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return stations;
     }
 
     public static Map<Station, Double> getStationsProximitees(double latitude, double longitude, int nb_stations, double distance) {
@@ -343,6 +365,5 @@ public class MysqlRequester {
             System.out.println("Erreur: " + ex);
         }
       return liste_itineraires_favoris;
- 
     }
 }

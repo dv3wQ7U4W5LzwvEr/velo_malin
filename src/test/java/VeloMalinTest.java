@@ -1,5 +1,6 @@
 import database.MysqlRequester;
 import model.Jours;
+import model.Station;
 import recherche.StatistiquesStation;
 
 import java.util.ArrayList;
@@ -58,6 +59,11 @@ public class VeloMalinTest {
 		System.out.println(MysqlRequester.getStation(2470));
 		
 		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
+
+		System.out.println(MysqlRequester.getToutesLesStations().size());
+		for(Station object: MysqlRequester.getToutesLesStations()){
+			System.out.println(object);
+		}
 
 	}
 
