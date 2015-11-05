@@ -8,7 +8,7 @@ import database.MysqlRequester;
 
 public class StatistiquesStation {
 	
-	public static List<Date> calculInterval(Date date, int intervalMinutes){	
+	public static List<Date> calculIntervalTemps(Date date, int intervalMinutes){	
 		long offSet = 6000*intervalMinutes;	//5 minites in millisecs
 		long longDate = date.getTime();
 		
@@ -22,7 +22,7 @@ public class StatistiquesStation {
 		return dateXY;		
 	}
 
-	public static int getMoyVeloStation(int id_station, Date dateX, Date dateY){
+	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY){
 		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY);
 		
 		Integer sum = 0;
@@ -37,7 +37,7 @@ public class StatistiquesStation {
 		return moyenne;
 	}
 	
-	public static int getMoyPlaceStation(int id_station, Date dateX, Date dateY){
+	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY){
 		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY);
 		
 		Integer sum = 0;

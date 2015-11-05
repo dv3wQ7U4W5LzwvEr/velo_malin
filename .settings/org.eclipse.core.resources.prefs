@@ -3,4 +3,5 @@ encoding//src/main/java/IHM/IHMApplication.java=UTF-8
 encoding//src/main/java/IHM/listeners/EcouteurItineraireFavori.java=UTF-8
 encoding//src/main/java/IHM/panel/ResultatPanel.java=UTF-8
 encoding//src/main/java/database/MysqlConnecter.java=UTF-8
+encoding/<project>=UTF-8
 separateDerivedEncodings=true
