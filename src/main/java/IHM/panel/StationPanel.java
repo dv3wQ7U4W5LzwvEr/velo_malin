@@ -5,6 +5,18 @@
  */
 package IHM.panel;
 
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
+import java.util.Iterator;
+import java.util.List;
+
+import IHM.listeners.EcouteurItineraireFavori;
+import IHM.listeners.EcouteurValiderStatistiquesStations;
+import database.MysqlRequester;
+import model.Station;
+import recherche.StatistiquesStation;
+
 /**
  *
  * @author Emy
@@ -44,17 +56,17 @@ public class StationPanel extends javax.swing.JPanel {
         jScrollPane4 = new javax.swing.JScrollPane();
         jList3 = new javax.swing.JList();
 
+        //test : ajout Date manuel pour test
+        Calendar cal = Calendar.getInstance();
+		cal.set(2015, 10-1, 28, 13, 00, 00);
+		Date date_station = cal.getTime();		
         jLabel1.setBackground(new java.awt.Color(204, 0, 0));
         jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("Informations sur stations");
-
         jButton1.setText("Valider");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
+        //jButton1.addActionListener(new EcouteurValiderStatistiquesStations(station_test.getId_station(), date_station));
+        
+        
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Informations sur station");
 
@@ -63,7 +75,7 @@ public class StationPanel extends javax.swing.JPanel {
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Sélectionner la stations");
+        jLabel4.setText("Sélectionner la station");
         jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jSeparator2.setBackground(new java.awt.Color(255, 51, 51));
@@ -102,19 +114,38 @@ public class StationPanel extends javax.swing.JPanel {
         jSeparator3.setToolTipText("Statistiques de la station");
         jSeparator3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
+    	List<String> tab_nom_stations = new ArrayList<String>();
+    	List<String> tab_adresse_stations = new ArrayList<String>();
+        List<Station> liste_stations = MysqlRequester.getToutesLesStations();
+        Iterator<Station> it = liste_stations.iterator();
+        
+    	while (it.hasNext()){
+    		Station station = (Station) it.next();	   		
+    		
+    		tab_nom_stations.add(station.getNom());
+	   		tab_adresse_stations.add(station.getAdresse());
+    	} 
+    	int taille = tab_nom_stations.size(); 
+    	String strings[] = new String[taille];
+    	for(int i = 0;i < tab_nom_stations.size();i++){
+   		 strings[i] = String.valueOf(tab_nom_stations.get(i));
+    	}
+   
         jList1.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Nom des stations à proximitées", "autres..." };
-            public int getSize() { return strings.length; }
+        	public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
-
-        jLabel5.setText("Evolution du nombre de vélo dans la journée");
+        List<String> station_selectionnee = new ArrayList<String>();
+        station_selectionnee = jList1.getSelectedValuesList();
+        
+        //jLabel5.setText("Evolution du nombre de vélo dans la journée");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
         jLabel6.setText("Evolution du nombre de place disponible dans la journée");
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
+        //choix de la date
         jList3.setModel(new javax.swing.AbstractListModel() {
             String[] strings = { "date" };
             public int getSize() { return strings.length; }
