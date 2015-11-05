@@ -235,7 +235,7 @@ public class MysqlRequester {
             	nbPlaceList.add(rs.getInt("places_disponibles"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         }
 
@@ -264,10 +264,10 @@ public class MysqlRequester {
                 station.setPlaces(rs.getInt("places"));
             }
         } catch (NumberFormatException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         } catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         }
 
@@ -306,7 +306,7 @@ public class MysqlRequester {
 
         Map<Station, Double> mapStations = new HashMap<Station, Double>();
         
-        // Merci � Oleksiy Kovyrin
+        // Merci ? Oleksiy Kovyrin
         String sqlQuery = "SELECT *,3956 * 2 * ASIN(SQRT( POWER(SIN(('"+ latitude +"' - abs(latitude)) * pi()/180 / 2),2) + COS('"+ latitude +"' * pi()/180 ) * COS( abs(latitude) *  pi()/180) * POWER(SIN(('"+ longitude +"' - longitude) *  pi()/180 / 2), 2) )) as distance FROM velo_malin.stations having distance < '"+ distance +"' ORDER BY distance limit "+ nb_stations +";";
         
         ResultSet rs = executerRequete(sqlQuery);
@@ -329,7 +329,7 @@ public class MysqlRequester {
                 mapStations.put(station, rs.getDouble("distance"));
             }
         } catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         }
 
@@ -353,10 +353,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
 			e.printStackTrace();
 		}*/
 
@@ -378,10 +378,10 @@ public class MysqlRequester {
 
             //result_insertion = true;
         } catch (NumberFormatException e) {
-            // TODO Bloc catch g�n�r� automatiquement
+            // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
         } /*catch (SQLException e) {
-      // TODO Bloc catch g�n�r� automatiquement
+      // TODO Bloc catch g?n?r? automatiquement
 			e.printStackTrace();
 		} */
 
@@ -410,5 +410,26 @@ public class MysqlRequester {
             System.out.println("Erreur: " + ex);
         }
       return liste_itineraires_favoris;
+    }
+    
+    public static int getIdStationparNom(String nom_station) {
+
+        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE nom='"  + nom_station + "';";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        List<Integer> id_station = new ArrayList<Integer>();
+        
+        try {
+            while (rs.next()) {
+            	id_station.add(rs.getInt("id_station"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        
+      int id = id_station.get(0);
+      return id;
     }
 }

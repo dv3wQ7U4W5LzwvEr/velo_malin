@@ -64,7 +64,23 @@ public class StationPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("Informations sur stations");
         jButton1.setText("Valider");
-        //jButton1.addActionListener(new EcouteurValiderStatistiquesStations(station_test.getId_station(), date_station));
+        //jButton1.addActionListener(new EcouteurValiderStatistiquesStations(, date_station));
+        //R?cup?rer valeur selectionn?e de la liste d?roulante des stations
+        List<String> station_selectionnee = new ArrayList<String>();
+ 
+        //test 
+        String nom_station_selectionnee2 = "02010 - CONFLUENCE DARSE";
+        // v?rifier ce que renvoit getSelectedValuesList : si renvoit rien ? l'initialisation : erreur
+        if(jList1.getSelectedValuesList() == null){
+        	String nom_station_selectionnee = "02010 - CONFLUENCE DARSE";  
+        }
+        /*
+        else{
+            station_selectionnee = jList1.getSelectedValuesList();   
+            String nom_station_selectionnee = station_selectionnee.get(0);
+        } 
+        */
+        jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee2, date_station));
         
         
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
@@ -75,7 +91,7 @@ public class StationPanel extends javax.swing.JPanel {
         jLabel3.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jLabel4.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        jLabel4.setText("Sélectionner la station");
+        jLabel4.setText("S?lectionner la station");
         jLabel4.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
 
         jSeparator2.setBackground(new java.awt.Color(255, 51, 51));
@@ -116,6 +132,7 @@ public class StationPanel extends javax.swing.JPanel {
 
     	List<String> tab_nom_stations = new ArrayList<String>();
     	List<String> tab_adresse_stations = new ArrayList<String>();
+    	List<Integer> tab_id_stations = new ArrayList<Integer>();
         List<Station> liste_stations = MysqlRequester.getToutesLesStations();
         Iterator<Station> it = liste_stations.iterator();
         
@@ -124,11 +141,12 @@ public class StationPanel extends javax.swing.JPanel {
     		
     		tab_nom_stations.add(station.getNom());
 	   		tab_adresse_stations.add(station.getAdresse());
+	   		tab_id_stations.add(station.getId_station());
     	} 
     	int taille = tab_nom_stations.size(); 
     	String strings[] = new String[taille];
     	for(int i = 0;i < tab_nom_stations.size();i++){
-   		 strings[i] = String.valueOf(tab_nom_stations.get(i));
+   		 strings[i] = tab_nom_stations.get(i);
     	}
    
         jList1.setModel(new javax.swing.AbstractListModel() {
@@ -136,13 +154,12 @@ public class StationPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
-        List<String> station_selectionnee = new ArrayList<String>();
-        station_selectionnee = jList1.getSelectedValuesList();
+
         
-        //jLabel5.setText("Evolution du nombre de vélo dans la journée");
+        //jLabel5.setText("Evolution du nombre de v?lo dans la journ?e");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
-        jLabel6.setText("Evolution du nombre de place disponible dans la journée");
+        jLabel6.setText("Evolution du nombre de place disponible dans la journ?e");
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
         //choix de la date

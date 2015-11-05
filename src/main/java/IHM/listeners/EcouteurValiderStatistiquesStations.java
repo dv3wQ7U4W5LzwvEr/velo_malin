@@ -20,22 +20,24 @@ import java.util.Date;
  */
 public class EcouteurValiderStatistiquesStations implements ActionListener{
 
-    private int id_station;
+    private String nom_station;
     private Date date_station;
     
     //List<Integer> tab_test_dep = new ArrayList<Integer>();
     //List<Integer> tab_test_arr = new ArrayList<Integer>();
 
-    public EcouteurValiderStatistiquesStations(int id_station, Date date_station) {
-        this.id_station = id_station;
+    public EcouteurValiderStatistiquesStations(String nom_station, Date date_station) {
+        this.nom_station = nom_station;
         this.date_station = date_station;
     }
 
 
 	public void actionPerformed(ActionEvent e) {
-
+		int id_station = MysqlRequester.getIdStationparNom(nom_station);
 
         
+		 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+	     JOptionPane.showMessageDialog(null, "Test Valider", "Non sauvegard?", JOptionPane.WARNING_MESSAGE, img);
         
     }
 }
