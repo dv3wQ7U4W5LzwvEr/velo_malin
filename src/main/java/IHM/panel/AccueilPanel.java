@@ -1,5 +1,10 @@
 package IHM.panel;
 
+import IHM.listeners.EcouteurBoutonCommencer;
+import javax.swing.*;
+import IHM.IHMApplication;
+
+
 /**
  * Created by QKFD7244 on 02/11/2015.
  */
@@ -59,13 +64,9 @@ public class AccueilPanel extends javax.swing.JPanel{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 boutonCommenceractionCommencer(evt);
             }
-        });
-        boutonCommencer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonCommencerActionPerformed(evt);
-            }
-        });
-
+        });      
+        boutonCommencer.addActionListener(new EcouteurBoutonCommencer()); 
+    
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
@@ -124,8 +125,9 @@ public class AccueilPanel extends javax.swing.JPanel{
     private void boutonCommenceractionCommencer(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
     }
-
+    
     private void boutonCommencerActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+
     }
 }

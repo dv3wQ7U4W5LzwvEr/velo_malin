@@ -66,7 +66,7 @@ public class IHMApplication extends JFrame {
         /*----------*\
         * Station    *
         \*----------*/
-//        StationPanel stationPanel = new StationPanel();
+        //StationPanel stationPanel = new StationPanel();
         //panel3.add(stationPanel);
 
         /*----------*\
@@ -81,11 +81,14 @@ public class IHMApplication extends JFrame {
         \*----------*/
             fenetre.add(onglets);
             fenetre.setVisible(true);
+            
+
     }
-}
+
 
 /*/ Listeneurs... /*/
 
+}
 
 
 

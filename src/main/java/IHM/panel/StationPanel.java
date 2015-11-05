@@ -57,7 +57,7 @@ public class StationPanel extends javax.swing.JFrame {
 
         jPasswordField1.setText("jPasswordField1");
 
-        setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        //setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
         jLabel1.setFont(new java.awt.Font("SansSerif", 0, 18)); // NOI18N
         jLabel1.setText("Choix de la station");
@@ -155,9 +155,9 @@ public class StationPanel extends javax.swing.JFrame {
         });
         jScrollPane5.setViewportView(jList5);
 
-        jLabel8.setText("Probabilité d'avoir un vélo disponible");
+        jLabel8.setText("Probabilitï¿½ d'avoir un vï¿½lo disponible");
 
-        jLabel9.setText("Evolution de la disponibilité des vélo dans le temps");
+        jLabel9.setText("Evolution de la disponibilitï¿½ des vï¿½lo dans le temps");
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
