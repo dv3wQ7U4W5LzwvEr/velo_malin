@@ -1,6 +1,7 @@
 eclipse.preferences.version=1
 encoding//src/main/java/IHM/IHMApplication.java=UTF-8
 encoding//src/main/java/IHM/listeners/EcouteurItineraireFavori.java=UTF-8
+encoding//src/main/java/IHM/panel/ItinerairePanel.java=UTF-8
 encoding//src/main/java/IHM/panel/ResultatPanel.java=UTF-8
 encoding//src/main/java/database/MysqlConnecter.java=UTF-8
 separateDerivedEncodings=true
