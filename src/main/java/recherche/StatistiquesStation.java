@@ -23,8 +23,8 @@ public class StatistiquesStation {
 		return dateXY;		
 	}
 
-	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours){
-		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY, jours);
+	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special){
+		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY, jours, jour_special);
 		
 		Integer sum = 0;
 		int moyenne = 0;
@@ -38,8 +38,8 @@ public class StatistiquesStation {
 		return moyenne;
 	}
 	
-	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours){
-		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY, jours);
+	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special){
+		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY, jours, jour_special);
 		
 		Integer sum = 0;
 		int moyenne = 0;

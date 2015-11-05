@@ -109,8 +109,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     	while (it.hasNext()){
     		Station s = (Station) it.next();	   		
 	
-            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_depart, date_depart2, null);
-            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_depart, date_depart2, null);
+            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_depart, date_depart2, null, null);
+            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_depart, date_depart2, null, null);
     		
     		tab_id_stations.add(s.getId_station());
     		tab_nom_stations.add(s.getNom());
@@ -149,8 +149,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     	while (it2.hasNext()){
     		Station s = (Station) it2.next();	   		
 	
-            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_arrivee, date_arrivee2, null);
-            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_arrivee, date_arrivee2, null);
+            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_arrivee, date_arrivee2, null, null);
+            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_arrivee, date_arrivee2, null, null);
     		
     		tab_id_stations_arrivee.add(s.getId_station());
     		tab_nom_stations_arrivee.add(s.getNom());

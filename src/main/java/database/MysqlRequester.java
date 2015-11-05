@@ -150,25 +150,32 @@ public class MysqlRequester {
         return listeDesStations;
     }
 
-    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours) {
+    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
     	
-    	String stringJours;
-    	if(jours == null){
-    		stringJours = "'LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'";
-    	} else {
-	    	StringBuilder sb = new StringBuilder();
+    	StringBuilder sb = new StringBuilder();
+    	
+    	if(jours != null){
+    		sb.append(" AND jour in (");
 	    	String delim = "";
 	    	for (Jours jour : jours) {
-	    	    sb.append(delim).append("'").append(jour).append("'");
+	    	    sb.append(delim).append("'"+jour+"'");
 	    	    delim = ",";
 	    	}
-	    	stringJours = sb.toString();
+	    	sb.append(")");
+    	} else {
+    		sb.append("");
+    	}
+    	
+    	if(jour_special != null){
+    		sb.append(" AND jour_special="+ jour_special);
+    	}	else {
+    		sb.append("");
     	}
     	
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
         
         String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station +
-                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "' AND jour in ("+ stringJours +");";
+                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'"+ sb.toString() +";";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbVeloList = new ArrayList<Integer>();
@@ -183,25 +190,32 @@ public class MysqlRequester {
         return nbVeloList;
     }
 
-    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours) {
+    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
     	
-    	String stringJours;
-    	if(jours == null){
-    		stringJours = "'LUNDI','MARDI','MERCREDI','JEUDI','VENDREDI','SAMEDI','DIMANCHE'";
-    	} else {
-	    	StringBuilder sb = new StringBuilder();
+    	StringBuilder sb = new StringBuilder();
+    	
+    	if(jours != null){
+    		sb.append(" AND jour in (");
 	    	String delim = "";
 	    	for (Jours jour : jours) {
-	    	    sb.append(delim).append("'").append(jour).append("'");
+	    	    sb.append(delim).append("'"+jour+"'");
 	    	    delim = ",";
 	    	}
-	    	stringJours = sb.toString();
+	    	sb.append(")");
+    	} else {
+    		sb.append("");
+    	}
+    	
+    	if(jour_special != null){
+    		sb.append(" AND jour_special="+ jour_special);
+    	}	else {
+    		sb.append("");
     	}
 
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
-                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "' AND jour in ("+ stringJours +");";
+                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'"+ sb.toString() +";";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbPlaceList = new ArrayList<Integer>();
