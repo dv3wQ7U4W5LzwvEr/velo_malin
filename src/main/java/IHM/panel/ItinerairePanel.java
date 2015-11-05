@@ -418,5 +418,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    	
     }
 }

@@ -350,7 +350,7 @@ public class MysqlRequester {
     
     public static Map<Integer,Integer> getListeItinerairesFavoris() {
 
-        String sqlQuery = "SELECT id_station_depart,id_station_arrivee FROM itinerairesfavoris";
+        String sqlQuery = "SELECT id_station_depart,id_station_arrivee FROM velo_malin.itinerairesfavoris";
 
         ResultSet rs = executerRequete(sqlQuery);
         Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
