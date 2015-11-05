@@ -50,20 +50,20 @@ public class VeloMalinTest {
 		Date date = cal.getTime();		
 		
 		List<Date> dateXY = StatistiquesStation.calculIntervalTemps(date, 5);
-		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1), null);
+		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
 		System.out.println(moyVelo +" velos le "+ date);
 		
-		int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1), null);
+		int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
 		System.out.println(moyPlace +" places vers "+ date);
 		
 		System.out.println(MysqlRequester.getStation(2470));
 		
 		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
 
-		System.out.println(MysqlRequester.getToutesLesStations().size());
-		for(Station object: MysqlRequester.getToutesLesStations()){
-			System.out.println(object);
-		}
+//		System.out.println(MysqlRequester.getToutesLesStations().size());
+//		for(Station object: MysqlRequester.getToutesLesStations()){
+//			System.out.println(object);
+//		}
 
 	}
 
