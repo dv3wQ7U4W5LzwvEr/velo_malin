@@ -15,19 +15,15 @@ public class MysqlConnecter {
     private static Connection con = null;
     private static Statement st = null;
     private static ResultSet rs = null;
+    static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
 
-    /*
-    host:  master.granetlucas.fr  user: velo_malin  pw : velo_mal1n  port: 3
-    port : 3306 (default )
-    db: velo_malin
-     */
-
-    private String url = "master.granetlucas.fr";
+    private String url = "jdbc:mysql://master.granetlucas.fr:80";
     private String user = "velo_malin";
     private String password = "velo_mal1n";
 
     private MysqlConnecter() {
         try {
+            Class.forName(JDBC_DRIVER);
             con = DriverManager.getConnection(url, user, password);
             st = con.createStatement();
             rs = st.executeQuery("SELECT VERSION()");
@@ -39,6 +35,10 @@ public class MysqlConnecter {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur");
+        }
+        catch( Exception e)
+        {
+
         }
     }
 
