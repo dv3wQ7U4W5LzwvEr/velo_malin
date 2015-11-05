@@ -12,6 +12,10 @@ import javafx.scene.control.ToolBar;
 import javafx.scene.layout.BorderPane;
 import javafx.stage.Stage;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 /**
  * Example Application for creating and loading a GoogleMapIHM into a JavaFX
  * application
@@ -33,6 +37,9 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
 
     private MarkerOptions markerOptions2;
     private Marker myMarker2;
+
+    private Map<String, Marker> listMarker = new HashMap<>();
+
     private Button btnHideMarker;
     private Button btnDeleteMarker;
 
@@ -156,180 +163,42 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
 
         map = mapComponent.createMap(options);
 
-        /*
-        
-       // map.fitBounds(new LatLongBounds(new LatLong(30, 120), center));
-//        System.out.println("PositionWas : " + map.getBounds());
+ }
 
-        lblCenter.setText(map.getCenter().toString());
-        map.centerProperty().addListener((ObservableValue<? extends LatLong> obs, LatLong o, LatLong n) -> {
-            lblCenter.setText(n.toString());
-        });
-
-        lblZoom.setText(Integer.toString(map.getZoom()));
-        map.zoomProperty().addListener((ObservableValue<? extends Number> obs, Number o, Number n) -> {
-            lblZoom.setText(n.toString());
-        });
-
-//      map.addStateEventHandler(MapStateEventType.center_changed, () -> {
-//			System.out.println("center_changed: " + map.getCenter());
-//		});
-//        map.addStateEventHandler(MapStateEventType.tilesloaded, () -> {
-//			System.out.println("We got a tilesloaded event on the map");
-//		});
-        map.addUIEventHandler(UIEventType.click, (JSObject obj) -> {
-            LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
-            //System.out.println("LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
-            lblClick.setText(ll.toString());
-        });
-
-        btnZoomIn.setDisable(false);
-        btnZoomOut.setDisable(false);
-        mapTypeCombo.setDisable(false);
-        
-        mapTypeCombo.getItems().addAll( MapTypeIdEnum.ALL );
-
-        LatLong[] ary = new LatLong[]{markerLatLong, markerLatLong2};
-        MVCArray mvc = new MVCArray(ary);
-
-        PolylineOptions polyOpts = new PolylineOptions()
-                .path(mvc)
-                .strokeColor("red")
-                .strokeWeight(2);
-
-        Polyline poly = new Polyline(polyOpts);
-        map.addMapShape(poly);
-        map.addUIEventHandler(poly, UIEventType.click, (JSObject obj) -> {
-            LatLong ll = new LatLong((JSObject) obj.getMember("latLng"));
-//            System.out.println("You clicked the line at LatLong: lat: " + ll.getLatitude() + " lng: " + ll.getLongitude());
-        });
-
-        LatLong poly1 = new LatLong(47.429945, -122.84363);
-        LatLong poly2 = new LatLong(47.361153, -123.03040);
-        LatLong poly3 = new LatLong(47.387193, -123.11554);
-        LatLong poly4 = new LatLong(47.585789, -122.96722);
-        LatLong[] pAry = new LatLong[]{poly1, poly2, poly3, poly4};
-        MVCArray pmvc = new MVCArray(pAry);
-
-        PolygonOptions polygOpts = new PolygonOptions()
-                .paths(pmvc)
-                .strokeColor("blue")
-                .strokeWeight(2)
-                .editable(false)
-                .fillColor("lightBlue")
-                .fillOpacity(0.5);
-
-        Polygon pg = new Polygon(polygOpts);
-        map.addMapShape(pg);
-        map.addUIEventHandler(pg, UIEventType.click, (JSObject obj) -> {
-            //polygOpts.editable(true);
-            pg.setEditable(!pg.getEditable());
-        });
-
-        LatLong centreC = new LatLong(47.545481, -121.87384);
-        CircleOptions cOpts = new CircleOptions()
-                .center(centreC)
-                .radius(5000)
-                .strokeColor("green")
-                .strokeWeight(2)
-                .fillColor("orange")
-                .fillOpacity(0.3);
-
-        Circle c = new Circle(cOpts);
-        map.addMapShape(c);
-        map.addUIEventHandler(c, UIEventType.click, (JSObject obj) -> {
-            c.setEditable(!c.getEditable());
-        });
-
-        LatLongBounds llb = new LatLongBounds(new LatLong(47.533893, -122.89856), new LatLong(47.580694, -122.80312));
-        RectangleOptions rOpts = new RectangleOptions()
-                .bounds(llb)
-                .strokeColor("black")
-                .strokeWeight(2)
-                .fillColor("null");
-
-        Rectangle rt = new Rectangle(rOpts);
-        map.addMapShape(rt);
-
-        LatLong arcC = new LatLong(47.227029, -121.81641);
-        double startBearing = 0;
-        double endBearing = 30;
-        double radius = 30000;
-
-        MVCArray path = ArcBuilder.buildArcPoints(arcC, startBearing, endBearing, radius);
-        path.push(arcC);
-
-        Polygon arc = new Polygon(new PolygonOptions()
-                .paths(path)
-                .strokeColor("blue")
-                .fillColor("lightBlue")
-                .fillOpacity(0.3)
-                .strokeWeight(2)
-                .editable(false));
-
-        map.addMapShape(arc);
-        map.addUIEventHandler(arc, UIEventType.click, (JSObject obj) -> {
-            arc.setEditable(!arc.getEditable());
-        });
-        
-//        LatLong ll = new LatLong(-41.2, 145.9);
-//        LocationElevationRequest ler = new LocationElevationRequest(new LatLong[]{ll});
-//        
-//        ElevationService es = new ElevationService();
-//        es.getElevationForLocations(ler, new ElevationServiceCallback() {
-//            @Override
-//            public void elevationsReceived(ElevationResult[] results, ElevationStatus status) {
-////                System.out.println("We got results from the Location Elevation request:");
-//                for (ElevationResult er : results) {
-//                    System.out.println("LER: " + er.getElevation());
-//                }
-//            }
-//        });
-        
-//        LatLong lle = new LatLong(-42.2, 145.9);
-//        PathElevationRequest per = new PathElevationRequest(new LatLong[]{ll, lle}, 3);
-//        
-//        ElevationService esb = new ElevationService();
-//        esb.getElevationAlongPath(per, new ElevationServiceCallback() {
-//            @Override
-//            public void elevationsReceived(ElevationResult[] results, ElevationStatus status) {
-////                System.out.println("We got results from the Path Elevation Request:");
-//                for (ElevationResult er : results) {
-//                    System.out.println("PER: " + er.getElevation());
-//                }
-//            }
-//        });
-        
-//        MaxZoomService mzs = new MaxZoomService();
-//        mzs.getMaxZoomAtLatLng(lle, new MaxZoomServiceCallback() {
-//            @Override
-//            public void maxZoomReceived(MaxZoomResult result) {
-//                System.out.println("Max Zoom Status: " + result.getStatus());
-//                System.out.println("Max Zoom: " + result.getMaxZoom());
-//            }
-//        });
-
-            */
-    }
-
-    public void CreatePanneauInformation(String texteAfficher, LatLong center, Marker myMarker) {
+    public void ajouterUnPanneauInformation(String nom, String texteAfficher, Double latitude, Double longitude) {
+        Marker marker = creeUnMarker(nom, latitude, longitude);
         InfoWindowOptions infoOptions = new InfoWindowOptions();
-        infoOptions.content(texteAfficher)
-                .position(center);
+        infoOptions.content(texteAfficher);
+        map.addMarker(marker);
 
         InfoWindow window = new InfoWindow(infoOptions);
-        window.open(map, myMarker);
+        window.open(map, marker);
+        listMarker.put(nom, marker);
     }
 
-    public Marker createMarker(Double latitude, Double longitude) {
+    public void ajouterUnMarker(String nom, Double latitude, Double longitude) {
+        Marker marker = creeUnMarker(nom, latitude, longitude);
+        listMarker.put(nom, marker);
+        map.addMarker(marker);
+    }
+
+    private Marker creeUnMarker(String nom, Double latitude, Double longitude) {
         MarkerOptions markerOptions = new MarkerOptions();
         LatLong markerLatLong = new LatLong(latitude, longitude);
         markerOptions.position(markerLatLong)
-                .title("My new Marker")
+                .title(nom)
                 .visible(true);
 
         return new Marker(markerOptions);
     }
+
+    public void supprimeMarkerOuPanneau(String nom)
+    {
+        map.removeMarker(listMarker.get(nom));
+        listMarker.remove(nom);
+    }
+
+
 
 /*
     public void addMarker(double longitude, double latitude)
