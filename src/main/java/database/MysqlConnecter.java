@@ -16,9 +16,15 @@ public class MysqlConnecter {
     private static Statement st = null;
     private static ResultSet rs = null;
 
-    private String url = "jdbc:mysql://localhost:3306/";
-    private String user = "root";
-    private String password = "root";
+    /*
+    host:  master.granetlucas.fr  user: velo_malin  pw : velo_mal1n  port: 3
+    port : 3306 (default )
+    db: velo_malin
+     */
+
+    private String url = "master.granetlucas.fr";
+    private String user = "velo_malin";
+    private String password = "velo_mal1n";
 
     private MysqlConnecter() {
         try {
