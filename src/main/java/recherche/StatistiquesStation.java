@@ -26,31 +26,37 @@ public class StatistiquesStation {
 	public static int getMoyenneNbVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special){
 		List<Integer> nbVelo = MysqlRequester.getNombreDeVelosSurStation(id_station, dateX, dateY, jours, jour_special);
 		
-		Integer sum = 0;
-		int moyenne = 0;
-		if(!nbVelo.isEmpty()) {
-			for (Integer velo : nbVelo) {
-				sum += velo;
+		if( nbVelo == null){
+			return -1;
+		} else {
+			Integer sum = 0;
+			int moyenne = 0;
+			if(!nbVelo.isEmpty()) {
+				for (Integer velo : nbVelo) {
+					sum += velo;
+				}
+				moyenne = (int) (sum.doubleValue() / nbVelo.size());
 			}
-			moyenne = (int) (sum.doubleValue() / nbVelo.size());
+			return moyenne;
 		}
-		
-		return moyenne;
 	}
 	
 	public static int getMoyenneNbPlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special){
 		List<Integer> nbPlace = MysqlRequester.getNombreDePlacesSurStation(id_station, dateX, dateY, jours, jour_special);
 		
-		Integer sum = 0;
-		int moyenne = 0;
-		if(!nbPlace.isEmpty()) {
-			for (Integer velo : nbPlace) {
-				sum += velo;
+		if( nbPlace == null){
+			return -1;
+		} else {
+			Integer sum = 0;
+			int moyenne = 0;
+			if(!nbPlace.isEmpty()) {
+				for (Integer velo : nbPlace) {
+					sum += velo;
+				}
+				moyenne = (int) (sum.doubleValue() / nbPlace.size());
 			}
-			moyenne = (int) (sum.doubleValue() / nbPlace.size());
+			return moyenne;
 		}
-		
-		return moyenne;
 	}
 	
 }
