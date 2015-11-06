@@ -454,7 +454,6 @@ public class MysqlRequester {
     }
     
     public static int getIdStationparNom(String nom_station) {
-
         String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE nom='"  + nom_station + "';";
 
         ResultSet rs = executerRequete(sqlQuery);
@@ -472,5 +471,58 @@ public class MysqlRequester {
         
       int id = id_station.get(0);
       return id;
+    }
+
+    /**
+     *
+     * @param idStation id de la station
+     * @param jour date du jour
+     * @return
+     */
+    public static Map getVeloDisponiblePourUneStationSur24heure(int idStation, Date jour)
+    {
+        Calendar date = Calendar.getInstance();
+        date.setTime(jour);
+        int day = date.get(Calendar.DAY_OF_MONTH);
+        int month = date.get(Calendar.MONTH) + 1;
+        int year = date.get(Calendar.YEAR);
+
+        String sqlQuery = "SELECT * FROM velo_malin.stationsdisponibilites WHERE id_station='" + idStation + "' AND date_MAJ_JCDecaux LIKE '" + year + "-" + month + "-" + day + "%';";
+        ResultSet rs = executerRequete(sqlQuery);
+
+        HashMap<Date, Integer> map = new LinkedHashMap<>();
+        try {
+            while (rs.next()) {
+                map.put(new java.util.Date(rs.getTimestamp("date_MAJ_JCDecaux").getTime()), rs.getInt("places_occupees"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return map;
+    }
+
+    /**
+     *
+     * @param idStation id de la station
+     * @return
+     */
+    public static int getNombreDePlaceTotaleSurUneStation(int idStation)
+    {
+        String sqlQuery = "SELECT * FROM velo_malin.stations WHERE id_station='" + idStation + "';";
+        ResultSet rs = executerRequete(sqlQuery);
+
+        int placesTotales = 0;
+        try {
+            if (rs.next()) {
+                placesTotales = rs.getInt("places");
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return placesTotales;
     }
 }

@@ -1,18 +1,16 @@
 import database.MysqlRequester;
 import recherche.StatistiquesStation;
 
-import java.util.Calendar;
-import java.util.Date;
-import java.util.List;
+import java.util.ArrayList;
+import java.util.*;
 
 /**
  * Created by florian on 2015-09-29.
  */
 public class VeloMalinTest {
 
-	public static void main(String[] arg)
-	{
-	  
+    public static void main(String[] arg) throws Exception {
+
 //		boolean resultat_test;
 //		
 //		Client test_client;
@@ -39,29 +37,36 @@ public class VeloMalinTest {
 //		
 //		//test plus r�aliste : avec id r�cup�r� du client actuel
 //		//resultat_test = mysql.insertStationFavorite(test_client_actuel,test_station);
-	
-		Calendar cal = Calendar.getInstance();
-		cal.set(2015, 10-1, 28, 13, 00, 00);
-		Date date = cal.getTime();		
-		
-		List<Date> dateXY = StatistiquesStation.calculIntervalTemps(date, 5);
-		
-		int velos = MysqlRequester.getNombreDeVelosSurStation(2470, date);
-		System.out.println(velos +" velos le "+ date);
+
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 10 - 1, 28, 13, 00, 00);
+        Date date = cal.getTime();
+
+        List<Date> dateXY = StatistiquesStation.calculIntervalTemps(date, 5);
+		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
+		System.out.println(moyVelo +" velos le "+ date);
+
+        int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
+        System.out.println(moyPlace + " places vers " + date);
 		
 		int places = MysqlRequester.getNombreDePlacesSurStation(2903, date);
 		System.out.println(places +" places le "+ date);
-		
-		System.out.println(MysqlRequester.getStation(2470));
-		
-		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
+
+        System.out.println(MysqlRequester.getStation(2470));
+
+//		System.out.println(MysqlRequester.getStationsProximitees(45.783791, 4.868972, 3, 0.5));
 
 //		System.out.println(MysqlRequester.getToutesLesStations().size());
 //		for(Station object: MysqlRequester.getToutesLesStations()){
 //			System.out.println(object);
-//		}
 
-	}
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        Map<Date, Integer> map = MysqlRequester.getVeloDisponiblePourUneStationSur24heure(2546, sdf.parse("2015-10-20"));
+        for (Map.Entry<Date, Integer> entry : map.entrySet()) {
+            System.out.println(entry.getKey() + "/" + entry.getValue());
+        }
+        System.out.println("NB de places " + MysqlRequester.getNombreDePlaceTotaleSurUneStation(2546));
+    }
 
 }
 
