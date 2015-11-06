@@ -51,7 +51,7 @@ public class IHMApplication extends JFrame {
         panel0.add(accueilPanel);
 
         /*----------*\
-        * Itin�raire *
+        * Itinéraire *
         \*----------*/
         ItinerairePanel itinerairePanel = new ItinerairePanel();
         panel1.add(itinerairePanel);
@@ -65,8 +65,8 @@ public class IHMApplication extends JFrame {
         /*----------*\
         * Station    *
         \*----------*/
-        StationPanel stationPanel = new StationPanel();
-        panel3.add(stationPanel);
+        //StationPanel stationPanel = new StationPanel();
+        //panel3.add(stationPanel);
 
         /*----------*\
         * Favori     *
