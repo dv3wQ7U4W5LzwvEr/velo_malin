@@ -35,6 +35,7 @@ public class StationPanel extends javax.swing.JPanel {
         initComponents();
     }
 
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -135,30 +136,31 @@ public class StationPanel extends javax.swing.JPanel {
     	for(int i = 0;i < tab_nom_stations.size();i++){
    		 strings[i] = tab_nom_stations.get(i);
     	}
-   
+
         jList1.setModel(new javax.swing.AbstractListModel() {
         	public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
         
+        
+        jList1.setSelectedIndex(-1);
         jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         jList1.addListSelectionListener(new ListSelectionListener() {			        	 		
         	public void valueChanged(ListSelectionEvent e) {
 				  //jList1Released(e, jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());
-        		if (e.getValueIsAdjusting()){        	          
-        	          System.out.println(jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());
+        		if (e.getValueIsAdjusting()){  
+        	          System.out.println(jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());         	          
         	      }
 			}	
         });
-        String nom_station_selectionnee = "02010 - CONFLUENCE DARSE";
-        int indice = jList1.getSelectedIndex();       
-        if(indice == 0){
-        	String nom_station_selectionnee2 = "02010 - CONFLUENCE DARSE";  
+        //String nom_station_selectionnee = "02010 - CONFLUENCE DARSE"
+        String nom_station_selectionnee; 		
+        if(jList1.getSelectedIndex() != -1){
+        	nom_station_selectionnee = jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString(); 
         }    
         else{  
-        	String nom_station_selectionnee2 = jList1.getModel().getElementAt(indice).toString(); 
-        	//String nom_station_selectionnee = jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString(); 
+        	nom_station_selectionnee = "02010 - CONFLUENCE DARSE";
         } 
         jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee, date_station));
         
