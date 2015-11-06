@@ -6,10 +6,15 @@
 package IHM.panel;
 
 import java.util.ArrayList;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
 import IHM.listeners.EcouteurItineraireFavori;
 import IHM.listeners.EcouteurValiderStatistiquesStations;
@@ -64,25 +69,7 @@ public class StationPanel extends javax.swing.JPanel {
         jLabel1.setFont(new java.awt.Font("Arial", 0, 24)); // NOI18N
         jLabel1.setText("Informations sur stations");
         jButton1.setText("Valider");
-        //jButton1.addActionListener(new EcouteurValiderStatistiquesStations(, date_station));
-        //R?cup?rer valeur selectionn?e de la liste d?roulante des stations
-        List<String> station_selectionnee = new ArrayList<String>();
- 
-        //test 
-        String nom_station_selectionnee2 = "02010 - CONFLUENCE DARSE";
-        // v?rifier ce que renvoit getSelectedValuesList : si renvoit rien ? l'initialisation : erreur
-        if(jList1.getSelectedValuesList() == null){
-        	String nom_station_selectionnee = "02010 - CONFLUENCE DARSE";  
-        }
-        /*
-        else{
-            station_selectionnee = jList1.getSelectedValuesList();   
-            String nom_station_selectionnee = station_selectionnee.get(0);
-        } 
-        */
-        jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee2, date_station));
-        
-        
+
         jLabel2.setFont(new java.awt.Font("Arial", 0, 18)); // NOI18N
         jLabel2.setText("Informations sur station");
 
@@ -154,7 +141,28 @@ public class StationPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jScrollPane2.setViewportView(jList1);
-
+        
+        jList1.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        jList1.addListSelectionListener(new ListSelectionListener() {			        	 		
+        	public void valueChanged(ListSelectionEvent e) {
+				  //jList1Released(e, jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());
+        		if (e.getValueIsAdjusting()){        	          
+        	          System.out.println(jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString());
+        	      }
+			}	
+        });
+        String nom_station_selectionnee = "02010 - CONFLUENCE DARSE";
+        int indice = jList1.getSelectedIndex();       
+        if(indice == 0){
+        	String nom_station_selectionnee2 = "02010 - CONFLUENCE DARSE";  
+        }    
+        else{  
+        	String nom_station_selectionnee2 = jList1.getModel().getElementAt(indice).toString(); 
+        	//String nom_station_selectionnee = jList1.getModel().getElementAt(jList1.getSelectedIndex()).toString(); 
+        } 
+        jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee, date_station));
+        
+        
         
         //jLabel5.setText("Evolution du nombre de v?lo dans la journ?e");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));

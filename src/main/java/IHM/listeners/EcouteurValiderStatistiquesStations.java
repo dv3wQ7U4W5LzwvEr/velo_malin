@@ -37,7 +37,7 @@ public class EcouteurValiderStatistiquesStations implements ActionListener{
 
         
 		 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-	     JOptionPane.showMessageDialog(null, "Test Valider", "Non sauvegard?", JOptionPane.WARNING_MESSAGE, img);
+	     JOptionPane.showMessageDialog(null, "Test Valider" + id_station + "", "Non sauvegarde", JOptionPane.WARNING_MESSAGE, img);
         
     }
 }

@@ -56,7 +56,7 @@ public class AccueilPanel extends javax.swing.JPanel{
         boutonCommencer.setBackground(new java.awt.Color(255, 0, 0));
         boutonCommencer.setFont(new java.awt.Font("Tahoma", 1, 24)); // NOI18N
         boutonCommencer.setForeground(new java.awt.Color(255, 255, 255));
-        boutonCommencer.setText("commencer");
+        boutonCommencer.setText("Commencer");
         boutonCommencer.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(250, 240, 240), new java.awt.Color(255, 204, 204), null));
         boutonCommencer.setContentAreaFilled(false);
         boutonCommencer.setOpaque(true);
@@ -65,7 +65,7 @@ public class AccueilPanel extends javax.swing.JPanel{
                 boutonCommenceractionCommencer(evt);
             }
         });      
-        boutonCommencer.addActionListener(new EcouteurBoutonCommencer()); 
+        //boutonCommencer.addActionListener(new EcouteurBoutonCommencer()); 
     
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -124,6 +124,7 @@ public class AccueilPanel extends javax.swing.JPanel{
 
     private void boutonCommenceractionCommencer(java.awt.event.MouseEvent evt) {
         // TODO add your handling code here:
+		//onglets.setSelected(2);
     }
     
     private void boutonCommencerActionPerformed(java.awt.event.ActionEvent evt) {
