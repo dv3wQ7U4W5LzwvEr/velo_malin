@@ -1,8 +1,5 @@
 package IHM.panel;
 
-import IHM.listeners.EcouteurBoutonCommencer;
-
-
 /**
  * Created by QKFD7244 on 02/11/2015.
  */

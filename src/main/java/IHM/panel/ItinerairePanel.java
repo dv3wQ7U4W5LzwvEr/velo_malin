@@ -44,7 +44,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
         
     }
 
-    public javax.swing.JTextField adresseArrivee;
+    /*Variables*/
     public javax.swing.JTextField adresseDepart;
     private javax.swing.JButton boutonArrivee;
     private javax.swing.JButton boutonDepart;
@@ -68,7 +68,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
     private javax.swing.JPanel panItineraire;
     private javax.swing.JPanel panelCarte;
 
-    String adresse_arrivee;
+    /*Méthode*/
     String adresse_depart;
     
     private void initItineraire() {
