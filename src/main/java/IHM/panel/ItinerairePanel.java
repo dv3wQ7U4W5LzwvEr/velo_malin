@@ -9,30 +9,43 @@ import java.util.Date;
 
 import IHM.google_map.GoogleMapIHM;
 import IHM.listeners.*;
+import database.MysqlRequester;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import was.google_map_api.GoogleMap;
 
 import javax.swing.ImageIcon;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
 
+import model.Localisation;
+import was.google_map_api.*;
+import model.Station;
+
 /**
  * @author QKFD724
  */
 public class ItinerairePanel extends javax.swing.JPanel {
 
+	public static double lat_test_dep;
+	public static double long_test_dep;
+	public static double lat_test_arr;
+	public static double long_test_arr;
+	
     /**
      * Creates new form NewJPanel
      * Constructeur
      */
     public ItinerairePanel() {
         initItineraire();
+        
+        
     }
 
-    private javax.swing.JTextField adresseArrivee;
-    private javax.swing.JTextField adresseDepart;
+    public javax.swing.JTextField adresseArrivee;
+    public javax.swing.JTextField adresseDepart;
     private javax.swing.JButton boutonArrivee;
     private javax.swing.JButton boutonDepart;
     private javax.swing.JButton boutonLancer;
@@ -130,13 +143,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
         boutonLancer.setContentAreaFilled(false);
         boutonLancer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonLancer.setOpaque(true);
-        /*
-        boutonLancer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonLancerActionPerformed(evt);
-            }
-        });
-        */
 
         depart1.setBackground(new java.awt.Color(255, 255, 0));
         depart1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "HORAIRES\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
@@ -162,8 +168,9 @@ public class ItinerairePanel extends javax.swing.JPanel {
         jLabel18.setText("min");
 
         heureD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        heureD.setRequestFocusEnabled(false);
-
+        heureD.setRequestFocusEnabled(false); 
+        
+        
         minuteD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 
         javax.swing.GroupLayout depart1Layout = new javax.swing.GroupLayout(depart1);
@@ -214,6 +221,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
         adresseDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseDepart.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        
+        /*
         adresseDepart.addKeyListener(new KeyAdapter() {
         	public void keyReleased(KeyEvent e) {
                 JTextField textField = (JTextField) e.getSource();
@@ -228,7 +237,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 // TODO: Do something for the keyPressed event
             }
         });
-
+		*/
+        
         boutonDepart.setBackground(new java.awt.Color(255, 255, 255));
         boutonDepart.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         boutonDepart.setForeground(new java.awt.Color(255, 255, 255));
@@ -280,13 +290,38 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
         adresseArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseArrivee.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-
-        //marche mais localement => pas de redirection vers classe => essayer de virer du package listener
+        //test
+    	Calendar cal = Calendar.getInstance();   	
+    	cal.set(2015, 10-1, 28, 13, 00, 00);
+    	Date date_recherche = cal.getTime();
+        
         boutonLancer.addActionListener(new ActionListener(){
             public void actionPerformed(ActionEvent evt) {
+                adresse_depart = adresseDepart.getText();
                 adresse_arrivee = adresseArrivee.getText();
+                Date date_depart = date_recherche;
+                
+                //Localisation localisation_adresse_depart = new Localisation();
+                //Localisation localisation_adresse_arrivee = new Localisation();
+                //localisation_adresse_depart = GoogleMap.rechercherLatLong(adresse_depart);
+                //localisation_adresse_arrivee = GoogleMap.rechercherLatLong(adresse_arrivee);
+                
+                //double lat_dep = localisation_adresse_depart.getLatitude();
+                //double long_dep = localisation_adresse_depart.getLongitude();
+                //double lat_arr = localisation_adresse_arrivee.getLatitude();
+                //double long_arr = localisation_adresse_arrivee.getLongitude();
+                lat_test_dep = 45.750945;
+                long_test_dep = 4.83927;
+                lat_test_arr = 45.750945;
+                long_test_arr = 4.83927;
+                    
+                
+                //String latitude = String.valueOf(lat_test);
+                //String longitude = String.valueOf(long_test);
+                //int id_station_depart = MysqlRequester.getIdStationparCoord(latitude,longitude);
+                
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee + adresse_depart + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
             	}
         	});
         
@@ -322,10 +357,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
-        //test
-    	Calendar cal = Calendar.getInstance();   	
-    	cal.set(2015, 10-1, 28, 13, 00, 00);
-    	Date date_recherche = cal.getTime();	
+
         //boutonLancer.addActionListener(new EcouteurBoutonLancerRecherche(adresse_depart, adresse_arrivee,date_recherche)); 
         
         javax.swing.GroupLayout departLayout = new javax.swing.GroupLayout(depart);
@@ -443,6 +475,5 @@ public class ItinerairePanel extends javax.swing.JPanel {
     private void datePicker2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
-
 
 }

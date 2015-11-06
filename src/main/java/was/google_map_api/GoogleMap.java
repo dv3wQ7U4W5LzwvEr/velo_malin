@@ -6,9 +6,10 @@ import model.Localisation;
  * Created by laurel on 04/11/2015.
  */
 public class GoogleMap {
-
+	
+	
     public static Localisation rechercherLatLong(final String adresse) {
         GoogleMap googleMap = new GoogleMap();
-        return googleMap.rechercherLatLong(adresse);
+        return GoogleMap.rechercherLatLong(adresse);
     }
 }

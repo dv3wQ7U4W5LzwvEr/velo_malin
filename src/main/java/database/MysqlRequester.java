@@ -473,6 +473,27 @@ public class MysqlRequester {
       return id;
     }
 
+    
+    public static int getIdStationparCoord(String latitude,String longitude) {
+        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude='"  + latitude + "' AND longitude='"  + longitude + "'  ;";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        List<Integer> id_station = new ArrayList<Integer>();
+        
+        try {
+            while (rs.next()) {
+            	id_station.add(rs.getInt("id_station"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        
+      int id = id_station.get(0);
+      return id;
+    }
+    
     /**
      *
      * @param idStation id de la station
