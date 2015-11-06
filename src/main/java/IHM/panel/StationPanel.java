@@ -22,6 +22,7 @@ import database.MysqlRequester;
 import model.Station;
 import recherche.StatistiquesStation;
 
+import java.time.*;
 /**
  *
  * @author Emy
@@ -169,7 +170,7 @@ public class StationPanel extends javax.swing.JPanel {
         //jLabel5.setText("Evolution du nombre de v?lo dans la journ?e");
         jLabel5.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
-        jLabel6.setText("Evolution du nombre de place disponible dans la journ?e");
+        jLabel6.setText("Evolution du nombre de place disponible dans la journee");
         jLabel6.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(204, 0, 0)));
 
         //choix de la date
@@ -178,6 +179,7 @@ public class StationPanel extends javax.swing.JPanel {
             public int getSize() { return strings.length; }
             public Object getElementAt(int i) { return strings[i]; }
         });
+        jList3.getSelectedValue();
         jScrollPane4.setViewportView(jList3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
