@@ -93,8 +93,6 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
     	cal.set(2015, 10-1, 28, 13, 00, 00);
     	Date date_depart = cal.getTime();
-    	cal.set(2015, 10-1, 28, 13, 05, 00);
-    	Date date_depart2 = cal.getTime();
     	
     	//Stations résultats de départ
     	List<String> tab_nom_stations = new ArrayList<String>();
@@ -109,8 +107,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     	while (it.hasNext()){
     		Station s = (Station) it.next();	   		
 	
-            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_depart, date_depart2, null, null);
-            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_depart, date_depart2, null, null);
+            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_depart);
+            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_depart);
     		
     		tab_id_stations.add(s.getId_station());
     		tab_nom_stations.add(s.getNom());
@@ -132,8 +130,6 @@ public class ResultatPanel extends javax.swing.JPanel {
     	Calendar cal_arr = Calendar.getInstance();
     	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
     	Date date_arrivee = cal.getTime();
-    	cal_arr.set(2015, 10-1, 28, 14, 05, 00);
-    	Date date_arrivee2 = cal.getTime();
     	
     	
     	//Stations résultats d arrivee
@@ -149,8 +145,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     	while (it2.hasNext()){
     		Station s = (Station) it2.next();	   		
 	
-            int nbvelos = StatistiquesStation.getMoyenneNbVelosSurStation(s.getId_station(), date_arrivee, date_arrivee2, null, null);
-            int nbplaces = StatistiquesStation.getMoyenneNbPlacesSurStation(s.getId_station(), date_arrivee, date_arrivee2, null, null);
+            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_arrivee);
+            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_arrivee);
     		
     		tab_id_stations_arrivee.add(s.getId_station());
     		tab_nom_stations_arrivee.add(s.getNom());

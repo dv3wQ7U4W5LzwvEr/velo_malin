@@ -150,7 +150,7 @@ public class MysqlRequester {
         return listeDesStations;
     }
 
-    public static List<Integer> getNombreDeVelosSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
+    public static List<Integer> getNombreDeVelosSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
     	
     	StringBuilder sb = new StringBuilder();
     	
@@ -196,7 +196,7 @@ public class MysqlRequester {
         return nbVeloList;
     }
 
-    public static List<Integer> getNombreDePlacesSurStation(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
+    public static List<Integer> getNombreDePlacesSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
     	
     	StringBuilder sb = new StringBuilder();
     	
@@ -241,7 +241,48 @@ public class MysqlRequester {
 
         return nbPlaceList;
     }
+    
+    public static int getNombreDePlacesSurStation(int id_station, Date date){
+    	
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	
+    	String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
 
+		ResultSet rs = executerRequete(sqlQuery);
+		int nbPlaces = -1;
+		try {
+			if(!rs.next()){
+				return nbPlaces;
+		   } else {
+			   nbPlaces = rs.getInt("places_disponibles");
+		   }
+		} catch (SQLException e) {
+		    // TODO Bloc catch g?n?r? automatiquement
+		    e.printStackTrace();
+		}
+		return nbPlaces;
+    }
+    
+    public static int getNombreDeVelosSurStation(int id_station, Date date){
+    	
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	
+    	String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+
+		ResultSet rs = executerRequete(sqlQuery);
+		int nbVelos = -1;
+		try {
+			if(!rs.next()){
+				return nbVelos;
+			} else {
+			   nbVelos = rs.getInt("places_occupees");
+		   }
+		} catch (SQLException e) {
+		    // TODO Bloc catch g?n?r? automatiquement
+		    e.printStackTrace();
+		}
+		return nbVelos;
+    }
     public static Station getStation(int id_station) {
         Station station = new Station();
 

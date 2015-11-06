@@ -1,14 +1,9 @@
 import database.MysqlRequester;
-import model.Jours;
-import model.Station;
 import recherche.StatistiquesStation;
 
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
-import java.util.stream.Collector;
-import java.util.stream.Collectors;
 
 /**
  * Created by florian on 2015-09-29.
@@ -50,11 +45,12 @@ public class VeloMalinTest {
 		Date date = cal.getTime();		
 		
 		List<Date> dateXY = StatistiquesStation.calculIntervalTemps(date, 5);
-		int moyVelo = StatistiquesStation.getMoyenneNbVelosSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
-		System.out.println(moyVelo +" velos le "+ date);
 		
-		int moyPlace = StatistiquesStation.getMoyenneNbPlacesSurStation(2470, dateXY.get(0), dateXY.get(1), null, null);
-		System.out.println(moyPlace +" places vers "+ date);
+		int velos = MysqlRequester.getNombreDeVelosSurStation(2470, date);
+		System.out.println(velos +" velos le "+ date);
+		
+		int places = MysqlRequester.getNombreDePlacesSurStation(2903, date);
+		System.out.println(places +" places le "+ date);
 		
 		System.out.println(MysqlRequester.getStation(2470));
 		
