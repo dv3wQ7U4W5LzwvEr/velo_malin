@@ -163,7 +163,6 @@ public class StationPanel extends javax.swing.JPanel {
         else{  
         	nom_station_selectionnee = "02010 - CONFLUENCE DARSE";
         } 
-        jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee, date_station));
         
         
         
@@ -180,6 +179,9 @@ public class StationPanel extends javax.swing.JPanel {
             public Object getElementAt(int i) { return strings[i]; }
         });
         jList3.getSelectedValue();
+        Date date_station2 = (Date) jList3.getSelectedValue();
+        jButton1.addActionListener(new EcouteurValiderStatistiquesStations(nom_station_selectionnee, date_station2));
+        
         jScrollPane4.setViewportView(jList3);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
