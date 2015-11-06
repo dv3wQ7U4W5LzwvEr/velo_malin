@@ -1,8 +1,6 @@
 package IHM.panel;
 
 import IHM.listeners.EcouteurBoutonCommencer;
-import javax.swing.*;
-import IHM.IHMApplication;
 
 
 /**
@@ -34,7 +32,7 @@ public class AccueilPanel extends javax.swing.JPanel{
         setBackground(new java.awt.Color(255, 255, 255));
 
         imageAccueil.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        imageAccueil.setIcon(new javax.swing.ImageIcon("src/main/ressources/img/image_velovs.jpg")); // NOI18N
+        imageAccueil.setIcon(new javax.swing.ImageIcon("src/main/resources/img/image_velovs.jpg")); // NOI18N
         imageAccueil.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
 
         labelCredits.setBackground(new java.awt.Color(204, 204, 204));
