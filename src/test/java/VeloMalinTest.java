@@ -60,12 +60,6 @@ public class VeloMalinTest {
 //		for(Station object: MysqlRequester.getToutesLesStations()){
 //			System.out.println(object);
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Map<Date, Integer> map = MysqlRequester.getVeloDisponiblePourUneStationSur24heure(2546, sdf.parse("2015-10-20"));
-        for (Map.Entry<Date, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
-        System.out.println("NB de places " + MysqlRequester.getNombreDePlaceTotaleSurUneStation(2546));
     }
 
 }
