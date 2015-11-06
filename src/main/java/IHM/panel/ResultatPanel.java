@@ -1,17 +1,11 @@
 package IHM.panel;
 
-import database.MysqlConnecter;
+import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
 import model.Station;
 import recherche.StatistiquesStation;
 
-import javax.swing.*;
-
-import IHM.listeners.EcouteurItineraireFavori;
-
 import java.util.*;
-import java.util.Map.*;
-import java.util.Set;
 
 
 /**
@@ -237,7 +231,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelTotalStation1.setText(String.valueOf(tab_nbplacestotale_stations_depart.get(0)));
 
         labelDispoDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDispoDepart1.setIcon(new javax.swing.ImageIcon("/src/main/resources/img/velo.png")); // NOI18N
+        labelDispoDepart1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelDispoDepart1.setText(String.valueOf(tab_nbvelos_stations.get(0)));
 
         labelHeureDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -283,11 +277,11 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelNomDepart3.setText(tab_nom_stations.get(2));
 
         labelTotalStation2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTotalStation2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
+        labelTotalStation2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation2.setText(String.valueOf(tab_nbplacestotale_stations_depart.get(1)));
 
         labelDispoDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDispoDepart2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
+        labelDispoDepart2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelDispoDepart2.setText(String.valueOf(tab_nbvelos_stations.get(1)));
         
         labelAdresseDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

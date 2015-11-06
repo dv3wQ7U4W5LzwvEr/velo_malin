@@ -36,13 +36,14 @@ public class AccueilPanel extends javax.swing.JPanel{
         imageAccueil.setBorder(new javax.swing.border.LineBorder(new java.awt.Color(255, 0, 0), 2, true));
 
         labelCredits.setBackground(new java.awt.Color(204, 204, 204));
-        labelCredits.setText("<html> &nbsp;Crédits:<br/> &nbsp;&nbsp;&nbsp;Développé par Maxime Brunet, Christophe Chaumier, Emmanuela Calmel, Florian Vautard et Pierre-Emmanuel Cochet.<br/> &nbsp;&nbsp;&nbsp;Licence MIT. Projet CPE Lyon. Données publiques JCDecaux vélo'v du Grand Lyon. </html>");
+        labelCredits.setText("<html> &nbsp;Crédits:<br/> &nbsp;&nbsp;&nbsp;Développé par <b>Maxime Brunet, Christophe Chaumier, Emmanuela Calmel, Florian Vautard et Pierre-Emmanuel Cochet.</b><br/> &nbsp;&nbsp;&nbsp;Licence MIT. Projet CPE Lyon. Données publiques JCDecaux vélo'v du Grand Lyon." +
+                "<br/> &nbsp;&nbsp;&nbsp;Icons made by <a href=\"http://www.freepik.com\" title=\"Freepik\">Freepik</a> from <a href=\"http://www.flaticon.com\" title=\"Flaticon\">www.flaticon.com</a> is licensed by <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a></html>");
         labelCredits.setOpaque(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         labelMalin.setBackground(new java.awt.Color(255, 0, 0));
-        labelMalin.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
+        labelMalin.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
         labelMalin.setForeground(new java.awt.Color(255, 255, 255));
         labelMalin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMalin.setText("malin");
