@@ -83,8 +83,7 @@ public class ResultatPanel extends javax.swing.JPanel {
             
         Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_depart.getLatitude()), Double.parseDouble(station_recherchee_depart.getLongitude()), 3, 500);
         
-    	Calendar cal = Calendar.getInstance();
-    	
+    	Calendar cal = Calendar.getInstance();   	
     	cal.set(2015, 10-1, 28, 13, 00, 00);
     	Date date_depart = cal.getTime();
     	

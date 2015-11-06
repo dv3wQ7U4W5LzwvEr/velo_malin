@@ -1,4 +1,5 @@
 package IHM.listeners;
+import IHM.*;
 
 import database.MysqlConnecter;
 import database.MysqlRequester;

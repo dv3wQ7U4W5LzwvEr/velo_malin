@@ -1,9 +1,22 @@
 package IHM.panel;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyAdapter;
+import java.awt.event.KeyEvent;
+import java.util.Calendar;
+import java.util.Date;
+
 import IHM.google_map.GoogleMapIHM;
+import IHM.listeners.*;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+
+import javax.swing.ImageIcon;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.JTextField;
 
 /**
  * @author QKFD724
@@ -42,6 +55,9 @@ public class ItinerairePanel extends javax.swing.JPanel {
     private javax.swing.JPanel panItineraire;
     private javax.swing.JPanel panelCarte;
 
+    String adresse_arrivee;
+    String adresse_depart;
+    
     private void initItineraire() {
         panItineraire = new javax.swing.JPanel();
         panelCarte = new javax.swing.JPanel();
@@ -114,11 +130,13 @@ public class ItinerairePanel extends javax.swing.JPanel {
         boutonLancer.setContentAreaFilled(false);
         boutonLancer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonLancer.setOpaque(true);
+        /*
         boutonLancer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonLancerActionPerformed(evt);
             }
         });
+        */
 
         depart1.setBackground(new java.awt.Color(255, 255, 0));
         depart1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "HORAIRES\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
@@ -196,6 +214,20 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
         adresseDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseDepart.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+        adresseDepart.addKeyListener(new KeyAdapter() {
+        	public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                adresse_depart = textField.getText();
+            }
+ 
+            public void keyTyped(KeyEvent e) {
+                // TODO: Do something for the keyTyped event
+            }
+ 
+            public void keyPressed(KeyEvent e) {
+                // TODO: Do something for the keyPressed event
+            }
+        });
 
         boutonDepart.setBackground(new java.awt.Color(255, 255, 255));
         boutonDepart.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
@@ -249,6 +281,32 @@ public class ItinerairePanel extends javax.swing.JPanel {
         adresseArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseArrivee.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
 
+        //marche mais localement => pas de redirection vers classe => essayer de virer du package listener
+        boutonLancer.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt) {
+                adresse_arrivee = adresseArrivee.getText();
+                ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+            	}
+        	});
+        
+        /*
+        adresseArrivee.addKeyListener(new KeyAdapter() {
+        	public void keyReleased(KeyEvent e) {
+                JTextField textField = (JTextField) e.getSource();
+                adresse_arrivee = textField.getText();
+            }
+ 
+            public void keyTyped(KeyEvent e) {
+                // TODO: Do something for the keyTyped event
+            }
+ 
+            public void keyPressed(KeyEvent e) {
+                // TODO: Do something for the keyPressed event
+            }
+        });
+		*/
+        
         boutonArrivee.setBackground(new java.awt.Color(255, 255, 255));
         boutonArrivee.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         boutonArrivee.setForeground(new java.awt.Color(255, 255, 255));
@@ -264,6 +322,12 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
+        //test
+    	Calendar cal = Calendar.getInstance();   	
+    	cal.set(2015, 10-1, 28, 13, 00, 00);
+    	Date date_recherche = cal.getTime();	
+        //boutonLancer.addActionListener(new EcouteurBoutonLancerRecherche(adresse_depart, adresse_arrivee,date_recherche)); 
+        
         javax.swing.GroupLayout departLayout = new javax.swing.GroupLayout(depart);
         depart.setLayout(departLayout);
         departLayout.setHorizontalGroup(
