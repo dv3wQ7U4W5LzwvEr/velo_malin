@@ -8,11 +8,10 @@ import java.awt.*;
 
 public class IHMApplication extends JFrame {
 
-    public JTabbedPane onglets;
-    private static final long serialVersionUID = 1L;
+     private static final long serialVersionUID = 1L;
 
 
-    public void main(String[] args) {
+    public static void main(String[] args) {
 
             JFrame fenetre = new IHMApplication();
 
@@ -21,7 +20,7 @@ public class IHMApplication extends JFrame {
             fenetre.setLocationRelativeTo(null);
             fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 
-            onglets =  new JTabbedPane();
+        JTabbedPane onglets =  new JTabbedPane();
 
             onglets.getAccessibleContext();
             onglets.setMinimumSize(new Dimension(300, 150));
@@ -83,14 +82,6 @@ public class IHMApplication extends JFrame {
             fenetre.setVisible(true);
             
 
-    }
-
-    public JTabbedPane getOnglets() {
-        return onglets;
-    }
-
-    public void setOnglets(JTabbedPane onglets) {
-        this.onglets = onglets;
     }
 
 }
