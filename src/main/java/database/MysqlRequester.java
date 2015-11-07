@@ -546,4 +546,40 @@ public class MysqlRequester {
         }
         return placesTotales;
     }
+    
+    /**
+    *
+    * @param
+    * @return
+    */
+   public static Map<Integer,Integer> getItinerairesFavoris()
+   {
+       String sqlQuery = "SELECT * FROM velo_malin.itinerairesfavoris ";
+       ResultSet rs = executerRequete(sqlQuery);
+
+       Map<Integer, Integer> map = new HashMap<Integer, Integer>();
+       
+       try {
+           while (rs.next()) {
+               map.put(rs.getInt("id_station_depart"), rs.getInt("id_station_arrivee"));
+           }
+       } catch (SQLException ex) {
+           Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+           lgr.log(Level.SEVERE, ex.getMessage(), ex);
+           System.out.println("Erreur: " + ex);
+       }
+       return map;
+   }
+   
+   /**
+   *
+   * @param
+   * @return
+   */
+  public static void getSupprimerItinerairesFavoris(int id_station_depart,int id_station_arrivee)
+  {
+      String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE id_station_depart='" + id_station_depart + "' AND id_station_arrivee='" + id_station_arrivee + "' ;";    
+      executerRequeteInsertDeleteUpdate(sqlQuery);    
+      
+  }
 }

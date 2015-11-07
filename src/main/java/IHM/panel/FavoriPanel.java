@@ -1,5 +1,16 @@
 package IHM.panel;
 
+import java.sql.SQLException;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
+
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+
+import database.MysqlRequester;
+import model.Station;
+
 /**
  * Created by QKFD7244 on 02/11/2015.
  */
@@ -41,9 +52,59 @@ public class FavoriPanel extends javax.swing.JPanel{
         panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
 
-        /*Faire un for*/
-        labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelDepart.setText("Adresse de d√©part");
+        /*Faire un for*/       
+        Map<Integer, Integer> liste_itinerairesfavoris = new HashMap<Integer, Integer>();;
+        liste_itinerairesfavoris = MysqlRequester.getItinerairesFavoris();
+        
+        Iterator<Integer> it = liste_itinerairesfavoris.keySet().iterator();
+    	
+        //From Tof
+        //faire une boucle pour rajouter chaque Label => voir avec conception PEC
+        //gÈrer l'actualisation de l'affichage quand le favori est supprimÈ
+        //Pb : crÈe Un seul bouton : car mÍme label!!! =>  voir PB avec PEC : gÈnÈration auto de code pas efficace dans ce cas!
+        while (it.hasNext()) {
+        	Object s_depart = it.next();
+        	Object s_arrivee = liste_itinerairesfavoris.get(s_depart); 
+        	  
+        	int depart = (int) s_depart;
+        	int arrivee = (int) s_arrivee;
+        	
+        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            labelDepart.setText(String.valueOf(s_depart));
+        	
+            labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
+            labelVelo.setText(">");
+            
+            labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+            labelArrivee.setText(String.valueOf(s_arrivee));
+            
+            labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            labelDateTrajet.setText("jours selected et heure");
+            
+            boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
+            boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+            boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
+            boutonSupprimer.setText("Supprimer");
+            boutonSupprimer.setContentAreaFilled(false);
+            boutonSupprimer.setOpaque(true);
+            boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
+                public void actionPerformed(java.awt.event.ActionEvent evt) {
+                    //boutonSupprimerActionPerformed(evt);
+						MysqlRequester.getSupprimerItinerairesFavoris(depart,arrivee);
+						
+				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+					    JOptionPane.showMessageDialog(null, "ItinÈraire bien supprimÈ des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
+                }
+            });
+            
+        }
+        
+        
+        /*
+        //labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+        //labelDepart.setText("Adresse de d√©part");
+        
 
         labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
@@ -51,7 +112,7 @@ public class FavoriPanel extends javax.swing.JPanel{
 
         labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelArrivee.setText("Adresse d'arriv√©e");
-
+		
         labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDateTrajet.setText("jours selected et heure");
 
@@ -66,6 +127,7 @@ public class FavoriPanel extends javax.swing.JPanel{
                 boutonSupprimerActionPerformed(evt);
             }
         });
+		*/
 
         javax.swing.GroupLayout panelFavorisLayout = new javax.swing.GroupLayout(panelFavoris);
         panelFavoris.setLayout(panelFavorisLayout);
@@ -137,8 +199,8 @@ public class FavoriPanel extends javax.swing.JPanel{
     }
 
     /*Listeneur*/
-    private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+    private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {   	
+    	
     }
 
     /*√† rajouter en fonction du nombre...

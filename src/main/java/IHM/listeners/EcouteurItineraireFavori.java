@@ -22,6 +22,7 @@ public class EcouteurItineraireFavori implements ActionListener{
 
     private int id_station_arrivee;
     private int id_station_depart;
+    private boolean deja_favori = false;
     List<Integer> tab_test_dep = new ArrayList<Integer>();
     List<Integer> tab_test_arr = new ArrayList<Integer>();
 
@@ -34,8 +35,6 @@ public class EcouteurItineraireFavori implements ActionListener{
 	public void actionPerformed(ActionEvent e) {
         Client client_actuel;
         client_actuel = new Client();
-        boolean deja_favori = false;
-
         
         Map<Integer,Integer> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
  

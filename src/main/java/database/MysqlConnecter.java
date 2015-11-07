@@ -16,11 +16,18 @@ public class MysqlConnecter {
     private static Statement st = null;
     private static ResultSet rs = null;
     static final String JDBC_DRIVER = "com.mysql.jdbc.Driver";
-
+    
+    /*
     private String url = "jdbc:mysql://master.granetlucas.fr:80";
     private String user = "velo_malin";
     private String password = "velo_mal1n";
-
+	*/
+    
+    private String url = "jdbc:mysql://localhost";
+    private String user = "root";
+    private String password = "root";
+	
+    
     private MysqlConnecter() {
         try {
             Class.forName(JDBC_DRIVER);
