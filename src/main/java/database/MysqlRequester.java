@@ -582,4 +582,20 @@ public class MysqlRequester {
       executerRequeteInsertDeleteUpdate(sqlQuery);    
       
   }
+  
+  
+  /**
+  *
+  * @param
+  * @return
+  */
+ public static void setAlerte(Date Heure,int id_itineraire_favori)
+ {
+     String sqlQuery = "INSERT INTO velo_malin.alertes(id_itinerairefavori, heure) VALUES ( '" + id_itineraire_favori + "','"+ Heure +"')" ;
+     executerRequeteInsertDeleteUpdate(sqlQuery);
+
+
+     
+
+ }
 }
