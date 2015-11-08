@@ -1,8 +1,8 @@
 import database.MysqlRequester;
+import model.Jours;
 import recherche.StatistiquesStation;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.time.LocalTime;
 import java.util.*;
 
 /**
@@ -62,12 +62,16 @@ public class VeloMalinTest {
 //			System.out.println(object);
 
 
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        Map<Date, Integer> map = MysqlRequester.getVeloDisponiblePourUneStationSur24heure(2546, sdf.parse("2015-10-20"));
-        for (Map.Entry<Date, Integer> entry : map.entrySet()) {
-            System.out.println(entry.getKey() + "/" + entry.getValue());
-        }
-        System.out.println("NB de places " + MysqlRequester.getNombreDePlaceTotaleSurUneStation(2546));
+//        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+//        Map<Date, Integer> map = MysqlRequester.getVeloDisponiblePourUneStationSur24heure(2546, sdf.parse("2015-10-20"));
+//        for (Map.Entry<Date, Integer> entry : map.entrySet()) {
+//            System.out.println(entry.getKey() + "/" + entry.getValue());
+//        }
+//        System.out.println("NB de places " + MysqlRequester.getNombreDePlaceTotaleSurUneStation(2546));
+        
+        LocalTime heure = LocalTime.of(13, 00, 00);
+        System.out.println(MysqlRequester.getNombreDePlacesSurStationAuMoment(2470, heure, Jours.MARDI, null));
+        System.out.println(MysqlRequester.getNombreDeVelosSurStationAuMoment(2470, heure, Jours.MARDI, null));
     }
 
 }

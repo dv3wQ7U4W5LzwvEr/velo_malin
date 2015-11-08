@@ -8,7 +8,10 @@ import model.StationDisponibilites;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Timestamp;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import java.util.*;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -185,10 +188,10 @@ public class MysqlRequester {
         		return null;
 	        } else {
 	          	rs.beforeFirst();
+	            while (rs.next()) {
+	                nbVeloList.add(rs.getInt("places_occupees"));
+	            }
 	        }
-            while (rs.next()) {
-                nbVeloList.add(rs.getInt("places_occupees"));
-            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -230,10 +233,10 @@ public class MysqlRequester {
         		return null;
 	        } else {
 	          	rs.beforeFirst();
+	            while (rs.next()) {
+	            	nbPlaceList.add(rs.getInt("places_disponibles"));
+	            }
 	        }
-            while (rs.next()) {
-            	nbPlaceList.add(rs.getInt("places_disponibles"));
-            }
         } catch (SQLException e) {
             // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
@@ -246,7 +249,7 @@ public class MysqlRequester {
     	
     	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	
-    	String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+    	String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
 
 		ResultSet rs = executerRequete(sqlQuery);
 		int nbPlaces = -1;
@@ -267,7 +270,7 @@ public class MysqlRequester {
     	
     	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
     	
-    	String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+    	String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
 
 		ResultSet rs = executerRequete(sqlQuery);
 		int nbVelos = -1;
@@ -283,6 +286,81 @@ public class MysqlRequester {
 		}
 		return nbVelos;
     }
+    
+    public static List<Integer> getNombreDePlacesSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special){
+		
+    	StringBuilder sb = new StringBuilder();
+    	if(jour_special != null){
+    		sb.append(" AND jour_special="+ jour_special);
+    	}	else {
+    		sb.append("");
+    	}    	
+    	
+    	String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='"+ jour +"'"+ sb.toString() +";";
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	Date date;
+    	ResultSet rs = executerRequete(sqlQuery);
+    	
+    	List<Integer> nbPlaces = new ArrayList<Integer>();
+		try {
+			if(!rs.next()){
+				return null;
+			} else {
+				rs.beforeFirst();
+				while(rs.next()){
+					date = datetime.parse(rs.getString("date")+" "+heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+					nbPlaces.add(getNombreDePlacesSurStation(id_station, date));
+				}
+			}
+		} catch (SQLException e) {
+		    // TODO Bloc catch g?n?r? automatiquement
+		    e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+    	
+    	return nbPlaces;
+    	
+    }
+    
+    public static List<Integer> getNombreDeVelosSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special){
+		
+    	StringBuilder sb = new StringBuilder();
+    	if(jour_special != null){
+    		sb.append(" AND jour_special="+ jour_special);
+    	}	else {
+    		sb.append("");
+    	}    	
+    	
+    	String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='"+ jour +"'"+ sb.toString() +";";
+    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    	Date date;
+    	ResultSet rs = executerRequete(sqlQuery);
+    	
+    	List<Integer> nbVelos = new ArrayList<Integer>();
+		try {
+			if(!rs.next()){
+				return null;
+			} else {
+				rs.beforeFirst();
+				while(rs.next()){
+					date = datetime.parse(rs.getString("date")+" "+heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+					nbVelos.add(getNombreDeVelosSurStation(id_station, date));
+				}
+			}
+		} catch (SQLException e) {
+		    // TODO Bloc catch g?n?r? automatiquement
+		    e.printStackTrace();
+		} catch (ParseException e) {
+			// TODO Bloc catch généré automatiquement
+			e.printStackTrace();
+		}
+    	
+    	return nbVelos;
+    	
+    }
+     
     public static Station getStation(int id_station) {
         Station station = new Station();
 
@@ -358,17 +436,17 @@ public class MysqlRequester {
         		return null;
 	        } else {
 	          	rs.beforeFirst();
+	            while (rs.next()) {
+	            	station = new Station();
+	            	station.setId_station(rs.getInt("id_station"));
+	                station.setNom(rs.getString("nom"));
+	                station.setAdresse(rs.getString("adresse"));
+	                station.setLatitude(rs.getString("latitude"));
+	                station.setLongitude(rs.getString("longitude"));
+	                station.setPlaces(rs.getInt("places"));
+	                mapStations.put(station, rs.getDouble("distance"));
+	            }
 	        }
-            while (rs.next()) {
-            	station = new Station();
-            	station.setId_station(rs.getInt("id_station"));
-                station.setNom(rs.getString("nom"));
-                station.setAdresse(rs.getString("adresse"));
-                station.setLatitude(rs.getString("latitude"));
-                station.setLongitude(rs.getString("longitude"));
-                station.setPlaces(rs.getInt("places"));
-                mapStations.put(station, rs.getDouble("distance"));
-            }
         } catch (SQLException e) {
             // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
