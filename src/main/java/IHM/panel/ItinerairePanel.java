@@ -1,28 +1,15 @@
 package IHM.panel;
 
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.KeyAdapter;
-import java.awt.event.KeyEvent;
-import java.util.Calendar;
-import java.util.Date;
-
 import IHM.google_map.GoogleMapIHM;
-import IHM.listeners.*;
-import database.MysqlRequester;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
-import was.google_map_api.GoogleMap;
 
-import javax.swing.ImageIcon;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JTextField;
-
-import model.Localisation;
-import was.google_map_api.*;
-import model.Station;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
+import java.util.Date;
 
 /**
  * @author QKFD724
@@ -46,6 +33,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
     /*Variables*/
     public javax.swing.JTextField adresseDepart;
+    public javax.swing.JTextField adresseArrivee;
     private javax.swing.JButton boutonArrivee;
     private javax.swing.JButton boutonDepart;
     private javax.swing.JButton boutonLancer;
@@ -67,10 +55,10 @@ public class ItinerairePanel extends javax.swing.JPanel {
     private javax.swing.JSpinner minuteD;
     private javax.swing.JPanel panItineraire;
     private javax.swing.JPanel panelCarte;
+    String adresse_arrivee;
+    String adresse_depart;
 
     /*Méthode*/
-    String adresse_depart;
-    
     private void initItineraire() {
         panItineraire = new javax.swing.JPanel();
         panelCarte = new javax.swing.JPanel();
