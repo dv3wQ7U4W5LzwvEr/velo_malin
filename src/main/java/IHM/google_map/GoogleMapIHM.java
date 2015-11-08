@@ -211,10 +211,6 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
                 .visible(true);
     } */
 
-    public void removeMarker()
-    {
-
-    }
 
     private void hideMarker() {
 //		System.out.println("deleteMarker");

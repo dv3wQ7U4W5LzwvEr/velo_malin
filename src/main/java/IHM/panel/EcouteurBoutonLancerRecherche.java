@@ -1,15 +1,9 @@
 package IHM.panel;
 
-import database.MysqlRequester;
-import model.Client;
-import was.google_map_api.GoogleMap;
-
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.sql.Time;
 import java.util.Date;
-import IHM.panel.*;
 
 /**
  * Created by tof on 03/11/2015.

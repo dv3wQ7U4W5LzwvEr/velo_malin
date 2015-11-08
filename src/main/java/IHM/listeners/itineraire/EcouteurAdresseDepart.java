@@ -1,10 +1,7 @@
 package IHM.listeners.itineraire;
 
-import database.MysqlRequester;
-import model.Client;
-import was.google_map_api.GoogleMap;
+import was.google_map_api.GoogleMapApi;
 
-import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
@@ -18,7 +15,7 @@ public class EcouteurAdresseDepart implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String adresse = "";
-        GoogleMap.rechercherLatLong(adresse);
+        GoogleMapApi.rechercherLatLong(adresse);
 
     }
 }

@@ -24,6 +24,7 @@ import java.util.TimerTask;
  */
 public class GoogleMapEngine extends TimerTask {
 
+    private static GoogleMapEngine instance = null;
 
     private String apiKey = "&apiKey=AIzaSyC0Cwp8aZmmJx7DZXKVsOFxeDmJjzxfSyM";
 
@@ -31,8 +32,19 @@ public class GoogleMapEngine extends TimerTask {
 
     // http://maps.googleapis.com/maps/api/geocode/json?address=36+rue+des+antonins&apiKey=AIzaSyC0Cwp8aZmmJx7DZXKVsOFxeDmJjzxfSyM
 
+    private GoogleMapEngine()
+    {
 
-    public Localisation rechercherLatLong(final String adresse)
+    }
+
+    public static GoogleMapEngine getInstance() {
+        if (instance == null) {
+            instance = new GoogleMapEngine();
+        }
+        return instance;
+    }
+
+    protected Localisation rechercherLatLong(final String adresse)
     {
         Localisation localisation = new Localisation();
         localisation.setAdresse(adresse);

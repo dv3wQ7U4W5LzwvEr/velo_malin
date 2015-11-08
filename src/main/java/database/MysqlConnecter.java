@@ -50,7 +50,7 @@ public class MysqlConnecter {
         }
     }
 
-    public static MysqlConnecter getInstance() {
+    protected static MysqlConnecter getInstance() {
         if (instance == null) {
             instance = new MysqlConnecter();
         }
@@ -64,7 +64,7 @@ public class MysqlConnecter {
      * @param requete
      * @return
      */
-    public ResultSet executerRequeteInDatabase(String requete) {
+    protected ResultSet executerRequeteInDatabase(String requete) {
         try {
             st = con.createStatement();
             rs = st.executeQuery(requete);
@@ -83,7 +83,7 @@ public class MysqlConnecter {
      * @param requete
      * @return
      */
-    public void executerRequeteInsertDeleteUpdateInDatabase(String requete) {
+    protected void executerRequeteInsertDeleteUpdateInDatabase(String requete) {
         try {
             st = con.createStatement();
             st.executeUpdate(requete);

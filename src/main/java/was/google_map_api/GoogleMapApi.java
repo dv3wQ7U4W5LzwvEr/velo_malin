@@ -5,11 +5,11 @@ import model.Localisation;
 /**
  * Created by laurel on 04/11/2015.
  */
-public class GoogleMap {
-	
-	
+public class GoogleMapApi {
+
+
     public static Localisation rechercherLatLong(final String adresse) {
-        GoogleMap googleMap = new GoogleMap();
-        return GoogleMap.rechercherLatLong(adresse);
+        GoogleMapEngine googleMapEngine = GoogleMapEngine.getInstance();
+        return googleMapEngine.rechercherLatLong(adresse);
     }
 }
