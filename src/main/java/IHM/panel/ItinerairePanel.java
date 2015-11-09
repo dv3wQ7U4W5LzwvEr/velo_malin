@@ -395,6 +395,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
     private void boutonDepartActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+        //recupere champ
+        //envoie à l'API
+        //recup les coordonnées
+        //maj de la carte
+        //set valeurs coordonnées(départ)
     }
 
 }
