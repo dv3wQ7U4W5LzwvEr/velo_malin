@@ -512,8 +512,8 @@ public class MysqlRequester {
 
     public static void insertItineraireFavorit(Client client, double lat_depart, double long_dep, double lat_arrivee,double long_arrivee) {
 
-        String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, depart_longitude, depart_latitude,arrive_longitude,arrive_latitude) VALUES ( " + client.getId_client() + ","
-                + long_dep + "," + lat_depart +  "," + lat_arrivee +  "," + long_arrivee + ")";
+        String sqlQuery = "INSERT INTO velo_malin.itinerairesfavoris (id_client, depart_longitude, depart_latitude, arrive_longitude, arrive_latitude) VALUES('" + 1 + "','"
+                + long_dep + "','" + lat_depart +  "','" + lat_arrivee +  "','" + long_arrivee + "')";
 
         executerRequeteInsertDeleteUpdate(sqlQuery);
 
