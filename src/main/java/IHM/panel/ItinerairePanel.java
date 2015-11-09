@@ -12,11 +12,11 @@ import java.util.Date;
  */
 public class ItinerairePanel extends javax.swing.JPanel {
 
-	public static double lat_test_dep;
-	public static double long_test_dep;
-	public static double lat_test_arr;
-	public static double long_test_arr;
-	
+    public static double lat_test_dep;
+    public static double long_test_dep;
+    public static double lat_test_arr;
+    public static double long_test_arr;
+
     /**
      * Creates new form NewJPanel
      * Constructeur
@@ -269,46 +269,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
         adresseArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseArrivee.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
-                //localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
-                //localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
 
-                
-                //double lat_dep = localisation_adresse_depart.getLatitude();
-                //double long_dep = localisation_adresse_depart.getLongitude();
-                //double lat_arr = localisation_adresse_arrivee.getLatitude();
-                //double long_arr = localisation_adresse_arrivee.getLongitude();
-                lat_test_dep = 45.750945;
-                long_test_dep = 4.83927;
-                lat_test_arr = 45.750945;
-                long_test_arr = 4.83927;
-                    
-                
-                //String latitude = String.valueOf(lat_test);
-                //String longitude = String.valueOf(long_test);
-                //int id_station_depart = MysqlRequester.getIdStationparCoord(latitude,longitude);
-                
-                ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee + adresse_depart + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
-            	}
-        	});
-        
-        /*
-        adresseArrivee.addKeyListener(new KeyAdapter() {
-        	public void keyReleased(KeyEvent e) {
-                JTextField textField = (JTextField) e.getSource();
-                adresse_arrivee = textField.getText();
-            }
- 
-            public void keyTyped(KeyEvent e) {
-                // TODO: Do something for the keyTyped event
-            }
- 
-            public void keyPressed(KeyEvent e) {
-                // TODO: Do something for the keyPressed event
-            }
-        });
-		*/
-        
         boutonArrivee.setBackground(new java.awt.Color(255, 255, 255));
         boutonArrivee.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         boutonArrivee.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,9 +285,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
-
-        //boutonLancer.addActionListener(new EcouteurBoutonLancerRecherche(adresse_depart, adresse_arrivee,date_recherche)); 
-        
         javax.swing.GroupLayout departLayout = new javax.swing.GroupLayout(depart);
         depart.setLayout(departLayout);
         departLayout.setHorizontalGroup(
@@ -424,7 +382,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addComponent(filler4, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
         );
-}
+    }
 
     /*Listeneurs*/
     private void boutonLancerActionPerformed(java.awt.event.ActionEvent evt) {
@@ -436,10 +394,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
     }
 
     private void boutonDepartActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void datePicker2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
