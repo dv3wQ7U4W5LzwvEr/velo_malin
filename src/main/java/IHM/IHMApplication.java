@@ -80,7 +80,6 @@ public class IHMApplication extends JFrame {
         \*----------*/
             fenetre.add(onglets);
             fenetre.setVisible(true);
-            
 
     }
 

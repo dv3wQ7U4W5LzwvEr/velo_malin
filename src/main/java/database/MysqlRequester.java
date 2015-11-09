@@ -4,6 +4,7 @@ import model.Client;
 import model.Jours;
 import model.Station;
 import model.StationDisponibilites;
+import was.google_map_api.GoogleMapApi;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -316,7 +317,7 @@ public class MysqlRequester {
 		    // TODO Bloc catch g?n?r? automatiquement
 		    e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Bloc catch généré automatiquement
+			// TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
 		}
     	
@@ -353,7 +354,7 @@ public class MysqlRequester {
 		    // TODO Bloc catch g?n?r? automatiquement
 		    e.printStackTrace();
 		} catch (ParseException e) {
-			// TODO Bloc catch généré automatiquement
+			// TODO Bloc catch gï¿½nï¿½rï¿½ automatiquement
 			e.printStackTrace();
 		}
     	
@@ -419,6 +420,23 @@ public class MysqlRequester {
             e.printStackTrace();
         }
         return stations;
+    }
+
+    public static List<String> getAdressesToutesLesStations()
+    {
+        List<Station> stations = MysqlRequester.getToutesLesStations();
+        List<String> stationsAdresse = new ArrayList<>();
+        String adresse;
+        for(Station s: stations){
+            adresse = s.getAdresse();
+            if (adresse.equals(""))
+            {
+                adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(s.getLatitude()), new Double(s.getLongitude()));
+            }
+                stationsAdresse.add(adresse);
+
+        }
+        return stationsAdresse;
     }
 
     public static Map<Station, Double> getStationsProximitees(double latitude, double longitude, int nb_stations, double distance) {
@@ -671,9 +689,5 @@ public class MysqlRequester {
  {
      String sqlQuery = "INSERT INTO velo_malin.alertes(id_itinerairefavori, heure) VALUES ( '" + id_itineraire_favori + "','"+ Heure +"')" ;
      executerRequeteInsertDeleteUpdate(sqlQuery);
-
-
-     
-
  }
 }

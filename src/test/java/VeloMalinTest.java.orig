@@ -73,9 +73,14 @@ public class VeloMalinTest {
         LocalTime heure = LocalTime.of(13, 00, 00);
         System.out.println(MysqlRequester.getNombreDePlacesSurStationAuMoment(2470, heure, Jours.MARDI, null));
         System.out.println(MysqlRequester.getNombreDeVelosSurStationAuMoment(2470, heure, Jours.MARDI, null));
+<<<<<<< HEAD
+        
+        System.out.println(StatistiquesStation.getNombreDePlacesSurStationAuMomentAveIDV(2470, heure, Jours.LUNDI, null, 10));
+=======
         String adresse = "36 rue des antonins Résidence les tamaris villeurbanne";
         System.out.println("rechercher lat / long par adresse : " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLatitude() + " " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLongitude());
         System.out.println("rechercher adresse + lat / long: " + GoogleMapApi.rechercherAdresseParLatLong(45.7797430, 4.8790385));
+>>>>>>> Creation du service web pour récupérer l'adresse à partir de la lat long + correction de l'affichage des stations
     }
 
 }

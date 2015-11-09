@@ -15,7 +15,7 @@ public class EcouteurAdresseDepart implements ActionListener {
 
     public void actionPerformed(ActionEvent e) {
         String adresse = "";
-        GoogleMapApi.rechercherLatLong(adresse);
+        GoogleMapApi.rechercherLatLongParAdresse(adresse);
 
     }
 }

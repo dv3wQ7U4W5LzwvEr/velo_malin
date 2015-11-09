@@ -22,7 +22,7 @@ public class MysqlConnecter {
     private String user = "velo_malin";
     private String password = "velo_mal1n";
 
-    /* Local Database   
+    /* Local Database
     private String url = "jdbc:mysql://localhost";
     private String user = "root";
     private String password = "root";

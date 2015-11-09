@@ -8,8 +8,14 @@ import model.Localisation;
 public class GoogleMapApi {
 
 
-    public static Localisation rechercherLatLong(final String adresse) {
+    public static Localisation rechercherLatLongParAdresse(final String adresse) {
         GoogleMapEngine googleMapEngine = GoogleMapEngine.getInstance();
-        return googleMapEngine.rechercherLatLong(adresse);
+        return googleMapEngine.rechercherLatLongParAdresse(adresse);
+    }
+
+    public static String rechercherAdresseParLatLong(double latitude, double longitude)
+    {
+        GoogleMapEngine googleMapEngine = GoogleMapEngine.getInstance();
+        return googleMapEngine.rechercherAdresseParLatLong(latitude, longitude);
     }
 }

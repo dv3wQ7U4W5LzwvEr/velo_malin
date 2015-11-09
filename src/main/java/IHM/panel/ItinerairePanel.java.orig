@@ -269,9 +269,24 @@ public class ItinerairePanel extends javax.swing.JPanel {
 
         adresseArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseArrivee.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
+<<<<<<< HEAD
+
+=======
+        //test
+    	Calendar cal = Calendar.getInstance();   	
+    	cal.set(2015, 10-1, 28, 13, 00, 00);
+    	Date date_recherche = cal.getTime();
+        
+        boutonLancer.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt) {
+                adresse_depart = adresseDepart.getText();
+                adresse_arrivee = adresseArrivee.getText();
+                Date date_depart = date_recherche;
+                
+                //Localisation localisation_adresse_depart = new Localisation();
+                //Localisation localisation_adresse_arrivee = new Localisation();
                 //localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
                 //localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
-
                 
                 //double lat_dep = localisation_adresse_depart.getLatitude();
                 //double long_dep = localisation_adresse_depart.getLongitude();
@@ -309,6 +324,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
         });
 		*/
         
+>>>>>>> Creation du service web pour récupérer l'adresse à partir de la lat long + correction de l'affichage des stations
         boutonArrivee.setBackground(new java.awt.Color(255, 255, 255));
         boutonArrivee.setFont(new java.awt.Font("Tahoma", 1, 11)); // NOI18N
         boutonArrivee.setForeground(new java.awt.Color(255, 255, 255));
@@ -324,9 +340,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
-
-        //boutonLancer.addActionListener(new EcouteurBoutonLancerRecherche(adresse_depart, adresse_arrivee,date_recherche)); 
-        
         javax.swing.GroupLayout departLayout = new javax.swing.GroupLayout(depart);
         depart.setLayout(departLayout);
         departLayout.setHorizontalGroup(
@@ -436,10 +449,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
     }
 
     private void boutonDepartActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void datePicker2ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
 
