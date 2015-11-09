@@ -239,7 +239,7 @@ public class StatistiquesStation {
 		return d;
 	}
 
-	public static double getTempsDeTrajet(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
+	public static double getTempsDeTrajet(double departLatitude, double departLongitude, double arriveLatitude, double arriveLongitude)
 	{
 		double distanceKm = getKmFromLatLong(departLatitude, departLongitude, arriveLatitude, arriveLongitude);
 		return distanceKm / 16 * 60; // 16 km heures
