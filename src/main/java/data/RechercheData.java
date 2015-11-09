@@ -1,6 +1,7 @@
 package data;
 
 import java.util.Calendar;
+import java.util.Date;
 
 /**
  * Created by laurel on 09/11/2015.
@@ -15,6 +16,11 @@ public class RechercheData {
     private double arriveLong;
 
     private Calendar dateHeure;
+    
+    // à adapter selon Max
+    private int heures;
+    private int minutes;
+    private Date jour;
 
     public static RechercheData getInstance() {
         if (instance == null) {

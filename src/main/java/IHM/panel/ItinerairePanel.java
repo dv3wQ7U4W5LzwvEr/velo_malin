@@ -23,11 +23,6 @@ import data.*;
  */
 public class ItinerairePanel extends javax.swing.JPanel {
 
-    public static double lat_test_dep;
-    public static double long_test_dep;
-    public static double lat_test_arr;
-    public static double long_test_arr;
-
     /**
      * Creates new form NewJPanel
      * Constructeur
@@ -145,11 +140,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
         boutonLancer.setContentAreaFilled(false);
         boutonLancer.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonLancer.setOpaque(true);
-        boutonLancer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonLancerActionPerformed(evt);
-            }
-        });
 
         //test
     	Calendar cal = Calendar.getInstance();   	
@@ -161,8 +151,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 String adresse_depart = adresseDepart.getText();
                 String adresse_arrivee = adresseArrivee.getText();
                 Date date_depart = date_recherche;
-                
-        
+                       
                 Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
                 Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
                 
@@ -171,25 +160,19 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 double lat_arr = localisation_adresse_arrivee.getLatitude();
                 double long_arr = localisation_adresse_arrivee.getLongitude();
                          
-                RechercheData rechercheDonnees = RechercheData.getInstance();              
+                RechercheData rechercheDonnees = RechercheData.getInstance();  
+                //Transmission adresse (lat/long)
                 rechercheDonnees.setDepartLat(lat_dep);
                 rechercheDonnees.setDepartLong(long_dep);
                 rechercheDonnees.setArriveLat(lat_arr);
                 rechercheDonnees.setArriveLong(long_arr);
+                //Transmission Date (Heure_minute/jour)
+                //rechercheDonnees.setArriveLong(long_arr);
+                //rechercheDonnees.setArriveLong(long_arr);
                 
-                /*
-                lat_test_dep = 45.750945;
-                long_test_dep = 4.83927;
-                lat_test_arr = 45.750945;
-                long_test_arr = 4.83927;
-                */    
-                
-                //String latitude = String.valueOf(lat_test);
-                //String longitude = String.valueOf(long_test);
-                //int id_station_depart = MysqlRequester.getIdStationparCoord(latitude,longitude);
-                
+                  
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee + adresse_depart + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+    	        JOptionPane.showMessageDialog(null, "test :" + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
             	}
         	});
         

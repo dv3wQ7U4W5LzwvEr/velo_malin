@@ -78,10 +78,14 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
         //Traitement listener et récup données ----------------------------			    
         RechercheData rechercheDonnees = RechercheData.getInstance();              
-        double lat_dep = rechercheDonnees.getDepartLat();
-        double long_dep = rechercheDonnees.getDepartLong();
-        double lat_arrivee = rechercheDonnees.getArriveLat();
-        double long_arrivee = rechercheDonnees.getArriveLong();
+        //double lat_dep = rechercheDonnees.getDepartLat();
+        //double long_dep = rechercheDonnees.getDepartLong();
+        //double lat_arrivee = rechercheDonnees.getArriveLat();
+        //double long_arrivee = rechercheDonnees.getArriveLong();
+        double lat_dep = 45.757112;
+        double long_dep = 4.853405;
+        double lat_arrivee = 45.735158;
+        double long_arrivee = 4.872803;
 
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
@@ -212,6 +216,8 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDateDepart.setText("Le jj/mm/aaaa");
+        //date dynamique
+        //rechercheDonnees.getDateHeure();
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart1.setText(tab_nom_stations.get(0));   
