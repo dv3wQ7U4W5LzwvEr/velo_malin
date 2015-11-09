@@ -14,6 +14,8 @@ public class RechercheData {
     private double departLong;
     private double arriveLat;
     private double arriveLong;
+	private double distanceKm;
+	private double tempsParcours;
 
     private Calendar dateHeure = Calendar.getInstance();
 
@@ -24,8 +26,19 @@ public class RechercheData {
         return instance;
     }
 
- 
-    public double getDepartLat() {
+	public static void setInstance(RechercheData instance) {
+		RechercheData.instance = instance;
+	}
+
+	public double getDistanceKm() {
+		return distanceKm;
+	}
+
+	public void setDistanceKm(double distanceKm) {
+		this.distanceKm = distanceKm;
+	}
+
+	public double getDepartLat() {
 		return departLat;
 	}
 
@@ -72,4 +85,12 @@ public class RechercheData {
     public void setDateHeure(Calendar dateHeure) {
         this.dateHeure = dateHeure;
     }
+
+	public double getTempsParcours() {
+		return tempsParcours;
+	}
+
+	public void setTempsParcours(double tempsParcours) {
+		this.tempsParcours = tempsParcours;
+	}
 }

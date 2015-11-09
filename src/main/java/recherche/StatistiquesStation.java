@@ -224,4 +224,25 @@ public class StatistiquesStation {
 			return null;
 		}
 	}
+
+	private static double getKmFromLatLong(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
+	{
+		double lon1 = departLongitude;
+		double lon2 = arriveLongitude;
+		double lat1 = departLatitude;
+		double lat2 = arriveLatitude;
+		double dlon = lon2 - lon1;
+		double dlat = lat2 - lat1;
+		double a = Math.pow(Math.sin(dlat/2), 2.0) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2.0);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
+		double d = 6  * c ;
+		return d;
+	}
+
+	public static double getTempsDeTrajet(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
+	{
+		double distanceKm = getKmFromLatLong(departLatitude, departLongitude, arriveLatitude, arriveLongitude);
+		return distanceKm / 16 * 60; // 16 km heures
+	}
+
 }

@@ -76,6 +76,7 @@ public class VeloMalinTest {
         String adresse = "36 rue des antonins Résidence les tamaris villeurbanne";
         System.out.println("rechercher lat / long par adresse : " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLatitude() + " " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLongitude());
         System.out.println("rechercher adresse + lat / long: " + GoogleMapApi.rechercherAdresseParLatLong(45.7797430, 4.8790385));
+        System.out.println("Temps de trajet pour 10 km : " + StatistiquesStation.getTempsDeTrajet(45.7797430, 4.8790385, 47.3590900, 3.3852100));
     }
 
 }
