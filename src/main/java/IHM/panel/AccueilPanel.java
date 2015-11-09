@@ -40,7 +40,7 @@ public class AccueilPanel extends javax.swing.JPanel{
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));
 
         labelMalin.setBackground(new java.awt.Color(255, 0, 0));
-        labelMalin.setFont(new java.awt.Font("Tahoma", 0, 48)); // NOI18N
+        labelMalin.setFont(new java.awt.Font("Tahoma", 1, 48)); // NOI18N
         labelMalin.setForeground(new java.awt.Color(255, 255, 255));
         labelMalin.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         labelMalin.setText("malin");
