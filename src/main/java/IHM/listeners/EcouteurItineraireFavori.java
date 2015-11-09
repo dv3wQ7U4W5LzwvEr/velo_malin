@@ -40,9 +40,9 @@ public class EcouteurItineraireFavori implements ActionListener{
         Client client_actuel;
         client_actuel = new Client();
         
-        Map<Integer,List<Integer>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
+        Map<Double,List<Double>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
                
-        for (Map.Entry<Integer,List<Integer>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
+        for (Map.Entry<Double,List<Double>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
         	double long_station_depart  = currentEntry.getKey();
         	double lat_station_depart = currentEntry.getValue().get(0);
         	double long_station_arrivee = currentEntry.getValue().get(1);

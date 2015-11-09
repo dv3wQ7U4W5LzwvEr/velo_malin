@@ -535,13 +535,13 @@ public class MysqlRequester {
         return result_insertion;
     }
     
-    public static Map<Integer,List<Integer>> getListeItinerairesFavoris() {
+    public static Map<Double, List<Double>> getListeItinerairesFavoris() {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris";
 
         ResultSet rs = executerRequete(sqlQuery);
-        Map<Integer, List<Integer>> liste_itineraires_favoris = new HashMap<Integer,List<Integer>>();
-        List<Integer> liste_valeurs = new ArrayList(); 
+        Map<Double, List<Double>> liste_itineraires_favoris = new HashMap<Double,List<Double>>();
+        List<Double> liste_valeurs = new ArrayList<Double>(); 
 
         try {
         	if(!rs.next()){
@@ -549,11 +549,11 @@ public class MysqlRequester {
 	        } else {
 	          	rs.beforeFirst();
 	        }
-            while (rs.next()) {             
-                liste_valeurs.set(0, rs.getInt("depart_latitude"));
-                liste_valeurs.set(1, rs.getInt("arrive_longitude"));
-                liste_valeurs.set(2, rs.getInt("arrive_latitude"));
-                liste_itineraires_favoris.put(rs.getInt("depart_longitude"), liste_valeurs);
+            while (rs.next()) {     
+            	liste_valeurs.add(rs.getDouble("depart_latitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+                liste_itineraires_favoris.put(rs.getDouble("depart_longitude"), liste_valeurs);
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
@@ -657,29 +657,6 @@ public class MysqlRequester {
         return placesTotales;
     }
     
-    /**
-    *
-    * @param
-    * @return
-    */
-   public static Map<Integer,Integer> getItinerairesFavoris()
-   {
-       String sqlQuery = "SELECT * FROM velo_malin.itinerairesfavoris ";
-       ResultSet rs = executerRequete(sqlQuery);
-
-       Map<Integer, Integer> map = new HashMap<Integer, Integer>();
-       
-       try {
-           while (rs.next()) {
-               map.put(rs.getInt("id_station_depart"), rs.getInt("id_station_arrivee"));
-           }
-       } catch (SQLException ex) {
-           Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
-           lgr.log(Level.SEVERE, ex.getMessage(), ex);
-           System.out.println("Erreur: " + ex);
-       }
-       return map;
-   }
    
    /**
    *

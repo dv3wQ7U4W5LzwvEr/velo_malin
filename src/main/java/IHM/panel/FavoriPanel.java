@@ -3,8 +3,11 @@ package IHM.panel;
 import database.MysqlRequester;
 
 import javax.swing.*;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -49,31 +52,36 @@ public class FavoriPanel extends javax.swing.JPanel{
 
 
         /*Faire un for*/       
-        Map<Integer, Integer> liste_itinerairesfavoris = new HashMap<Integer, Integer>();;
-        liste_itinerairesfavoris = MysqlRequester.getItinerairesFavoris();
+        Map<Double,List<Double>> liste_itinerairesfavoris = new HashMap<Double, List<Double>>();;
+        liste_itinerairesfavoris = MysqlRequester.getListeItinerairesFavoris();
         
-        Iterator<Integer> it = liste_itinerairesfavoris.keySet().iterator();
+        Iterator<Double> it = liste_itinerairesfavoris.keySet().iterator();
     	
-        //From Tof
-        //faire une boucle pour rajouter chaque Label => voir avec conception PEC
-        //g�rer l'actualisation de l'affichage quand le favori est supprim�
-        //Pb : cr�e Un seul bouton : car m�me label!!! =>  voir PB avec PEC : g�n�ration auto de code pas efficace dans ce cas!
+
         while (it.hasNext()) {
-        	Object s_depart = it.next();
-        	Object s_arrivee = liste_itinerairesfavoris.get(s_depart); 
+        	Object cle  = it.next();
+        	Object valeurs = liste_itinerairesfavoris.get(cle);
         	  
-        	int depart = (int) s_depart;
-        	int arrivee = (int) s_arrivee;
+        	String lat_depart = String.valueOf(cle);
+        	List<Double> liste = new ArrayList<Double>();
+        	liste  = (List) valeurs;
+        	
+        	String long_depart = String.valueOf(liste.get(0));
+        	String lat_arrivee = String.valueOf(liste.get(1));
+        	String long_arrivee = String.valueOf(liste.get(2));
+        	
+        	//int id_station_dep = MysqlRequester.getIdStationparCoord(lat_depart,long_depart);
         	
         	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelDepart.setText(String.valueOf(s_depart));
+            labelDepart.setText("test");
+            //labelDepart.setText(String.valueOf(id_station_dep));
         	
             labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
             labelVelo.setText(">");
             
             labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelArrivee.setText(String.valueOf(s_arrivee));
+            labelArrivee.setText(String.valueOf("test"));
             
             labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
             labelDateTrajet.setText("jours selected et heure");
@@ -84,6 +92,7 @@ public class FavoriPanel extends javax.swing.JPanel{
             boutonSupprimer.setText("Supprimer");
             boutonSupprimer.setContentAreaFilled(false);
             boutonSupprimer.setOpaque(true);
+            /*
             boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     //boutonSupprimerActionPerformed(evt);
@@ -93,7 +102,7 @@ public class FavoriPanel extends javax.swing.JPanel{
 					    JOptionPane.showMessageDialog(null, "Itin�raire bien supprim� des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
                 }
             });
-            
+            */
         }
         
         
