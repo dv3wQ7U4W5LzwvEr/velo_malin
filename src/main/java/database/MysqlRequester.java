@@ -535,12 +535,13 @@ public class MysqlRequester {
         return result_insertion;
     }
     
-    public static Map<Integer,Integer> getListeItinerairesFavoris() {
+    public static Map<Integer,List<Integer>> getListeItinerairesFavoris() {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris";
 
         ResultSet rs = executerRequete(sqlQuery);
         Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
+        List<Integer> liste_valeurs = new ArrayList(); 
 
         try {
         	if(!rs.next()){
@@ -548,8 +549,11 @@ public class MysqlRequester {
 	        } else {
 	          	rs.beforeFirst();
 	        }
-            while (rs.next()) {
-            	liste_itineraires_favoris.put(rs.getInt("id_station_depart"), rs.getInt("id_station_arrivee"));
+            while (rs.next()) {             
+                liste_valeurs.set(0, rs.getInt("depart_latitude"));
+                liste_valeurs.set(1, rs.getInt("arrive_longitude"));
+                liste_valeurs.set(2, rs.getInt("arrive_latitude"));
+            	//liste_itineraires_favoris.put(rs.getInt("depart_longitude"), );
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
