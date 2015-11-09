@@ -17,7 +17,6 @@ public class RechercheData {
 
     private Calendar dateHeure;
     
-    // à adapter selon Max
     private int heures;
     private int minutes;
     private Date jour;

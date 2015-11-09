@@ -452,6 +452,16 @@ public class MysqlRequester {
         try {
         	if(!rs.next()){
         		return null;
+        		/*
+            	station = new Station();
+            	station.setId_station(0);
+                station.setNom("");
+                station.setAdresse("");
+                station.setLatitude("");
+                station.setLongitude("");
+                station.setPlaces(0);
+                mapStations.put(station, 0.0); 
+                */      
 	        } else {
 	          	rs.beforeFirst();
 	            while (rs.next()) {
