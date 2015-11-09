@@ -3,8 +3,7 @@ package IHM.panel;
 import database.MysqlRequester;
 
 /**
- *
- * @author Emy
+ * @author Pec
  */
 public class StationPanel extends javax.swing.JPanel {
 
@@ -17,7 +16,7 @@ public class StationPanel extends javax.swing.JPanel {
     private javax.swing.JButton boutonStatistiques;
     private javax.swing.JComboBox comboHeure;
     private javax.swing.JComboBox comboSation;
-    private javax.swing.JTextField datePicker;
+    private org.jdesktop.swingx.JXDatePicker datePickerOP;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JLabel labelDate;
@@ -40,17 +39,18 @@ public class StationPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelIdentite;
 
     /*Méthode*/
-    private void initComponents() {
+    private void initComponents(){
+
         jPanel1 = new javax.swing.JPanel();
         labelTitrePan = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         labelSation = new javax.swing.JLabel();
         comboSation = new javax.swing.JComboBox();
         labelDate = new javax.swing.JLabel();
-        datePicker = new javax.swing.JTextField();
         boutonStatistiques = new javax.swing.JButton();
         labelHeure = new javax.swing.JLabel();
         comboHeure = new javax.swing.JComboBox();
+        datePickerOP = new org.jdesktop.swingx.JXDatePicker();
         panelGraph1 = new javax.swing.JPanel();
         panelGraph2 = new javax.swing.JPanel();
         labelTitre1 = new javax.swing.JLabel();
@@ -79,15 +79,12 @@ public class StationPanel extends javax.swing.JPanel {
         labelSation.setText("Choisir la station :");
 
         comboSation.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getToutesLesStations().toArray()));//toutes les stations
+        comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getToutesLesStations().toArray()));//TODO selectionner juste le nom les stations
         comboSation.setMaximumSize(new java.awt.Dimension(172, 23));
         comboSation.setPreferredSize(new java.awt.Dimension(172, 23));
 
         labelDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDate.setText("Selectionner une date :");
-
-        datePicker.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        datePicker.setText("date picker");
 
         boutonStatistiques.setBackground(new java.awt.Color(51, 255, 51));
         boutonStatistiques.setText("Lancer les statistiques");
@@ -106,6 +103,12 @@ public class StationPanel extends javax.swing.JPanel {
             }
         });
 
+        datePickerOP.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                datePickerOPActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -117,14 +120,15 @@ public class StationPanel extends javax.swing.JPanel {
                                         .addComponent(labelDate)
                                         .addComponent(labelHeure))
                                 .addGap(40, 40, 40)
-                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                                        .addComponent(comboSation, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(comboHeure, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                        .addComponent(datePicker, javax.swing.GroupLayout.PREFERRED_SIZE, 135, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(23, Short.MAX_VALUE))
+                                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(comboHeure, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
+                                                .addComponent(datePickerOP, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                                .addComponent(comboSation, javax.swing.GroupLayout.Alignment.LEADING, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
+                                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel3Layout.createSequentialGroup()
                                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(boutonStatistiques, javax.swing.GroupLayout.PREFERRED_SIZE, 150, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addComponent(boutonStatistiques, javax.swing.GroupLayout.PREFERRED_SIZE, 161, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
         jPanel3Layout.setVerticalGroup(
@@ -137,7 +141,7 @@ public class StationPanel extends javax.swing.JPanel {
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(labelDate)
-                                        .addComponent(datePicker))
+                                        .addComponent(datePickerOP, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                                         .addComponent(labelHeure)
@@ -204,7 +208,7 @@ public class StationPanel extends javax.swing.JPanel {
 
         labelNombreTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombreTotal.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
-        labelNombreTotal.setText("x");
+        labelNombreTotal.setText(String.valueOf(MysqlRequester.getNombreDePlaceTotaleSurUneStation(2470)));//TODO Changer l'id en fonction du choix
 
         labelNombreVelos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombreVelos.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
@@ -323,8 +327,14 @@ public class StationPanel extends javax.swing.JPanel {
     }
 
     /*Listeneurs*/
+
     private void comboHeureActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }
+
+    private void datePickerOPActionPerformed(java.awt.event.ActionEvent evt) {
+        // TODO add your handling code here:
+    }
+
 
 }

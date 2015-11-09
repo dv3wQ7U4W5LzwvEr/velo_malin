@@ -27,8 +27,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
      */
     public ItinerairePanel() {
         initItineraire();
-        
-        
     }
 
     /*Variables*/
@@ -139,7 +137,10 @@ public class ItinerairePanel extends javax.swing.JPanel {
         jLabel15.setText("Jour de départ");
 
         datePicker2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        datePicker2.setText("datePicker");
+        //datePicker2.setText("datePicker");
+        //TODO datepicker de l'itinéraire
+
+
         datePicker2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 datePicker2ActionPerformed(evt);
@@ -202,10 +203,12 @@ public class ItinerairePanel extends javax.swing.JPanel {
         );
 
         depart2.setBackground(new java.awt.Color(51, 51, 255));
-        depart2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
+        depart2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        jLabel8.setForeground(new java.awt.Color(255, 255, 255));
         jLabel8.setText("Adresse, lieu, ... ");
+
 
         adresseDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         adresseDepart.setBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1));
