@@ -1,15 +1,11 @@
 package IHM.panel;
 
-import java.sql.SQLException;
+import database.MysqlRequester;
+
+import javax.swing.*;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
-
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-
-import database.MysqlRequester;
-import model.Station;
 
 /**
  * Created by QKFD7244 on 02/11/2015.
@@ -60,8 +56,8 @@ public class FavoriPanel extends javax.swing.JPanel{
     	
         //From Tof
         //faire une boucle pour rajouter chaque Label => voir avec conception PEC
-        //gérer l'actualisation de l'affichage quand le favori est supprimé
-        //Pb : crée Un seul bouton : car même label!!! =>  voir PB avec PEC : génération auto de code pas efficace dans ce cas!
+        //gï¿½rer l'actualisation de l'affichage quand le favori est supprimï¿½
+        //Pb : crï¿½e Un seul bouton : car mï¿½me label!!! =>  voir PB avec PEC : gï¿½nï¿½ration auto de code pas efficace dans ce cas!
         while (it.hasNext()) {
         	Object s_depart = it.next();
         	Object s_arrivee = liste_itinerairesfavoris.get(s_depart); 
@@ -94,14 +90,14 @@ public class FavoriPanel extends javax.swing.JPanel{
 						MysqlRequester.getSupprimerItinerairesFavoris(depart,arrivee);
 						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
+					    JOptionPane.showMessageDialog(null, "Itinï¿½raire bien supprimï¿½ des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
                 }
             });
             
         }
         
         
-        /*
+/*
         //labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         //labelDepart.setText("Adresse de dÃ©part");
         
