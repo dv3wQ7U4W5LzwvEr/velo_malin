@@ -7,6 +7,8 @@ import javax.swing.*;
 
 import IHM.IHMApplication;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -59,21 +61,29 @@ public class FavoriPanel extends javax.swing.JPanel{
         liste_itinerairesfavoris = MysqlRequester.getListeItinerairesFavoris();
         
         Iterator<Double> it = liste_itinerairesfavoris.keySet().iterator();
+        int cpt = 0;
     	
         while (it.hasNext()) {
         	Object cle  = it.next();
         	Object valeurs = liste_itinerairesfavoris.get(cle);
         	  
-        	String lat_depart = String.valueOf(cle);
+        	String long_depart = String.valueOf(cle);
         	List<Double> liste = new ArrayList<Double>();
         	liste = (List<Double>) valeurs;
         	
-        	String long_depart = String.valueOf(liste.get(0));
-        	String lat_arrivee = String.valueOf(liste.get(1));
-        	String long_arrivee = String.valueOf(liste.get(2));
+        	String lat_depart = String.valueOf(liste.get(0));
+        	String long_arrivee = String.valueOf(liste.get(1));
+        	String lat_arrivee = String.valueOf(liste.get(2));
+        	
+//        	String adr_dep[] = null;
+//        	String adr_arr[] = null;
+//        	adr_dep[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
+//        	adr_arr[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
         	
         	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
         	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+        	
+        	cpt++;
         	
         	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             labelDepart.setText(adresse_depart);
@@ -91,49 +101,49 @@ public class FavoriPanel extends javax.swing.JPanel{
             boutonSupprimer.setText("Supprimer");
             boutonSupprimer.setContentAreaFilled(false);
             boutonSupprimer.setOpaque(true);         
-            boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
-                public void actionPerformed(java.awt.event.ActionEvent evt) {
-                    //boutonSupprimerActionPerformed(evt);
+            boutonSupprimer.addActionListener(new ActionListener() {
+                public void actionPerformed(ActionEvent evt) {
+                		//MysqlRequester.getSupprimerItinerairesFavoris(String.valueOf(4.7845067),String.valueOf(45.7971556),String.valueOf(45.780722),String.valueOf(4.8047449));
 						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
 						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 					    JOptionPane.showMessageDialog(null, "ItinÈraire bien supprimÈ des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
 					    
-					    IHMApplication.reloadFavoriPanel();
+					    //IHMApplication.reloadFavoriPanel();
                 }
             });
             
         }
         
         
-/*
+
         //labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         //labelDepart.setText("Adresse de d√©part");
         
 
-        labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-        labelVelo.setText(">");
-
-        labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelArrivee.setText("Adresse d'arriv√©e");
-		
-        labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateTrajet.setText("jours selected et heure");
-
-        boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
-        boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
-        boutonSupprimer.setText("Supprimer");
-        boutonSupprimer.setContentAreaFilled(false);
-        boutonSupprimer.setOpaque(true);
-        boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonSupprimerActionPerformed(evt);
-            }
-        });
-		*/
-
+//        labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+//        labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
+//        labelVelo.setText(">");
+//
+//        labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+//        labelArrivee.setText("Adresse d'arriv√©e");
+//		
+//        labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+//        labelDateTrajet.setText("jours selected et heure");
+//
+//        boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
+//        boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+//        boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
+//        boutonSupprimer.setText("Supprimer");
+//        boutonSupprimer.setContentAreaFilled(false);
+//        boutonSupprimer.setOpaque(true);
+//        boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
+//            public void actionPerformed(java.awt.event.ActionEvent evt) {
+//                boutonSupprimerActionPerformed(evt);
+//            }
+//        });
+		 
+        
         javax.swing.GroupLayout panelFavorisLayout = new javax.swing.GroupLayout(panelFavoris);
         panelFavoris.setLayout(panelFavorisLayout);
         panelFavorisLayout.setHorizontalGroup(
@@ -201,8 +211,10 @@ public class FavoriPanel extends javax.swing.JPanel{
                                 .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(265, Short.MAX_VALUE))
         );
+        
     }
 
+    
     /*Listeneur*/
     private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {   	
     	

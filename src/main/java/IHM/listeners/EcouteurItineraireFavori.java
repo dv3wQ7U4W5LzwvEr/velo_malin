@@ -63,6 +63,6 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        JOptionPane.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
     	}
         
-        
+    	IHMApplication.reloadFavoriPanel();
     }
 }
