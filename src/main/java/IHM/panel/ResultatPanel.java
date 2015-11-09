@@ -112,7 +112,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 	   		tab_nbplacestotale_stations_depart.add(s.getPlaces());
     	}   	
     	
-        Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 500);
+        Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 1000);
                 
     	Calendar cal_arr = Calendar.getInstance();
     	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
