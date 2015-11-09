@@ -160,12 +160,12 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 double lat_arr = localisation_adresse_arrivee.getLatitude();
                 double long_arr = localisation_adresse_arrivee.getLongitude();
                 
-                /*
+                
                 Calendar dateHeure = Calendar.getInstance();
             	dateHeure.setTime(datePickerOP.getDate());
             	dateHeure.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
             	dateHeure.set(Calendar.MINUTE, (Integer) minuteD.getValue());
-                */
+                
                 
                 RechercheData rechercheDonnees = RechercheData.getInstance();  
                 //Transmission adresse (lat/long)
@@ -174,7 +174,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 rechercheDonnees.setArriveLat(lat_arr);
                 rechercheDonnees.setArriveLong(long_arr);
                 //Transmission Date (Heure_minute/jour)
-                //rechercheDonnees.setDateHeure(dateHeure);
+                rechercheDonnees.setDateHeure(dateHeure);
                 
                 
                 

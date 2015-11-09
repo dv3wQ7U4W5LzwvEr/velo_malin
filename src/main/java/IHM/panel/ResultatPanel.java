@@ -8,6 +8,7 @@ import model.Station;
 import IHM.panel.ItinerairePanel;
 import data.RechercheData;
 
+import java.text.SimpleDateFormat;
 import java.util.*;
 
 
@@ -78,16 +79,16 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
         //Traitement listener et récup données ----------------------------			    
         RechercheData rechercheDonnees = RechercheData.getInstance();              
-        double lat_dep = rechercheDonnees.getDepartLat();
-        double long_dep = rechercheDonnees.getDepartLong();
-        double lat_arrivee = rechercheDonnees.getArriveLat();
-        double long_arrivee = rechercheDonnees.getArriveLong();
-        /*
+//        double lat_dep = rechercheDonnees.getDepartLat();
+//        double long_dep = rechercheDonnees.getDepartLong();
+//        double lat_arrivee = rechercheDonnees.getArriveLat();
+//        double long_arrivee = rechercheDonnees.getArriveLong();
+        
         double lat_dep = 45.757112;
         double long_dep = 4.853405;
         double lat_arrivee = 45.735158;
         double long_arrivee = 4.872803;
-        */
+        
 
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
@@ -218,10 +219,9 @@ public class ResultatPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "POUR LE DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
+        SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateDepart.setText("Le jj/mm/aaaa");
-        //date dynamique
-        //rechercheDonnees.getDateHeure();
+        labelDateDepart.setText("Le "+ date_format.format(rechercheDonnees.getDateHeure().getTime()));
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart1.setText(tab_nom_stations.get(0));   
