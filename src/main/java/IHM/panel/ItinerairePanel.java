@@ -159,6 +159,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 double long_dep = localisation_adresse_depart.getLongitude();
                 double lat_arr = localisation_adresse_arrivee.getLatitude();
                 double long_arr = localisation_adresse_arrivee.getLongitude();
+                
+                Calendar dateHeure = Calendar.getInstance();
+            	dateHeure.setTime(datePickerOP.getDate());
+            	dateHeure.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
+            	dateHeure.set(Calendar.MINUTE, (Integer) minuteD.getValue());
                          
                 RechercheData rechercheDonnees = RechercheData.getInstance();  
                 //Transmission adresse (lat/long)
@@ -167,9 +172,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 rechercheDonnees.setArriveLat(lat_arr);
                 rechercheDonnees.setArriveLong(long_arr);
                 //Transmission Date (Heure_minute/jour)
-                //rechercheDonnees.setArriveLong(long_arr);
-                //rechercheDonnees.setArriveLong(long_arr);
-                
+                rechercheDonnees.setDateHeure(dateHeure);
                   
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
     	        JOptionPane.showMessageDialog(null, "test :" + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);

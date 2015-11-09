@@ -89,9 +89,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
-    	Calendar cal = Calendar.getInstance();   	
-    	cal.set(2015, 10-1, 28, 13, 00, 00);
-    	Date date_depart = cal.getTime();
+    	Date date_depart = rechercheDonnees.getDateHeure().getTime();
     	
     	List<String> tab_nom_stations = new ArrayList<String>();
     	List<String> tab_adresse_stations = new ArrayList<String>();
@@ -120,7 +118,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                 
     	Calendar cal_arr = Calendar.getInstance();
     	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
-    	Date date_arrivee = cal.getTime();
+    	Date date_arrivee = cal_arr.getTime();
     	
     	
     	//Stations résultats d arrivee
