@@ -103,6 +103,8 @@ public class IHMApplication extends JFrame {
     	panel4.add(favoriPanel);
     	panel4.revalidate();
     	panel4.repaint();
+    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+	    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
     }
 }
 

@@ -41,17 +41,20 @@ public class EcouteurItineraireFavori implements ActionListener{
         client_actuel = new Client();
         
         Map<Double,List<Double>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
-               
-        for (Map.Entry<Double,List<Double>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
-        	double long_station_depart  = currentEntry.getKey();
-        	double lat_station_depart = currentEntry.getValue().get(0);
-        	double long_station_arrivee = currentEntry.getValue().get(1);
-        	double lat_station_arrivee = currentEntry.getValue().get(2);
-        	 	
-    		if((long_dep == long_station_depart) && (lat_dep == lat_station_depart) && (lat_arr == lat_station_arrivee) && (long_arr == long_station_arrivee))
-    			deja_favori = true;  			
-        }
-        
+          
+	    if(liste_itineraires_favoris != null){    	
+	    	Iterator<Double> it = liste_itineraires_favoris.keySet().iterator();
+	    	
+	        for (Map.Entry<Double,List<Double>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
+	        	double long_station_depart  = currentEntry.getKey();
+	        	double lat_station_depart = currentEntry.getValue().get(0);
+	        	double long_station_arrivee = currentEntry.getValue().get(1);
+	        	double lat_station_arrivee = currentEntry.getValue().get(2);
+	        	 	
+	    		if((long_dep == long_station_depart) && (lat_dep == lat_station_depart) && (lat_arr == lat_station_arrivee) && (long_arr == long_station_arrivee))
+	    			deja_favori = true;  			
+	        }
+	    }
  
     	if(deja_favori == true){	
 	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
@@ -63,6 +66,5 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        JOptionPane.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
     	}
         
-    	IHMApplication.reloadFavoriPanel();
     }
 }

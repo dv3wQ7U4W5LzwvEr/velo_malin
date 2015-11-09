@@ -1,6 +1,7 @@
 package IHM.panel;
 
 import database.MysqlRequester;
+import model.Station;
 import was.google_map_api.GoogleMapApi;
 
 import javax.swing.*;
@@ -67,61 +68,59 @@ public class FavoriPanel extends javax.swing.JPanel{
         Map<Double,List<Double>> liste_itinerairesfavoris = new HashMap<Double, List<Double>>();;
         liste_itinerairesfavoris = MysqlRequester.getListeItinerairesFavoris();
         
-        Iterator<Double> it = liste_itinerairesfavoris.keySet().iterator();
-        int cpt = 0;
-    	
-        while (it.hasNext()) {
-        	Object cle  = it.next();
-        	Object valeurs = liste_itinerairesfavoris.get(cle);
-        	  
-        	String long_depart = String.valueOf(cle);
-        	List<Double> liste = new ArrayList<Double>();
-        	liste = (List<Double>) valeurs;
-        	
-        	String lat_depart = String.valueOf(liste.get(0));
-        	String long_arrivee = String.valueOf(liste.get(1));
-        	String lat_arrivee = String.valueOf(liste.get(2));
-        	
-//        	String adr_dep[] = null;
-//        	String adr_arr[] = null;
-//        	adr_dep[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
-//        	adr_arr[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
-        	
-        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
-        	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
-        	
-        	cpt++;
-        	
-        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelDepart.setText(adresse_depart);
-        	
-            labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-            labelVelo.setText(">");
-            
-            labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelArrivee.setText(String.valueOf(adresse_arrivee));
-            
-            boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
-            boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-            boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
-            boutonSupprimer.setText("Supprimer");
-            boutonSupprimer.setContentAreaFilled(false);
-            boutonSupprimer.setOpaque(true);         
-            boutonSupprimer.addActionListener(new ActionListener() {
-                public void actionPerformed(ActionEvent evt) {
-                		//MysqlRequester.getSupprimerItinerairesFavoris(String.valueOf(4.7845067),String.valueOf(45.7971556),String.valueOf(45.780722),String.valueOf(4.8047449));
-						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
-						
-						IHMApplication.reloadFavoriPanel();
-						
-				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 	    
-                }
-            });
-            
-        }
+	    if(liste_itinerairesfavoris != null){    	
+	    	Iterator<Double> it = liste_itinerairesfavoris.keySet().iterator();
         
+	        while (it.hasNext()) {
+	        	Object cle  = it.next();
+	        	Object valeurs = liste_itinerairesfavoris.get(cle);
+	        	  
+	        	String long_depart = String.valueOf(cle);
+	        	List<Double> liste = new ArrayList<Double>();
+	        	liste = (List<Double>) valeurs;
+	        	
+	        	String lat_depart = String.valueOf(liste.get(0));
+	        	String long_arrivee = String.valueOf(liste.get(1));
+	        	String lat_arrivee = String.valueOf(liste.get(2));
+	        	
+	//        	String adr_dep[] = null;
+	//        	String adr_arr[] = null;
+	//        	adr_dep[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
+	//        	adr_arr[cpt] = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+	        	
+	        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
+	        	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+	        	
+	        	//cpt++;
+	        	
+	        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+	            labelDepart.setText(adresse_depart);
+	        	
+	            labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+	            labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
+	            labelVelo.setText(">");
+	            
+	            labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+	            labelArrivee.setText(String.valueOf(adresse_arrivee));
+	            
+	            boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
+	            boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+	            boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
+	            boutonSupprimer.setText("Supprimer");
+	            boutonSupprimer.setContentAreaFilled(false);
+	            boutonSupprimer.setOpaque(true);         
+	            boutonSupprimer.addActionListener(new ActionListener() {
+	                public void actionPerformed(ActionEvent evt) {
+							MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
+							
+							IHMApplication.reloadFavoriPanel();
+	                }
+	            });}
+	        	}
+	            else {
+		        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		            labelDepart.setText("Pas d'itinéraires favoris enregistrés");
+	    	    }
         
 
         //labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
