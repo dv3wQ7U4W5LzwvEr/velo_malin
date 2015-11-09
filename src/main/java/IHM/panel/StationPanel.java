@@ -211,7 +211,7 @@ public class StationPanel extends javax.swing.JPanel {
         );
         
        
-        DefaultCategoryDataset dataset = createVeloDataset(2470, new Date(2015, 11, 30, 00, 00), 6);
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
         dataset.setValue(0, "Marks", "1h");
         dataset.setValue(15, "Marks", "2h");
         dataset.setValue(20, "Marks", "3h");
