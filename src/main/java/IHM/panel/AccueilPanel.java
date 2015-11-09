@@ -60,7 +60,8 @@ public class AccueilPanel extends javax.swing.JPanel{
             public void mousePressed(java.awt.event.MouseEvent evt) {
                 boutonCommenceractionCommencer(evt);
             }
-        });      
+        });
+        boutonCommencer.setVisible(false);
         //boutonCommencer.addActionListener(new EcouteurBoutonCommencer()); 
     
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
