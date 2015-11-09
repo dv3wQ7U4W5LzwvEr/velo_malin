@@ -251,6 +251,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         SimpleDateFormat date_format_dep = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeureDepart().getTime()));
+        // marche pas donc on cache :)
+        labelDateDepart.setVisible(false);
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart1.setText(tab_nom_stations.get(0));
@@ -456,6 +458,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         SimpleDateFormat date_format_arr = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDateArrivee.setText("Le " + date_format_arr.format(rechercheDonnees.getDateHeureArrive().getTime()));
+        // marche pas donc on cache :)
+        labelDateArrivee.setVisible(false);
 
         groupeArrivee.add(boutonArrivee4);
         boutonArrivee4.setEnabled(false);
