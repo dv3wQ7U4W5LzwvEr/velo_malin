@@ -219,9 +219,9 @@ public class ResultatPanel extends javax.swing.JPanel {
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "POUR LE DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
-        SimpleDateFormat date_format = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat date_format_dep = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateDepart.setText("Le "+ date_format.format(rechercheDonnees.getDateHeure().getTime()));
+        labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeure().getTime()));
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart1.setText(tab_nom_stations.get(0));   
@@ -236,9 +236,6 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelDispoDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDispoDepart1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelDispoDepart1.setText(String.valueOf(tab_nbvelos_stations.get(0)));
-
-        labelHeureDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureDepart1.setText(String.valueOf(date_depart));
 
         groupeDepart.add(selctA2);
         selctA2.setEnabled(false);
@@ -266,12 +263,6 @@ public class ResultatPanel extends javax.swing.JPanel {
                 boutonArrivee7ActionPerformed(evt);
             }
         });
-
-        labelHeureDepart3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureDepart3.setText(String.valueOf(date_depart));
-
-        labelHeureDepart2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureDepart2.setText(String.valueOf(date_depart));
 
         labelNomDepart2.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart2.setText(tab_nom_stations.get(1));
@@ -425,9 +416,6 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelAdresseArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelAdresseArrivee1.setText(tab_adresse_stations_arrivee.get(0));
 
-        labelHeureArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureArrivee1.setText(String.valueOf(date_arrivee));
-
         labelPlaceArrivee1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaceArrivee1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
         labelPlaceArrivee1.setText(String.valueOf(tab_nbplaces_stations_arrivee.get(0)));
@@ -436,8 +424,9 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelTotalStation4.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation4.setText(String.valueOf(tab_nbplacestotale_stations_arrivee.get(0)));
 
+        SimpleDateFormat date_format_arr = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateArrivee.setText("Le jj/mm/aaaa");
+        labelDateArrivee.setText("Le " + date_format_arr.format(rechercheDonnees.getDateHeure().getTime()));
 
         groupeArrivee.add(boutonArrivee4);
         boutonArrivee4.setEnabled(false);
@@ -462,9 +451,6 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelPlaceArrivee2.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
         labelPlaceArrivee2.setText(String.valueOf(tab_nbplaces_stations_arrivee.get(1)));
 
-        labelHeureArrivee2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureArrivee2.setText(String.valueOf(date_arrivee));
-
         labelTotalStation6.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation6.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
         labelTotalStation6.setText(String.valueOf(tab_nbplacestotale_stations_arrivee.get(2)));
@@ -480,9 +466,6 @@ public class ResultatPanel extends javax.swing.JPanel {
                 boutonArrivee5ActionPerformed(evt);
             }
         });
-
-        labelHeureArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelHeureArrivee3.setText(String.valueOf(date_arrivee));
 
         labelPlaceArrivee3.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaceArrivee3.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
