@@ -22,7 +22,7 @@ public class IHMApplication extends JFrame {
             JFrame fenetre = new IHMApplication();
 
             fenetre.setTitle("Velo Malin");
-            fenetre.setSize(800, 800);
+            fenetre.setSize(850, 850);
             fenetre.setLocationRelativeTo(null);
             fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 

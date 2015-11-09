@@ -106,10 +106,10 @@ public class FavoriPanel extends javax.swing.JPanel{
                 		//MysqlRequester.getSupprimerItinerairesFavoris(String.valueOf(4.7845067),String.valueOf(45.7971556),String.valueOf(45.780722),String.valueOf(4.8047449));
 						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
 						
+						IHMApplication.reloadFavoriPanel();
+						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
-					    
-					    //IHMApplication.reloadFavoriPanel();
+					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 	    
                 }
             });
             
