@@ -5,6 +5,8 @@ import was.google_map_api.GoogleMapApi;
 
 import javax.swing.*;
 
+import IHM.IHMApplication;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -91,15 +93,16 @@ public class FavoriPanel extends javax.swing.JPanel{
             boutonSupprimer.setIcon(new javax.swing.ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
             boutonSupprimer.setText("Supprimer");
             boutonSupprimer.setContentAreaFilled(false);
-            boutonSupprimer.setOpaque(true);
-            
+            boutonSupprimer.setOpaque(true);         
             boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     //boutonSupprimerActionPerformed(evt);
 						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
 						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
+					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
+					    
+					    IHMApplication.reloadFavoriPanel();
                 }
             });
             

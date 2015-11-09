@@ -622,9 +622,6 @@ public class ResultatPanel extends javax.swing.JPanel {
                 boutonCreerAlerteActionPerformed(evt);
             }
         });
-        // voir avec tout le monde : on doit plutot mettre la bouton Créer une Alerte au niveau de onglet Alertes : il faut 
-        //définir si on doit déjà indiquer un itineraire favori pour le mettre en Alerte ou pas / 
-        //si Non,il faut modifier BDD-Table Alerte pour virer id_itineraire_favori et mettre 2 champs id_station_depart et id_station_arrivee à la place
         //boutonCreerAlerte.addActionListener(new EcouteurAlerte(heure,id_itineraire_favori)); 
         
 

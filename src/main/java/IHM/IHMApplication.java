@@ -96,6 +96,14 @@ public class IHMApplication extends JFrame {
     	panel2.revalidate();
     	panel2.repaint();
     }
+    
+    public static void reloadFavoriPanel(){
+    	FavoriPanel favoriPanel = new FavoriPanel();
+    	panel4.removeAll();
+    	panel4.add(favoriPanel);
+    	panel4.revalidate();
+    	panel4.repaint();
+    }
 }
 
 
