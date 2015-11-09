@@ -72,7 +72,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
         jLabel18 = new javax.swing.JLabel();
         heureD = new javax.swing.JSpinner();
         minuteD = new javax.swing.JSpinner();
-        datePickerOP = new org.jdesktop.swingx.JXDatePicker();
+        datePickerOP = new org.jdesktop.swingx.JXDatePicker(new Date());
         depart2 = new javax.swing.JPanel();
         jLabel8 = new javax.swing.JLabel();
         adresseDepart = new javax.swing.JTextField();
@@ -200,11 +200,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
         jLabel18.setText("min");
 
         heureD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        heureD.setModel(new javax.swing.SpinnerNumberModel(new Date().getHours(), 0, 23, 1));
+        heureD.setModel(new javax.swing.SpinnerNumberModel(Calendar.getInstance().get(Calendar.HOUR_OF_DAY), 0, 23, 1));
         heureD.setRequestFocusEnabled(false);
 
         minuteD.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        minuteD.setModel(new javax.swing.SpinnerNumberModel(new Date().getMinutes(), 0, 59, 1));
+        minuteD.setModel(new javax.swing.SpinnerNumberModel(Calendar.getInstance().get(Calendar.MINUTE), 0, 59, 1));
 
         datePickerOP.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
 

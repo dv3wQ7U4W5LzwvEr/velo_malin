@@ -15,8 +15,9 @@ public class RechercheData {
     private double arriveLat;
     private double arriveLong;
 
-    private Calendar dateHeure;
+    private Calendar dateHeure = Calendar.getInstance();
     
+    // à adapter selon Max
     private int heures;
     private int minutes;
     private Date jour;
