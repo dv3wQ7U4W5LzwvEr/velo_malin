@@ -7,17 +7,14 @@ import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
 import model.Localisation;
+import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.Calendar;
 import java.util.Date;
-
-import javax.swing.ImageIcon;
-import javax.swing.JOptionPane;
-import was.*;
-import data.*;
 
 /**
  * @author QKFD724
@@ -165,8 +162,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
             	dateHeure.setTime(datePickerOP.getDate());
             	dateHeure.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
             	dateHeure.set(Calendar.MINUTE, (Integer) minuteD.getValue());
-                
-                
+
+                //Calcul heure d'arrivée
+                Calendar dateHeureArr = dateHeure;
+                dateHeureArr.set(Calendar.MINUTE, (int) ((Double) minuteD.getValue() + StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr)));
+
                 RechercheData rechercheDonnees = RechercheData.getInstance();  
                 //Transmission adresse (lat/long)
                 rechercheDonnees.setDepartLat(lat_dep);
