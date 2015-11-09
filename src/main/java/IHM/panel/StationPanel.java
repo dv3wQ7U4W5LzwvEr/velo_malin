@@ -1,6 +1,24 @@
 package IHM.panel;
 
+
 import database.MysqlRequester;
+import model.Jours;
+
+import java.awt.BasicStroke;
+import java.awt.Color;
+import java.awt.Dimension;
+import java.util.Date;
+import java.util.List;
+
+import org.jfree.chart.ChartFactory;
+import org.jfree.chart.ChartPanel;
+import org.jfree.chart.JFreeChart;
+import org.jfree.chart.axis.NumberAxis;
+import org.jfree.chart.plot.CategoryPlot;
+import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.renderer.category.LineAndShapeRenderer;
+import org.jfree.data.category.CategoryDataset;
+import org.jfree.data.category.DefaultCategoryDataset;
 
 /**
  * @author Pec
@@ -37,6 +55,7 @@ public class StationPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelGraph1;
     private javax.swing.JPanel panelGraph2;
     private javax.swing.JPanel panelIdentite;
+
 
     /*Méthode*/
     private void initComponents(){
@@ -173,6 +192,33 @@ public class StationPanel extends javax.swing.JPanel {
                 panelGraph2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 329, Short.MAX_VALUE)
         );
+        
+       
+        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        dataset.setValue(0, "Marks", "1h");
+        dataset.setValue(15, "Marks", "2h");
+        dataset.setValue(20, "Marks", "3h");
+        dataset.setValue(10, "Marks", "4h");
+        dataset.setValue(7, "Marks", "5h");
+        dataset.setValue(25, "Marks", "6h");
+        dataset.setValue(6, "Marks", "7h");
+        dataset.setValue(20, "Marks", "8h");
+        dataset.setValue(35, "Marks", "9h");
+        dataset.setValue(30, "Marks", "10h");
+        
+      //  getNombreDePlacesSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special)
+        
+      /*  List<Integer> ListeNbrStation;
+        int id_station;
+        
+        for(id_station=0; id_station <8; id_station++)
+        {
+            dataset.getNombreDePlacesSurStationDansInterval(id_station, "Income",
+                Double.toString(percent_array[i]));
+        }
+*/
+
+      
 
         labelTitre1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTitre1.setText("1. Nombre d'actions (retrait/ajout) en fonction de l'heure");
@@ -214,6 +260,29 @@ public class StationPanel extends javax.swing.JPanel {
         labelNombreVelos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombreVelos.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelNombreVelos.setText("y");
+        
+        JFreeChart chart = ChartFactory.createAreaChart(
+                "Nombre de dépots et retraits par heure", "Nombre dépotes", "Nbr", dataset,
+                PlotOrientation.VERTICAL, false, true, false);
+            CategoryPlot p = chart.getCategoryPlot();
+            p.setRangeGridlinePaint(Color.BLACK);
+            ChartPanel panel = new ChartPanel(chart);
+           
+            panel.setPreferredSize(new java.awt.Dimension(600, 420));
+            panel.setDomainZoomable(true);
+            panelGraph1 = panel;
+        
+            JFreeChart chart2 = ChartFactory.createAreaChart(
+                    "Nombre de vélos par heure", "Nombre dépotes", "Nbr", dataset,
+                    PlotOrientation.VERTICAL, false, true, false);
+                CategoryPlot p2 = chart2.getCategoryPlot();
+                p.setRangeGridlinePaint(Color.BLACK);
+                ChartPanel panel2 = new ChartPanel(chart2);
+                panel2.setPreferredSize(new java.awt.Dimension(600, 420));
+                panel2.setDomainZoomable(true);
+                panelGraph2 = panel2;
+            
+            
 
         javax.swing.GroupLayout panelIdentiteLayout = new javax.swing.GroupLayout(panelIdentite);
         panelIdentite.setLayout(panelIdentiteLayout);
@@ -242,6 +311,9 @@ public class StationPanel extends javax.swing.JPanel {
                                                 .addComponent(labelNombreTrafic)))
                                 .addContainerGap(112, Short.MAX_VALUE))
         );
+        
+        
+        
         panelIdentiteLayout.setVerticalGroup(
                 panelIdentiteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(labelStationIcon, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
