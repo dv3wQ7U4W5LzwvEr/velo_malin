@@ -1,37 +1,37 @@
-Déroulement chronologique de la présentation
-	- l'équipe :
-		- 1 développeur débutant
-		- 3 développeurs intermédiaires
-		- 1 développeur expert / expérience de la méthode agile au travail
+DÃ©roulement chronologique de la prÃ©sentation
+	- l'Ã©quipe :
+		- 1 dÃ©veloppeur dÃ©butant
+		- 3 dÃ©veloppeurs intermÃ©diaires
+		- 1 dÃ©veloppeur expert / expÃ©rience de la mÃ©thode agile au travail
 		
-	- distribution des tâches
-		- grosse montée en compétence nécessaire
+	- distribution des tÃ¢ches
+		- grosse montÃ©e en compÃ©tence nÃ©cessaire
 		
-		- attribuer des tâches adaptées au niveau / engagement des personnes
+		- attribuer des tÃ¢ches adaptÃ©es au niveau / engagement des personnes
 	
-	- Adaptation de la méthode agile
+	- Adaptation de la mÃ©thode agile
 		- au niveau micro :
 			- Le Scrum meeting comme base de management :
-				- point sur ce qui a été fait lors de la dernière session de travail / transmission d'information à tout le groupe
-				- répartition des tâches 
-				- rappel sur les bons principes de la méthode / développement / point sur l'avancement
+				- point sur ce qui a Ã©tÃ© fait lors de la derniÃ¨re session de travail / transmission d'information Ã  tout le groupe
+				- rÃ©partition des tÃ¢ches 
+				- rappel sur les bons principes de la mÃ©thode / dÃ©veloppement / point sur l'avancement
 	
 		- au niveau macro:
-			- 6 itérations :
-				1: démarrage du projet :
-					- détermination des éléments présents dans le projet
-					- rédaction des différents documents
-					- attribution des rôles dans l'équipe					
+			- 6 itÃ©rations :
+				1: dÃ©marrage du projet :
+					- dÃ©termination des Ã©lÃ©ments prÃ©sents dans le projet
+					- rÃ©daction des diffÃ©rents documents
+					- attribution des rÃ´les dans l'Ã©quipe					
 					
-					création du socle : service web de récupération des données / sauvegarde dans base de données 2
-				2: panel résultat de la recherche
+					crÃ©ation du socle : service web de rÃ©cupÃ©ration des donnÃ©es / sauvegarde dans base de donnÃ©es 2
+				2: panel rÃ©sultat de la recherche
 				3: statistique de station
-				4: programmer un itinéraire
+				4: programmer un itinÃ©raire
 				5: alertes
 				
 	- le planning
+	
 		
-		
-	- démonstration
+	- dÃ©monstration
 
-durée : 10 minutes
+durÃ©e : 10 minutes
