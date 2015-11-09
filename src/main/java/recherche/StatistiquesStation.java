@@ -81,18 +81,6 @@ public class StatistiquesStation {
 		}
 	}
 	
-	public static Map<Integer, Integer> getNombreDeVelosSurStationAuMomentAveIDC(int id_station, LocalTime heure, Jours jour, String jour_special, long intervalMinutes){
-		
-		LocalTime heureAvant = heure.minusMinutes(intervalMinutes);
-		LocalTime heureApres = heure.plusMinutes(intervalMinutes);
-		
-		int velosAvant = getMoyenneNbVelosSurStationAuMoment(id_station, heureAvant, jour, jour_special);
-		int nbVelos = getMoyenneNbVelosSurStationAuMoment(id_station, heure, jour, jour_special);
-		int velosApres = getMoyenneNbVelosSurStationAuMoment(id_station, heureApres, jour, jour_special);
-		
-		return null;
-	}
-	
 	public static int getMoyenneNbPlacesSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special){
 		List<Integer> nbPlaces = MysqlRequester.getNombreDeVelosSurStationAuMoment(id_station, heure, jour, jour_special);
 		

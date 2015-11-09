@@ -72,6 +72,8 @@ public class VeloMalinTest {
         LocalTime heure = LocalTime.of(13, 00, 00);
         System.out.println(MysqlRequester.getNombreDePlacesSurStationAuMoment(2470, heure, Jours.MARDI, null));
         System.out.println(MysqlRequester.getNombreDeVelosSurStationAuMoment(2470, heure, Jours.MARDI, null));
+        
+        System.out.println(StatistiquesStation.getNombreDePlacesSurStationAuMomentAveIDV(2470, heure, Jours.LUNDI, null, 10));
     }
 
 }
