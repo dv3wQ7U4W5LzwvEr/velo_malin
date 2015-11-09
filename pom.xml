@@ -71,9 +71,15 @@
 		   <artifactId>jfreechart</artifactId>
 	       <version>1.0.19</version>
         </dependency>
+		<dependency>
+			<groupId>org.swinglabs</groupId>
+			<artifactId>swingx</artifactId>
+			<version>1.6</version>
+		</dependency>
 
 
-    </dependencies>
+
+	</dependencies>
 
 	<build>
 		<plugins>

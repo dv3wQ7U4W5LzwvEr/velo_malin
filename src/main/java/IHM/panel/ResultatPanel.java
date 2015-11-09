@@ -77,7 +77,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
     	
         //Traitement listener et récup données ----------------------------			    
-        RechercheData rechercheDonnees = RechercheData.getInstance();              
+        RechercheData rechercheDonnees = RechercheData.getInstance();
         double lat_dep = rechercheDonnees.getDepartLat();
         double long_dep = rechercheDonnees.getDepartLong();
         double lat_arrivee = rechercheDonnees.getArriveLat();
@@ -229,18 +229,20 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        panelCarteResultats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        /*
+            panelCarteResultats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
-        javax.swing.GroupLayout panelCarteResultatsLayout = new javax.swing.GroupLayout(panelCarteResultats);
-        panelCarteResultats.setLayout(panelCarteResultatsLayout);
-        panelCarteResultatsLayout.setHorizontalGroup(
-                panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 389, Short.MAX_VALUE)
-        );
-        panelCarteResultatsLayout.setVerticalGroup(
-                panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGap(0, 514, Short.MAX_VALUE)
-        );
+            javax.swing.GroupLayout panelCarteResultatsLayout = new javax.swing.GroupLayout(panelCarteResultats);
+            panelCarteResultats.setLayout(panelCarteResultatsLayout);
+            panelCarteResultatsLayout.setHorizontalGroup(
+                    panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 389, Short.MAX_VALUE)
+            );
+            panelCarteResultatsLayout.setVerticalGroup(
+                    panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGap(0, 514, Short.MAX_VALUE)
+            );
+        */
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "POUR LE DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N

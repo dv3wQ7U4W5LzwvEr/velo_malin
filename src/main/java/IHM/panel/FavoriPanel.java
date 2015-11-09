@@ -57,12 +57,13 @@ public class FavoriPanel extends javax.swing.JPanel{
         panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
         /*Timer d'Alerte*/
-        ActionListener actionListener = actionEvent -> JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
-        int tempsRestant = 9000;//difference de temps
-        Timer timer = new Timer(tempsRestant, actionListener);
-        timer.start();
-        timer.setRepeats(false);
-
+        /*
+            ActionListener actionListener = actionEvent -> JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
+            int tempsRestant = 9000;//difference de temps
+            Timer timer = new Timer(tempsRestant, actionListener);
+            timer.start();
+            timer.setRepeats(false);
+        */
 
         /*Faire un for*/       
         Map<Double,List<Double>> liste_itinerairesfavoris = new HashMap<Double, List<Double>>();;
