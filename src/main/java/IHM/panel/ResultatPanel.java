@@ -79,15 +79,15 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
         //Traitement listener et récup données ----------------------------			    
         RechercheData rechercheDonnees = RechercheData.getInstance();              
-//        double lat_dep = rechercheDonnees.getDepartLat();
-//        double long_dep = rechercheDonnees.getDepartLong();
-//        double lat_arrivee = rechercheDonnees.getArriveLat();
-//        double long_arrivee = rechercheDonnees.getArriveLong();
+        double lat_dep = rechercheDonnees.getDepartLat();
+        double long_dep = rechercheDonnees.getDepartLong();
+        double lat_arrivee = rechercheDonnees.getArriveLat();
+        double long_arrivee = rechercheDonnees.getArriveLong();
         
-        double lat_dep = 45.757112;
-        double long_dep = 4.853405;
-        double lat_arrivee = 45.735158;
-        double long_arrivee = 4.872803;
+//        double lat_dep = 45.757112;
+//        double long_dep = 4.853405;
+//        double lat_arrivee = 45.735158;
+//        double long_arrivee = 4.872803;
         
 
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
@@ -104,22 +104,35 @@ public class ResultatPanel extends javax.swing.JPanel {
     	List<Integer> tab_nbplaces_stations = new ArrayList<Integer>();
     	List<Integer> tab_nbvelos_stations = new ArrayList<Integer>();
     	List<Integer> tab_nbplacestotale_stations_depart = new ArrayList<Integer>();
-    	    	
-    	Iterator<Station> it = liste_stations_proximites_depart.keySet().iterator();
     	
-    	while (it.hasNext()){
-    		Station s = (Station) it.next();	   		
-	
-            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_depart);
-            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_depart);
-    		
-    		tab_id_stations.add(s.getId_station());
-    		tab_nom_stations.add(s.getNom());
-	   		tab_adresse_stations.add(s.getAdresse());
-	   		tab_nbplaces_stations.add(nbplaces);
-	   		tab_nbvelos_stations.add(nbvelos);
-	   		tab_nbplacestotale_stations_depart.add(s.getPlaces());
-    	}   	
+	    if(liste_stations_proximites_depart != null){    	
+	    	Iterator<Station> it = liste_stations_proximites_depart.keySet().iterator();
+	    	
+	    	while (it.hasNext()){
+	    		Station s = (Station) it.next();	   		
+		
+	            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_depart);
+	            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_depart);
+	    		
+	    		tab_id_stations.add(s.getId_station());
+	    		tab_nom_stations.add(s.getNom());
+		   		tab_adresse_stations.add(s.getAdresse());
+		   		tab_nbplaces_stations.add(nbplaces);
+		   		tab_nbvelos_stations.add(nbvelos);
+		   		tab_nbplacestotale_stations_depart.add(s.getPlaces());
+	    	} 
+	    } else {
+	    	int i=0;
+    		while(i < 3){
+		    	tab_id_stations.add(-1);
+	    		tab_nom_stations.add(null);
+		   		tab_adresse_stations.add(null);
+		   		tab_nbplaces_stations.add(-1);
+		   		tab_nbvelos_stations.add(-1);
+		   		tab_nbplacestotale_stations_depart.add(-1);
+		   		i++;
+    		}
+	    }
     	
         Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 1000);
                 
@@ -135,22 +148,36 @@ public class ResultatPanel extends javax.swing.JPanel {
     	List<Integer> tab_nbplaces_stations_arrivee = new ArrayList<Integer>();
     	List<Integer> tab_nbvelos_stations_arrivee = new ArrayList<Integer>();
     	List<Integer> tab_nbplacestotale_stations_arrivee = new ArrayList<Integer>();
-    	    	
-    	Iterator<Station> it2 = liste_stations_proximites_arrivee.keySet().iterator();
     	
-    	while (it2.hasNext()){
-    		Station s = (Station) it2.next();	   		
-	
-            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_arrivee);
-            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_arrivee);
-    		
-    		tab_id_stations_arrivee.add(s.getId_station());
-    		tab_nom_stations_arrivee.add(s.getNom());
-    		tab_adresse_stations_arrivee.add(s.getAdresse());
-    		tab_nbplaces_stations_arrivee.add(nbplaces);
-    		tab_nbvelos_stations_arrivee.add(nbvelos);
-    		tab_nbplacestotale_stations_arrivee.add(s.getPlaces());
-    	}    	
+    	if( liste_stations_proximites_arrivee != null){
+	    	Iterator<Station> it2 = liste_stations_proximites_arrivee.keySet().iterator();
+	    	
+	    	while (it2.hasNext()){
+	    		Station s = (Station) it2.next();	   		
+		
+	            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_arrivee);
+	            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_arrivee);
+	    		
+	    		tab_id_stations_arrivee.add(s.getId_station());
+	    		tab_nom_stations_arrivee.add(s.getNom());
+	    		tab_adresse_stations_arrivee.add(s.getAdresse());
+	    		tab_nbplaces_stations_arrivee.add(nbplaces);
+	    		tab_nbvelos_stations_arrivee.add(nbvelos);
+	    		tab_nbplacestotale_stations_arrivee.add(s.getPlaces());
+	    	}
+    	} else {
+    		int i=0;
+    		while(i < 3){
+    			tab_id_stations_arrivee.add(-1);
+	    		tab_nom_stations_arrivee.add(null);
+	    		tab_adresse_stations_arrivee.add(null);
+	    		tab_nbplaces_stations_arrivee.add(-1);
+	    		tab_nbvelos_stations_arrivee.add(-1);
+	    		tab_nbplacestotale_stations_arrivee.add(-1);
+		   		i++;
+    		}
+	    }
+    	
         //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
         
     	
