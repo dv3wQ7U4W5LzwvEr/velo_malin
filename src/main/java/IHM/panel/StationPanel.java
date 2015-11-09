@@ -3,12 +3,18 @@ package IHM.panel;
 
 import database.MysqlRequester;
 import model.Jours;
+import model.Station;
+import recherche.StatistiquesStation;
 
 import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
-import java.util.List;
+
+import javax.swing.JOptionPane;
 
 import org.jfree.chart.ChartFactory;
 import org.jfree.chart.ChartPanel;
@@ -96,13 +102,24 @@ public class StationPanel extends javax.swing.JPanel {
 
         labelSation.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelSation.setText("Choisir la station :");
-
+        
+        
+        
         comboSation.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         // a remplacer lors de la demo comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getAdressesToutesLesStations().toArray()));
         comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getToutesLesStations().toArray()));
         comboSation.setMaximumSize(new java.awt.Dimension(172, 23));
         comboSation.setPreferredSize(new java.awt.Dimension(172, 23));
-
+        
+        comboSation.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Stub de la méthode généré automatiquement
+				JOptionPane.showMessageDialog(null,((Station) comboSation.getSelectedItem()).getId_station());
+			}
+		});
+        
         labelDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDate.setText("Selectionner une date :");
 
@@ -194,7 +211,7 @@ public class StationPanel extends javax.swing.JPanel {
         );
         
        
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+        DefaultCategoryDataset dataset = createVeloDataset(2470, new Date(2015, 11, 30, 00, 00), 6);
         dataset.setValue(0, "Marks", "1h");
         dataset.setValue(15, "Marks", "2h");
         dataset.setValue(20, "Marks", "3h");
@@ -206,19 +223,8 @@ public class StationPanel extends javax.swing.JPanel {
         dataset.setValue(35, "Marks", "9h");
         dataset.setValue(30, "Marks", "10h");
         
-      //  getNombreDePlacesSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special)
+        DefaultCategoryDataset datasetVelo = createVeloDataset(2470, new Date(2015, 11, 30, 00, 00), 6);
         
-      /*  List<Integer> ListeNbrStation;
-        int id_station;
-        
-        for(id_station=0; id_station <8; id_station++)
-        {
-            dataset.getNombreDePlacesSurStationDansInterval(id_station, "Income",
-                Double.toString(percent_array[i]));
-        }
-*/
-
-      
 
         labelTitre1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTitre1.setText("1. Nombre d'actions (retrait/ajout) en fonction de l'heure");
@@ -273,7 +279,7 @@ public class StationPanel extends javax.swing.JPanel {
             panelGraph1 = panel;
         
             JFreeChart chart2 = ChartFactory.createAreaChart(
-                    "Nombre de vélos par heure", "Nombre dépotes", "Nbr", dataset,
+                    "Nombre de vélos par heure", "Temps", "Nombre de vélos", datasetVelo,
                     PlotOrientation.VERTICAL, false, true, false);
                 CategoryPlot p2 = chart2.getCategoryPlot();
                 p.setRangeGridlinePaint(Color.BLACK);
@@ -407,6 +413,25 @@ public class StationPanel extends javax.swing.JPanel {
 
     private void datePickerOPActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
+    }
+    
+    private DefaultCategoryDataset createVeloDataset(int id_station, Date date, int heure){
+    	
+    	Calendar cal = Calendar.getInstance();
+    	cal.setTime(date);
+    	
+    	Calendar cal2 = Calendar.getInstance();
+    	cal2.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
+    	
+    	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+    	for(int i=0; i < heure; i++){
+    		int  nbPlaces = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
+    		cal.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
+    		cal2.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
+    		dataset.setValue(nbPlaces, "Velos", cal.get(Calendar.HOUR)+"h");
+    	}
+    	
+		return dataset;
     }
 
 }

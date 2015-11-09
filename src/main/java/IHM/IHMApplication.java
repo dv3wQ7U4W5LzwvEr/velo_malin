@@ -10,11 +10,11 @@ public class IHMApplication extends JFrame {
 
      private static final long serialVersionUID = 1L;
 
-     private static JPanel panel0 = new JPanel();
-     private static JPanel panel1 = new JPanel();
-     private static JPanel panel2 = new JPanel();
-     private static JPanel panel3 = new JPanel();
-     private static JPanel panel4 = new JPanel();
+     private static JPanel panel0;
+     private static JPanel panel1;
+     private static JPanel panel2;
+     private static JPanel panel3;
+     private static JPanel panel4;
 
 
     public static void main(String[] args) {

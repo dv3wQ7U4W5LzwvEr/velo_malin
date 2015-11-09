@@ -65,8 +65,9 @@ public class Station {
 
 	@Override
 	public String toString() {
-		return "Station [id_station=" + id_station + ", nom=" + nom + ", adresse=" + adresse + ", latitude=" + latitude
-				+ ", longitude=" + longitude + ", places=" + places + "]";
+//		return "Station [id_station=" + id_station + ", nom=" + nom + ", adresse=" + adresse + ", latitude=" + latitude
+//				+ ", longitude=" + longitude + ", places=" + places + "]";
+		return this.nom;
 	}
     
 }
