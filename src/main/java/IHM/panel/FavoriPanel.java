@@ -60,7 +60,6 @@ public class FavoriPanel extends javax.swing.JPanel{
         
         Iterator<Double> it = liste_itinerairesfavoris.keySet().iterator();
     	
-
         while (it.hasNext()) {
         	Object cle  = it.next();
         	Object valeurs = liste_itinerairesfavoris.get(cle);
@@ -73,7 +72,8 @@ public class FavoriPanel extends javax.swing.JPanel{
         	String lat_arrivee = String.valueOf(liste.get(1));
         	String long_arrivee = String.valueOf(liste.get(2));
         	
-        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_depart));
+        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
+        	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
         	
         	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             labelDepart.setText(adresse_depart);
@@ -83,10 +83,7 @@ public class FavoriPanel extends javax.swing.JPanel{
             labelVelo.setText(">");
             
             labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelArrivee.setText(String.valueOf("test"));
-            
-            labelDateTrajet.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-            labelDateTrajet.setText("jours selected et heure");
+            labelArrivee.setText(String.valueOf(adresse_arrivee));
             
             boutonSupprimer.setBackground(new java.awt.Color(255, 0, 0));
             boutonSupprimer.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -100,7 +97,7 @@ public class FavoriPanel extends javax.swing.JPanel{
 						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
 						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "ItinÃ©raire bien supprimÃ© des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
+					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
 					    
 					    IHMApplication.reloadFavoriPanel();
                 }
