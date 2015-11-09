@@ -16,14 +16,13 @@ public class RechercheData {
 
     private Calendar dateHeure;
 
-
     protected static RechercheData getInstance() {
         if (instance == null) {
             instance = new RechercheData();
         }
         return instance;
     }
-    
+
     public String getDepartLat() {
         return departLat;
     }
