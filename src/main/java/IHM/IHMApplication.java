@@ -45,7 +45,7 @@ public class IHMApplication extends JFrame {
             ImageIcon icon4 = new ImageIcon("src/main/resources/img/cloud.png");
 
             onglets.addTab("Accueil", icon0, panel0);
-            onglets.addTab("Programmer son itin�aire", icon1, panel1);
+            onglets.addTab("Programmer son itinéraire", icon1, panel1);
             onglets.addTab("Résultats de recherche", icon2, panel2);
             onglets.addTab("Statistiques de station", icon3, panel3);
             onglets.addTab("Alertes", icon4, panel4);

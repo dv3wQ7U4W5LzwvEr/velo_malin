@@ -614,6 +614,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonCreerAlerte.setContentAreaFilled(false);
         boutonCreerAlerte.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonCreerAlerte.setOpaque(true);
+        boutonCreerAlerte.setVisible(false);
         boutonCreerAlerte.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 boutonCreerAlerteActionPerformed(evt);
