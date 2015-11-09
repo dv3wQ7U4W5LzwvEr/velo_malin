@@ -3,11 +3,13 @@ package recherche;
 import java.time.LocalTime;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
 import database.MysqlRequester;
 import model.Jours;
+import model.Station;
 
 public class StatistiquesStation {
 	
@@ -109,15 +111,129 @@ public class StatistiquesStation {
 		}
 	}
 	
-	public static Map<Integer, Integer> getNombreDePlacesSurStationAuMomentAveIDC(int id_station, LocalTime heure, Jours jour, String jour_special, long intervalMinutes){
+	public static Map<Integer, Integer> getNombreDePlacesSurStationAuMomentAveIDV(int id_station, LocalTime heure, Jours jour, String jour_special, long intervalMinutes){
 		
 		LocalTime heureAvant = heure.minusMinutes(intervalMinutes);
 		LocalTime heureApres = heure.plusMinutes(intervalMinutes);
 		
-		int placesAvant = getMoyenneNbVelosSurStationAuMoment(id_station, heureAvant, jour, jour_special);
-		int nbPlaces = getMoyenneNbVelosSurStationAuMoment(id_station, heure, jour, jour_special);
-		int placesApres = getMoyenneNbVelosSurStationAuMoment(id_station, heureApres, jour, jour_special);
+		Station station = MysqlRequester.getStation(id_station);
+		int placesMax = station.getPlaces();
 		
-		return null;
+		int placesAvant = getMoyenneNbPlacesSurStationAuMoment(id_station, heureAvant, jour, jour_special);
+		int nbPlaces = getMoyenneNbPlacesSurStationAuMoment(id_station, heure, jour, jour_special);
+		int placesApres = getMoyenneNbPlacesSurStationAuMoment(id_station, heureApres, jour, jour_special);
+		
+		int tendance = placesApres - placesAvant;
+		
+		Map<Integer, Integer> resultat = new HashMap<>();
+		
+		if( nbPlaces == 0 ){
+			resultat.put(nbPlaces, 1);
+			return resultat;			
+		} else if( nbPlaces == 1 || nbPlaces == 2 ){
+			if( tendance > 0 ){
+				resultat.put(nbPlaces, 2);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbPlaces, 2);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbPlaces, 1);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else if( nbPlaces > placesMax/2 ){
+			if( tendance > 0 ){
+				resultat.put(nbPlaces, 4);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbPlaces, 4);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbPlaces, 3);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else if( nbPlaces < placesMax/2 ){
+			if( tendance > 0 ){
+				resultat.put(nbPlaces, 4);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbPlaces, 3);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbPlaces, 2);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
+	}
+		
+	public static Map<Integer, Integer> getNombreDeVelosSurStationAuMomentAveIDV(int id_station, LocalTime heure, Jours jour, String jour_special, long intervalMinutes){
+		
+		LocalTime heureAvant = heure.minusMinutes(intervalMinutes);
+		LocalTime heureApres = heure.plusMinutes(intervalMinutes);
+		
+		Station station = MysqlRequester.getStation(id_station);
+		int velosMax = station.getPlaces();
+		
+		int velosAvant = getMoyenneNbVelosSurStationAuMoment(id_station, heureAvant, jour, jour_special);
+		int nbVelos = getMoyenneNbVelosSurStationAuMoment(id_station, heure, jour, jour_special);
+		int velosApres = getMoyenneNbVelosSurStationAuMoment(id_station, heureApres, jour, jour_special);
+		
+		int tendance = velosApres - velosAvant;
+		
+		Map<Integer, Integer> resultat = new HashMap<>();
+		
+		if( nbVelos == 0 ){
+			resultat.put(nbVelos, 1);
+			return resultat;			
+		} else if( nbVelos == 1 || nbVelos == 2 ){
+			if( tendance > 0 ){
+				resultat.put(nbVelos, 2);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbVelos, 2);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbVelos, 1);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else if( nbVelos > velosMax/2 ){
+			if( tendance > 0 ){
+				resultat.put(nbVelos, 4);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbVelos, 4);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbVelos, 3);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else if( nbVelos < velosMax/2 ){
+			if( tendance > 0 ){
+				resultat.put(nbVelos, 4);
+				return resultat;
+			} else if( tendance == 0 ){
+				resultat.put(nbVelos, 3);
+				return resultat;
+			} else if( tendance < 0 ){
+				resultat.put(nbVelos, 2);
+				return resultat;
+			} else {
+				return null;
+			}
+		} else {
+			return null;
+		}
 	}
 }
