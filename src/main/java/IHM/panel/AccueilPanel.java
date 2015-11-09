@@ -34,7 +34,7 @@ public class AccueilPanel extends javax.swing.JPanel{
 
         labelCredits.setBackground(new java.awt.Color(204, 204, 204));
         labelCredits.setText("<html> &nbsp;Crédits:<br/> &nbsp;&nbsp;&nbsp;Développé par <b>Maxime Brunet, Christophe Chaumier, Emmanuela Calmel, Florian Vautard et Pierre-Emmanuel Cochet.</b><br/> &nbsp;&nbsp;&nbsp;Licence MIT. Projet CPE Lyon. Données publiques JCDecaux vélo'v du Grand Lyon." +
-                "<br/> &nbsp;&nbsp;&nbsp;Icons made by <a href=\"http://www.freepik.com\" title=\"Freepik\">Freepik</a> from <a href=\"http://www.flaticon.com\" title=\"Flaticon\">www.flaticon.com</a> is licensed by <a href=\"http://creativecommons.org/licenses/by/3.0/\" title=\"Creative Commons BY 3.0\">CC BY 3.0</a></html>");
+                "<br/> &nbsp;&nbsp;&nbsp;Icons made by Freepik from www.flaticon.com is licensed by CC BY 3.0</html>");
         labelCredits.setOpaque(true);
 
         jPanel1.setBackground(new java.awt.Color(255, 255, 255));

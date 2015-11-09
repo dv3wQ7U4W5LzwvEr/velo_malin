@@ -1,23 +1,12 @@
 package IHM.panel;
 
-import database.MysqlRequester;
-import model.Station;
-import was.google_map_api.GoogleMapApi;
-
-import javax.swing.*;
-import javax.swing.Timer;
 import IHM.IHMApplication;
+import database.MysqlRequester;
+import was.google_map_api.GoogleMapApi;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * Created by QKFD7244 on 02/11/2015.
@@ -151,7 +140,7 @@ public class FavoriPanel extends javax.swing.JPanel{
 	        	}
 	            else {
 		        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		            labelDepart.setText("Pas d'itin�raires favoris enregistr�s");
+		            labelDepart.setText("Pas d'itinéraires favoris enregistrés");
 	    	    }
         
 
