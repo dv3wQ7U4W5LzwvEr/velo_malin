@@ -653,7 +653,25 @@ public class MysqlRequester {
         return placesTotales;
     }
     
-   
+    public static Map<Integer, Date> getListeAlerte()
+    {
+        String sqlQuery = "SELECT id_itinerairefavori,heure FROM velo_malin.alertes ;";
+        ResultSet rs = executerRequete(sqlQuery);
+
+        Map<Integer, Date> liste_alertes = new LinkedHashMap<>();
+        
+        try {
+            while (rs.next()) {
+            	liste_alertes.put(rs.getInt("id_itinerairefavori"), rs.getDate("heure"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return liste_alertes;
+    }
+    
    /**
    *
    * @param

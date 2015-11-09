@@ -11,8 +11,11 @@ import IHM.IHMApplication;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Iterator;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -32,6 +35,7 @@ public class FavoriPanel extends javax.swing.JPanel{
     private javax.swing.JLabel labelDepart;
     private javax.swing.JLabel labelVelo;
     private javax.swing.JPanel panelFavoris;
+    private javax.swing.JPanel panelAlerte;
     /* à rajouter en fonction
     private javax.swing.JLabel labelArrivee;
     private javax.swing.JLabel labelDateTrajet;
@@ -45,6 +49,7 @@ public class FavoriPanel extends javax.swing.JPanel{
     /*Méthode*/
     private void initFavori() {
         panelFavoris = new javax.swing.JPanel();
+        panelAlerte = new javax.swing.JPanel();
         labelDepart = new javax.swing.JLabel();
         labelVelo = new javax.swing.JLabel();
         labelArrivee = new javax.swing.JLabel();
@@ -56,6 +61,32 @@ public class FavoriPanel extends javax.swing.JPanel{
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
         panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
+        panelAlerte.setBackground(new java.awt.Color(255, 255, 255));
+        panelAlerte.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "ALERTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
+
+              
+        /* Récupération liste des Alertes dans la table Alertes */
+        Map<Integer, Date> liste_alertes = new LinkedHashMap<>();
+	    if(liste_alertes != null){    	
+	    	Iterator<Integer> itr = liste_alertes.keySet().iterator();
+	       
+	    	while (itr.hasNext()) {
+	        	Object cle  = itr.next();
+	        	Object valeur = liste_alertes.get(cle);
+	   
+	        	Date date_alerte = (Date) valeur;
+	        	int id_itineraire_favori = (int) cle;
+	    	}
+	    }
+	    //Test pour date
+    	Calendar cal_dep = Calendar.getInstance();
+    	Calendar cal_test = Calendar.getInstance();
+    	Date date_actuelle = cal_dep.getTime();
+    	cal_test.set(2015, 10-1, 28, 14, 00, 00);
+    	Date date_test =  cal_test.getTime();
+    	//soustraction des 2 dates
+    	//int tempsRestant = date_actuelle-date_test;
+    	
         /*Timer d'Alerte*/
         /*
             ActionListener actionListener = actionEvent -> JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
@@ -63,8 +94,8 @@ public class FavoriPanel extends javax.swing.JPanel{
             Timer timer = new Timer(tempsRestant, actionListener);
             timer.start();
             timer.setRepeats(false);
-        */
-
+        
+	    
         /*Faire un for*/       
         Map<Double,List<Double>> liste_itinerairesfavoris = new HashMap<Double, List<Double>>();;
         liste_itinerairesfavoris = MysqlRequester.getListeItinerairesFavoris();
@@ -120,7 +151,7 @@ public class FavoriPanel extends javax.swing.JPanel{
 	        	}
 	            else {
 		        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		            labelDepart.setText("Pas d'itin�raires favoris enregistr�s");
+		            labelDepart.setText("Pas d'itin�raires favoris enregistr�s");
 	    	    }
         
 

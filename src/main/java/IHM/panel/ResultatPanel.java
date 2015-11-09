@@ -1,5 +1,6 @@
 package IHM.panel;
 
+import IHM.listeners.EcouteurAlerte;
 import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
 import model.Station;
@@ -616,13 +617,12 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonCreerAlerte.setContentAreaFilled(false);
         boutonCreerAlerte.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonCreerAlerte.setOpaque(true);
-        boutonCreerAlerte.setVisible(false);
-        boutonCreerAlerte.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                boutonCreerAlerteActionPerformed(evt);
-            }
-        });
-        //boutonCreerAlerte.addActionListener(new EcouteurAlerte(heure,id_itineraire_favori)); 
+        boutonCreerAlerte.setVisible(false);         
+        //test
+        Date utilDate = new Date();
+        java.sql.Date heure_alerte = new java.sql.Date(utilDate.getTime());
+        int id_itineraire_favori = 22;
+        boutonCreerAlerte.addActionListener(new EcouteurAlerte(heure_alerte,id_itineraire_favori)); 
         
 
         boutonAjouterFavori.setBackground(new java.awt.Color(204, 0, 0));
