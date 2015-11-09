@@ -608,7 +608,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setContentAreaFilled(false);
         boutonAjouterFavori.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonAjouterFavori.setOpaque(true);       
-        //boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(id_station_dep_favorie,id_station_arr_favorie)); 
+        boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(lat_dep,long_dep,lat_arrivee,long_arrivee)); 
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

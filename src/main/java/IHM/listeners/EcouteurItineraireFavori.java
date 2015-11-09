@@ -20,16 +20,23 @@ import java.util.Map;
  */
 public class EcouteurItineraireFavori implements ActionListener{
 
-    private int id_station_arrivee;
-    private int id_station_depart;
+    private double lat_dep;
+    private double long_dep;
+    private double lat_arr;
+    private double long_arr;
+    
     private boolean deja_favori = false;
+    
     List<Integer> tab_test_dep = new ArrayList<Integer>();
     List<Integer> tab_test_arr = new ArrayList<Integer>();
 
-    public EcouteurItineraireFavori(int id_station_depart, int id_station_arrivee) {
-        this.id_station_depart = id_station_depart;
-        this.id_station_arrivee = id_station_arrivee;
-    }
+	public EcouteurItineraireFavori(double lat_dep, double long_dep, double lat_arr, double long_arr) {
+		super();
+		this.lat_dep = lat_dep;
+		this.long_dep = long_dep;
+		this.lat_arr = lat_arr;
+		this.long_arr = long_arr;
+	}
 
 
 	public void actionPerformed(ActionEvent e) {
@@ -45,8 +52,8 @@ public class EcouteurItineraireFavori implements ActionListener{
         	tab_test_dep.add(station_depart);
         	tab_test_arr.add(station_arrivee);
         	
-    		if((id_station_depart == station_depart) && (id_station_arrivee == station_arrivee))
-    			deja_favori = true;  			
+    		//if((id_station_depart == station_depart) && (id_station_arrivee == station_arrivee))
+    			//deja_favori = true;  			
         }
         
  
@@ -55,7 +62,7 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        JOptionPane.showMessageDialog(null, "Attention : itinéraire déjà enregistré dans vos favoris", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
     	}
     	else{
-	        MysqlRequester.insertItineraireFavorit(client_actuel, id_station_depart, id_station_arrivee);
+	        //MysqlRequester.insertItineraireFavorit(client_actuel, id_station_depart, id_station_arrivee);
 	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 	        JOptionPane.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
     	}

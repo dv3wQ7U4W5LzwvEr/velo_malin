@@ -175,12 +175,9 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 rechercheDonnees.setArriveLong(long_arr);
                 //Transmission Date (Heure_minute/jour)
                 rechercheDonnees.setDateHeure(dateHeure);
-                
-                
-                
-                  
+                   
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-    	        JOptionPane.showMessageDialog(null, "test :" + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+    	        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche" , "Resultats", JOptionPane.WARNING_MESSAGE, img);
             	}
         	});
         

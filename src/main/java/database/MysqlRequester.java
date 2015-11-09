@@ -510,12 +510,12 @@ public class MysqlRequester {
         return result_insertion;
     }
 
-    public static boolean insertItineraireFavorit(Client client, int station_depart, int station_arrivee) {
+    public static boolean insertItineraireFavorit(Client client, double lat_depart, double long_dep, double lat_arrivee,double long_arrivee) {
 
         boolean result_insertion = false;
 
-        String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, id_station_depart, id_station_arrivee) VALUES ( " + client.getId_client() + ","
-                + station_depart + "," + station_arrivee + ")";
+        String sqlQuery = "INSERT INTO VELO_MALIN.ITINERAIRESFAVORIS (id_client, depart_longitude, depart_latitude,arrive_latitude,arrive_longitude) VALUES ( " + client.getId_client() + ","
+                + long_dep + "," + lat_depart +  "," + lat_arrivee +  "," + long_arrivee + ")";
 
         executerRequeteInsertDeleteUpdate(sqlQuery);
 
@@ -537,7 +537,7 @@ public class MysqlRequester {
     
     public static Map<Integer,Integer> getListeItinerairesFavoris() {
 
-        String sqlQuery = "SELECT id_station_depart,id_station_arrivee FROM velo_malin.itinerairesfavoris";
+        String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris";
 
         ResultSet rs = executerRequete(sqlQuery);
         Map<Integer,Integer> liste_itineraires_favoris = new HashMap<Integer,Integer>();
