@@ -4,8 +4,17 @@ import IHM.google_map.GoogleMapIHM;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
+import model.Localisation;
+import was.google_map_api.GoogleMapApi;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Calendar;
 import java.util.Date;
+
+import javax.swing.ImageIcon;
+import javax.swing.JOptionPane;
+import was.*;
 
 /**
  * @author QKFD724
@@ -140,6 +149,40 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
+        //test
+    	Calendar cal = Calendar.getInstance();   	
+    	cal.set(2015, 10-1, 28, 13, 00, 00);
+    	Date date_recherche = cal.getTime();
+        
+        boutonLancer.addActionListener(new ActionListener(){
+            public void actionPerformed(ActionEvent evt) {
+                String adresse_depart = adresseDepart.getText();
+                String adresse_arrivee = adresseArrivee.getText();
+                Date date_depart = date_recherche;
+                
+
+                Localisation localisation_adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(adresse_depart);
+                Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(adresse_arrivee);
+                
+                double lat_dep = localisation_adresse_depart.getLatitude();
+                //double long_dep = localisation_adresse_depart.getLongitude();
+                //double lat_arr = localisation_adresse_arrivee.getLatitude();
+                //double long_arr = localisation_adresse_arrivee.getLongitude();
+                lat_test_dep = 45.750945;
+                long_test_dep = 4.83927;
+                lat_test_arr = 45.750945;
+                long_test_arr = 4.83927;
+                    
+                
+                //String latitude = String.valueOf(lat_test);
+                //String longitude = String.valueOf(long_test);
+                //int id_station_depart = MysqlRequester.getIdStationparCoord(latitude,longitude);
+                
+                ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+    	        JOptionPane.showMessageDialog(null, "test :" + adresse_arrivee + adresse_depart + date_depart, "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+            	}
+        	});
+        
         depart1.setBackground(new java.awt.Color(255, 255, 0));
         depart1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "HORAIRES\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
