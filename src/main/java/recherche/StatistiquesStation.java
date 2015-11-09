@@ -227,21 +227,28 @@ public class StatistiquesStation {
 
 	private static double getKmFromLatLong(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
 	{
-		double lon1 = departLongitude;
-		double lon2 = arriveLongitude;
+		double lng1 = departLongitude;
+		double lng2 = arriveLongitude;
 		double lat1 = departLatitude;
 		double lat2 = arriveLatitude;
-		double dlon = lon2 - lon1;
-		double dlat = lat2 - lat1;
-		double a = Math.pow(Math.sin(dlat/2), 2.0) + Math.cos(lat1) * Math.cos(lat2) * Math.pow(Math.sin(dlon / 2), 2.0);
-		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));
-		double d = 6  * c ;
-		return d;
+
+		double earthRadius = 6371000; //meters
+		double dLat = Math.toRadians(lat2-lat1);
+		double dLng = Math.toRadians(lng2-lng1);
+		double a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+				Math.cos(Math.toRadians(lat1)) * Math.cos(Math.toRadians(lat2)) *
+						Math.sin(dLng/2) * Math.sin(dLng/2);
+		double c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+		double dist =  (earthRadius * c);
+
+		dist = dist / 1000 * 1.5; // 1.5 = coeff bat + circulation
+		System.out.print(dist);
+		return dist;
 	}
 
 	public static double getTempsDeTrajet(double departLatitude, double departLongitude, double arriveLatitude, double arriveLongitude)
 	{
-		double distanceKm = getKmFromLatLong(departLatitude, departLongitude, arriveLatitude, arriveLongitude);
+		double distanceKm = getKmFromLatLong(departLatitude, departLongitude, arriveLongitude, arriveLatitude);
 		return distanceKm / 16 * 60; // 16 km heures
 	}
 
