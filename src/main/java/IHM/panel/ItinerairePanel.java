@@ -158,14 +158,15 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 double long_arr = localisation_adresse_arrivee.getLongitude();
                 
                 
-                Calendar dateHeure = Calendar.getInstance();
-            	dateHeure.setTime(datePickerOP.getDate());
-            	dateHeure.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
-            	dateHeure.set(Calendar.MINUTE, (Integer) minuteD.getValue());
+                Calendar dateHeureDep = Calendar.getInstance();
+            	dateHeureDep.setTime(datePickerOP.getDate());
+            	dateHeureDep.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
+            	dateHeureDep.set(Calendar.MINUTE, (Integer) minuteD.getValue());
 
                 //Calcul heure d'arrivée
-                Calendar dateHeureArr = dateHeure;
+                Calendar dateHeureArr = Calendar.getInstance();
                 Double heure = ((Integer) minuteD.getValue() + StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr));
+                dateHeureArr.setTime(datePickerOP.getDate());
                 dateHeureArr.set(Calendar.MINUTE, heure.intValue());
 
                 RechercheData rechercheDonnees = RechercheData.getInstance();  
@@ -175,7 +176,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 rechercheDonnees.setArriveLat(lat_arr);
                 rechercheDonnees.setArriveLong(long_arr);
                 //Transmission Date (Heure_minute/jour)
-                rechercheDonnees.setDateHeure(dateHeure);
+                rechercheDonnees.setDateHeureDepart(dateHeureDep);
+                rechercheDonnees.setDateHeureArrive(dateHeureArr);
 
                 // creation des stickers sur google map
                 GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();

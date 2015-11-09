@@ -1,11 +1,8 @@
 package IHM.panel;
 
-import IHM.google_map.GoogleMapIHM;
-import IHM.listeners.EcouteurAlerte;
 import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
 import model.Station;
-import IHM.panel.ItinerairePanel;
 import data.RechercheData;
 
 import java.text.SimpleDateFormat;
@@ -94,7 +91,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
-		//Calendar cal_dep = rechercheDonnees.getDateHeure();
+		//Calendar cal_dep = rechercheDonnees.getDateHeureArrive();
     	//Date date_depart = cal_dep.getTime();
     	Calendar cal_dep = Calendar.getInstance();
     	cal_dep.set(2015, 10-1, 28, 14, 00, 00);
@@ -250,7 +247,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         SimpleDateFormat date_format_dep = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeure().getTime()));
+        labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeureDepart().getTime()));
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
         labelNomDepart1.setText(tab_nom_stations.get(0));
@@ -455,7 +452,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         SimpleDateFormat date_format_arr = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateArrivee.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateArrivee.setText("Le " + date_format_arr.format(rechercheDonnees.getDateHeure().getTime()));
+        labelDateArrivee.setText("Le " + date_format_arr.format(rechercheDonnees.getDateHeureArrive().getTime()));
 
         groupeArrivee.add(boutonArrivee4);
         boutonArrivee4.setEnabled(false);

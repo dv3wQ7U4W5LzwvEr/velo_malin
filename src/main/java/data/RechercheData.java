@@ -16,7 +16,9 @@ public class RechercheData {
 	private double distanceKm;
 	private double tempsParcours;
 
-    private Calendar dateHeure = Calendar.getInstance();
+
+	private Calendar dateHeureDepart = Calendar.getInstance();
+    private Calendar dateHeureArrive = Calendar.getInstance();
 
     public static RechercheData getInstance() {
         if (instance == null) {
@@ -77,12 +79,12 @@ public class RechercheData {
 	}
 
 
-	public Calendar getDateHeure() {
-        return dateHeure;
+	public Calendar getDateHeureArrive() {
+        return dateHeureArrive;
     }
 
-    public void setDateHeure(Calendar dateHeure) {
-        this.dateHeure = dateHeure;
+    public void setDateHeureArrive(Calendar dateHeureArrive) {
+        this.dateHeureArrive = dateHeureArrive;
     }
 
 	public double getTempsParcours() {
@@ -91,5 +93,13 @@ public class RechercheData {
 
 	public void setTempsParcours(double tempsParcours) {
 		this.tempsParcours = tempsParcours;
+	}
+
+	public Calendar getDateHeureDepart() {
+		return dateHeureDepart;
+	}
+
+	public void setDateHeureDepart(Calendar dateHeureDepart) {
+		this.dateHeureDepart = dateHeureDepart;
 	}
 }
