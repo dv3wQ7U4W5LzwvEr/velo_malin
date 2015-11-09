@@ -1,5 +1,6 @@
 package IHM.panel;
 
+import IHM.google_map.GoogleMapIHM;
 import IHM.listeners.EcouteurAlerte;
 import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
@@ -84,21 +85,25 @@ public class ResultatPanel extends javax.swing.JPanel {
 		//pb. d'accessibilité
 		//double test_lat_dep = ItinerairePanel.lat_test_dep;
 		//double test_long_dep = ItinerairePanel.long_test_dep;
+		
+		/*
 		double test_lat_dep = 45.750945;
 		double test_long_dep = 4.83927;
 		double test_lat_arr = 45.750945;
 		double test_long_arr = 4.83927;
+		*/
 		
-		String test_lat_depS = String.valueOf(test_lat_dep);
-		String test_long_depS = String.valueOf(test_long_dep);
-		String test_lat_arrS = String.valueOf(test_lat_arr);
-		String test_long_arrS = String.valueOf(test_long_arr);
-
-		int id_station_dep_favorie = MysqlRequester.getIdStationparCoord(test_lat_depS,test_long_depS);
-		int id_station_arr_favorie = MysqlRequester.getIdStationparCoord(test_lat_arrS,test_long_arrS);   
+		//int id_station_dep_favorie = MysqlRequester.getIdStationparCoord(test_lat_depS,test_long_depS);
+		//int id_station_arr_favorie = MysqlRequester.getIdStationparCoord(test_lat_arrS,test_long_arrS);   
+		
+        GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();      
+        double lat_dep = googleMapIHM.getDepartLat();
+        double long_dep = googleMapIHM.getDepartLong();
+        double lat_arrivee = googleMapIHM.getArriveeLat();
+        double long_arrivee = googleMapIHM.getArriveeLong();
 		
         //Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_depart.getLatitude()), Double.parseDouble(station_recherchee_depart.getLongitude()), 3, 500);
-		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(test_lat_dep,test_long_dep, 3, 500);
+		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
     	Calendar cal = Calendar.getInstance();   	
     	cal.set(2015, 10-1, 28, 13, 00, 00);
@@ -134,7 +139,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         Station station_recherchee_arrivee = MysqlRequester.getStation(station_arrivee.getId_station());
         
-        Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_arrivee.getLatitude()), Double.parseDouble(station_recherchee_arrivee.getLongitude()), 3, 500);
+        Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 500);
         
         
     	Calendar cal_arr = Calendar.getInstance();
@@ -638,7 +643,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setContentAreaFilled(false);
         boutonAjouterFavori.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonAjouterFavori.setOpaque(true);       
-        boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(id_station_dep_favorie,id_station_arr_favorie)); 
+        //boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(id_station_dep_favorie,id_station_arr_favorie)); 
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

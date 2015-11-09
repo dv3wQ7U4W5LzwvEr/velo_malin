@@ -45,7 +45,47 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
 
     private static GoogleMapIHM instance = null;
 
-    private GoogleMapIHM()
+    private double departLat;
+    private double departLong;
+    private double arriveeLat;
+    private double arriveeLong;
+    
+    
+ 
+
+	public double getDepartLat() {
+		return departLat;
+	}
+
+	public void setDepartLat(double departLat) {
+		this.departLat = departLat;
+	}
+
+	public double getDepartLong() {
+		return departLong;
+	}
+
+	public void setDepartLong(double departLong) {
+		this.departLong = departLong;
+	}
+
+	public double getArriveeLat() {
+		return arriveeLat;
+	}
+
+	public void setArriveeLat(double arriveeLat) {
+		this.arriveeLat = arriveeLat;
+	}
+
+	public double getArriveeLong() {
+		return arriveeLong;
+	}
+
+	public void setArriveeLong(double arriveeLong) {
+		this.arriveeLong = arriveeLong;
+	}
+
+	private GoogleMapIHM()
     {
         try
         {

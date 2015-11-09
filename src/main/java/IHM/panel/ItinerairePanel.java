@@ -160,19 +160,29 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 String adresse_arrivee = adresseArrivee.getText();
                 Date date_depart = date_recherche;
                 
-
+        
                 Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
                 Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
                 
                 double lat_dep = localisation_adresse_depart.getLatitude();
-                //double long_dep = localisation_adresse_depart.getLongitude();
-                //double lat_arr = localisation_adresse_arrivee.getLatitude();
-                //double long_arr = localisation_adresse_arrivee.getLongitude();
+                double long_dep = localisation_adresse_depart.getLongitude();
+                double lat_arr = localisation_adresse_arrivee.getLatitude();
+                double long_arr = localisation_adresse_arrivee.getLongitude();
+                              
+                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
+                googleMapIHM.setDepartLat(lat_dep);
+                googleMapIHM.setDepartLong(long_dep);
+                googleMapIHM.ajouterUnMarker("Départ", lat_dep, long_dep);
+                googleMapIHM.setArriveeLat(lat_arr);
+                googleMapIHM.setArriveeLong(long_arr);
+                googleMapIHM.ajouterUnMarker("Arrivée", lat_arr, long_arr);
+        
+                /*
                 lat_test_dep = 45.750945;
                 long_test_dep = 4.83927;
                 lat_test_arr = 45.750945;
                 long_test_arr = 4.83927;
-                    
+                */    
                 
                 //String latitude = String.valueOf(lat_test);
                 //String longitude = String.valueOf(long_test);
