@@ -1,0 +1,37 @@
+Déroulement chronologique de la présentation
+	- l'équipe :
+		- 1 développeur débutant
+		- 3 développeurs intermédiaires
+		- 1 développeur expert / expérience de la méthode agile au travail
+		
+	- distribution des tâches
+		- grosse montée en compétence nécessaire
+		
+		- attribuer des tâches adaptées au niveau / engagement des personnes
+	
+	- Adaptation de la méthode agile
+		- au niveau micro :
+			- Le Scrum meeting comme base de management :
+				- point sur ce qui a été fait lors de la dernière session de travail / transmission d'information à tout le groupe
+				- répartition des tâches 
+				- rappel sur les bons principes de la méthode / développement / point sur l'avancement
+	
+		- au niveau macro:
+			- 6 itérations :
+				1: démarrage du projet :
+					- détermination des éléments présents dans le projet
+					- rédaction des différents documents
+					- attribution des rôles dans l'équipe					
+					
+					création du socle : service web de récupération des données / sauvegarde dans base de données 2
+				2: panel résultat de la recherche
+				3: statistique de station
+				4: programmer un itinéraire
+				5: alertes
+				
+	- le planning
+		
+		
+	- démonstration
+
+durée : 10 minutes
