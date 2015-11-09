@@ -70,7 +70,9 @@ public class ResultatPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelCarteResultats;
     private javax.swing.JRadioButton selctA1;
     private javax.swing.JRadioButton selctA2;
-    
+
+    private static String PASINFORMATIONS = "Pas d'informations";
+
     /*
     Methodes
      */
@@ -100,36 +102,36 @@ public class ResultatPanel extends javax.swing.JPanel {
     	
     	List<String> tab_nom_stations = new ArrayList<String>();
     	List<String> tab_adresse_stations = new ArrayList<String>();
-    	List<Integer> tab_id_stations = new ArrayList<Integer>();
-    	List<Integer> tab_nbplaces_stations = new ArrayList<Integer>();
-    	List<Integer> tab_nbvelos_stations = new ArrayList<Integer>();
-    	List<Integer> tab_nbplacestotale_stations_depart = new ArrayList<Integer>();
+    	List<String> tab_id_stations = new ArrayList<String>();
+    	List<String> tab_nbplaces_stations = new ArrayList<String>();
+    	List<String> tab_nbvelos_stations = new ArrayList<String>();
+    	List<String> tab_nbplacestotale_stations_depart = new ArrayList<String>();
     	
 	    if(liste_stations_proximites_depart != null){    	
 	    	Iterator<Station> it = liste_stations_proximites_depart.keySet().iterator();
 	    	
 	    	while (it.hasNext()){
-	    		Station s = (Station) it.next();	   		
+	    		Station s = it.next();
 		
 	            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_depart);
 	            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_depart);
 	    		
-	    		tab_id_stations.add(s.getId_station());
+	    		tab_id_stations.add(String.valueOf(s.getId_station()));
 	    		tab_nom_stations.add(s.getNom());
 		   		tab_adresse_stations.add(s.getAdresse());
-		   		tab_nbplaces_stations.add(nbplaces);
-		   		tab_nbvelos_stations.add(nbvelos);
-		   		tab_nbplacestotale_stations_depart.add(s.getPlaces());
-	    	} 
+		   		tab_nbplaces_stations.add(String.valueOf(nbplaces));
+		   		tab_nbvelos_stations.add(String.valueOf(nbvelos));
+		   		tab_nbplacestotale_stations_depart.add(String.valueOf(s.getPlaces()));
+	    	}
 	    } else {
 	    	int i=0;
     		while(i < 3){
-		    	tab_id_stations.add(-1);
+		    	tab_id_stations.add(PASINFORMATIONS);
 	    		tab_nom_stations.add(null);
 		   		tab_adresse_stations.add(null);
-		   		tab_nbplaces_stations.add(-1);
-		   		tab_nbvelos_stations.add(-1);
-		   		tab_nbplacestotale_stations_depart.add(-1);
+		   		tab_nbplaces_stations.add(PASINFORMATIONS);
+		   		tab_nbvelos_stations.add(PASINFORMATIONS);
+		   		tab_nbplacestotale_stations_depart.add(PASINFORMATIONS);
 		   		i++;
     		}
 	    }
@@ -139,45 +141,45 @@ public class ResultatPanel extends javax.swing.JPanel {
     	Calendar cal_arr = Calendar.getInstance();
     	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
     	Date date_arrivee = cal_arr.getTime();
-    	
-    	
+
+
     	//Stations résultats d arrivee
     	List<String> tab_nom_stations_arrivee = new ArrayList<String>();
     	List<String> tab_adresse_stations_arrivee = new ArrayList<String>();
-    	List<Integer> tab_id_stations_arrivee = new ArrayList<Integer>();
-    	List<Integer> tab_nbplaces_stations_arrivee = new ArrayList<Integer>();
-    	List<Integer> tab_nbvelos_stations_arrivee = new ArrayList<Integer>();
-    	List<Integer> tab_nbplacestotale_stations_arrivee = new ArrayList<Integer>();
-    	
+    	List<String> tab_id_stations_arrivee = new ArrayList<String>();
+    	List<String> tab_nbplaces_stations_arrivee = new ArrayList<String>();
+    	List<String> tab_nbvelos_stations_arrivee = new ArrayList<String>();
+    	List<String> tab_nbplacestotale_stations_arrivee = new ArrayList<String>();
+
     	if( liste_stations_proximites_arrivee != null){
 	    	Iterator<Station> it2 = liste_stations_proximites_arrivee.keySet().iterator();
 	    	
 	    	while (it2.hasNext()){
-	    		Station s = (Station) it2.next();	   		
+	    		Station s = it2.next();
 		
 	            int nbvelos = MysqlRequester.getNombreDeVelosSurStation(s.getId_station(), date_arrivee);
 	            int nbplaces = MysqlRequester.getNombreDePlacesSurStation(s.getId_station(), date_arrivee);
 	    		
-	    		tab_id_stations_arrivee.add(s.getId_station());
+	    		tab_id_stations_arrivee.add(String.valueOf(s.getId_station()));
 	    		tab_nom_stations_arrivee.add(s.getNom());
 	    		tab_adresse_stations_arrivee.add(s.getAdresse());
-	    		tab_nbplaces_stations_arrivee.add(nbplaces);
-	    		tab_nbvelos_stations_arrivee.add(nbvelos);
-	    		tab_nbplacestotale_stations_arrivee.add(s.getPlaces());
+	    		tab_nbplaces_stations_arrivee.add(String.valueOf(nbplaces));
+	    		tab_nbvelos_stations_arrivee.add(String.valueOf(nbvelos));
+	    		tab_nbplacestotale_stations_arrivee.add(String.valueOf(s.getPlaces()));
 	    	}
     	} else {
     		int i=0;
     		while(i < 3){
-    			tab_id_stations_arrivee.add(-1);
-	    		tab_nom_stations_arrivee.add(null);
-	    		tab_adresse_stations_arrivee.add(null);
-	    		tab_nbplaces_stations_arrivee.add(-1);
-	    		tab_nbvelos_stations_arrivee.add(-1);
-	    		tab_nbplacestotale_stations_arrivee.add(-1);
+    			tab_id_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_nom_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_adresse_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_nbplaces_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_nbvelos_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_nbplacestotale_stations_arrivee.add(PASINFORMATIONS);
 		   		i++;
     		}
 	    }
-    	
+
         //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
         
     	
@@ -251,10 +253,10 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeure().getTime()));
 
         labelNomDepart1.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        labelNomDepart1.setText(tab_nom_stations.get(0));   
-        
+        labelNomDepart1.setText(tab_nom_stations.get(0));
+
         labelAdresseDepart1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelAdresseDepart1.setText(tab_adresse_stations.get(0));       
+        labelAdresseDepart1.setText(tab_adresse_stations.get(0));
 
         labelTotalStation1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotalStation1.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
