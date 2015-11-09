@@ -1,5 +1,6 @@
 package IHM.panel;
 
+import IHM.IHMApplication;
 import IHM.google_map.GoogleMapIHM;
 import data.RechercheData;
 import javafx.application.Platform;
@@ -178,6 +179,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                    
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
     	        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche" , "Resultats", JOptionPane.WARNING_MESSAGE, img);
+    	        
+    	        IHMApplication.reloadResultatPanel();
             	}
         	});
         

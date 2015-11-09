@@ -10,6 +10,12 @@ public class IHMApplication extends JFrame {
 
      private static final long serialVersionUID = 1L;
 
+     private static JPanel panel0 = new JPanel();
+     private static JPanel panel1 = new JPanel();
+     private static JPanel panel2 = new JPanel();
+     private static JPanel panel3 = new JPanel();
+     private static JPanel panel4 = new JPanel();
+
 
     public static void main(String[] args) {
 
@@ -26,11 +32,11 @@ public class IHMApplication extends JFrame {
             onglets.setMinimumSize(new Dimension(300, 150));
             onglets.setBackground(Color.lightGray);
 
-            JPanel panel0 = new JPanel();
-            JPanel panel1 = new JPanel();
-            JPanel panel2 = new JPanel();
-            JPanel panel3 = new JPanel();
-            JPanel panel4 = new JPanel();
+            panel0 = new JPanel();
+            panel1 = new JPanel();
+            panel2 = new JPanel();
+            panel3 = new JPanel();
+            panel4 = new JPanel();
 
             ImageIcon icon0 = new ImageIcon("src/main/resources/img/home.png");
             ImageIcon icon1 = new ImageIcon("src/main/resources/img/velo.png");
@@ -82,7 +88,14 @@ public class IHMApplication extends JFrame {
             fenetre.setVisible(true);
 
     }
-
+    
+    public static void reloadResultatPanel(){
+    	ResultatPanel resultatPanel = new ResultatPanel();
+    	panel2.removeAll();
+    	panel2.add(resultatPanel);
+    	panel2.revalidate();
+    	panel2.repaint();
+    }
 }
 
 
