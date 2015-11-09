@@ -1,6 +1,7 @@
 package IHM.panel;
 
 import database.MysqlRequester;
+import was.google_map_api.GoogleMapApi;
 
 import javax.swing.*;
 
@@ -64,17 +65,16 @@ public class FavoriPanel extends javax.swing.JPanel{
         	  
         	String lat_depart = String.valueOf(cle);
         	List<Double> liste = new ArrayList<Double>();
-        	liste  = (List) valeurs;
+        	liste = (List<Double>) valeurs;
         	
         	String long_depart = String.valueOf(liste.get(0));
         	String lat_arrivee = String.valueOf(liste.get(1));
         	String long_arrivee = String.valueOf(liste.get(2));
         	
-        	//int id_station_dep = MysqlRequester.getIdStationparCoord(lat_depart,long_depart);
+        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_depart));
         	
         	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-            labelDepart.setText("test");
-            //labelDepart.setText(String.valueOf(id_station_dep));
+            labelDepart.setText(adresse_depart);
         	
             labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
             labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
@@ -92,17 +92,17 @@ public class FavoriPanel extends javax.swing.JPanel{
             boutonSupprimer.setText("Supprimer");
             boutonSupprimer.setContentAreaFilled(false);
             boutonSupprimer.setOpaque(true);
-            /*
+            
             boutonSupprimer.addActionListener(new java.awt.event.ActionListener() {
                 public void actionPerformed(java.awt.event.ActionEvent evt) {
                     //boutonSupprimerActionPerformed(evt);
-						MysqlRequester.getSupprimerItinerairesFavoris(depart,arrivee);
+						MysqlRequester.getSupprimerItinerairesFavoris(lat_depart,long_depart,lat_arrivee,long_arrivee);
 						
 				    	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-					    JOptionPane.showMessageDialog(null, "Itin�raire bien supprim� des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
+					    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);          	
                 }
             });
-            */
+            
         }
         
         

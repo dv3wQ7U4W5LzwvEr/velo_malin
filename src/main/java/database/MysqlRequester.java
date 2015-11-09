@@ -663,11 +663,11 @@ public class MysqlRequester {
    * @param
    * @return
    */
-  public static void getSupprimerItinerairesFavoris(int id_station_depart,int id_station_arrivee)
+  public static void getSupprimerItinerairesFavoris(String lat_station_depart,String long_station_depart,String lat_station_arrivee,String long_station_arrivee)
   {
-      String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE id_station_depart='" + id_station_depart + "' AND id_station_arrivee='" + id_station_arrivee + "' ;";    
+      String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE depart_latitude='" + lat_station_depart + "' AND depart_longitude='" + long_station_depart + "' AND arrive_longitude='" + lat_station_arrivee + "' AND arrive_latitude='" + long_station_arrivee + "' ;";    
       executerRequeteInsertDeleteUpdate(sqlQuery);    
-      
+     
   }
   
   
