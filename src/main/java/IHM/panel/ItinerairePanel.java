@@ -118,7 +118,6 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 panelCarte.setScene(scene);
                 panelCarte.setSize(new java.awt.Dimension(522, 584));
             }
-
         });
         /**/
 
@@ -176,7 +175,20 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 rechercheDonnees.setArriveLong(long_arr);
                 //Transmission Date (Heure_minute/jour)
                 rechercheDonnees.setDateHeure(dateHeure);
-                   
+
+                // creation des stickers sur google map
+                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        googleMapIHM.supprimeMarkerOuPanneau("depart");
+                        googleMapIHM.supprimeMarkerOuPanneau("arrive");
+                        googleMapIHM.ajouterUnMarker("depart", lat_dep, long_dep);
+                        googleMapIHM.ajouterUnMarker("arrive", lat_arr, long_arr);
+                    }
+                });
+
                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
     	        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche" , "Resultats", JOptionPane.WARNING_MESSAGE, img);
     	        

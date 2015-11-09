@@ -24,6 +24,9 @@ import java.util.Map;
  */
 public class GoogleMapIHM extends Application implements MapComponentInitializedListener {
 
+    private static double LATPARTDIEU = 45.7605730;
+    private static double LONPARTDIEU = 4.8573049;
+
     protected GoogleMapView mapComponent;
     protected com.lynden.gmapsfx.javascript.object.GoogleMap map;
     private Scene scene;
@@ -183,7 +186,8 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
     @Override
     public void mapInitialized() {
         //Once the map has been loaded by the Webview, initialize the map details.
-        LatLong center = new LatLong(45.743317, 4.815747);
+
+        LatLong center = new LatLong(LATPARTDIEU, LONPARTDIEU);
         mapComponent.addMapReadyListener(() -> {
             // This call will fail unless the map is completely ready.
             checkCenter(center);
@@ -192,7 +196,7 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
         MapOptions options = new MapOptions();
         options.center(center)
                 .mapMarker(true)
-                .zoom(15)
+                .zoom(13)
                 .overviewMapControl(false)
                 .panControl(false)
                 .rotateControl(false)
@@ -234,8 +238,11 @@ public class GoogleMapIHM extends Application implements MapComponentInitialized
 
     public void supprimeMarkerOuPanneau(String nom)
     {
-        map.removeMarker(listMarker.get(nom));
-        listMarker.remove(nom);
+        if (listMarker.get(nom) != null)
+        {
+            map.removeMarker(listMarker.get(nom));
+            listMarker.remove(nom);
+        }
     }
 
 
