@@ -145,7 +145,6 @@ public class GoogleMapEngine extends TimerTask {
             if (read != null)
             {
                 data += read;
-                System.out.println(read);
             }
             else
             {

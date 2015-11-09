@@ -79,7 +79,8 @@ public class StationPanel extends javax.swing.JPanel {
         labelSation.setText("Choisir la station :");
 
         comboSation.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getToutesLesStations().toArray()));//TODO selectionner juste le nom les stations
+        // a remplacer lors de la demo comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getAdressesToutesLesStations().toArray()));
+        comboSation.setModel(new javax.swing.DefaultComboBoxModel(MysqlRequester.getToutesLesStations().toArray()));
         comboSation.setMaximumSize(new java.awt.Dimension(172, 23));
         comboSation.setPreferredSize(new java.awt.Dimension(172, 23));
 
