@@ -6,6 +6,7 @@ import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
 import model.Station;
 import IHM.panel.ItinerairePanel;
+import data.RechercheData;
 
 import java.util.*;
 
@@ -75,41 +76,19 @@ public class ResultatPanel extends javax.swing.JPanel {
 	private void initResultat() {
 
     	
-        //Traitement listener et récup données ----------------------------
-        
-        //pour test station de départ (en attente lien avec IHM Programmer son itinéraire)
-        //Station station_test = new Station();      
-        //station_test.setId_station(2903);
-        //Station station_recherchee_depart = MysqlRequester.getStation(station_test.getId_station());
-          
-		//pb. d'accessibilité
-		//double test_lat_dep = ItinerairePanel.lat_test_dep;
-		//double test_long_dep = ItinerairePanel.long_test_dep;
-		
-		/*
-		double test_lat_dep = 45.750945;
-		double test_long_dep = 4.83927;
-		double test_lat_arr = 45.750945;
-		double test_long_arr = 4.83927;
-		*/
-		
-		//int id_station_dep_favorie = MysqlRequester.getIdStationparCoord(test_lat_depS,test_long_depS);
-		//int id_station_arr_favorie = MysqlRequester.getIdStationparCoord(test_lat_arrS,test_long_arrS);   
-		
-        GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();      
-        double lat_dep = googleMapIHM.getDepartLat();
-        double long_dep = googleMapIHM.getDepartLong();
-        double lat_arrivee = googleMapIHM.getArriveeLat();
-        double long_arrivee = googleMapIHM.getArriveeLong();
-		
-        //Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(Double.parseDouble(station_recherchee_depart.getLatitude()), Double.parseDouble(station_recherchee_depart.getLongitude()), 3, 500);
+        //Traitement listener et récup données ----------------------------			    
+        RechercheData rechercheDonnees = RechercheData.getInstance();              
+        double lat_dep = rechercheDonnees.getDepartLat();
+        double long_dep = rechercheDonnees.getDepartLong();
+        double lat_arrivee = rechercheDonnees.getArriveLat();
+        double long_arrivee = rechercheDonnees.getArriveLong();
+
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
     	Calendar cal = Calendar.getInstance();   	
     	cal.set(2015, 10-1, 28, 13, 00, 00);
     	Date date_depart = cal.getTime();
     	
-    	//Stations résultats de départ
     	List<String> tab_nom_stations = new ArrayList<String>();
     	List<String> tab_adresse_stations = new ArrayList<String>();
     	List<Integer> tab_id_stations = new ArrayList<Integer>();
@@ -133,15 +112,8 @@ public class ResultatPanel extends javax.swing.JPanel {
 	   		tab_nbplacestotale_stations_depart.add(s.getPlaces());
     	}   	
     	
-        //pour test station arrivee (en attente lien avec IHM)
-        Station station_arrivee = new Station();
-        station_arrivee.setId_station(2469);
-
-        Station station_recherchee_arrivee = MysqlRequester.getStation(station_arrivee.getId_station());
-        
         Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 500);
-        
-        
+                
     	Calendar cal_arr = Calendar.getInstance();
     	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
     	Date date_arrivee = cal.getTime();

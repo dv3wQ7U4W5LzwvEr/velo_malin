@@ -1,6 +1,7 @@
 package IHM.panel;
 
 import IHM.google_map.GoogleMapIHM;
+import data.RechercheData;
 import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
 import javafx.scene.Scene;
@@ -15,6 +16,7 @@ import java.util.Date;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import was.*;
+import data.*;
 
 /**
  * @author QKFD724
@@ -168,15 +170,13 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 double long_dep = localisation_adresse_depart.getLongitude();
                 double lat_arr = localisation_adresse_arrivee.getLatitude();
                 double long_arr = localisation_adresse_arrivee.getLongitude();
-                              
-                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
-                googleMapIHM.setDepartLat(lat_dep);
-                googleMapIHM.setDepartLong(long_dep);
-                googleMapIHM.ajouterUnMarker("Départ", lat_dep, long_dep);
-                googleMapIHM.setArriveeLat(lat_arr);
-                googleMapIHM.setArriveeLong(long_arr);
-                googleMapIHM.ajouterUnMarker("Arrivée", lat_arr, long_arr);
-        
+                         
+                RechercheData rechercheDonnees = RechercheData.getInstance();              
+                rechercheDonnees.setDepartLat(lat_dep);
+                rechercheDonnees.setDepartLong(long_dep);
+                rechercheDonnees.setArriveLat(lat_arr);
+                rechercheDonnees.setArriveLong(long_arr);
+                
                 /*
                 lat_test_dep = 45.750945;
                 long_test_dep = 4.83927;

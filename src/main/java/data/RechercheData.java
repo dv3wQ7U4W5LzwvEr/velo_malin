@@ -9,53 +9,62 @@ public class RechercheData {
 
     private static RechercheData instance = null;
 
-    private String departLat;
-    private String departLong;
-    private String arriveLat;
-    private String arriveLong;
+    private double departLat;
+    private double departLong;
+    private double arriveLat;
+    private double arriveLong;
 
     private Calendar dateHeure;
 
-    protected static RechercheData getInstance() {
+    public static RechercheData getInstance() {
         if (instance == null) {
             instance = new RechercheData();
         }
         return instance;
     }
 
-    public String getDepartLat() {
-        return departLat;
-    }
+ 
+    public double getDepartLat() {
+		return departLat;
+	}
 
-    public void setDepartLat(String departLat) {
-        this.departLat = departLat;
-    }
 
-    public String getDepartLong() {
-        return departLong;
-    }
+	public void setDepartLat(double departLat) {
+		this.departLat = departLat;
+	}
 
-    public void setDepartLong(String departLong) {
-        this.departLong = departLong;
-    }
 
-    public String getArriveLat() {
-        return arriveLat;
-    }
+	public double getDepartLong() {
+		return departLong;
+	}
 
-    public void setArriveLat(String arriveLat) {
-        this.arriveLat = arriveLat;
-    }
 
-    public String getArriveLong() {
-        return arriveLong;
-    }
+	public void setDepartLong(double departLong) {
+		this.departLong = departLong;
+	}
 
-    public void setArriveLong(String arriveLong) {
-        this.arriveLong = arriveLong;
-    }
 
-    public Calendar getDateHeure() {
+	public double getArriveLat() {
+		return arriveLat;
+	}
+
+
+	public void setArriveLat(double arriveLat) {
+		this.arriveLat = arriveLat;
+	}
+
+
+	public double getArriveLong() {
+		return arriveLong;
+	}
+
+
+	public void setArriveLong(double arriveLong) {
+		this.arriveLong = arriveLong;
+	}
+
+
+	public Calendar getDateHeure() {
         return dateHeure;
     }
 
