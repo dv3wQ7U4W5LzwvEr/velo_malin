@@ -75,7 +75,7 @@ public class StationPanel extends javax.swing.JPanel {
         boutonStatistiques = new javax.swing.JButton();
         labelHeure = new javax.swing.JLabel();
         comboHeure = new javax.swing.JComboBox();
-        datePickerOP = new org.jdesktop.swingx.JXDatePicker();
+        datePickerOP = new org.jdesktop.swingx.JXDatePicker(new Date());
         panelGraph1 = new javax.swing.JPanel();
         panelGraph2 = new javax.swing.JPanel();
         labelTitre1 = new javax.swing.JLabel();
@@ -116,7 +116,7 @@ public class StationPanel extends javax.swing.JPanel {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				// TODO Stub de la méthode généré automatiquement
-				JOptionPane.showMessageDialog(null,((Station) comboSation.getSelectedItem()).getId_station());
+				//JOptionPane.showMessageDialog(null,((Station) comboSation.getSelectedItem()).getId_station());
 			}
 		});
         
