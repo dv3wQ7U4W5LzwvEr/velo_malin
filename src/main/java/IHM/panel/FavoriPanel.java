@@ -4,7 +4,7 @@ import database.MysqlRequester;
 import was.google_map_api.GoogleMapApi;
 
 import javax.swing.*;
-
+import javax.swing.Timer;
 import IHM.IHMApplication;
 
 import java.awt.event.ActionEvent;
@@ -54,6 +54,13 @@ public class FavoriPanel extends javax.swing.JPanel{
 
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
         panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
+
+        /*Timer d'Alerte*/
+        ActionListener actionListener = actionEvent -> JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
+        int tempsRestant = 9000;//difference de temps
+        Timer timer = new Timer(tempsRestant, actionListener);
+        timer.start();
+        timer.setRepeats(false);
 
 
         /*Faire un for*/       
