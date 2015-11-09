@@ -161,8 +161,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                 Date date_depart = date_recherche;
                 
 
-                Localisation localisation_adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(adresse_depart);
-                Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(adresse_arrivee);
+                Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
+                Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
                 
                 double lat_dep = localisation_adresse_depart.getLatitude();
                 //double long_dep = localisation_adresse_depart.getLongitude();
