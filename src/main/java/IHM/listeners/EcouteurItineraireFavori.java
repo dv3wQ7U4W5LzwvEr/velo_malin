@@ -26,9 +26,6 @@ public class EcouteurItineraireFavori implements ActionListener{
     private double long_arr;
     
     private boolean deja_favori = false;
-    
-    List<Integer> tab_test_dep = new ArrayList<Integer>();
-    List<Integer> tab_test_arr = new ArrayList<Integer>();
 
 	public EcouteurItineraireFavori(double lat_dep, double long_dep, double lat_arr, double long_arr) {
 		super();
@@ -44,16 +41,15 @@ public class EcouteurItineraireFavori implements ActionListener{
         client_actuel = new Client();
         
         Map<Integer,List<Integer>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
- 
-        for (Map.Entry<Integer,Integer> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
-        	int station_depart  = currentEntry.getKey();
-        	int station_arrivee = currentEntry.getValue();
-        	
-        	tab_test_dep.add(station_depart);
-        	tab_test_arr.add(station_arrivee);
-        	
-    		//if((id_station_depart == station_depart) && (id_station_arrivee == station_arrivee))
-    			//deja_favori = true;  			
+               
+        for (Map.Entry<Integer,List<Integer>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
+        	double long_station_depart  = currentEntry.getKey();
+        	double lat_station_depart = currentEntry.getValue().get(0);
+        	double long_station_arrivee = currentEntry.getValue().get(1);
+        	double lat_station_arrivee = currentEntry.getValue().get(2);
+        	 	
+    		if((long_dep == long_station_depart) && (lat_dep == lat_station_depart) && (lat_arr == lat_station_arrivee) && (long_arr == long_station_arrivee))
+    			deja_favori = true;  			
         }
         
  
@@ -62,7 +58,7 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        JOptionPane.showMessageDialog(null, "Attention : itinéraire déjà enregistré dans vos favoris", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
     	}
     	else{
-	        //MysqlRequester.insertItineraireFavorit(client_actuel, id_station_depart, id_station_arrivee);
+	        MysqlRequester.insertItineraireFavorit(client_actuel, long_dep, lat_dep,long_arr,lat_arr);
 	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 	        JOptionPane.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
     	}
