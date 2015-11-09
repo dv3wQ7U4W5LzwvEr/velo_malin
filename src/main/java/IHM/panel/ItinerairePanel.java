@@ -139,66 +139,78 @@ public class ItinerairePanel extends javax.swing.JPanel {
         boutonLancer.setOpaque(true);
 
         //test
-    	Calendar cal = Calendar.getInstance();   	
-    	cal.set(2015, 10-1, 28, 13, 00, 00);
-    	Date date_recherche = cal.getTime();
-        
-        boutonLancer.addActionListener(new ActionListener(){
+        Calendar cal = Calendar.getInstance();
+        cal.set(2015, 10 - 1, 28, 13, 00, 00);
+        Date date_recherche = cal.getTime();
+
+        boutonLancer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 String adresse_depart = adresseDepart.getText();
                 String adresse_arrivee = adresseArrivee.getText();
-                Date date_depart = date_recherche;
-                       
-                Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
-                Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
-                
-                double lat_dep = localisation_adresse_depart.getLatitude();
-                double long_dep = localisation_adresse_depart.getLongitude();
-                double lat_arr = localisation_adresse_arrivee.getLatitude();
-                double long_arr = localisation_adresse_arrivee.getLongitude();
-                
-                
-                Calendar dateHeureDep = Calendar.getInstance();
-            	dateHeureDep.setTime(datePickerOP.getDate());
-            	dateHeureDep.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
-            	dateHeureDep.set(Calendar.MINUTE, (Integer) minuteD.getValue());
+                if (!adresse_depart.equals("") && !adresse_arrivee.equals("")) {
+                    Date date_depart = date_recherche;
 
-                //Calcul heure d'arrivée
-                Calendar dateHeureArr = Calendar.getInstance();
-                Double heure = ((Integer) minuteD.getValue() + StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr));
-                dateHeureArr.setTime(datePickerOP.getDate());
-                dateHeureArr.set(Calendar.MINUTE, heure.intValue());
+                    Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
+                    Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
 
-                RechercheData rechercheDonnees = RechercheData.getInstance();  
-                //Transmission adresse (lat/long)
-                rechercheDonnees.setDepartLat(lat_dep);
-                rechercheDonnees.setDepartLong(long_dep);
-                rechercheDonnees.setArriveLat(lat_arr);
-                rechercheDonnees.setArriveLong(long_arr);
-                //Transmission Date (Heure_minute/jour)
-                rechercheDonnees.setDateHeureDepart(dateHeureDep);
-                rechercheDonnees.setDateHeureArrive(dateHeureArr);
+                    if (localisation_adresse_depart.isInitialise() && localisation_adresse_arrivee.isInitialise())
+                    {
+                        double lat_dep = localisation_adresse_depart.getLatitude();
+                        double long_dep = localisation_adresse_depart.getLongitude();
+                        double lat_arr = localisation_adresse_arrivee.getLatitude();
+                        double long_arr = localisation_adresse_arrivee.getLongitude();
 
-                // creation des stickers sur google map
-                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
 
-                Platform.runLater(new Runnable() {
-                    @Override
-                    public void run() {
-                        googleMapIHM.supprimeMarkerOuPanneau("depart");
-                        googleMapIHM.supprimeMarkerOuPanneau("arrive");
-                        googleMapIHM.ajouterUnMarker("depart", lat_dep, long_dep);
-                        googleMapIHM.ajouterUnMarker("arrive", lat_arr, long_arr);
+                        Calendar dateHeureDep = Calendar.getInstance();
+                        dateHeureDep.setTime(datePickerOP.getDate());
+                        dateHeureDep.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
+                        dateHeureDep.set(Calendar.MINUTE, (Integer) minuteD.getValue());
+
+                        //Calcul heure d'arrivée
+                        Calendar dateHeureArr = Calendar.getInstance();
+                        Double heure = ((Integer) minuteD.getValue() + StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr));
+                        dateHeureArr.setTime(datePickerOP.getDate());
+                        dateHeureArr.set(Calendar.MINUTE, heure.intValue());
+
+                        RechercheData rechercheDonnees = RechercheData.getInstance();
+                        //Transmission adresse (lat/long)
+                        rechercheDonnees.setDepartLat(lat_dep);
+                        rechercheDonnees.setDepartLong(long_dep);
+                        rechercheDonnees.setArriveLat(lat_arr);
+                        rechercheDonnees.setArriveLong(long_arr);
+                        //Transmission Date (Heure_minute/jour)
+                        rechercheDonnees.setDateHeureDepart(dateHeureDep);
+                        rechercheDonnees.setDateHeureArrive(dateHeureArr);
+
+                        // creation des stickers sur google map
+                        GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
+
+                        Platform.runLater(new Runnable() {
+                            @Override
+                            public void run() {
+                                googleMapIHM.supprimeMarkerOuPanneau("depart");
+                                googleMapIHM.supprimeMarkerOuPanneau("arrive");
+                                googleMapIHM.ajouterUnMarker("depart", lat_dep, long_dep);
+                                googleMapIHM.ajouterUnMarker("arrive", lat_arr, long_arr);
+                            }
+                        });
+
+                        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche", "Resultats", JOptionPane.WARNING_MESSAGE, img);
+
+                        IHMApplication.reloadResultatPanel();
                     }
-                });
+                    else
+                    {
+                        JOptionPane.showMessageDialog(null, "Au moins une des deux adresses n'a pas été trouvé.", "Erreur", JOptionPane.WARNING_MESSAGE);
+                    }
 
-                ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-    	        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche" , "Resultats", JOptionPane.WARNING_MESSAGE, img);
-    	        
-    	        IHMApplication.reloadResultatPanel();
-            	}
-        	});
-        
+                } else {
+                    JOptionPane.showMessageDialog(null, "Merci de saisir une valeur pour l'adresse de départ et d'arriver", "Erreur", JOptionPane.WARNING_MESSAGE);
+                }
+            }
+        });
+
         depart1.setBackground(new java.awt.Color(255, 255, 0));
         depart1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "HORAIRES\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 

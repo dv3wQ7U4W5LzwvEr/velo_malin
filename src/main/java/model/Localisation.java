@@ -32,4 +32,9 @@ public class Localisation {
     public void setLongitude(double longitude) {
         this.longitude = longitude;
     }
+
+    public boolean isInitialise()
+    {
+        return latitude != 0.0 && longitude != 0.0;
+    }
 }
