@@ -159,21 +159,22 @@ public class StationPanel extends javax.swing.JPanel {
                 
 				DefaultCategoryDataset datasetVelo24 = createVeloDataset(id_station, cal, 24);
 			    DefaultCategoryDataset datasetVelo = createVeloDataset(id_station, cal, 6);
-			    
-			    panelGraph1.removeAll();
-			    panelGraph1.updateUI();
-			    panelGraph1.revalidate();
-			    panelGraph1 = createChartPanel24h(datasetVelo24);
+			 
+			    if (panelGraph1 != null && panelGraph2 != null)
+			    {
+			    	if (panelGraph1.getComponentCount() != 0 && panelGraph2.getComponentCount() != 0)
+			    	{
+				    	panelGraph1.remove(0);
+				    	panelGraph2.remove(0);
+			    	}
+			    }
+			    panelGraph1.add(createPanel(createTableau24h(datasetVelo24)));
 			    panelGraph1.repaint();
 			    panelGraph1.revalidate();
-			    	
-			    panelGraph2.removeAll();
-			    panelGraph2.updateUI();
-			    panelGraph2 = createChartPanel24h(datasetVelo);
+			    
+			    panelGraph2.add(createPanel(createTableauPlage(datasetVelo)));
 			    panelGraph2.repaint();
 			    panelGraph2.revalidate();
-			    System.out.print("nb lignes " + datasetVelo.getRowCount());
-			    
 			}
 		});
 
@@ -307,8 +308,8 @@ public class StationPanel extends javax.swing.JPanel {
         labelNombreVelos.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelNombreVelos.setText("y");
         
-        panelGraph1 = createChartPanel24h(new DefaultCategoryDataset());
-        panelGraph2 = createChartPanelPlage(new DefaultCategoryDataset());
+        panelGraph1 = createPanel(createTableau24h(new DefaultCategoryDataset()));
+        panelGraph2 = createPanel(createTableauPlage(new DefaultCategoryDataset()));
 
         javax.swing.GroupLayout panelIdentiteLayout = new javax.swing.GroupLayout(panelIdentite);
         panelIdentite.setLayout(panelIdentiteLayout);
@@ -456,33 +457,31 @@ public class StationPanel extends javax.swing.JPanel {
 		return dataset;
     }
     
-    private ChartPanel createChartPanel24h(DefaultCategoryDataset dataset){
+    private JFreeChart createTableau24h(DefaultCategoryDataset dataset){
     	JFreeChart chart = ChartFactory.createLineChart(
                 "Nombre de vélos sur 24h", "Temps", "Nombre de vélos", dataset,
                 PlotOrientation.VERTICAL, false, true, false);
         chart.setNotify(true);
+        return chart;
+    }        		
+    
+    private ChartPanel createPanel(JFreeChart chart ){
         CategoryPlot p = chart.getCategoryPlot();
         p.setRangeGridlinePaint(Color.BLACK);
         ChartPanel panel = new ChartPanel(chart);
-           
+       
         panel.setPreferredSize(new java.awt.Dimension(600, 420));
         panel.setDomainZoomable(true);
         return panel;
     }
     
-    private ChartPanel createChartPanelPlage(DefaultCategoryDataset dataset){
+    private JFreeChart createTableauPlage(DefaultCategoryDataset dataset){
 	    JFreeChart chart2 = ChartFactory.createLineChart(
 	            "Nombre de vélos sur la plage", "Temps", "Nombre de vélos", dataset,
 	            PlotOrientation.VERTICAL, false, true, false);
 	    CategoryPlot p2 = chart2.getCategoryPlot();
 	    chart2.setNotify(true);
-	    p2.setRangeGridlinePaint(Color.BLACK);
-	    chart2.getCategoryPlot();
-	    
-	    ChartPanel panel2 = new ChartPanel(chart2);
-	    panel2.setPreferredSize(new java.awt.Dimension(600, 420));
-	    panel2.setDomainZoomable(true);
-	    return panel2;
+	    return chart2;
     }
 
 }
