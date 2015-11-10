@@ -4,6 +4,7 @@ import IHM.listeners.EcouteurAlerte;
 import IHM.listeners.EcouteurItineraireFavori;
 import database.MysqlRequester;
 import model.Station;
+import recherche.StatistiquesStation;
 import data.RechercheData;
 
 import java.text.DecimalFormat;
@@ -621,14 +622,12 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonCreerAlerte.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonCreerAlerte.setOpaque(true);
         boutonCreerAlerte.setVisible(true);         
-        //test
-        Date utilDate = new Date();
-        java.sql.Date heure_alerte = new java.sql.Date(utilDate.getTime());
+
         int id_itineraire_favori = 22;
         //récupération dynamique date pour alerte
-        Date dateHeureDep = new Date();
-        dateHeureDep = rechercheDonnees.getDateHeureDepart().getTime();
-        boutonCreerAlerte.addActionListener(new EcouteurAlerte(dateHeureDep,id_itineraire_favori)); 
+        Date dateAlerte = new Date();
+        dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();   
+        boutonCreerAlerte.addActionListener(new EcouteurAlerte(dateAlerte,id_itineraire_favori)); 
         
 
         boutonAjouterFavori.setBackground(new java.awt.Color(204, 0, 0));

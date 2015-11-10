@@ -165,7 +165,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                         dateHeureDep.setTime(datePickerOP.getDate());
                         dateHeureDep.set(Calendar.HOUR_OF_DAY, (Integer) heureD.getValue());
                         dateHeureDep.set(Calendar.MINUTE, (Integer) minuteD.getValue());
-
+                        System.out.println("date " + dateHeureDep.getTime());
+                        
                         //Calcul heure d'arrivée
                         Calendar dateHeureArr = Calendar.getInstance();
                         Double heure = ((Integer) minuteD.getValue() + StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr));
