@@ -105,6 +105,14 @@ public class IHMApplication extends JFrame {
 	    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
     }
     
+    public static void reloadFavoriPanel2(){
+    	FavoriPanel favoriPanel = new FavoriPanel();
+    	panel4.removeAll();
+    	panel4.add(favoriPanel);
+    	panel4.revalidate();
+    	panel4.repaint();
+    }
+    
     public static void changerOngletResultat(){
     	onglets.setSelectedIndex(2);
     }

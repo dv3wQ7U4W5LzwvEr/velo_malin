@@ -512,7 +512,7 @@ public class MysqlRequester {
 
     public static void insertItineraireFavorit(Client client, double lat_depart, double long_dep, double lat_arrivee,double long_arrivee) {
 
-        String sqlQuery = "INSERT INTO velo_malin.itinerairesfavoris (id_client, depart_longitude, depart_latitude, arrive_longitude, arrive_latitude) VALUES('" + 1 + "','"
+        String sqlQuery = "INSERT IGNORE INTO velo_malin.itinerairesfavoris (id_client, depart_longitude, depart_latitude, arrive_longitude, arrive_latitude) VALUES('" + 1 + "','"
                 + long_dep + "','" + lat_depart +  "','" + long_arrivee +  "','" + lat_arrivee + "')";
 
         executerRequeteInsertDeleteUpdate(sqlQuery);
@@ -670,6 +670,24 @@ public class MysqlRequester {
             System.out.println("Erreur: " + ex);
         }
         return liste_alertes;
+    }
+    
+    public static int getListeIdItineraireFavori(double lat_depart, double long_dep, double lat_arrivee,double long_arrivee)
+    {
+        String sqlQuery = "SELECT id_itinerairefavori FROM velo_malin.itinerairesfavoris WHERE depart_longitude='"  + long_dep + "'AND depart_latitude='" + lat_depart + "'AND arrive_longitude='" +  long_arrivee + "'AND arrive_latitude='" +  lat_arrivee + "';";
+        ResultSet rs = executerRequete(sqlQuery);
+        																			
+        int id_itineraire_favori = 0;
+        try {
+            if (rs.next()) {
+            	id_itineraire_favori = rs.getInt("id_itinerairefavori");
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return id_itineraire_favori;
     }
     
    /**
