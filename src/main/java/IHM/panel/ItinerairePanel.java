@@ -195,10 +195,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
                             }
                         });
 
-                        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-                        JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche", "Resultats", JOptionPane.WARNING_MESSAGE, img);
-
+                        //ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                        //JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche", "Resultats", JOptionPane.WARNING_MESSAGE, img);
+                        
                         IHMApplication.reloadResultatPanel();
+                        IHMApplication.changerOngletResultat();
                     }
                     else
                     {

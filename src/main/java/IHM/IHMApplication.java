@@ -15,7 +15,7 @@ public class IHMApplication extends JFrame {
      private static JPanel panel2;
      private static JPanel panel3;
      private static JPanel panel4;
-
+     static JTabbedPane onglets =  new JTabbedPane();
 
     public static void main(String[] args) {
 
@@ -25,8 +25,6 @@ public class IHMApplication extends JFrame {
             fenetre.setSize(850, 850);
             fenetre.setLocationRelativeTo(null);
             fenetre.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-
-        JTabbedPane onglets =  new JTabbedPane();
 
             onglets.getAccessibleContext();
             onglets.setMinimumSize(new Dimension(300, 150));
@@ -106,6 +104,11 @@ public class IHMApplication extends JFrame {
     	ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 	    JOptionPane.showMessageDialog(null, "Itinéraire bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img); 
     }
+    
+    public static void changerOngletResultat(){
+    	onglets.setSelectedIndex(2);
+    }
+    
 }
 
 
