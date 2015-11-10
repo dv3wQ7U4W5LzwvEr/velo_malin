@@ -4,6 +4,7 @@ import IHM.IHMApplication;
 import database.MysqlRequester;
 import was.google_map_api.GoogleMapApi;
 
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
@@ -77,10 +78,10 @@ public class FavoriPanel extends javax.swing.JPanel{
     	//int tempsRestant = date_actuelle-date_test;
     	
         /*Timer d'Alerte*/
-        /*
-            ActionListener actionListener = actionEvent -> JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
+            Map<Integer, Date> prochaineAlerte = MysqlRequester.getListeAlerte();
+            ActionListener actionListener = actionEvent->JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
             int tempsRestant = 9000;//difference de temps
-            Timer timer = new Timer(tempsRestant, actionListener);
+            javax.swing.Timer timer = new javax.swing.Timer(9000, actionListener);
             timer.start();
             timer.setRepeats(false);
         */
