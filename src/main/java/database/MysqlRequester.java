@@ -418,7 +418,7 @@ public class MysqlRequester {
                 station.setLongitude(longitude);
                 if (adresse.equals(""))
                 {
-                    adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(station.getLatitude()), new Double(station.getLongitude()));
+                    // adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(station.getLatitude()), new Double(station.getLongitude()));
                 }
                 station.setAdresse(adresse);
                 station.setPlaces(rs.getInt("places"));
