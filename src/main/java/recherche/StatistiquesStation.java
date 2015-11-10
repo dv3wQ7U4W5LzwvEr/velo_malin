@@ -225,7 +225,7 @@ public class StatistiquesStation {
 		}
 	}
 
-	private static double getKmFromLatLong(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
+	public static double getKmFromLatLong(double departLatitude, double departLongitude, double arriveLongitude, double arriveLatitude)
 	{
 		double lng1 = departLongitude;
 		double lng2 = arriveLongitude;

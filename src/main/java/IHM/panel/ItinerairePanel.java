@@ -181,6 +181,10 @@ public class ItinerairePanel extends javax.swing.JPanel {
                         //Transmission Date (Heure_minute/jour)
                         rechercheDonnees.setDateHeureDepart(dateHeureDep);
                         rechercheDonnees.setDateHeureArrive(dateHeureArr);
+                        //Transmission distance de parcours
+                        double distancekm = StatistiquesStation.getKmFromLatLong(lat_dep, long_dep,long_arr,lat_arr);
+                        rechercheDonnees.setDistanceKm(distancekm);
+                        
 
                         // creation des stickers sur google map
                         GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();

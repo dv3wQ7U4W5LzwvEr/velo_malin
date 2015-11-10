@@ -6,8 +6,12 @@ import database.MysqlRequester;
 import model.Station;
 import data.RechercheData;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
+
+import javax.swing.JLabel;
 
 
 /**
@@ -68,7 +72,9 @@ public class ResultatPanel extends javax.swing.JPanel {
     private javax.swing.JPanel panelCarteResultats;
     private javax.swing.JRadioButton selctA1;
     private javax.swing.JRadioButton selctA2;
-
+    //ajout manuel
+    private JLabel labelDistance;
+    
     private static String PASINFORMATIONS = "Pas d'informations";
 
     /*
@@ -227,6 +233,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelAdresseArrivee3 = new javax.swing.JLabel();
         boutonCreerAlerte = new javax.swing.JButton();
         boutonAjouterFavori = new javax.swing.JButton();
+        //ajout manuel
+        labelDistance = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -640,6 +648,13 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setOpaque(true);       
         boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(lat_dep,long_dep,lat_arrivee,long_arrivee)); 
         
+        NumberFormat formatter = new DecimalFormat("#0.00");     
+        double distance = rechercheDonnees.getArriveLong();
+        String d = formatter.format(distance);
+        labelDistance.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelDistance.setText("Distance de parcours : " + d + " kilomètres");
+        
+        
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -648,6 +663,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                                        		.addComponent(labelDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addComponent(boutonCreerAlerte, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addComponent(boutonAjouterFavori, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -666,6 +682,8 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(labelDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(boutonCreerAlerte, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
