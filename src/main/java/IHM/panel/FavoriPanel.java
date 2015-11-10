@@ -78,12 +78,20 @@ public class FavoriPanel extends javax.swing.JPanel{
     	//int tempsRestant = date_actuelle-date_test;
     	
         /*Timer d'Alerte*/
-            Map<Integer, Date> prochaineAlerte = MysqlRequester.getListeAlerte();
-            ActionListener actionListener = actionEvent->JOptionPane.showMessageDialog(null, "Vous avez une alerte!");
-            int tempsRestant = 9000;//difference de temps
-            javax.swing.Timer timer = new javax.swing.Timer(9000, actionListener);
-            timer.start();
-            timer.setRepeats(false);
+        ActionListener actionListener = actionEvent-> actionAlerte(22);
+        Map< Integer, Integer> infoAllNext =  MysqlRequester.getTimeNextAlert();
+        /*TOOOOOOF
+        Iterator<Integer> it = infoAllNext.keySet();
+        while(it.next()){
+            Objects
+
+        }*/
+
+        int tempsRestant = 9000;//difference de temps en mili
+        //JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+"ms");
+        javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
+        timer.start();
+        timer.setRepeats(false);
         /**/
         
         //Suppression Alerte pass�e dans BDD
@@ -252,12 +260,15 @@ public class FavoriPanel extends javax.swing.JPanel{
     	
     }
 
-    private void actionAlerte(int id_station){
+    private void actionAlerte(int id_itinerairefavori){
 
         JOptionPane.showMessageDialog(null, "Vous avez une alerte! Allez voir...");
         //calcul les stations avec l'id
+
         //maj du resultat panel
+
         //redir
+
     }
 
     /*à rajouter en fonction du nombre...
