@@ -90,12 +90,6 @@ public class ResultatPanel extends javax.swing.JPanel {
         double lat_arrivee = rechercheDonnees.getArriveLat();
         double long_arrivee = rechercheDonnees.getArriveLong();
         
-//        double lat_dep = 45.757112;
-//        double long_dep = 4.853405;
-//        double lat_arrivee = 45.735158;
-//        double long_arrivee = 4.872803;
-        
-
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
 		
 		//Calendar cal_dep = rechercheDonnees.getDateHeureArrive();
@@ -183,9 +177,6 @@ public class ResultatPanel extends javax.swing.JPanel {
 		   		i++;
     		}
 	    }
-
-        //but_station_favorite.addActionListener(new EcouteurStationFavorite(station_actuelle.getId_station()));
-        
     	
         /*----Code généré*/
         groupeArrivee = new javax.swing.ButtonGroup();
@@ -629,12 +620,15 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonCreerAlerte.setContentAreaFilled(false);
         boutonCreerAlerte.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonCreerAlerte.setOpaque(true);
-        boutonCreerAlerte.setVisible(false);         
+        boutonCreerAlerte.setVisible(true);         
         //test
         Date utilDate = new Date();
         java.sql.Date heure_alerte = new java.sql.Date(utilDate.getTime());
         int id_itineraire_favori = 22;
-        boutonCreerAlerte.addActionListener(new EcouteurAlerte(heure_alerte,id_itineraire_favori)); 
+        //récupération dynamique date pour alerte
+        Date dateHeureDep = new Date();
+        dateHeureDep = rechercheDonnees.getDateHeureDepart().getTime();
+        boutonCreerAlerte.addActionListener(new EcouteurAlerte(dateHeureDep,id_itineraire_favori)); 
         
 
         boutonAjouterFavori.setBackground(new java.awt.Color(204, 0, 0));
@@ -652,8 +646,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         double distance = rechercheDonnees.getArriveLong();
         String d = formatter.format(distance);
         labelDistance.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDistance.setText("Distance de parcours : " + d + " kilomètres");
-        
+        labelDistance.setText("Distance de parcours : " + d + " kilomètres");   
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
         this.setLayout(layout);

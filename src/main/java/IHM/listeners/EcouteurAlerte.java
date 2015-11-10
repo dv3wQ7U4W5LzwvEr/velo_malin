@@ -31,9 +31,10 @@ public class EcouteurAlerte implements ActionListener{
 
 
 	public void actionPerformed(ActionEvent e) {   
+		//pb DateTime à gérer dans SQL : pas même format
 	    MysqlRequester.setAlerte(heure,id_itineraire_favori);
 	    ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-	    JOptionPane.showMessageDialog(null, "Alerte bien configurÃ©", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
+	    JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
   
     }
 }

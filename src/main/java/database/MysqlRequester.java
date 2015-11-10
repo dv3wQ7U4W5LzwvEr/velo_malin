@@ -695,4 +695,16 @@ public class MysqlRequester {
      String sqlQuery = "INSERT INTO velo_malin.alertes(id_itinerairefavori, heure) VALUES ( '" + id_itineraire_favori + "','"+ Heure +"')" ;
      executerRequeteInsertDeleteUpdate(sqlQuery);
  }
+ 
+ /**
+ *
+ * @param
+ * @return
+ */
+public static void deleteAlerte(Date Heure,int id_itineraire_favori)
+{
+    String sqlQuery = "DELETE velo_malin.alertes(id_itinerairefavori, heure) VALUES ( '" + id_itineraire_favori + "','"+ Heure +"')" ;
+    executerRequeteInsertDeleteUpdate(sqlQuery);
+}
+
 }
