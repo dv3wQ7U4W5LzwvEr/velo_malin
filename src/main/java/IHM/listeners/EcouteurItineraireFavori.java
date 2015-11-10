@@ -73,6 +73,7 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 	        JOptionPane.showMessageDialog(null, "Itinéraire bien enregistré dans vos favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
     	}
-        
+    	//rajouté manuellement le 10/11/2015 à 16:15
+    	IHMApplication.reloadFavoriPanel2();
     }
 }

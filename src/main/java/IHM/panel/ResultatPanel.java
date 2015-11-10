@@ -647,14 +647,9 @@ public class ResultatPanel extends javax.swing.JPanel {
         		        	double lat_station_depart = currentEntry.getValue().get(0);
         		        	double long_station_arrivee = currentEntry.getValue().get(1);
         		        	double lat_station_arrivee = currentEntry.getValue().get(2);  		        	
-        		        	
-        		            double lat_dep = rechercheDonnees.getDepartLat();
-        		            double long_dep = rechercheDonnees.getDepartLong();
-        		            double lat_arrivee = rechercheDonnees.getArriveLat();
-        		            double long_arrivee = rechercheDonnees.getArriveLong();
-        		    		
+        		        	   		        	
         		        	//if((long_station_depart == 45.7971556) && (lat_station_depart == 4.7845067) && (lat_station_arrivee == 4.8047449) && (long_station_arrivee == 45.780722)){
-        		            if((long_station_depart == long_dep) && (lat_station_depart == lat_dep) && (lat_station_arrivee == lat_arrivee) && (long_station_arrivee == long_arrivee)){
+        		            if((long_station_depart == long_dep) && (lat_station_depart == lat_dep) && (long_station_arrivee == long_arrivee) && (lat_station_arrivee == lat_arrivee)){
         		    			id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart,long_station_depart,lat_station_arrivee,long_station_arrivee);	     		    		
 	                	        Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime(); 
 	                	

@@ -139,16 +139,16 @@ public class ItinerairePanel extends javax.swing.JPanel {
         boutonLancer.setOpaque(true);
 
         //test
-        Calendar cal = Calendar.getInstance();
-        cal.set(2015, 10 - 1, 28, 13, 00, 00);
-        Date date_recherche = cal.getTime();
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(2015, 10 - 1, 28, 13, 00, 00);
+//        Date date_recherche = cal.getTime();
 
         boutonLancer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent evt) {
                 String adresse_depart = adresseDepart.getText();
                 String adresse_arrivee = adresseArrivee.getText();
                 if (!adresse_depart.equals("") && !adresse_arrivee.equals("")) {
-                    Date date_depart = date_recherche;
+                    //Date date_depart = date_recherche;
 
                     Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
                     Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
