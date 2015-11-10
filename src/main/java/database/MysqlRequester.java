@@ -400,6 +400,7 @@ public class MysqlRequester {
         ResultSet rs = executerRequete(sqlQuery);
         List<Station> stations = new ArrayList<>();
         Station station;
+        String adresse = "", latitude, longitude;
         try {
         	if(!rs.next()){
         		return null;
@@ -410,9 +411,16 @@ public class MysqlRequester {
                 station = new Station();
                 station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
-                station.setAdresse(rs.getString("adresse"));
-                station.setLatitude(rs.getString("latitude"));
-                station.setLongitude(rs.getString("longitude"));
+                adresse = rs.getString("adresse");
+                longitude = rs.getString("longitude");
+                latitude = rs.getString("latitude");
+                station.setLatitude(latitude);
+                station.setLongitude(longitude);
+                if (adresse.equals(""))
+                {
+                    adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(station.getLatitude()), new Double(station.getLongitude()));
+                }
+                station.setAdresse(adresse);
                 station.setPlaces(rs.getInt("places"));
                 stations.add(station);
             }

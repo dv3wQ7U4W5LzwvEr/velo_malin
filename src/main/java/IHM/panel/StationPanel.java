@@ -22,15 +22,25 @@ import org.jfree.chart.JFreeChart;
 import org.jfree.chart.axis.NumberAxis;
 import org.jfree.chart.plot.CategoryPlot;
 import org.jfree.chart.plot.PlotOrientation;
+import org.jfree.chart.plot.ValueMarker;
+import org.jfree.chart.plot.XYPlot;
 import org.jfree.chart.renderer.category.LineAndShapeRenderer;
 import org.jfree.data.category.CategoryDataset;
 import org.jfree.data.category.DefaultCategoryDataset;
+import org.jfree.data.xy.XYDataset;
+
+import IHM.IHMApplication;
 
 /**
  * @author Pec
  */
 public class StationPanel extends javax.swing.JPanel {
-
+	
+//	DefaultCategoryDataset datasetVelo24;
+//    DefaultCategoryDataset datasetVelo;
+//    ChartPanel panel;
+//    ChartPanel panel2;
+	
     /*Constructeur*/
     public StationPanel() {
         initComponents();
@@ -111,15 +121,6 @@ public class StationPanel extends javax.swing.JPanel {
         comboSation.setMaximumSize(new java.awt.Dimension(400, 23));
         comboSation.setPreferredSize(new java.awt.Dimension(400, 23));
         
-        comboSation.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				// TODO Stub de la méthode généré automatiquement
-				//JOptionPane.showMessageDialog(null,((Station) comboSation.getSelectedItem()).getId_station());
-			}
-		});
-        
         labelDate.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDate.setText("Selectionner une date :");
 
@@ -128,24 +129,60 @@ public class StationPanel extends javax.swing.JPanel {
         boutonStatistiques.setBorder(javax.swing.BorderFactory.createBevelBorder(javax.swing.border.BevelBorder.RAISED));
         boutonStatistiques.setContentAreaFilled(false);
         boutonStatistiques.setName("boutonStats"); // NOI18N
+        
+        boutonStatistiques.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				// TODO Stub de la méthode généré automatiquement
+				int id_station = ((Station) comboSation.getSelectedItem()).getId_station();
+				int indexHeure = comboHeure.getSelectedIndex();
+				Calendar cal = Calendar.getInstance();
+				cal.setTime(datePickerOP.getDate());
+				
+				if(indexHeure == 0){
+					cal.set(Calendar.HOUR_OF_DAY, 00);
+	                cal.set(Calendar.MINUTE, 00);
+				} else if(indexHeure == 1){
+					cal.set(Calendar.HOUR_OF_DAY, 06);
+	                cal.set(Calendar.MINUTE, 00);
+				} else if(indexHeure == 2){
+					cal.set(Calendar.HOUR_OF_DAY, 12);
+	                cal.set(Calendar.MINUTE, 00);
+				} else if(indexHeure == 3){
+					cal.set(Calendar.HOUR_OF_DAY, 18);
+	                cal.set(Calendar.MINUTE, 00);
+				} else {
+					cal.set(Calendar.HOUR_OF_DAY, 06);
+	                cal.set(Calendar.MINUTE, 00);
+				}
+                
+				DefaultCategoryDataset datasetVelo24 = createVeloDataset(id_station, cal, 24);
+			    DefaultCategoryDataset datasetVelo = createVeloDataset(id_station, cal, 6);
+			    
+			    panelGraph1.removeAll();
+			    panelGraph1.updateUI();
+			    panelGraph1.revalidate();
+			    panelGraph1 = createChartPanel24h(datasetVelo24);
+			    panelGraph1.repaint();
+			    panelGraph1.revalidate();
+			    	
+			    panelGraph2.removeAll();
+			    panelGraph2.updateUI();
+			    panelGraph2 = createChartPanel24h(datasetVelo);
+			    panelGraph2.repaint();
+			    panelGraph2.revalidate();
+			    System.out.print("nb lignes " + datasetVelo.getRowCount());
+			    
+			}
+		});
 
         labelHeure.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelHeure.setText("Choisir la plage horaire :");
 
         comboHeure.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        comboHeure.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "aurore: 00h00-07h00", "matin: 07h00-12h00", "après-midi: 12h00-17h00", "soirée: 17h00-00h00" }));
-        comboHeure.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                comboHeureActionPerformed(evt);
-            }
-        });
-
-        datePickerOP.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                datePickerOPActionPerformed(evt);
-            }
-        });
-
+        comboHeure.setModel(new javax.swing.DefaultComboBoxModel(new String[] { "aurore: 00h00-06h00", "matin: 06h00-12h00", "après-midi: 12h00-18h00", "soirée: 18h00-00h00" }));
+        
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
@@ -210,22 +247,25 @@ public class StationPanel extends javax.swing.JPanel {
                         .addGap(0, 329, Short.MAX_VALUE)
         );
         
-       
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(0, "Marks", "1h");
-        dataset.setValue(15, "Marks", "2h");
-        dataset.setValue(20, "Marks", "3h");
-        dataset.setValue(10, "Marks", "4h");
-        dataset.setValue(7, "Marks", "5h");
-        dataset.setValue(25, "Marks", "6h");
-        dataset.setValue(6, "Marks", "7h");
-        dataset.setValue(20, "Marks", "8h");
-        dataset.setValue(35, "Marks", "9h");
-        dataset.setValue(30, "Marks", "10h");
+//       
+//        datasetVelo24 = new DefaultCategoryDataset();
+//        datasetVelo = new DefaultCategoryDataset();
         
-        DefaultCategoryDataset datasetVelo = createVeloDataset(2470, new Date(2015, 11, 30, 00, 00), 6);
+//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
+//        dataset.setValue(0, "Marks", "1h");
+//        dataset.setValue(15, "Marks", "2h");
+//        dataset.setValue(20, "Marks", "3h");
+//        dataset.setValue(10, "Marks", "4h");
+//        dataset.setValue(7, "Marks", "5h");
+//        dataset.setValue(25, "Marks", "6h");
+//        dataset.setValue(6, "Marks", "7h");
+//        dataset.setValue(20, "Marks", "8h");
+//        dataset.setValue(35, "Marks", "9h");
+//        dataset.setValue(30, "Marks", "10h");
         
-
+//        Calendar cal = Calendar.getInstance();
+//        cal.set(2015, 10 - 1, 28, 00, 00, 00);
+        
         labelTitre1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTitre1.setText("1. Nombre d'actions (retrait/ajout) en fonction de l'heure");
 
@@ -267,28 +307,8 @@ public class StationPanel extends javax.swing.JPanel {
         labelNombreVelos.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
         labelNombreVelos.setText("y");
         
-        JFreeChart chart = ChartFactory.createAreaChart(
-                "Nombre de dépots et retraits par heure", "Nombre dépotes", "Nbr", dataset,
-                PlotOrientation.VERTICAL, false, true, false);
-            CategoryPlot p = chart.getCategoryPlot();
-            p.setRangeGridlinePaint(Color.BLACK);
-            ChartPanel panel = new ChartPanel(chart);
-           
-            panel.setPreferredSize(new java.awt.Dimension(600, 420));
-            panel.setDomainZoomable(true);
-            panelGraph1 = panel;
-        
-            JFreeChart chart2 = ChartFactory.createAreaChart(
-                    "Nombre de vélos par heure", "Temps", "Nombre de vélos", datasetVelo,
-                    PlotOrientation.VERTICAL, false, true, false);
-                CategoryPlot p2 = chart2.getCategoryPlot();
-                p.setRangeGridlinePaint(Color.BLACK);
-                ChartPanel panel2 = new ChartPanel(chart2);
-                panel2.setPreferredSize(new java.awt.Dimension(600, 420));
-                panel2.setDomainZoomable(true);
-                panelGraph2 = panel2;
-            
-            
+        panelGraph1 = createChartPanel24h(new DefaultCategoryDataset());
+        panelGraph2 = createChartPanelPlage(new DefaultCategoryDataset());
 
         javax.swing.GroupLayout panelIdentiteLayout = new javax.swing.GroupLayout(panelIdentite);
         panelIdentite.setLayout(panelIdentiteLayout);
@@ -398,8 +418,8 @@ public class StationPanel extends javax.swing.JPanel {
                                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap())
         );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	        layout.setVerticalGroup(
+	                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
         );
 
@@ -415,23 +435,54 @@ public class StationPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }
     
-    private DefaultCategoryDataset createVeloDataset(int id_station, Date date, int heure){
+    private DefaultCategoryDataset createVeloDataset(int id_station, Calendar cal, int heure){
     	
-    	Calendar cal = Calendar.getInstance();
-    	cal.setTime(date);
-    	
-    	Calendar cal2 = Calendar.getInstance();
-    	cal2.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
+    	  	
+    	Calendar cal2 = (Calendar) cal.clone();
+    	cal2.set(Calendar.HOUR, cal2.get(Calendar.HOUR)+1);
+    	Station station = MysqlRequester.getStation(id_station);
     	
     	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    	for(int i=0; i < heure; i++){
-    		int  nbPlaces = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
+    	for(int i=0; i <= heure; i++){
+    		int  nbVelos = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
+    		//int  nbPlaces = StatistiquesStation.getMoyenneNbPlacesSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
+    		dataset.setValue(nbVelos, "Velos", cal.get(Calendar.HOUR)+"h");
+    		//dataset.setValue(nbPlaces, "Places", cal.get(Calendar.HOUR)+"h");
+    		dataset.setValue(station.getPlaces(), "Max", cal.get(Calendar.HOUR)+"h");
     		cal.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
-    		cal2.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
-    		dataset.setValue(nbPlaces, "Velos", cal.get(Calendar.HOUR)+"h");
+    		cal2.set(Calendar.HOUR, cal2.get(Calendar.HOUR)+1);
     	}
     	
 		return dataset;
+    }
+    
+    private ChartPanel createChartPanel24h(DefaultCategoryDataset dataset){
+    	JFreeChart chart = ChartFactory.createLineChart(
+                "Nombre de vélos sur 24h", "Temps", "Nombre de vélos", dataset,
+                PlotOrientation.VERTICAL, false, true, false);
+        chart.setNotify(true);
+        CategoryPlot p = chart.getCategoryPlot();
+        p.setRangeGridlinePaint(Color.BLACK);
+        ChartPanel panel = new ChartPanel(chart);
+           
+        panel.setPreferredSize(new java.awt.Dimension(600, 420));
+        panel.setDomainZoomable(true);
+        return panel;
+    }
+    
+    private ChartPanel createChartPanelPlage(DefaultCategoryDataset dataset){
+	    JFreeChart chart2 = ChartFactory.createLineChart(
+	            "Nombre de vélos sur la plage", "Temps", "Nombre de vélos", dataset,
+	            PlotOrientation.VERTICAL, false, true, false);
+	    CategoryPlot p2 = chart2.getCategoryPlot();
+	    chart2.setNotify(true);
+	    p2.setRangeGridlinePaint(Color.BLACK);
+	    chart2.getCategoryPlot();
+	    
+	    ChartPanel panel2 = new ChartPanel(chart2);
+	    panel2.setPreferredSize(new java.awt.Dimension(600, 420));
+	    panel2.setDomainZoomable(true);
+	    return panel2;
     }
 
 }
