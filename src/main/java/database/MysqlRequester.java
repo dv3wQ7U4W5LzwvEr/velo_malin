@@ -679,6 +679,33 @@ public class MysqlRequester {
         }
         return liste_alertes;
     }
+
+    public static Map<Integer, Integer> getTimeNextAlert()
+    {
+        String sqlQuery = "SELECT id_itinerairefavori, heure, NOW() as \"now\",\n" +
+                "(\n" +
+                "\tDATEDIFF(heure,NOW())*86400000+\n" +
+                "\t((hour(heure)*3600000+minute(heure)*60000)-\n" +
+                "\t( hour(now())*3600000+minute(now())*60000)\n" +
+                ") AS \"milirestant\"\n" +
+                "FROM velo_malin.alertes\n" +
+                "WHERE heure > now()\n" +
+                "ORDER BY heure  DESC;";
+        ResultSet rs = executerRequete(sqlQuery);
+
+        Map<Integer, Integer> liste_alerte_mili = new LinkedHashMap<>();
+
+        try {
+            while (rs.next()) {
+                liste_alerte_mili.put(rs.getInt("id_itinerairefavori"), rs.getInt("milirestant"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return liste_alerte_mili;
+    }
     
     public static int getListeIdItineraireFavori(double lat_depart, double long_dep, double lat_arrivee,double long_arrivee)
     {

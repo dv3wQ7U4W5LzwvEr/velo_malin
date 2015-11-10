@@ -84,9 +84,9 @@ public class FavoriPanel extends javax.swing.JPanel{
             javax.swing.Timer timer = new javax.swing.Timer(9000, actionListener);
             timer.start();
             timer.setRepeats(false);
+        /**/
         
-        
-        //Suppression Alerte passée dans BDD
+        //Suppression Alerte passï¿½e dans BDD
         //_deleteAlerte(Heure,id_itineraire_favori);
          
 	    
@@ -250,6 +250,14 @@ public class FavoriPanel extends javax.swing.JPanel{
     /*Listeneur*/
     private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {   	
     	
+    }
+
+    private void actionAlerte(int id_station){
+
+        JOptionPane.showMessageDialog(null, "Vous avez une alerte! Allez voir...");
+        //calcul les stations avec l'id
+        //maj du resultat panel
+        //redir
     }
 
     /*Ã  rajouter en fonction du nombre...
