@@ -9,10 +9,10 @@ public class RechercheData {
 
     private static RechercheData instance = null;
 
-    private double departLat;
-    private double departLong;
-    private double arriveLat;
-    private double arriveLong;
+    private double departLat = 0.00;
+    private double departLong = 0.00;
+    private double arriveLat = 0.00;
+    private double arriveLong = 0.00;
 	private double distanceKm;
 	private double tempsParcours;
 

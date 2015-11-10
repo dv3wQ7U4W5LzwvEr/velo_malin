@@ -84,7 +84,7 @@ public class FavoriPanel extends javax.swing.JPanel{
             javax.swing.Timer timer = new javax.swing.Timer(9000, actionListener);
             timer.start();
             timer.setRepeats(false);
-        */
+        
         
         //Suppression Alerte passée dans BDD
         //_deleteAlerte(Heure,id_itineraire_favori);

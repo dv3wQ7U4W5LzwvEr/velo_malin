@@ -26,6 +26,7 @@ public class EcouteurItineraireFavori implements ActionListener{
     private double long_arr;
     
     private boolean deja_favori = false;
+    private boolean pas_info = false;
 
 	public EcouteurItineraireFavori(double lat_dep, double long_dep, double lat_arr, double long_arr) {
 		super();
@@ -52,13 +53,20 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        	double lat_station_arrivee = currentEntry.getValue().get(2);
 	        	 	
 	    		if((long_dep == long_station_depart) && (lat_dep == lat_station_depart) && (lat_arr == lat_station_arrivee) && (long_arr == long_station_arrivee))
-	    			deja_favori = true;  			
+	    			deja_favori = true;  
+	    		if((long_dep == 0.00) && (lat_dep == 0.00) && (lat_arr == 0.00) && (long_arr == 0.00))
+	    			pas_info = true;
 	        }
 	    }
  
     	if(deja_favori == true){	
 	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
 	        JOptionPane.showMessageDialog(null, "Attention : itinéraire déjà enregistré dans vos favoris", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+    	}
+    	else if(pas_info == true){
+	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+	        JOptionPane.showMessageDialog(null, "Attention : pas d'itineraire chargé", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+
     	}
     	else{
 	        MysqlRequester.insertItineraireFavorit(client_actuel, long_dep, lat_dep,long_arr,lat_arr);
