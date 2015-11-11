@@ -3,7 +3,6 @@ package IHM.panel;
 import IHM.IHMApplication;
 import data.RechercheData;
 import database.MysqlRequester;
-import org.jdesktop.swingx.HorizontalLayout;
 import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
 
@@ -17,55 +16,45 @@ import java.util.List;
 /**
  * Created by QKFD7244 on 02/11/2015.
  */
-public class FavoriPanel extends javax.swing.JPanel {
+public class FavoriPanel extends JPanel {
     /*Constructeur*/
     public FavoriPanel() {
         initFavori();
     }
 
     /*Variables*/
-    private javax.swing.JButton boutonSupprimer;
-    private javax.swing.JLabel labelVelo;
+    private JButton boutonSupprimer;
 
-    private javax.swing.JPanel panelFavoris;
-    private javax.swing.JLabel labelDepart;
-    private javax.swing.JLabel labelArrivee;
-    private javax.swing.JLabel labelDateTrajet;
+    private JPanel panelFavoris;
+    private JLabel labelDepart;
+    private JLabel labelArrivee;
+    private JLabel labelDateTrajet;
 
 
     private javax.swing.JPanel panelAlerte;
     private int temps_avant_alerte = 2;//setter et getter disponibles...
-    int id_itineraire_favori;
-    
-    /* à rajouter en fonction
-    private javax.swing.JLabel labelArrivee;
-    private javax.swing.JLabel labelDateTrajet;
-    private javax.swing.JLabel labelDepart;
-    private javax.swing.JLabel labelVelo;
-    private javax.swing.JPanel panelFavoris;
-    */
-    //"src/main/resources/img/cross_small.png"
-    //"src/main/resources/img/velo.png"
+
 
     /*Méthode*/
     private void initFavori() {
         // panel pour alertes
 
+        /*
         panelAlerte = new javax.swing.JPanel();
         panelAlerte.setBackground(new java.awt.Color(255, 255, 255));
         panelAlerte.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "ALERTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
-
+        */
 
         // panel pour favoris
 
-        panelFavoris = new javax.swing.JPanel();
+        panelFavoris = new JPanel();
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
-        panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
+        panelFavoris.setLayout(new BorderLayout());
 
-        labelDepart = new javax.swing.JLabel();
-        labelArrivee = new javax.swing.JLabel();
-        labelDateTrajet = new javax.swing.JLabel();
-        boutonSupprimer = new javax.swing.JButton();
+        labelDepart = new JLabel();
+        labelArrivee = new JLabel();
+        labelDateTrajet = new JLabel();
+        boutonSupprimer = new JButton();
 
         Map<Double, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
         if (listFavoris != null) {
@@ -85,16 +74,19 @@ public class FavoriPanel extends javax.swing.JPanel {
                     labelDepart = new JLabel();
                     labelDepart.setFont(new Font("Tahoma", 1, 14));
                     labelDepart.setText(adresse_depart);
+                    labelDepart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     panelFavoris.add(labelDepart);
 
                     labelArrivee = new JLabel();
                     labelArrivee.setFont(new Font("Tahoma", 1, 14));
                     labelArrivee.setText(adresse_arrivee);
+                    labelArrivee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     panelFavoris.add(labelArrivee);
 
                     labelDateTrajet = new JLabel();
                     labelDateTrajet.setFont(new Font("Tahoma", 1, 14));
                     labelDateTrajet.setText("cccccccccccccccc");
+                    labelDateTrajet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     panelFavoris.add(labelDateTrajet);
 
                     boutonSupprimer.setBackground(new Color(255, 0, 0));
@@ -116,7 +108,7 @@ public class FavoriPanel extends javax.swing.JPanel {
         panelFavoris.revalidate();
         panelFavoris.repaint();
         panelFavoris.setVisible(true);
-        this.add(panelFavoris);
+        
 
         /*
         /* Récupération liste des Alertes dans la table Alertes
