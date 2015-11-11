@@ -3,6 +3,8 @@ package IHM.panel;
 import IHM.IHMApplication;
 import data.RechercheData;
 import database.MysqlRequester;
+import org.jdesktop.swingx.HorizontalLayout;
+import org.jdesktop.swingx.VerticalLayout;
 import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
 
@@ -40,7 +42,7 @@ public class FavoriPanel extends JPanel {
 
         JPanel panelFavoris = new JPanel();
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
-        panelFavoris.setLayout(new BorderLayout());
+        panelFavoris.setLayout(new VerticalLayout());
         JButton boutonSupprimer = new JButton();
 
         Map<Double, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
@@ -82,6 +84,7 @@ public class FavoriPanel extends JPanel {
                     labelDateTrajet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelDateTrajet);
 
+                    boutonSupprimer = new JButton();
                     boutonSupprimer.setBackground(new Color(255, 0, 0));
                     boutonSupprimer.setFont(new Font("Tahoma", 0, 14)); // NOI18N
                     boutonSupprimer.setIcon(new ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
