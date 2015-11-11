@@ -17,7 +17,7 @@ import java.util.List;
 /**
  * Created by QKFD7244 on 02/11/2015.
  */
-public class FavoriPanel extends JPanel {
+public class FavoriPanel extends javax.swing.JPanel {
     /*Constructeur*/
     public FavoriPanel() {
         initFavori();
@@ -27,10 +27,10 @@ public class FavoriPanel extends JPanel {
     private javax.swing.JButton boutonSupprimer;
     private javax.swing.JLabel labelVelo;
 
-    private JPanel panelFavoris;
-    private JLabel labelDepart;
-    private JLabel labelArrivee;
-    private JLabel labelDateTrajet;
+    private javax.swing.JPanel panelFavoris;
+    private javax.swing.JLabel labelDepart;
+    private javax.swing.JLabel labelArrivee;
+    private javax.swing.JLabel labelDateTrajet;
 
 
     private javax.swing.JPanel panelAlerte;
@@ -49,27 +49,23 @@ public class FavoriPanel extends JPanel {
 
     /*Méthode*/
     private void initFavori() {
-        panelFavoris = new JPanel();
+        // panel pour alertes
+
         panelAlerte = new javax.swing.JPanel();
-        boutonSupprimer = new javax.swing.JButton();
-
-        setBackground(new java.awt.Color(255, 255, 255));
-
-        panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
-        panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
-
         panelAlerte.setBackground(new java.awt.Color(255, 255, 255));
         panelAlerte.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "ALERTE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
-        // panel pour alertes
-
 
         // panel pour favoris
-        panelFavoris.setLayout(new BorderLayout());
 
-        labelDepart = new JLabel();
-        labelArrivee = new JLabel();
-        labelDateTrajet = new JLabel();
+        panelFavoris = new javax.swing.JPanel();
+        panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
+        panelFavoris.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEtchedBorder(javax.swing.border.EtchedBorder.RAISED), "FAVORIS", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
+
+        labelDepart = new javax.swing.JLabel();
+        labelArrivee = new javax.swing.JLabel();
+        labelDateTrajet = new javax.swing.JLabel();
+        boutonSupprimer = new javax.swing.JButton();
 
         Map<Double, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
         if (listFavoris != null) {
@@ -113,14 +109,14 @@ public class FavoriPanel extends JPanel {
                             IHMApplication.reloadFavoriPanel();
                         }
                     });
+                    panelFavoris.add(boutonSupprimer);
                 }
             }
         }
         panelFavoris.revalidate();
         panelFavoris.repaint();
         panelFavoris.setVisible(true);
-
-
+        this.add(panelFavoris);
 
         /*
         /* Récupération liste des Alertes dans la table Alertes
@@ -163,7 +159,7 @@ public class FavoriPanel extends JPanel {
     	        temps_mili = (int) valeur;
     	        id_itineraire_favori = (int) cle;  	    	
     	 } 
-    	 */    
+
         //int cle  = iter.next();
       	//int valeur = infoAllNext.get(cle);
       	
@@ -173,7 +169,7 @@ public class FavoriPanel extends JPanel {
             timer.start();
             timer.setRepeats(false);
         }
-        */
+
         /**/
 
         //Suppression Alerte pass�e dans BDD
