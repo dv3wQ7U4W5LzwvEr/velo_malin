@@ -123,29 +123,32 @@ public class StationPanel extends javax.swing.JPanel {
 			public void actionPerformed(ActionEvent e) {
 				// TODO Stub de la méthode généré automatiquement
 				int id_station = ((Station) comboSation.getSelectedItem()).getId_station();
+				int placesMax = ((Station) comboSation.getSelectedItem()).getPlaces();
 				int indexHeure = comboHeure.getSelectedIndex();
 				Calendar cal = Calendar.getInstance();
 				cal.setTime(datePickerOP.getDate());
 				
+				Calendar cal2 = (Calendar) cal.clone();
 				if(indexHeure == 0){
-					cal.set(Calendar.HOUR_OF_DAY, 00);
-	                cal.set(Calendar.MINUTE, 00);
+					cal2.set(Calendar.HOUR_OF_DAY, 00);
+	                cal2.set(Calendar.MINUTE, 00);
 				} else if(indexHeure == 1){
-					cal.set(Calendar.HOUR_OF_DAY, 06);
-	                cal.set(Calendar.MINUTE, 00);
+					cal2.set(Calendar.HOUR_OF_DAY, 06);
+	                cal2.set(Calendar.MINUTE, 00);
 				} else if(indexHeure == 2){
-					cal.set(Calendar.HOUR_OF_DAY, 12);
-	                cal.set(Calendar.MINUTE, 00);
+					cal2.set(Calendar.HOUR_OF_DAY, 12);
+	                cal2.set(Calendar.MINUTE, 00);
 				} else if(indexHeure == 3){
-					cal.set(Calendar.HOUR_OF_DAY, 18);
-	                cal.set(Calendar.MINUTE, 00);
+					cal2.set(Calendar.HOUR_OF_DAY, 18);
+	                cal2.set(Calendar.MINUTE, 00);
 				} else {
-					cal.set(Calendar.HOUR_OF_DAY, 06);
-	                cal.set(Calendar.MINUTE, 00);
+					cal2.set(Calendar.HOUR_OF_DAY, 06);
+	                cal2.set(Calendar.MINUTE, 00);
 				}
-                
-				DefaultCategoryDataset datasetVelo24 = createVeloDataset(id_station, cal, 24);
-			    DefaultCategoryDataset datasetVelo = createVeloDataset(id_station, cal, 6);
+				System.out.println(cal.getTime());
+				System.out.println(cal2.getTime());
+				DefaultCategoryDataset datasetVelo24 = createVeloDataset(id_station, placesMax, cal, 24);
+			    DefaultCategoryDataset datasetVelo = createVeloDataset(id_station, placesMax, cal2, 6);
 			 
 			    if (panelGraph1 != null && panelGraph2 != null)
 			    {
@@ -423,22 +426,23 @@ public class StationPanel extends javax.swing.JPanel {
         // TODO add your handling code here:
     }
     
-    private DefaultCategoryDataset createVeloDataset(int id_station, Calendar cal, int heure){
+    private DefaultCategoryDataset createVeloDataset(int id_station, int placesMax, Calendar cal, int heure){
     	
-    	  	
+    	Calendar cal1 = (Calendar) cal.clone();	
     	Calendar cal2 = (Calendar) cal.clone();
-    	cal2.set(Calendar.HOUR, cal2.get(Calendar.HOUR)+1);
-    	Station station = MysqlRequester.getStation(id_station);
+    	cal2.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY)+1);
+    	cal2.set(Calendar.SECOND, cal2.get(Calendar.SECOND)-1);
     	
     	DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-    	for(int i=0; i <= heure; i++){
-    		int  nbVelos = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
-    		//int  nbPlaces = StatistiquesStation.getMoyenneNbPlacesSurStation(id_station, cal.getTime(), cal2.getTime(), null, null);
-    		dataset.setValue(nbVelos, "Velos", cal.get(Calendar.HOUR)+"h");
+    	for(int i=0; i < heure+1; i++){
+    		int  nbVelos = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal1.getTime(), cal2.getTime(), null, null);
+    		//int  nbPlaces = StatistiquesStation.getMoyenneNbPlacesSurStation(id_station, cal1.getTime(), cal2.getTime(), null, null);
+    		System.out.println(heure +" "+ nbVelos+" "+ id_station+" "+ cal1.get(Calendar.HOUR_OF_DAY)+"h");
+    		dataset.setValue(nbVelos, "Velos", cal1.get(Calendar.HOUR_OF_DAY)+"h");
     		//dataset.setValue(nbPlaces, "Places", cal.get(Calendar.HOUR)+"h");
-    		dataset.setValue(station.getPlaces(), "Max", cal.get(Calendar.HOUR)+"h");
-    		cal.set(Calendar.HOUR, cal.get(Calendar.HOUR)+1);
-    		cal2.set(Calendar.HOUR, cal2.get(Calendar.HOUR)+1);
+    		dataset.setValue(placesMax, "Max", cal1.get(Calendar.HOUR_OF_DAY)+"h");
+    		cal1.set(Calendar.HOUR_OF_DAY, cal1.get(Calendar.HOUR_OF_DAY)+1);
+    		cal2.set(Calendar.HOUR_OF_DAY, cal2.get(Calendar.HOUR_OF_DAY)+1);
     	}
     	
 		return dataset;
