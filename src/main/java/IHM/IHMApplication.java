@@ -10,11 +10,11 @@ public class IHMApplication extends JFrame {
 
      private static final long serialVersionUID = 1L;
 
-     private static JPanel panel0;
-     private static JPanel panel1;
-     private static JPanel panel2;
-     private static JPanel panel3;
-     private static JPanel panel4;
+     public static JPanel panel0;
+     public static JPanel panel1;
+    public static JPanel panel2;
+    public static JPanel panel3;
+    public static JPanel panel4;
      static JTabbedPane onglets =  new JTabbedPane();
 
     public static void main(String[] args) {
@@ -31,10 +31,15 @@ public class IHMApplication extends JFrame {
             onglets.setBackground(Color.lightGray);
 
             panel0 = new JPanel();
+        panel0.setBackground(Color.WHITE);
             panel1 = new JPanel();
+        panel1.setBackground(Color.WHITE);
             panel2 = new JPanel();
+        panel2.setBackground(Color.WHITE);
             panel3 = new JPanel();
+        panel3.setBackground(Color.WHITE);
             panel4 = new JPanel();
+        panel4.setBackground(Color.WHITE);
 
             ImageIcon icon0 = new ImageIcon("src/main/resources/img/home.png");
             ImageIcon icon1 = new ImageIcon("src/main/resources/img/velo.png");
@@ -52,31 +57,26 @@ public class IHMApplication extends JFrame {
         * Accueil    *
         \*----------*/
         AccueilPanel accueilPanel = new AccueilPanel();
-        panel0.add(accueilPanel);
 
         /*----------*\
         * Itinéraire *
         \*----------*/
         ItinerairePanel itinerairePanel = new ItinerairePanel();
-        panel1.add(itinerairePanel);
 
         /*----------*\
         * Résultats *
         \*----------*/
         ResultatPanel resultatPanel = new ResultatPanel();
-        panel2.add(resultatPanel);
 
         /*----------*\
         * Station    *
         \*----------*/
         StationPanel stationPanel = new StationPanel();
-        panel3.add(stationPanel);
 
         /*----------*\
         * Favori     *
         \*----------*/
         FavoriPanel favoriPanel = new FavoriPanel();
-        panel4.add(favoriPanel);
 
 
         /*----------*\

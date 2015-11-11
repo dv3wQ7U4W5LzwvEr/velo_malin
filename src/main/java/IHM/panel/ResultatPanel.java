@@ -1,27 +1,18 @@
 package IHM.panel;
 
+import IHM.IHMApplication;
+import IHM.listeners.EcouteurItineraireFavori;
+import data.RechercheData;
+import database.MysqlRequester;
+import model.Station;
+
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-
-import javax.swing.ImageIcon;
-import javax.swing.JLabel;
-import javax.swing.JOptionPane;
-
-import IHM.listeners.EcouteurItineraireFavori;
-import data.RechercheData;
-import database.MysqlRequester;
-import model.Station;
-import IHM.IHMApplication;
+import java.util.*;
 
 /**
  * Created by QKFD7244 on 02/11/2015.
@@ -259,7 +250,7 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         SimpleDateFormat date_format_dep = new SimpleDateFormat("dd/MM/yyyy HH:mm");
         labelDateDepart.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDateDepart.setText("Le "+ date_format_dep.format(rechercheDonnees.getDateHeureDepart().getTime()));
+        labelDateDepart.setText("Le " + date_format_dep.format(rechercheDonnees.getDateHeureDepart().getTime()));
         // marche pas donc on cache :)
         labelDateDepart.setVisible(false);
 
@@ -633,42 +624,40 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonCreerAlerte.setVisible(true);         
 
         boutonCreerAlerte.addActionListener(new ActionListener() {
-        	int id_itinerairefavoris;
-        	boolean creation_alerte;
-        	
-        	 public void actionPerformed(ActionEvent evt) {  		 	
-        	       Map<Double, List<Double>> liste_itinerairefavoris = new HashMap<Double, List<Double>>();
-        	       liste_itinerairefavoris	= MysqlRequester.getListeItinerairesFavoris();
-        	       
-        		    if(liste_itinerairefavoris != null){    
-        		    	creation_alerte = false;
-        		        for (Map.Entry<Double,List<Double>> currentEntry : liste_itinerairefavoris.entrySet()){      	      	  	
-        		        	double long_station_depart  = currentEntry.getKey();
-        		        	double lat_station_depart = currentEntry.getValue().get(0);
-        		        	double long_station_arrivee = currentEntry.getValue().get(1);
-        		        	double lat_station_arrivee = currentEntry.getValue().get(2);  		        	
-        		        	   		        	
-        		        	//if((long_station_depart == 45.7971556) && (lat_station_depart == 4.7845067) && (lat_station_arrivee == 4.8047449) && (long_station_arrivee == 45.780722)){
-        		            if((long_station_depart == long_dep) && (lat_station_depart == lat_dep) && (long_station_arrivee == long_arrivee) && (lat_station_arrivee == lat_arrivee)){
-        		    			id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart,long_station_depart,lat_station_arrivee,long_station_arrivee);	     		    		
-	                	        Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime(); 
-	                	
-	                	        MysqlRequester.setAlerte(dateAlerte,id_itinerairefavoris);
-	                	        creation_alerte = true;
-	            		    }		        	
-        		        } 
-        		        if(creation_alerte == true){
-                	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-                	        JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
-        		        }
-        		        else
-        		        	JOptionPane.showMessageDialog(null, "L'itinéraire doit être enregistré dans les favoris avant!", "Erreur", JOptionPane.WARNING_MESSAGE);
-        		    }
-        		    else{
-        		    	JOptionPane.showMessageDialog(null, "Aucun itineraire favori enregistré", "Erreur", JOptionPane.WARNING_MESSAGE);
-        		    }
-        		    IHMApplication.reloadFavoriPanel2();
-        	 }     	 
+            int id_itinerairefavoris;
+            boolean creation_alerte;
+
+            public void actionPerformed(ActionEvent evt) {
+                Map<Double, List<Double>> liste_itinerairefavoris = new HashMap<Double, List<Double>>();
+                liste_itinerairefavoris = MysqlRequester.getListeItinerairesFavoris();
+
+                if (liste_itinerairefavoris != null) {
+                    creation_alerte = false;
+                    for (Map.Entry<Double, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
+                        double long_station_depart = currentEntry.getKey();
+                        double lat_station_depart = currentEntry.getValue().get(0);
+                        double long_station_arrivee = currentEntry.getValue().get(1);
+                        double lat_station_arrivee = currentEntry.getValue().get(2);
+
+                        //if((long_station_depart == 45.7971556) && (lat_station_depart == 4.7845067) && (lat_station_arrivee == 4.8047449) && (long_station_arrivee == 45.780722)){
+                        if ((long_station_depart == long_dep) && (lat_station_depart == lat_dep) && (long_station_arrivee == long_arrivee) && (lat_station_arrivee == lat_arrivee)) {
+                            id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart, long_station_depart, lat_station_arrivee, long_station_arrivee);
+                            Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();
+
+                            MysqlRequester.setAlerte(dateAlerte, id_itinerairefavoris);
+                            creation_alerte = true;
+                        }
+                    }
+                    if (creation_alerte == true) {
+                        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                        JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
+                    } else
+                        JOptionPane.showMessageDialog(null, "L'itinéraire doit être enregistré dans les favoris avant!", "Erreur", JOptionPane.WARNING_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(null, "Aucun itineraire favori enregistré", "Erreur", JOptionPane.WARNING_MESSAGE);
+                }
+                IHMApplication.reloadFavoriPanel2();
+            }
         });   
         //boutonCreerAlerte.addActionListener(new EcouteurAlerte(dateAlerte,id_itinerairefavoris)); 
         
@@ -682,7 +671,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori.setContentAreaFilled(false);
         boutonAjouterFavori.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         boutonAjouterFavori.setOpaque(true);       
-        boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(lat_dep,long_dep,lat_arrivee,long_arrivee)); 
+        boutonAjouterFavori.addActionListener(new EcouteurItineraireFavori(lat_dep, long_dep, lat_arrivee, long_arrivee));
         
         NumberFormat formatter = new DecimalFormat("#0.00");     
         double distance = rechercheDonnees.getArriveLong();
@@ -690,8 +679,8 @@ public class ResultatPanel extends javax.swing.JPanel {
         labelDistance.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelDistance.setText("Distance de parcours : " + d + " kilomètres");   
         
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel2);
+        IHMApplication.panel2.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()

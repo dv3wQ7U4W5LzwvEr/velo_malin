@@ -1,5 +1,7 @@
 package IHM.panel;
 
+import IHM.IHMApplication;
+
 /**
  * Created by QKFD7244 on 02/11/2015.
  */
@@ -93,8 +95,8 @@ public class AccueilPanel extends javax.swing.JPanel{
                                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(this);
-        this.setLayout(layout);
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel0);
+        IHMApplication.panel0.setLayout(layout);
         layout.setHorizontalGroup(
                 layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(labelCredits)

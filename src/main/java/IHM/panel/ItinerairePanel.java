@@ -390,8 +390,8 @@ public class ItinerairePanel extends javax.swing.JPanel {
                                 .addContainerGap())
         );
 
-        javax.swing.GroupLayout panItineraireLayout = new javax.swing.GroupLayout(panItineraire);
-        panItineraire.setLayout(panItineraireLayout);
+        javax.swing.GroupLayout panItineraireLayout = new javax.swing.GroupLayout(IHMApplication.panel1);
+        IHMApplication.panel1.setLayout(panItineraireLayout);
         panItineraireLayout.setHorizontalGroup(
                 panItineraireLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGroup(panItineraireLayout.createSequentialGroup()
