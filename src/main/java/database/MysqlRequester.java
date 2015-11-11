@@ -680,31 +680,67 @@ public class MysqlRequester {
         return liste_alertes;
     }
 
-    public static Map<Integer, Integer> getTimeNextAlert()
+    /**
+     * Recupère le temps en miliseconde de la prochaine alerte dans le temps, ainsi que son id
+     * @auth Pec
+     * @return liste_alerte_mili
+     */
+    public static List<Integer> getTimeNextAlert()
     {
-        String sqlQuery = "SELECT id_itinerairefavori, heure, NOW() as \"now\",\n" +
-                "(\n" +
-                "\tDATEDIFF(heure,NOW())*86400000+\n" +
-                "\t((hour(heure)*3600000+minute(heure)*60000)-\n" +
-                "\t( hour(now())*3600000+minute(now())*60000)\n" +
-                ") AS \"milirestant\"\n" +
-                "FROM velo_malin.alertes\n" +
-                "WHERE heure > now()\n" +
-                "ORDER BY heure  DESC;";
+        String sqlQuery = "SELECT id_itinerairefavori, heure, NOW() as 'now',DATEDIFF(heure,NOW())*86400000+((hour(heure)*3600000+minute(heure)*60000)-( hour(now())*3600000+minute(now())*60000)) AS 'milirestant'FROM velo_malin.alertes WHERE heure > now() ORDER BY heure  ASC;";
         ResultSet rs = executerRequete(sqlQuery);
 
-        Map<Integer, Integer> liste_alerte_mili = new LinkedHashMap<>();
+        List<Integer> liste_alerte_id_mili = new ArrayList<Integer>();
 
         try {
+            if(!rs.next()){
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
             while (rs.next()) {
-                liste_alerte_mili.put(rs.getInt("id_itinerairefavori"), rs.getInt("milirestant"));
+                liste_alerte_id_mili.add(rs.getInt("id_itinerairefavori"), rs.getInt("milirestant"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-        return liste_alerte_mili;
+        return liste_alerte_id_mili;
+    }
+
+    /**
+     * Renvoie les coordonnées de départ et d'arrivée d'un trajet favori en fonction de son id_favoris
+     * @auth Pec
+     * @param id_itinerairefavori int
+     * @return liste_coord liste(long_dep, lat_dep, long_arr, lat_arr)
+     */
+    public static List<Double> getCoordDunItineraireFavori(int id_itinerairefavori) {
+
+        String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris" +
+                "WHERE id_itinerairefavori = "+ id_itinerairefavori+";";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        List<Double> liste_coord = new ArrayList<Double>();
+
+        try {
+            if(!rs.next()){
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
+            while (rs.next()) {
+                liste_coord.add(rs.getDouble("depart_longitude"));
+                liste_coord.add(rs.getDouble("depart_latitude"));
+                liste_coord.add(rs.getDouble("arrive_longitude"));
+                liste_coord.add(rs.getDouble("arrive_latitude"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+        return liste_coord;
     }
     
     public static int getListeIdItineraireFavori(double lat_depart, double long_dep, double lat_arrivee,double long_arrivee)

@@ -1,7 +1,9 @@
 package IHM.panel;
 
 import IHM.IHMApplication;
+import data.RechercheData;
 import database.MysqlRequester;
+import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
 
 import javax.swing.*;
@@ -26,6 +28,7 @@ public class FavoriPanel extends javax.swing.JPanel{
     private javax.swing.JLabel labelVelo;
     private javax.swing.JPanel panelFavoris;
     private javax.swing.JPanel panelAlerte;
+    private int temps_avant_alerte = 2;//setter et getter disponibles...
     /* à rajouter en fonction
     private javax.swing.JLabel labelArrivee;
     private javax.swing.JLabel labelDateTrajet;
@@ -78,20 +81,19 @@ public class FavoriPanel extends javax.swing.JPanel{
     	//int tempsRestant = date_actuelle-date_test;
     	
         /*Timer d'Alerte*/
-        ActionListener actionListener = actionEvent-> actionAlerte(22);
-        Map< Integer, Integer> infoAllNext =  MysqlRequester.getTimeNextAlert();
-        /*TOOOOOOF
-        Iterator<Integer> it = infoAllNext.keySet();
-        while(it.next()){
-            Objects
+        List<Integer> infoAllNext =  MysqlRequester.getTimeNextAlert(); //on recup une liste triée
+        if(infoAllNext == null){
+            //on ne fait rien s'il n'y a pas d'alerte prévue
+        }else{
+            int id_favori_next_alerte = infoAllNext.get(0);
+            int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
+            ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
+            //test:JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+" ms, id:"+infoAllNext.get(0));
+            javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
+            timer.start();
+            timer.setRepeats(false);
+        }
 
-        }*/
-
-        int tempsRestant = 9000;//difference de temps en mili
-        //JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+"ms");
-        javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
-        timer.start();
-        timer.setRepeats(false);
         /**/
         
         //Suppression Alerte pass�e dans BDD
@@ -262,17 +264,49 @@ public class FavoriPanel extends javax.swing.JPanel{
 
     private void actionAlerte(int id_itinerairefavori){
 
-        JOptionPane.showMessageDialog(null, "Vous avez une alerte! Allez voir...");
-        //calcul les stations avec l'id
-
+        JOptionPane.showMessageDialog(null, "C'est bientôt l'heure de votre trajet\nVous allez être redirigé vers les résultats correspondants.");
+        //recup les coord
+        List<Double> coord_next_trajet = MysqlRequester.getCoordDunItineraireFavori(id_itinerairefavori);//recup des infos du trajet
+        double long_dep = coord_next_trajet.get(0);
+        double lat_dep = coord_next_trajet.get(1);
+        double long_arr = coord_next_trajet.get(2);
+        double lat_arr = coord_next_trajet.get(3);
+        //Heure de départ (heure actuelle)
+        Calendar dateHeureDep = Calendar.getInstance();
+        dateHeureDep.setTime(new Date());
+        dateHeureDep.add(Calendar.MINUTE, temps_avant_alerte);//correspond au temps d'anticipation de l'alerte
+        //Calcul heure d'arrivée
+        Calendar dateHeureArr = dateHeureDep;
+        dateHeureArr.add(Calendar.MINUTE, (int) StatistiquesStation.getTempsDeTrajet(lat_dep, long_dep, lat_arr, long_arr));
+        RechercheData rechercheDonnees = RechercheData.getInstance();
+        //Transmission adresse (lat/long)
+        rechercheDonnees.setDepartLat(lat_dep);
+        rechercheDonnees.setDepartLong(long_dep);
+        rechercheDonnees.setArriveLat(lat_arr);
+        rechercheDonnees.setArriveLong(long_arr);
+        //Transmission Date (Heure_minute/jour)
+        rechercheDonnees.setDateHeureDepart(dateHeureDep);
+        rechercheDonnees.setDateHeureArrive(dateHeureArr);
+        //Transmission distance de parcours
+        double distancekm = StatistiquesStation.getKmFromLatLong(lat_dep, long_dep,long_arr,lat_arr);
+        rechercheDonnees.setDistanceKm(distancekm);
         //maj du resultat panel
-
+        IHMApplication.reloadResultatPanel();
         //redir
-
+        IHMApplication.changerOngletResultat();
     }
 
     /*à rajouter en fonction du nombre...
     private void boutonSupprimer1ActionPerformed(java.awt.event.ActionEvent evt) {
         // TODO add your handling code here:
     }*/
+
+    public int getTemps_avant_alerte() {
+        return temps_avant_alerte;
+    }
+
+    public void setTemps_avant_alerte(int temps_avant_alerte) {
+        this.temps_avant_alerte = temps_avant_alerte;
+    }
+
 }
