@@ -121,7 +121,7 @@ public class FavoriPanel extends JPanel {
                                 .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                 .addContainerGap(265, Short.MAX_VALUE))
         );
-
+    }
 
         /*
         /* Récupération liste des Alertes dans la table Alertes
