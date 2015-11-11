@@ -41,16 +41,14 @@ public class EcouteurItineraireFavori implements ActionListener{
         Client client_actuel;
         client_actuel = new Client();
         
-        Map<Double,List<Double>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
+        Map<Integer,List<Double>> liste_itineraires_favoris = MysqlRequester.getListeItinerairesFavoris();
           
-	    if(liste_itineraires_favoris != null){    	
-	    	Iterator<Double> it = liste_itineraires_favoris.keySet().iterator();
-	    	
-	        for (Map.Entry<Double,List<Double>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
-	        	double long_station_depart  = currentEntry.getKey();
-	        	double lat_station_depart = currentEntry.getValue().get(0);
-	        	double long_station_arrivee = currentEntry.getValue().get(1);
-	        	double lat_station_arrivee = currentEntry.getValue().get(2);
+	    if(liste_itineraires_favoris != null){    		    	
+	        for (Map.Entry<Integer,List<Double>> currentEntry : liste_itineraires_favoris.entrySet()){      	      	  	
+	        	double long_station_depart  = currentEntry.getValue().get(0);
+	        	double lat_station_depart = currentEntry.getValue().get(1);
+	        	double long_station_arrivee = currentEntry.getValue().get(2);
+	        	double lat_station_arrivee = currentEntry.getValue().get(3);
 	        	 	
 	    		if((long_dep == long_station_depart) && (lat_dep == lat_station_depart) && (lat_arr == lat_station_arrivee) && (long_arr == long_station_arrivee))
 	    			deja_favori = true;  

@@ -29,7 +29,8 @@ public class FavoriPanel extends JPanel {
 
 
     /*Méthode*/
-    private void initFavori() {
+    @SuppressWarnings("unchecked")
+	private void initFavori() {
         // panel pour alertes
 
         /*
@@ -156,14 +157,16 @@ public class FavoriPanel extends JPanel {
             int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
             ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
             //test:JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+" ms, id:"+infoAllNext.get(0));
-        while(iter.hasNext()){
+       /*
+            while(iter.hasNext()){
     	        Object cle  = iter.next();
     	      	Object valeur = infoAllNext.get(cle);
     	   
     	        temps_mili = (int) valeur;
     	        id_itineraire_favori = (int) cle;  	    	
     	 } 
-
+    	*/
+            
         //int cle  = iter.next();
       	//int valeur = infoAllNext.get(cle);
       	
@@ -179,7 +182,70 @@ public class FavoriPanel extends JPanel {
         //Suppression Alerte pass�e dans BDD
         //_deleteAlerte(Heure,id_itineraire_favori);
          
+	    //Affichage des Itineraires favoris
+        /*Faire un for*/   
+        Map<Integer,List<Double>> liste_itinerairesfavoris = new HashMap<Integer, List<Double>>();;
+	    	Iterator<Integer> it = liste_itinerairesfavoris.keySet().iterator();
+	        	
+	        	List<Double> liste_val = new ArrayList<Double>();
+	        	liste_val = (List<Double>) valeurs;
+	        	String long_depart = String.valueOf(liste_val.get(0));
+	        	String lat_depart = String.valueOf(liste_val.get(1));
+	        	String long_arrivee = String.valueOf(liste_val.get(2));
+	        	String lat_arrivee = String.valueOf(liste_val.get(3));
+	    
+	    
+	      //Affichage des alertes //pr�paration par Tof pour MAJ par Flo
+	      //besoin de faire une boucle pour affichage multiple
+	    /*
+	      Map<Integer, Date> liste_AlertesConfigurees = new HashMap<Integer, Date>();
+	      liste_AlertesConfigurees = MysqlRequester.getListeAlerte();
+	      
+		    if(liste_AlertesConfigurees != null){    	
+		    	Iterator<Integer> it = liste_AlertesConfigurees.keySet().iterator();
+	        
+		        while (it.hasNext()) {
+		        	Object cle  = it.next();
+		        	Object valeurs = liste_AlertesConfigurees.get(cle);
+		        	
+		        	int id_itinfavori = (int) cle;
+		        	String dateAlerte = String.valueOf(valeurs);
 
+		        	List<Double> liste_val = MysqlRequester.getItinerairesFavorisViaId(id_itinfavori);   	
+     	
+		        	double long_depart = liste_val.get(0);
+		        	double lat_depart = liste_val.get(1);
+		        	double long_arrivee = liste_val.get(2);
+		        	double lat_arrivee = liste_val.get(3);
+		        	    	
+		        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(long_depart, lat_depart);
+		        	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(long_arrivee, lat_arrivee);
+		        	
+		        	
+		        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		            labelDepart.setText(adresse_depart);
+		        	
+		            labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		            labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
+		            labelVelo.setText(">");
+		            
+		            labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+		            labelArrivee.setText(String.valueOf(adresse_arrivee));
+		            
+		            //labelDateAcrer.setText(dateAlerte);  
+					
+		        	
+		        	}
+		    }
+		    else {
+			       labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
+			       labelDepart.setText("Pas d'alertes enregistrés");
+		   }
+	    			
+        		        	
+		        	
+		        	
+		/*Ancien affichage de Pec*/       	
 
         /*
         javax.swing.GroupLayout panelFavorisLayout = new javax.swing.GroupLayout(panelFavoris);

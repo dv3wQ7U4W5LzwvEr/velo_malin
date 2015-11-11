@@ -539,12 +539,13 @@ public class MysqlRequester {
 
     }
     
-    public static Map<Double, List<Double>> getListeItinerairesFavoris() {
+    public static Map<Integer, List<Double>> getListeItinerairesFavoris() {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris";
-
+        int cpt = 0;
+        
         ResultSet rs = executerRequete(sqlQuery);
-        Map<Double, List<Double>> liste_itineraires_favoris = new HashMap<Double,List<Double>>();
+        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();
         List<Double> liste_valeurs;
 
         try {
@@ -554,12 +555,13 @@ public class MysqlRequester {
 	          	rs.beforeFirst();
 	        }
             while (rs.next()) {
-                liste_valeurs  = new ArrayList<Double>();
+            	liste_valeurs.add(rs.getDouble("depart_longitude"));
                 liste_valeurs.add(rs.getDouble("depart_longitude"));
             	liste_valeurs.add(rs.getDouble("depart_latitude"));
             	liste_valeurs.add(rs.getDouble("arrive_longitude"));
             	liste_valeurs.add(rs.getDouble("arrive_latitude"));
-                liste_itineraires_favoris.put(rs.getDouble("depart_longitude"), liste_valeurs);
+                liste_itineraires_favoris.put(cpt, liste_valeurs);
+                cpt++;
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
@@ -761,6 +763,33 @@ public class MysqlRequester {
             System.out.println("Erreur: " + ex);
         }
         return id_itineraire_favori;
+    }
+    
+    
+    public static List<Double> getItinerairesFavorisViaId(int id_favori)
+    {
+        String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris WHERE id_itinerairefavori='" + id_favori + "';";
+        ResultSet rs = executerRequete(sqlQuery);     																			
+        List<Double> liste_valeurs = new ArrayList<Double>(); 
+
+        try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
+            while (rs.next()) {     
+            	liste_valeurs.add(rs.getDouble("depart_longitude"));
+            	liste_valeurs.add(rs.getDouble("depart_latitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+      return liste_valeurs;
     }
     
    /**

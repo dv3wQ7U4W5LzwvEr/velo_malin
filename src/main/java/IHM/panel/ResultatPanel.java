@@ -90,16 +90,12 @@ public class ResultatPanel extends javax.swing.JPanel {
         double lat_dep = rechercheDonnees.getDepartLat();
         double long_dep = rechercheDonnees.getDepartLong();
         double lat_arrivee = rechercheDonnees.getArriveLat();
-        double long_arrivee = rechercheDonnees.getArriveLong();
-
+        double long_arrivee = rechercheDonnees.getArriveLong();      
+        Date date_depart = rechercheDonnees.getDateHeureDepart().getTime();
+        Date date_arrivee = rechercheDonnees.getDateHeureArrive().getTime();
         
 		Map<Station, Double> liste_stations_proximites_depart = MysqlRequester.getStationsProximitees(lat_dep,long_dep, 3, 500);
-		
-		//Calendar cal_dep = rechercheDonnees.getDateHeureArrive();
-    	//Date date_depart = cal_dep.getTime();
-    	Calendar cal_dep = Calendar.getInstance();
-    	cal_dep.set(2015, 10-1, 28, 14, 00, 00);
-    	Date date_depart = cal_dep.getTime();
+
     	
     	List<String> tab_nom_stations = new ArrayList<String>();
     	List<String> tab_adresse_stations = new ArrayList<String>();
@@ -138,11 +134,6 @@ public class ResultatPanel extends javax.swing.JPanel {
 	    }
     	
         Map<Station, Double> liste_stations_proximites_arrivee = MysqlRequester.getStationsProximitees(lat_arrivee,long_arrivee, 3, 1000);
-                
-    	Calendar cal_arr = Calendar.getInstance();
-    	cal_arr.set(2015, 10-1, 28, 14, 00, 00);
-    	Date date_arrivee = cal_arr.getTime();
-
 
     	//Stations résultats d arrivee
     	List<String> tab_nom_stations_arrivee = new ArrayList<String>();
@@ -631,12 +622,12 @@ public class ResultatPanel extends javax.swing.JPanel {
             boolean creation_alerte;
 
             public void actionPerformed(ActionEvent evt) {
-                Map<Double, List<Double>> liste_itinerairefavoris = new HashMap<Double, List<Double>>();
+                Map<Integer, List<Double>> liste_itinerairefavoris = new HashMap<Integer, List<Double>>();
                 liste_itinerairefavoris = MysqlRequester.getListeItinerairesFavoris();
 
                 if (liste_itinerairefavoris != null) {
                     creation_alerte = false;
-                    for (Map.Entry<Double, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
+                    for (Map.Entry<Integer, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
                         double long_station_depart = currentEntry.getKey();
                         double lat_station_depart = currentEntry.getValue().get(0);
                         double long_station_arrivee = currentEntry.getValue().get(1);
