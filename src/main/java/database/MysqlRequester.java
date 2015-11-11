@@ -778,10 +778,10 @@ public class MysqlRequester {
 	          	rs.beforeFirst();
 	        }
             while (rs.next()) {     
-            	liste_valeurs.add(rs.getDouble("depart_longitude"));
-            	liste_valeurs.add(rs.getDouble("depart_latitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+            	liste_valeurs.add(0,rs.getDouble("depart_longitude"));
+            	liste_valeurs.add(1,rs.getDouble("depart_latitude"));
+            	liste_valeurs.add(2,rs.getDouble("arrive_longitude"));
+            	liste_valeurs.add(3,rs.getDouble("arrive_latitude"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());

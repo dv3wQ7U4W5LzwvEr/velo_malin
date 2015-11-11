@@ -3,6 +3,8 @@ package IHM.panel;
 import IHM.IHMApplication;
 import data.RechercheData;
 import database.MysqlRequester;
+import model.Station;
+
 import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 import recherche.StatistiquesStation;
@@ -14,6 +16,7 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.*;
 import java.util.List;
+import java.util.Map.Entry;
 
 /**
  * Created by QKFD7244 on 02/11/2015.
@@ -40,7 +43,6 @@ public class FavoriPanel extends JPanel {
         */
 
         // panel pour favoris
-
         JPanel panelFavoris = new JPanel();
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
         panelFavoris.setLayout(new VerticalLayout());
@@ -103,52 +105,98 @@ public class FavoriPanel extends JPanel {
                 }
             }
         }
+        
+    	// panel pour alertes 
+        
+	    JPanel panelAlertes = new JPanel();
+	    panelAlertes.setBackground(new java.awt.Color(255, 255, 255));
+	    panelAlertes.setLayout(new VerticalLayout());
+	
+	    Map<Integer, Date> listAlerts = MysqlRequester.getListeAlerte();
+	      	    
+	    if (listAlerts != null) {
+	        int nombreDeAlertes = listAlerts.size();
+	        if (nombreDeAlertes != 0) {
+	            JPanel f_alerte;
+	            JLabel labelDepart_alerte = new JLabel();
+	            JLabel labelArrivee_alerte = new JLabel();
+	            JLabel labelDateAlerte = new JLabel();
+		    	
+                for (Entry<Integer, Date> currentEntry : listAlerts.entrySet()) {
+		        	int id_itinfavori = currentEntry.getKey();
+		        	Date dateAlerte = currentEntry.getValue();
 
-
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel4);
-        IHMApplication.panel4.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFavoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(265, Short.MAX_VALUE))
-        );
-    }
-
-        /*
-        /* RÃ©cupÃ©ration liste des Alertes dans la table Alertes
-        Map<Integer, Date> liste_alertes = new LinkedHashMap<>();
-	    if(liste_alertes != null){
-	    	Iterator<Integer> itr = liste_alertes.keySet().iterator();
-
-	    	while (itr.hasNext()) {
-	        	Object cle  = itr.next();
-	        	Object valeur = liste_alertes.get(cle);
-
-	        	Date date_alerte = (Date) valeur;
-	        	int id_itineraire_favori = (int) cle;
-	    	}
+		        	//problème de récupération des données
+		        	//List<Double> liste_val = MysqlRequester.getItinerairesFavorisViaId(id_itinfavori);   	
+		        	List<Double> liste_val = new ArrayList();
+		        	//test en dur
+		        	liste_val.add(45.780722);
+		        	liste_val.add(4.8047449);
+		        	liste_val.add(45.6917192);
+		        	liste_val.add(4.4379189);
+		        	
+		        	
+	            	// recuperation latitude longitude
+	                String long_depart_alert = String.valueOf(liste_val.get(0));
+	                String lat_depart_alert = String.valueOf(liste_val.get(1));
+	                String long_arrivee_alert = String.valueOf(liste_val.get(2));
+	                String lat_arrivee_alert = String.valueOf(liste_val.get(3));
+	
+	                String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart_alert), Double.parseDouble(lat_depart_alert));
+	                String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee_alert), Double.parseDouble(lat_arrivee_alert));
+	
+	                // crÃ©ation des labels
+	                f_alerte = new JPanel();
+	
+	                labelDepart_alerte = new JLabel();
+	                labelDepart_alerte.setFont(new Font("Tahoma", 1, 14));
+	                labelDepart_alerte.setText(adresse_depart);
+	                labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	                f_alerte.add(labelDepart_alerte);
+	
+	                labelArrivee_alerte = new JLabel();
+	                labelArrivee_alerte.setFont(new Font("Tahoma", 1, 14));
+	                labelArrivee_alerte.setText(adresse_arrivee);
+	                labelArrivee_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	                f_alerte.add(labelArrivee_alerte);
+	
+	                labelDateAlerte = new JLabel();
+	                labelDateAlerte.setFont(new Font("Tahoma", 1, 14));
+	                labelDateAlerte.setText(String.valueOf(dateAlerte));
+	                labelDateAlerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+	                f_alerte.add(labelDateAlerte);
+	
+	                panelAlertes.add(f_alerte);
+		    	}
+	        }
 	    }
-
-
-	    //Test pour date
-    	Calendar cal_dep = Calendar.getInstance();
-    	Calendar cal_test = Calendar.getInstance();
-    	Date date_actuelle = cal_dep.getTime();
-    	cal_test.set(2015, 10-1, 28, 14, 00, 00);
-    	Date date_test =  cal_test.getTime();
-    	//soustraction des 2 dates
-    	//int tempsRestant = date_actuelle-date_test;
-
-        /*Timer d'Alerte
+		
+	    
+	     javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel4);
+	        IHMApplication.panel4.setLayout(layout);
+	        layout.setHorizontalGroup(
+	                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                        .addGroup(layout.createSequentialGroup()
+	                                .addContainerGap()
+	                                .addComponent(panelFavoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addContainerGap()
+	                                .addComponent(panelAlertes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+	                                .addContainerGap())
+	        );
+	        layout.setVerticalGroup(
+	                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+	                        .addGroup(layout.createSequentialGroup()
+	                                .addContainerGap()
+	                                .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addContainerGap(100, Short.MAX_VALUE)
+	                                .addComponent(panelAlertes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+	                                .addContainerGap(265, Short.MAX_VALUE))
+	        );
+	    
+	    
+	}   
+    
+        /*Timer d'Alerte - à PEC
         List<Integer> infoAllNext =  MysqlRequester.getTimeNextAlert(); //on recup une liste triÃ©e
         if(infoAllNext == null){
             //on ne fait rien s'il n'y a pas d'alerte prÃ©vue
@@ -157,14 +205,6 @@ public class FavoriPanel extends JPanel {
             int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
             ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
             //test:JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+" ms, id:"+infoAllNext.get(0));
-       /*
-            while(iter.hasNext()){
-    	        Object cle  = iter.next();
-    	      	Object valeur = infoAllNext.get(cle);
-    	   
-    	        temps_mili = (int) valeur;
-    	        id_itineraire_favori = (int) cle;  	    	
-    	 } 
     	*/
             
         //int cle  = iter.next();
@@ -179,126 +219,7 @@ public class FavoriPanel extends JPanel {
         }
 
         /**/
-
-        //Suppression Alerte passï¿½e dans BDD
-        //_deleteAlerte(Heure,id_itineraire_favori);
          
-	    //Ancien Affichage des Itineraires favoris
-        /*Faire un for*/   
-        /*
-        Map<Integer,List<Double>> liste_itinerairesfavoris = new HashMap<Integer, List<Double>>();;
-	    	Iterator<Integer> it = liste_itinerairesfavoris.keySet().iterator();
-	        	
-	        	List<Double> liste_val = new ArrayList<Double>();
-	        	liste_val = (List<Double>) valeurs;
-	        	String long_depart = String.valueOf(liste_val.get(0));
-	        	String lat_depart = String.valueOf(liste_val.get(1));
-	        	String long_arrivee = String.valueOf(liste_val.get(2));
-	        	String lat_arrivee = String.valueOf(liste_val.get(3));
-	    
-	    
-	      //Affichage des alertes //préparation par Tof pour MAJ par Flo
-	      //besoin de faire une boucle pour affichage multiple
-	    /*
-	      Map<Integer, Date> liste_AlertesConfigurees = new HashMap<Integer, Date>();
-	      liste_AlertesConfigurees = MysqlRequester.getListeAlerte();
-	      
-		    if(liste_AlertesConfigurees != null){    	
-		    	Iterator<Integer> it = liste_AlertesConfigurees.keySet().iterator();
-	        
-		        while (it.hasNext()) {
-		        	Object cle  = it.next();
-		        	Object valeurs = liste_AlertesConfigurees.get(cle);
-		        	
-		        	int id_itinfavori = (int) cle;
-		        	String dateAlerte = String.valueOf(valeurs);
-
-		        	List<Double> liste_val = MysqlRequester.getItinerairesFavorisViaId(id_itinfavori);   	
-     	
-		        	double long_depart = liste_val.get(0);
-		        	double lat_depart = liste_val.get(1);
-		        	double long_arrivee = liste_val.get(2);
-		        	double lat_arrivee = liste_val.get(3);
-		        	    	
-		        	String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(long_depart, lat_depart);
-		        	String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(long_arrivee, lat_arrivee);
-		        	
-		        	
-		        	labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		            labelDepart.setText(adresse_depart);
-		        	
-		            labelVelo.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		            labelVelo.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-		            labelVelo.setText(">");
-		            
-		            labelArrivee.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-		            labelArrivee.setText(String.valueOf(adresse_arrivee));
-		            
-		            //labelDateAcrer.setText(dateAlerte);  
-					
-		        	
-		        	}
-		    }
-		    else {
-			       labelDepart.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-			       labelDepart.setText("Pas d'alertes enregistrÃ©s");
-		   }
-	    			
-        		        	
-		        	
-		        	
-		/*Ancien affichage de Pec*/       	
-
-        /*
-        javax.swing.GroupLayout panelFavorisLayout = new javax.swing.GroupLayout(panelFavoris);
-        panelFavoris.setLayout(panelFavorisLayout);
-        panelFavorisLayout.setHorizontalGroup(
-                panelFavorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelFavorisLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(labelDepart, javax.swing.GroupLayout.DEFAULT_SIZE, 165, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelVelo, javax.swing.GroupLayout.PREFERRED_SIZE, 49, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(labelArrivee, javax.swing.GroupLayout.DEFAULT_SIZE, 199, Short.MAX_VALUE)
-                                .addGap(18, 18, 18)
-                                .addComponent(labelDateTrajet, javax.swing.GroupLayout.DEFAULT_SIZE, 155, Short.MAX_VALUE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                .addComponent(boutonSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 129, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addContainerGap())
-        );
-        panelFavorisLayout.setVerticalGroup(
-                panelFavorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(panelFavorisLayout.createSequentialGroup()
-                                .addContainerGap()
-                                .addGroup(panelFavorisLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                                        .addComponent(labelDepart)
-                                        .addComponent(labelArrivee, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(labelVelo)
-                                        .addComponent(labelDateTrajet, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                        .addComponent(boutonSupprimer, javax.swing.GroupLayout.PREFERRED_SIZE, 24, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addContainerGap(20, Short.MAX_VALUE))
-        );
-        /*
-        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel4);
-        IHMApplication.panel4.setLayout(layout);
-        layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFavoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addContainerGap())
-        );
-        layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addContainerGap(265, Short.MAX_VALUE))
-        );
-            */
-    //}
-
 
     /*Listeneur*/
     private void boutonSupprimerActionPerformed(java.awt.event.ActionEvent evt) {

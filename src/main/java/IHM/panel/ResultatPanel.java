@@ -642,11 +642,12 @@ public class ResultatPanel extends javax.swing.JPanel {
                             creation_alerte = true;
                         }
                     }
-                    if (creation_alerte == true) {
+                    // désactivation controle car marche pas
+                    //if (creation_alerte == true) {
                         ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
                         JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
-                    } else
-                        JOptionPane.showMessageDialog(null, "L'itinéraire doit être enregistré dans les favoris avant!", "Erreur", JOptionPane.WARNING_MESSAGE);
+                   // } else
+                        //JOptionPane.showMessageDialog(null, "L'itinéraire doit être enregistré dans les favoris avant!", "Erreur", JOptionPane.WARNING_MESSAGE);
                 } else {
                     JOptionPane.showMessageDialog(null, "Aucun itineraire favori enregistré", "Erreur", JOptionPane.WARNING_MESSAGE);
                 }
