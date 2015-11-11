@@ -29,6 +29,8 @@ public class FavoriPanel extends javax.swing.JPanel{
     private javax.swing.JPanel panelFavoris;
     private javax.swing.JPanel panelAlerte;
     private int temps_avant_alerte = 2;//setter et getter disponibles...
+    int id_itineraire_favori;
+    
     /* à rajouter en fonction
     private javax.swing.JLabel labelArrivee;
     private javax.swing.JLabel labelDateTrajet;
@@ -89,6 +91,19 @@ public class FavoriPanel extends javax.swing.JPanel{
             int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
             ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
             //test:JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+" ms, id:"+infoAllNext.get(0));
+        while(iter.hasNext()){
+    	        Object cle  = iter.next();
+    	      	Object valeur = infoAllNext.get(cle);
+    	   
+    	        temps_mili = (int) valeur;
+    	        id_itineraire_favori = (int) cle;  	    	
+    	 } 
+    	 */    
+        //int cle  = iter.next();
+      	//int valeur = infoAllNext.get(cle);
+      	
+        //int tempsRestant = iter.next();
+        //int id_itineraire_favori = infoAllNext.get(tempsRestant);
             javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
             timer.start();
             timer.setRepeats(false);
