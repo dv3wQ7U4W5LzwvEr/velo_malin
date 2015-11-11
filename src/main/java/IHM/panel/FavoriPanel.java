@@ -46,7 +46,7 @@ public class FavoriPanel extends JPanel {
         panelFavoris.setLayout(new VerticalLayout());
         JButton boutonSupprimer = new JButton();
 
-        Map<Double, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
+        Map<Integer, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
         if (listFavoris != null) {
             int nombreDeFavoris = listFavoris.size();
             if (nombreDeFavoris != 0) {
@@ -54,7 +54,7 @@ public class FavoriPanel extends JPanel {
                 JLabel labelDepart = new JLabel();
                 JLabel labelArrivee = new JLabel();
                 JLabel labelDateTrajet = new JLabel();
-                for (Double cle : listFavoris.keySet()) {
+                for (Integer cle : listFavoris.keySet()) {
                     // recuperation latitude longitude
                     String long_depart = String.valueOf(listFavoris.get(cle).get(0));
                     String lat_depart = String.valueOf(listFavoris.get(cle).get(1));
@@ -172,6 +172,7 @@ public class FavoriPanel extends JPanel {
       	
         //int tempsRestant = iter.next();
         //int id_itineraire_favori = infoAllNext.get(tempsRestant);
+        /*
             javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
             timer.start();
             timer.setRepeats(false);
@@ -182,8 +183,9 @@ public class FavoriPanel extends JPanel {
         //Suppression Alerte pass�e dans BDD
         //_deleteAlerte(Heure,id_itineraire_favori);
          
-	    //Affichage des Itineraires favoris
+	    //Ancien Affichage des Itineraires favoris
         /*Faire un for*/   
+        /*
         Map<Integer,List<Double>> liste_itinerairesfavoris = new HashMap<Integer, List<Double>>();;
 	    	Iterator<Integer> it = liste_itinerairesfavoris.keySet().iterator();
 	        	
@@ -295,7 +297,7 @@ public class FavoriPanel extends JPanel {
                                 .addContainerGap(265, Short.MAX_VALUE))
         );
             */
-    }
+    //}
 
 
     /*Listeneur*/

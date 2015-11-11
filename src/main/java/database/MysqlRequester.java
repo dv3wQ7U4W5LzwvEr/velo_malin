@@ -545,8 +545,7 @@ public class MysqlRequester {
         int cpt = 0;
         
         ResultSet rs = executerRequete(sqlQuery);
-        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();
-        List<Double> liste_valeurs;
+        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();       
 
         try {
         	if(!rs.next()){
@@ -555,7 +554,7 @@ public class MysqlRequester {
 	          	rs.beforeFirst();
 	        }
             while (rs.next()) {
-            	liste_valeurs.add(rs.getDouble("depart_longitude"));
+            	List<Double> liste_valeurs = new ArrayList<Double>();
                 liste_valeurs.add(rs.getDouble("depart_longitude"));
             	liste_valeurs.add(rs.getDouble("depart_latitude"));
             	liste_valeurs.add(rs.getDouble("arrive_longitude"));
