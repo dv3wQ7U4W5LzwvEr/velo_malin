@@ -121,7 +121,6 @@ public class StationPanel extends javax.swing.JPanel {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				// TODO Stub de la méthode généré automatiquement
 				int id_station = ((Station) comboSation.getSelectedItem()).getId_station();
 				int placesMax = ((Station) comboSation.getSelectedItem()).getPlaces();
 				int indexHeure = comboHeure.getSelectedIndex();
@@ -145,8 +144,7 @@ public class StationPanel extends javax.swing.JPanel {
 					cal2.set(Calendar.HOUR_OF_DAY, 06);
 	                cal2.set(Calendar.MINUTE, 00);
 				}
-				System.out.println(cal.getTime());
-				System.out.println(cal2.getTime());
+
 				DefaultCategoryDataset datasetVelo24 = createVeloDataset(id_station, placesMax, cal, 24);
 			    DefaultCategoryDataset datasetVelo = createVeloDataset(id_station, placesMax, cal2, 6);
 			 
@@ -237,25 +235,6 @@ public class StationPanel extends javax.swing.JPanel {
                 panelGraph2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addGap(0, 329, Short.MAX_VALUE)
         );
-        
-//       
-//        datasetVelo24 = new DefaultCategoryDataset();
-//        datasetVelo = new DefaultCategoryDataset();
-        
-//        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-//        dataset.setValue(0, "Marks", "1h");
-//        dataset.setValue(15, "Marks", "2h");
-//        dataset.setValue(20, "Marks", "3h");
-//        dataset.setValue(10, "Marks", "4h");
-//        dataset.setValue(7, "Marks", "5h");
-//        dataset.setValue(25, "Marks", "6h");
-//        dataset.setValue(6, "Marks", "7h");
-//        dataset.setValue(20, "Marks", "8h");
-//        dataset.setValue(35, "Marks", "9h");
-//        dataset.setValue(30, "Marks", "10h");
-        
-//        Calendar cal = Calendar.getInstance();
-//        cal.set(2015, 10 - 1, 28, 00, 00, 00);
         
         labelTitre1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTitre1.setText("1. Nombre d'actions (retrait/ajout) en fonction de l'heure");
@@ -416,16 +395,6 @@ public class StationPanel extends javax.swing.JPanel {
 
     }
 
-    /*Listeneurs*/
-
-    private void comboHeureActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-
-    private void datePickerOPActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }
-    
     private DefaultCategoryDataset createVeloDataset(int id_station, int placesMax, Calendar cal, int heure){
     	
     	Calendar cal1 = (Calendar) cal.clone();	
@@ -437,8 +406,11 @@ public class StationPanel extends javax.swing.JPanel {
     	for(int i=0; i < heure+1; i++){
     		int  nbVelos = StatistiquesStation.getMoyenneNbVelosSurStation(id_station, cal1.getTime(), cal2.getTime(), null, null);
     		//int  nbPlaces = StatistiquesStation.getMoyenneNbPlacesSurStation(id_station, cal1.getTime(), cal2.getTime(), null, null);
-    		System.out.println(heure +" "+ nbVelos+" "+ id_station+" "+ cal1.get(Calendar.HOUR_OF_DAY)+"h");
-    		dataset.setValue(nbVelos, "Velos", cal1.get(Calendar.HOUR_OF_DAY)+"h");
+     		if(nbVelos != -1){
+    			dataset.setValue(nbVelos, "Velos", cal1.get(Calendar.HOUR_OF_DAY)+"h");
+    		} else {
+    			dataset.setValue(null, "Velos", cal1.get(Calendar.HOUR_OF_DAY)+"h");
+    		}
     		//dataset.setValue(nbPlaces, "Places", cal.get(Calendar.HOUR)+"h");
     		dataset.setValue(placesMax, "Max", cal1.get(Calendar.HOUR_OF_DAY)+"h");
     		cal1.set(Calendar.HOUR_OF_DAY, cal1.get(Calendar.HOUR_OF_DAY)+1);
@@ -452,7 +424,6 @@ public class StationPanel extends javax.swing.JPanel {
     	JFreeChart chart = ChartFactory.createLineChart(
                 "Nombre de vélos sur 24h", "Temps", "Nombre de vélos", dataset,
                 PlotOrientation.VERTICAL, false, true, false);
-        chart.setNotify(true);
         return chart;
     }        		
     
@@ -470,8 +441,6 @@ public class StationPanel extends javax.swing.JPanel {
 	    JFreeChart chart2 = ChartFactory.createLineChart(
 	            "Nombre de vélos sur la plage", "Temps", "Nombre de vélos", dataset,
 	            PlotOrientation.VERTICAL, false, true, false);
-	    CategoryPlot p2 = chart2.getCategoryPlot();
-	    chart2.setNotify(true);
 	    return chart2;
     }
 
