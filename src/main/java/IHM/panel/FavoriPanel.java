@@ -23,15 +23,6 @@ public class FavoriPanel extends JPanel {
     }
 
     /*Variables*/
-    private JButton boutonSupprimer;
-
-    private JPanel panelFavoris;
-    private JLabel labelDepart;
-    private JLabel labelArrivee;
-    private JLabel labelDateTrajet;
-
-
-    private javax.swing.JPanel panelAlerte;
     private int temps_avant_alerte = 2;//setter et getter disponibles...
 
 
@@ -47,19 +38,19 @@ public class FavoriPanel extends JPanel {
 
         // panel pour favoris
 
-        panelFavoris = new JPanel();
+        JPanel panelFavoris = new JPanel();
         panelFavoris.setBackground(new java.awt.Color(255, 255, 255));
         panelFavoris.setLayout(new BorderLayout());
-
-        labelDepart = new JLabel();
-        labelArrivee = new JLabel();
-        labelDateTrajet = new JLabel();
-        boutonSupprimer = new JButton();
+        JButton boutonSupprimer = new JButton();
 
         Map<Double, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
         if (listFavoris != null) {
             int nombreDeFavoris = listFavoris.size();
             if (nombreDeFavoris != 0) {
+                JPanel f;
+                JLabel labelDepart = new JLabel();
+                JLabel labelArrivee = new JLabel();
+                JLabel labelDateTrajet = new JLabel();
                 for (Double cle : listFavoris.keySet()) {
                     // recuperation latitude longitude
                     String long_depart = String.valueOf(listFavoris.get(cle).get(0));
@@ -71,23 +62,25 @@ public class FavoriPanel extends JPanel {
                     String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
 
                     // création des labels
+                    f = new JPanel();
+
                     labelDepart = new JLabel();
                     labelDepart.setFont(new Font("Tahoma", 1, 14));
                     labelDepart.setText(adresse_depart);
                     labelDepart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    panelFavoris.add(labelDepart);
+                    f.add(labelDepart);
 
                     labelArrivee = new JLabel();
                     labelArrivee.setFont(new Font("Tahoma", 1, 14));
                     labelArrivee.setText(adresse_arrivee);
                     labelArrivee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    panelFavoris.add(labelArrivee);
+                    f.add(labelArrivee);
 
                     labelDateTrajet = new JLabel();
                     labelDateTrajet.setFont(new Font("Tahoma", 1, 14));
                     labelDateTrajet.setText("cccccccccccccccc");
                     labelDateTrajet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    panelFavoris.add(labelDateTrajet);
+                    f.add(labelDateTrajet);
 
                     boutonSupprimer.setBackground(new Color(255, 0, 0));
                     boutonSupprimer.setFont(new Font("Tahoma", 0, 14)); // NOI18N
@@ -101,14 +94,30 @@ public class FavoriPanel extends JPanel {
                             IHMApplication.reloadFavoriPanel();
                         }
                     });
-                    panelFavoris.add(boutonSupprimer);
+                    f.add(boutonSupprimer);
+                    panelFavoris.add(f);
                 }
             }
         }
-        panelFavoris.revalidate();
-        panelFavoris.repaint();
-        panelFavoris.setVisible(true);
-        
+
+
+        javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel4);
+        IHMApplication.panel4.setLayout(layout);
+        layout.setHorizontalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelFavoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                                .addContainerGap())
+        );
+        layout.setVerticalGroup(
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGroup(layout.createSequentialGroup()
+                                .addContainerGap()
+                                .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addContainerGap(265, Short.MAX_VALUE))
+        );
+
 
         /*
         /* Récupération liste des Alertes dans la table Alertes
