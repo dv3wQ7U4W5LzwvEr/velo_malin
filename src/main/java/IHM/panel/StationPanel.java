@@ -237,10 +237,10 @@ public class StationPanel extends javax.swing.JPanel {
         );
         
         labelTitre1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTitre1.setText("1. Nombre d'actions (retrait/ajout) en fonction de l'heure");
+        labelTitre1.setText("1. Evolution du nombre de vélos en fonction de l'heure sur les 24h");
 
         labelTitre2.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTitre2.setText("2. Evolution du nombre de vélos en fonction de l'heure");
+        labelTitre2.setText("2. Evolution du nombre de vélos en fonction de l'heure sur la plage séléctionnée");
 
         panelIdentite.setBackground(new java.awt.Color(255, 255, 255));
         panelIdentite.setBorder(javax.swing.BorderFactory.createTitledBorder(null, "Carte d'identité", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
