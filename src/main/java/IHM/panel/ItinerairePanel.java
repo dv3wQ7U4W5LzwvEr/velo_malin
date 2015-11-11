@@ -467,11 +467,91 @@ public class ItinerairePanel extends javax.swing.JPanel {
     }
 
     private void boutonArriveeActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+        String adresse_arrivee = adresseArrivee.getText();
+        if (!adresse_arrivee.equals("")) {
+            //Date date_depart = date_recherche;
+
+            Localisation localisation_adresse_arrivee = GoogleMapApi.rechercherLatLongParAdresse(adresse_arrivee);
+
+            if (localisation_adresse_arrivee.isInitialise())
+            {
+                double lat_arr = localisation_adresse_arrivee.getLatitude();
+                double long_arr = localisation_adresse_arrivee.getLongitude();
+
+
+                RechercheData rechercheDonnees = RechercheData.getInstance();
+                //Transmission adresse (lat/long)
+                rechercheDonnees.setDepartLat(lat_arr);
+                rechercheDonnees.setDepartLong(long_arr);
+
+                // creation des stickers sur google map
+                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        googleMapIHM.supprimeMarkerOuPanneau("arrivee");
+                        googleMapIHM.ajouterUnMarker("arrivee", lat_arr, long_arr);
+                    }
+                });
+
+                //ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                //JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche", "Resultats", JOptionPane.WARNING_MESSAGE, img);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "L'adresse d'arrivée n'a pas été trouvée.\nMerci de réessayer.", "Erreur", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Merci de saisir une valeur pour l'adresse d'arrivée. ", "Erreur", JOptionPane.WARNING_MESSAGE);
+        }
     }
 
+
     private void boutonDepartActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
+
+        String adresse_depart = adresseDepart.getText();
+        if (!adresse_depart.equals("")) {
+            //Date date_depart = date_recherche;
+
+            Localisation localisation_adresse_depart = GoogleMapApi.rechercherLatLongParAdresse(adresse_depart);
+
+            if (localisation_adresse_depart.isInitialise())
+            {
+                double lat_dep = localisation_adresse_depart.getLatitude();
+                double long_dep = localisation_adresse_depart.getLongitude();
+
+
+                RechercheData rechercheDonnees = RechercheData.getInstance();
+                //Transmission adresse (lat/long)
+                rechercheDonnees.setDepartLat(lat_dep);
+                rechercheDonnees.setDepartLong(long_dep);
+
+                // creation des stickers sur google map
+                GoogleMapIHM googleMapIHM = GoogleMapIHM.getInstance();
+
+                Platform.runLater(new Runnable() {
+                    @Override
+                    public void run() {
+                        googleMapIHM.supprimeMarkerOuPanneau("depart");
+                        googleMapIHM.ajouterUnMarker("depart", lat_dep, long_dep);
+                    }
+                });
+
+                //ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                //JOptionPane.showMessageDialog(null, "Résultats dans onglets Résultats de recherche", "Resultats", JOptionPane.WARNING_MESSAGE, img);
+            }
+            else
+            {
+                JOptionPane.showMessageDialog(null, "L'adresse de départ n'a pas été trouvée.\nMerci de réessayer.", "Erreur", JOptionPane.WARNING_MESSAGE);
+            }
+
+        } else {
+            JOptionPane.showMessageDialog(null, "Merci de saisir une valeur pour l'adresse de départ ", "Erreur", JOptionPane.WARNING_MESSAGE);
+        }
+
+
     }
 
 }

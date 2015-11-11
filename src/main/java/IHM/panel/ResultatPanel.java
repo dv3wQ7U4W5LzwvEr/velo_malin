@@ -5,6 +5,7 @@ import IHM.listeners.EcouteurItineraireFavori;
 import data.RechercheData;
 import database.MysqlRequester;
 import model.Station;
+import recherche.StatistiquesStation;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -74,6 +75,7 @@ public class ResultatPanel extends javax.swing.JPanel {
     private javax.swing.JRadioButton selctA2;
     //ajout manuel
     private JLabel labelDistance;
+    private JLabel labelTemps;
     
     private static String PASINFORMATIONS = "Pas d'informations";
 
@@ -170,8 +172,8 @@ public class ResultatPanel extends javax.swing.JPanel {
     		int i=0;
     		while(i < 3){
     			tab_id_stations_arrivee.add(PASINFORMATIONS);
-	    		tab_nom_stations_arrivee.add(PASINFORMATIONS);
-	    		tab_adresse_stations_arrivee.add(PASINFORMATIONS);
+	    		tab_nom_stations_arrivee.add(null);
+	    		tab_adresse_stations_arrivee.add(null);
 	    		tab_nbplaces_stations_arrivee.add(PASINFORMATIONS);
 	    		tab_nbvelos_stations_arrivee.add(PASINFORMATIONS);
 	    		tab_nbplacestotale_stations_arrivee.add(PASINFORMATIONS);
@@ -227,6 +229,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         boutonAjouterFavori = new javax.swing.JButton();
         //ajout manuel
         labelDistance = new javax.swing.JLabel();
+        labelTemps = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(255, 255, 255));
 
@@ -677,7 +680,9 @@ public class ResultatPanel extends javax.swing.JPanel {
         double distance = rechercheDonnees.getArriveLong();
         String d = formatter.format(distance);
         labelDistance.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelDistance.setText("Distance de parcours : " + d + " kilomètres");   
+        labelDistance.setText("Distance de parcours : " + d + " kilomètres");
+        labelTemps.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
+        labelTemps.setText("Temps estimé : " + StatistiquesStation.getTempsDeTrajet(lat_dep,long_dep,lat_arrivee,long_arrivee)+" minutes");
         
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel2);
         IHMApplication.panel2.setLayout(layout);
@@ -688,6 +693,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                         		.addComponent(labelDistance, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
+                                        		.addComponent(labelTemps, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addComponent(boutonCreerAlerte, javax.swing.GroupLayout.DEFAULT_SIZE, 257, Short.MAX_VALUE)
                                                 .addComponent(boutonAjouterFavori, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                                         .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
@@ -708,6 +714,8 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(labelDistance, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                                                .addComponent(labelTemps, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                                                 .addComponent(boutonCreerAlerte, javax.swing.GroupLayout.PREFERRED_SIZE, 27, javax.swing.GroupLayout.PREFERRED_SIZE)
                                                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
