@@ -567,6 +567,38 @@ public class MysqlRequester {
       return liste_itineraires_favoris;
     }
     
+    public static Map<Integer, List<Double>> getItineraireFavoriPlusRecent() {
+
+        String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris WHERE id_itinerairefavori=(SELECT MAX(id_itinerairefavori) FROM velo_malin.itinerairesfavoris)";
+        int cpt = 0;
+        
+        ResultSet rs = executerRequete(sqlQuery);
+        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();       
+
+        try {
+        	if(!rs.next()){
+        		return null;
+	        } else {
+	          	rs.beforeFirst();
+	        }
+            while (rs.next()) {
+            	List<Double> liste_valeurs = new ArrayList<Double>();
+                liste_valeurs.add(rs.getDouble("depart_longitude"));
+            	liste_valeurs.add(rs.getDouble("depart_latitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
+            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+                liste_itineraires_favoris.put(cpt, liste_valeurs);
+            }
+        } catch (SQLException ex) {
+            Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
+            lgr.log(Level.SEVERE, ex.getMessage(), ex);
+            System.out.println("Erreur: " + ex);
+        }
+      return liste_itineraires_favoris;
+    }
+    
+    
+    
     public static int getIdStationparNom(String nom_station) {
         String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE nom='"  + nom_station + "';";
 
