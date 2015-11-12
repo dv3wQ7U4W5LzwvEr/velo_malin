@@ -257,7 +257,7 @@ public class StationPanel extends javax.swing.JPanel {
         labelPlaces.setText("Places (actuellement):");
 
         labelTrafic.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
-        labelTrafic.setText("Tafic journalier:");
+        labelTrafic.setText("Trafic journalier:");
         labelTrafic.setEnabled(false);
 
         labelNombreTrafic.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N

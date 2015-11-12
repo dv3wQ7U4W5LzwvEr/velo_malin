@@ -673,7 +673,7 @@ public class MysqlRequester {
         
         try {
             while (rs.next()) {
-            	liste_alertes.put(rs.getInt("id_itinerairefavori"), rs.getDate("heure"));
+            	liste_alertes.put(rs.getInt("id_itinerairefavori"), rs.getTimestamp("heure"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
@@ -765,23 +765,17 @@ public class MysqlRequester {
     }
     
     
-    public static List<Double> getItinerairesFavorisViaId(int id_favori)
+    public static List<Double> getItineraireFavorisViaId(int id_favori)
     {
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris WHERE id_itinerairefavori='" + id_favori + "';";
         ResultSet rs = executerRequete(sqlQuery);     																			
-        List<Double> liste_valeurs = new ArrayList<Double>(); 
-
+        List<Double> liste_valeurs = new ArrayList<Double>();
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	        }
             while (rs.next()) {     
             	liste_valeurs.add(0,rs.getDouble("depart_longitude"));
             	liste_valeurs.add(1,rs.getDouble("depart_latitude"));
             	liste_valeurs.add(2,rs.getDouble("arrive_longitude"));
-            	liste_valeurs.add(3,rs.getDouble("arrive_latitude"));
+            	liste_valeurs.add(3, rs.getDouble("arrive_latitude"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
@@ -791,17 +785,20 @@ public class MysqlRequester {
       return liste_valeurs;
     }
     
-   /**
-   *
-   * @param
-   * @return
-   */
-  public static void getSupprimerItinerairesFavoris(String lat_station_depart,String long_station_depart,String lat_station_arrivee,String long_station_arrivee)
+
+  public static void supprimerItinerairesFavoris(String lat_station_depart, String long_station_depart, String lat_station_arrivee, String long_station_arrivee)
   {
       String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE depart_latitude='" + lat_station_depart + "' AND depart_longitude='" + long_station_depart + "' AND arrive_longitude='" + long_station_arrivee + "' AND arrive_latitude='" + lat_station_arrivee + "' ;";    
       executerRequeteInsertDeleteUpdate(sqlQuery);    
      
   }
+
+    public static void supprimerAlerte(int idItineraireFavoris, Date heure)
+    {
+        String sqlQuery = "DELETE FROM velo_malin.alertes WHERE id_itineraireFavori = '" + idItineraireFavoris + "' and heure = '" + heure + " ;";
+        executerRequeteInsertDeleteUpdate(sqlQuery);
+
+    }
   
   
   /**

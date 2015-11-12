@@ -3,9 +3,7 @@ package IHM.panel;
 import IHM.IHMApplication;
 import data.RechercheData;
 import database.MysqlRequester;
-import model.Station;
 
-import org.jdesktop.swingx.HorizontalLayout;
 import org.jdesktop.swingx.VerticalLayout;
 import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
@@ -50,12 +48,16 @@ public class FavoriPanel extends JPanel {
 
         Map<Integer, List<Double>> listFavoris = MysqlRequester.getListeItinerairesFavoris();
         if (listFavoris != null) {
+
             int nombreDeFavoris = listFavoris.size();
+            JLabel labelPresentationFavoris = new JLabel();
+            labelPresentationFavoris.setText("Liste des favoris");
+            labelPresentationFavoris.setBackground(new java.awt.Color(255, 255, 255));
+            panelFavoris.add(labelPresentationFavoris);
+
             if (nombreDeFavoris != 0) {
                 JPanel f;
-                JLabel labelDepart = new JLabel();
-                JLabel labelArrivee = new JLabel();
-                JLabel labelDateTrajet = new JLabel();
+                JLabel labelDepart, labelArrivee, labelDateTrajet;
                 for (Integer cle : listFavoris.keySet()) {
                     // recuperation latitude longitude
                     String long_depart = String.valueOf(listFavoris.get(cle).get(0));
@@ -71,21 +73,15 @@ public class FavoriPanel extends JPanel {
 
                     labelDepart = new JLabel();
                     labelDepart.setFont(new Font("Tahoma", 1, 14));
-                    labelDepart.setText(adresse_depart);
+                    labelDepart.setText(getAdresseDepart(adresse_depart));
                     labelDepart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelDepart);
 
                     labelArrivee = new JLabel();
                     labelArrivee.setFont(new Font("Tahoma", 1, 14));
-                    labelArrivee.setText(adresse_arrivee);
+                    labelArrivee.setText(getAdresseArrivee(adresse_arrivee));
                     labelArrivee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelArrivee);
-
-                    labelDateTrajet = new JLabel();
-                    labelDateTrajet.setFont(new Font("Tahoma", 1, 14));
-                    labelDateTrajet.setText("cccccccccccccccc");
-                    labelDateTrajet.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-                    f.add(labelDateTrajet);
 
                     boutonSupprimer = new JButton();
                     boutonSupprimer.setBackground(new Color(255, 0, 0));
@@ -96,7 +92,7 @@ public class FavoriPanel extends JPanel {
                     boutonSupprimer.setOpaque(true);
                     boutonSupprimer.addActionListener(new ActionListener() {
                         public void actionPerformed(ActionEvent evt) {
-                            MysqlRequester.getSupprimerItinerairesFavoris(lat_depart, long_depart, lat_arrivee, long_arrivee);
+                            MysqlRequester.supprimerItinerairesFavoris(lat_depart, long_depart, lat_arrivee, long_arrivee);
                             IHMApplication.reloadFavoriPanel();
                         }
                     });
@@ -116,57 +112,73 @@ public class FavoriPanel extends JPanel {
 	      	    
 	    if (listAlerts != null) {
 	        int nombreDeAlertes = listAlerts.size();
-	        if (nombreDeAlertes != 0) {
-	            JPanel f_alerte;
-	            JLabel labelDepart_alerte = new JLabel();
-	            JLabel labelArrivee_alerte = new JLabel();
-	            JLabel labelDateAlerte = new JLabel();
-		    	
-                for (Entry<Integer, Date> currentEntry : listAlerts.entrySet()) {
-		        	int id_itinfavori = currentEntry.getKey();
-		        	Date dateAlerte = currentEntry.getValue();
+            JLabel labelPresentationAlerte = new JLabel();
+            labelPresentationAlerte.setText("Liste des alertes");
+            labelPresentationAlerte.setBackground(new java.awt.Color(255, 255, 255));
+            panelFavoris.add(labelPresentationAlerte);
 
-		        	//problème de récupération des données
-		        	//List<Double> liste_val = MysqlRequester.getItinerairesFavorisViaId(id_itinfavori);   	
-		        	List<Double> liste_val = new ArrayList();
-		        	//test en dur
-		        	liste_val.add(45.780722);
-		        	liste_val.add(4.8047449);
-		        	liste_val.add(45.6917192);
-		        	liste_val.add(4.4379189);
-		        	
-		        	
-	            	// recuperation latitude longitude
-	                String long_depart_alert = String.valueOf(liste_val.get(0));
-	                String lat_depart_alert = String.valueOf(liste_val.get(1));
-	                String long_arrivee_alert = String.valueOf(liste_val.get(2));
-	                String lat_arrivee_alert = String.valueOf(liste_val.get(3));
-	
-	                String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart_alert), Double.parseDouble(lat_depart_alert));
-	                String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee_alert), Double.parseDouble(lat_arrivee_alert));
-	
-	                // crÃ©ation des labels
-	                f_alerte = new JPanel();
-	
-	                labelDepart_alerte = new JLabel();
-	                labelDepart_alerte.setFont(new Font("Tahoma", 1, 14));
-	                labelDepart_alerte.setText(adresse_depart);
-	                labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	                f_alerte.add(labelDepart_alerte);
-	
-	                labelArrivee_alerte = new JLabel();
-	                labelArrivee_alerte.setFont(new Font("Tahoma", 1, 14));
-	                labelArrivee_alerte.setText(adresse_arrivee);
-	                labelArrivee_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	                f_alerte.add(labelArrivee_alerte);
-	
-	                labelDateAlerte = new JLabel();
-	                labelDateAlerte.setFont(new Font("Tahoma", 1, 14));
-	                labelDateAlerte.setText(String.valueOf(dateAlerte));
-	                labelDateAlerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-	                f_alerte.add(labelDateAlerte);
-	
-	                panelAlertes.add(f_alerte);
+	        if (nombreDeAlertes != 0) {
+                JPanel f;
+                JLabel labelDepart_alerte, labelArrivee_alerte, labelDateAlerte;
+
+                for (Entry<Integer, Date> currentEntry : listAlerts.entrySet()) {
+		        	int idItineraireFavori = currentEntry.getKey();
+                    Date dateAlerte = currentEntry.getValue();
+
+		        	//problï¿½me de rï¿½cupï¿½ration des donnï¿½es
+		        	List<Double> liste_val = MysqlRequester.getItineraireFavorisViaId(idItineraireFavori);
+
+                    if (liste_val != null)
+                    {
+                        if (! liste_val.isEmpty())
+                        {
+                            // recuperation latitude longitude
+                            String long_depart = String.valueOf(liste_val.get(0));
+                            String lat_depart = String.valueOf(liste_val.get(1));
+                            String long_arrivee = String.valueOf(liste_val.get(2));
+                            String lat_arrivee = String.valueOf(liste_val.get(3));
+
+                            String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
+                            String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+
+                            // crÃ©ation des labels
+                            f = new JPanel();
+
+                            labelDepart_alerte = new JLabel();
+                            labelDepart_alerte.setFont(new Font("Tahoma", 1, 14));
+                            labelDepart_alerte.setText(getAdresseDepart(adresse_depart));
+                            labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            f.add(labelDepart_alerte);
+
+                            labelArrivee_alerte = new JLabel();
+                            labelArrivee_alerte.setFont(new Font("Tahoma", 1, 14));
+                            labelArrivee_alerte.setText(getAdresseArrivee(adresse_arrivee));
+                            labelArrivee_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            f.add(labelArrivee_alerte);
+
+                            labelDateAlerte = new JLabel();
+                            labelDateAlerte.setFont(new Font("Tahoma", 1, 14));
+                            labelDateAlerte.setText(String.valueOf(dateAlerte));
+                            labelDateAlerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            f.add(labelDateAlerte);
+
+                            boutonSupprimer = new JButton();
+                            boutonSupprimer.setBackground(new Color(255, 0, 0));
+                            boutonSupprimer.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+                            boutonSupprimer.setIcon(new ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
+                            boutonSupprimer.setText("Supprimer");
+                            boutonSupprimer.setContentAreaFilled(false);
+                            boutonSupprimer.setOpaque(true);
+                            boutonSupprimer.addActionListener(new ActionListener() {
+                                public void actionPerformed(ActionEvent evt) {
+                                    MysqlRequester.supprimerAlerte(idItineraireFavori, dateAlerte);
+                                    IHMApplication.reloadFavoriPanel();
+                                }
+                            });
+                            f.add(boutonSupprimer);
+                            panelFavoris.add(f);
+                        }
+                    }
 		    	}
 	        }
 	    }
@@ -177,26 +189,31 @@ public class FavoriPanel extends JPanel {
 	        layout.setHorizontalGroup(
 	                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                        .addGroup(layout.createSequentialGroup()
-	                                .addContainerGap()
 	                                .addComponent(panelFavoris, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                                .addContainerGap()
 	                                .addComponent(panelAlertes, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-	                                .addContainerGap())
+	                                )
 	        );
 	        layout.setVerticalGroup(
 	                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
 	                        .addGroup(layout.createSequentialGroup()
-	                                .addContainerGap()
-	                                .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                .addContainerGap(100, Short.MAX_VALUE)
-	                                .addComponent(panelAlertes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-	                                .addContainerGap(265, Short.MAX_VALUE))
+                                            .addComponent(panelFavoris, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addComponent(panelAlertes, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                            .addContainerGap(100, Short.MAX_VALUE)
+                            )
 	        );
 	    
 	    
-	}   
+	}
+
+    private String getAdresseArrivee(String adresse_arrivee) {
+        return "ArrivÃ©e : " + adresse_arrivee + " ; ";
+    }
+
+    private String getAdresseDepart(String adresse_depart) {
+        return "Depart : " + adresse_depart + " ; ";
+    }
     
-        /*Timer d'Alerte - à PEC
+        /*Timer d'Alerte - ï¿½ PEC
         List<Integer> infoAllNext =  MysqlRequester.getTimeNextAlert(); //on recup une liste triÃ©e
         if(infoAllNext == null){
             //on ne fait rien s'il n'y a pas d'alerte prÃ©vue
