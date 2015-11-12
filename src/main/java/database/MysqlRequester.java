@@ -1,9 +1,6 @@
 package database;
 
-import model.Client;
-import model.Jours;
-import model.Station;
-import model.StationDisponibilites;
+import model.*;
 import was.google_map_api.GoogleMapApi;
 
 import java.sql.ResultSet;
@@ -664,23 +661,28 @@ public class MysqlRequester {
         return placesTotales;
     }
     
-    public static Map<Integer, Date> getListeAlerte()
+    public static Map<Integer, Alerte> getListeAlerte()
     {
-        String sqlQuery = "SELECT id_itinerairefavori,heure FROM velo_malin.alertes ;";
+        String sqlQuery = "SELECT id_itinerairefavori,heure, id_alerte FROM velo_malin.alertes ;";
         ResultSet rs = executerRequete(sqlQuery);
 
-        Map<Integer, Date> liste_alertes = new LinkedHashMap<>();
-        
+        Map<Integer, Alerte> liste = new LinkedHashMap<>();
+        Alerte alerte;
         try {
             while (rs.next()) {
-            	liste_alertes.put(rs.getInt("id_itinerairefavori"), rs.getTimestamp("heure"));
+                int id = rs.getInt("id_alerte");
+                alerte = new Alerte();
+                alerte.setId(rs.getInt("id_alerte"));
+                alerte.setTime(rs.getTimestamp("heure"));
+                alerte.setIdItineraireFavori(rs.getInt("id_itinerairefavori"));
+                liste.put(id, alerte);
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-        return liste_alertes;
+        return liste;
     }
 
     /**
@@ -771,7 +773,7 @@ public class MysqlRequester {
         ResultSet rs = executerRequete(sqlQuery);     																			
         List<Double> liste_valeurs = new ArrayList<Double>();
         try {
-            while (rs.next()) {     
+            while (rs.next()) {
             	liste_valeurs.add(0,rs.getDouble("depart_longitude"));
             	liste_valeurs.add(1,rs.getDouble("depart_latitude"));
             	liste_valeurs.add(2,rs.getDouble("arrive_longitude"));

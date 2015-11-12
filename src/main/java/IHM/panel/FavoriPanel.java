@@ -4,6 +4,7 @@ import IHM.IHMApplication;
 import data.RechercheData;
 import database.MysqlRequester;
 
+import model.Alerte;
 import org.jdesktop.swingx.VerticalLayout;
 import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
@@ -108,25 +109,24 @@ public class FavoriPanel extends JPanel {
 	    panelAlertes.setBackground(new java.awt.Color(255, 255, 255));
 	    panelAlertes.setLayout(new VerticalLayout());
 	
-	    Map<Integer, Date> listAlerts = MysqlRequester.getListeAlerte();
+	    Map<Integer, Alerte> listAlerts = MysqlRequester.getListeAlerte();
 	      	    
 	    if (listAlerts != null) {
-	        int nombreDeAlertes = listAlerts.size();
             JLabel labelPresentationAlerte = new JLabel();
             labelPresentationAlerte.setText("Liste des alertes");
             labelPresentationAlerte.setBackground(new java.awt.Color(255, 255, 255));
             panelFavoris.add(labelPresentationAlerte);
 
-	        if (nombreDeAlertes != 0) {
+	        if (listAlerts.size() != 0) {
                 JPanel f;
                 JLabel labelDepart_alerte, labelArrivee_alerte, labelDateAlerte;
 
-                for (Entry<Integer, Date> currentEntry : listAlerts.entrySet()) {
-		        	int idItineraireFavori = currentEntry.getKey();
-                    Date dateAlerte = currentEntry.getValue();
+                for (Entry<Integer, Alerte> currentEntry : listAlerts.entrySet()) {
+                    Alerte alerte = currentEntry.getValue();
+                    Date dateAlerte = alerte.getTime();
 
 		        	//probl�me de r�cup�ration des donn�es
-		        	List<Double> liste_val = MysqlRequester.getItineraireFavorisViaId(idItineraireFavori);
+		        	List<Double> liste_val = MysqlRequester.getItineraireFavorisViaId(alerte.getIdItineraireFavori());
 
                     if (liste_val != null)
                     {
@@ -171,7 +171,7 @@ public class FavoriPanel extends JPanel {
                             boutonSupprimer.setOpaque(true);
                             boutonSupprimer.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent evt) {
-                                    MysqlRequester.supprimerAlerte(idItineraireFavori, dateAlerte);
+                                    MysqlRequester.supprimerAlerte(alerte.getIdItineraireFavori(), dateAlerte);
                                     IHMApplication.reloadFavoriPanel();
                                 }
                             });
