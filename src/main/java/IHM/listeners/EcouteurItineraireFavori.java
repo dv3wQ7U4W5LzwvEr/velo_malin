@@ -62,8 +62,7 @@ public class EcouteurItineraireFavori implements ActionListener{
 	        JOptionPane.showMessageDialog(null, "Attention : itinéraire déjà enregistré dans vos favoris", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
     	}
     	else if(pas_info == true){
-	        ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-	        JOptionPane.showMessageDialog(null, "Attention : pas d'itineraire chargé", "Non sauvegardé", JOptionPane.WARNING_MESSAGE, img);
+	        JOptionPane.showMessageDialog(null, "Attention : pas d'itineraire chargé", "Non sauvegardé", JOptionPane.ERROR_MESSAGE);
 
     	}
     	else{

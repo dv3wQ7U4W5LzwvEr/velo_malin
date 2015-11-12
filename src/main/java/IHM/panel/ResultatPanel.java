@@ -623,40 +623,37 @@ public class ResultatPanel extends javax.swing.JPanel {
             boolean creation_alerte;
 
             public void actionPerformed(ActionEvent evt) {
-            	//new EcouteurItineraireFavori(lat_dep, long_dep, lat_arrivee, long_arrivee);
                 Client client_actuel;
                 client_actuel = new Client();
-	    		if((long_dep != 0.00) && (lat_dep != 0.00) && (lat_arrivee != 0.00) && (long_arrivee != 0.00))
-	    			MysqlRequester.insertItineraireFavorit(client_actuel, long_dep, lat_dep,long_arrivee,lat_arrivee);
-            	
-                Map<Integer, List<Double>> liste_itinerairefavoris = new HashMap<Integer, List<Double>>();
-                liste_itinerairefavoris = MysqlRequester.getItineraireFavoriPlusRecent();
-
-                if (liste_itinerairefavoris != null) {                                  
-                    for (Map.Entry<Integer, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
-                        double long_station_depart = currentEntry.getValue().get(0);
-                        double lat_station_depart = currentEntry.getValue().get(1);
-                        double long_station_arrivee = currentEntry.getValue().get(2);
-                        double lat_station_arrivee = currentEntry.getValue().get(3);    
-                                       
-                        
-                        id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart, long_station_depart, lat_station_arrivee, long_station_arrivee);
-                        Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();
-
-                        MysqlRequester.setAlerte(dateAlerte, id_itinerairefavoris);                            
-                        }
-
-                 ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-                 JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
-                 }
+                
+                if((long_dep == 0.00) && (lat_dep == 0.00) && (lat_arrivee == 0.00) && (long_arrivee == 0.00)){
+                    JOptionPane.showMessageDialog(null, "Attention : pas d'itinéraire chargé ", "Erreur", JOptionPane.ERROR_MESSAGE);
+                } 
+                else if((long_dep != 0.00) && (lat_dep != 0.00) && (lat_arrivee != 0.00) && (long_arrivee != 0.00)){
+    	    		MysqlRequester.insertItineraireFavorit(client_actuel, long_dep, lat_dep,long_arrivee,lat_arrivee);
                 	
-                //} else {
-                    //JOptionPane.showMessageDialog(null, "Aucun itineraire favori enregistré", "Erreur", JOptionPane.WARNING_MESSAGE);
-                //}
+                    Map<Integer, List<Double>> liste_itinerairefavoris = new HashMap<Integer, List<Double>>();
+                    liste_itinerairefavoris = MysqlRequester.getItineraireFavoriPlusRecent();
+                          
+                    for (Map.Entry<Integer, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
+                            double long_station_depart = currentEntry.getValue().get(0);
+                            double lat_station_depart = currentEntry.getValue().get(1);
+                            double long_station_arrivee = currentEntry.getValue().get(2);
+                            double lat_station_arrivee = currentEntry.getValue().get(3);    
+                                                                      
+                            id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart, long_station_depart, lat_station_arrivee, long_station_arrivee);
+                            Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();
+
+                            MysqlRequester.setAlerte(dateAlerte, id_itinerairefavoris);                            
+                            
+                            ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                            JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
+                    }
+                 }    	
                 IHMApplication.reloadFavoriPanel2();
             }
         });   
-        //boutonCreerAlerte.addActionListener(new EcouteurAlerte(dateAlerte,id_itinerairefavoris)); 
+
         
 
         boutonAjouterFavori.setBackground(new java.awt.Color(204, 0, 0));
