@@ -152,44 +152,44 @@ public class MysqlRequester {
     }
 
     public static List<Integer> getNombreDeVelosSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
-    	
-    	StringBuilder sb = new StringBuilder();
-    	
-    	if(jours != null){
-    		sb.append(" AND jour in (");
-	    	String delim = "";
-	    	for (Jours jour : jours) {
-	    	    sb.append(delim).append("'"+jour+"'");
-	    	    delim = ",";
-	    	}
-	    	sb.append(")");
-    	} else {
-    		sb.append("");
-    	}
-    	
-    	if(jour_special != null){
-    		sb.append(" AND jour_special="+ jour_special);
-    	}	else {
-    		sb.append("");
-    	}
-    	
+
+        StringBuilder sb = new StringBuilder();
+
+        if (jours != null) {
+            sb.append(" AND jour in (");
+            String delim = "";
+            for (Jours jour : jours) {
+                sb.append(delim).append("'" + jour + "'");
+                delim = ",";
+            }
+            sb.append(")");
+        } else {
+            sb.append("");
+        }
+
+        if (jour_special != null) {
+            sb.append(" AND jour_special=" + jour_special);
+        } else {
+            sb.append("");
+        }
+
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-        
+
         String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station +
-                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'"+ sb.toString() +";";
+                "' AND date_MAJ_JCDecaux BETWEEN '" + datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'" + sb.toString() + ";";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbVeloList = new ArrayList<Integer>();
-        
+
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	            while (rs.next()) {
-	                nbVeloList.add(rs.getInt("places_occupees"));
-	            }
-	        }
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    nbVeloList.add(rs.getInt("places_occupees"));
+                }
+            }
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -198,43 +198,43 @@ public class MysqlRequester {
     }
 
     public static List<Integer> getNombreDePlacesSurStationDansInterval(int id_station, Date dateX, Date dateY, List<Jours> jours, String jour_special) {
-    	
-    	StringBuilder sb = new StringBuilder();
-    	
-    	if(jours != null){
-    		sb.append(" AND jour in (");
-	    	String delim = "";
-	    	for (Jours jour : jours) {
-	    	    sb.append(delim).append("'"+jour+"'");
-	    	    delim = ",";
-	    	}
-	    	sb.append(")");
-    	} else {
-    		sb.append("");
-    	}
-    	
-    	if(jour_special != null){
-    		sb.append(" AND jour_special="+ jour_special);
-    	}	else {
-    		sb.append("");
-    	}
+
+        StringBuilder sb = new StringBuilder();
+
+        if (jours != null) {
+            sb.append(" AND jour in (");
+            String delim = "";
+            for (Jours jour : jours) {
+                sb.append(delim).append("'" + jour + "'");
+                delim = ",";
+            }
+            sb.append(")");
+        } else {
+            sb.append("");
+        }
+
+        if (jour_special != null) {
+            sb.append(" AND jour_special=" + jour_special);
+        } else {
+            sb.append("");
+        }
 
         SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
         String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux BETWEEN '" +
-                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'"+ sb.toString() +";";
+                datetime.format(dateX) + "' AND '" + datetime.format(dateY) + "'" + sb.toString() + ";";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> nbPlaceList = new ArrayList<Integer>();
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	            while (rs.next()) {
-	            	nbPlaceList.add(rs.getInt("places_disponibles"));
-	            }
-	        }
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    nbPlaceList.add(rs.getInt("places_disponibles"));
+                }
+            }
         } catch (SQLException e) {
             // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
@@ -242,123 +242,123 @@ public class MysqlRequester {
 
         return nbPlaceList;
     }
-    
-    public static int getNombreDePlacesSurStation(int id_station, Date date){
-    	
-    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	
-    	String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
 
-		ResultSet rs = executerRequete(sqlQuery);
-		int nbPlaces = -1;
-		try {
-			if(!rs.next()){
-				return nbPlaces;
-		   } else {
-			   nbPlaces = rs.getInt("places_disponibles");
-		   }
-		} catch (SQLException e) {
-		    // TODO Bloc catch g?n?r? automatiquement
-		    e.printStackTrace();
-		}
-		return nbPlaces;
-    }
-    
-    public static int getNombreDeVelosSurStation(int id_station, Date date){
-    	
-    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	
-    	String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='"+ id_station +"' AND date_MAJ_JCDecaux <= '"+ datetime.format(date) +"' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+    public static int getNombreDePlacesSurStation(int id_station, Date date) {
 
-		ResultSet rs = executerRequete(sqlQuery);
-		int nbVelos = -1;
-		try {
-			if(!rs.next()){
-				return nbVelos;
-			} else {
-			   nbVelos = rs.getInt("places_occupees");
-		   }
-		} catch (SQLException e) {
-		    // TODO Bloc catch g?n?r? automatiquement
-		    e.printStackTrace();
-		}
-		return nbVelos;
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String sqlQuery = "SELECT places_disponibles FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux <= '" + datetime.format(date) + "' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        int nbPlaces = -1;
+        try {
+            if (!rs.next()) {
+                return nbPlaces;
+            } else {
+                nbPlaces = rs.getInt("places_disponibles");
+            }
+        } catch (SQLException e) {
+            // TODO Bloc catch g?n?r? automatiquement
+            e.printStackTrace();
+        }
+        return nbPlaces;
     }
-    
-    public static List<Integer> getNombreDePlacesSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special){
-		
-    	StringBuilder sb = new StringBuilder();
-    	if(jour_special != null){
-    		sb.append(" AND jour_special="+ jour_special);
-    	}	else {
-    		sb.append("");
-    	}    	
-    	
-    	String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='"+ jour +"'"+ sb.toString() +";";
-    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Date date;
-    	ResultSet rs = executerRequete(sqlQuery);
-    	
-    	List<Integer> nbPlaces = new ArrayList<Integer>();
-		try {
-			if(!rs.next()){
-				return null;
-			} else {
-				rs.beforeFirst();
-				while(rs.next()){
-					date = datetime.parse(rs.getString("date")+" "+heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-					nbPlaces.add(getNombreDePlacesSurStation(id_station, date));
-				}
-			}
-		} catch (SQLException e) {
-		    // TODO Bloc catch g?n?r? automatiquement
-		    e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Bloc catch g�n�r� automatiquement
-			e.printStackTrace();
-		}
-    	
-    	return nbPlaces;
-    	
+
+    public static int getNombreDeVelosSurStation(int id_station, Date date) {
+
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+
+        String sqlQuery = "SELECT places_occupees FROM velo_malin.stationsdisponibilites WHERE id_station='" + id_station + "' AND date_MAJ_JCDecaux <= '" + datetime.format(date) + "' ORDER BY date_MAJ_JCDecaux desc LIMIT 1;";
+
+        ResultSet rs = executerRequete(sqlQuery);
+        int nbVelos = -1;
+        try {
+            if (!rs.next()) {
+                return nbVelos;
+            } else {
+                nbVelos = rs.getInt("places_occupees");
+            }
+        } catch (SQLException e) {
+            // TODO Bloc catch g?n?r? automatiquement
+            e.printStackTrace();
+        }
+        return nbVelos;
     }
-    
-    public static List<Integer> getNombreDeVelosSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special){
-		
-    	StringBuilder sb = new StringBuilder();
-    	if(jour_special != null){
-    		sb.append(" AND jour_special="+ jour_special);
-    	}	else {
-    		sb.append("");
-    	}    	
-    	
-    	String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='"+ jour +"'"+ sb.toString() +";";
-    	SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-    	Date date;
-    	ResultSet rs = executerRequete(sqlQuery);
-    	
-    	List<Integer> nbVelos = new ArrayList<Integer>();
-		try {
-			if(!rs.next()){
-				return null;
-			} else {
-				rs.beforeFirst();
-				while(rs.next()){
-					date = datetime.parse(rs.getString("date")+" "+heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
-					nbVelos.add(getNombreDeVelosSurStation(id_station, date));
-				}
-			}
-		} catch (SQLException e) {
-		    // TODO Bloc catch g?n?r? automatiquement
-		    e.printStackTrace();
-		} catch (ParseException e) {
-			// TODO Bloc catch g�n�r� automatiquement
-			e.printStackTrace();
-		}
-    	
-    	return nbVelos;
-    	
+
+    public static List<Integer> getNombreDePlacesSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special) {
+
+        StringBuilder sb = new StringBuilder();
+        if (jour_special != null) {
+            sb.append(" AND jour_special=" + jour_special);
+        } else {
+            sb.append("");
+        }
+
+        String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='" + jour + "'" + sb.toString() + ";";
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date;
+        ResultSet rs = executerRequete(sqlQuery);
+
+        List<Integer> nbPlaces = new ArrayList<Integer>();
+        try {
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    date = datetime.parse(rs.getString("date") + " " + heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                    nbPlaces.add(getNombreDePlacesSurStation(id_station, date));
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Bloc catch g?n?r? automatiquement
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Bloc catch g�n�r� automatiquement
+            e.printStackTrace();
+        }
+
+        return nbPlaces;
+
     }
-     
+
+    public static List<Integer> getNombreDeVelosSurStationAuMoment(int id_station, LocalTime heure, Jours jour, String jour_special) {
+
+        StringBuilder sb = new StringBuilder();
+        if (jour_special != null) {
+            sb.append(" AND jour_special=" + jour_special);
+        } else {
+            sb.append("");
+        }
+
+        String sqlQuery = "select distinct(DATE_FORMAT(date_MAJ_JCDecaux,'%Y-%m-%d')) as date from velo_malin.stationsdisponibilites where jour='" + jour + "'" + sb.toString() + ";";
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        Date date;
+        ResultSet rs = executerRequete(sqlQuery);
+
+        List<Integer> nbVelos = new ArrayList<Integer>();
+        try {
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    date = datetime.parse(rs.getString("date") + " " + heure.format(DateTimeFormatter.ofPattern("HH:mm:ss")));
+                    nbVelos.add(getNombreDeVelosSurStation(id_station, date));
+                }
+            }
+        } catch (SQLException e) {
+            // TODO Bloc catch g?n?r? automatiquement
+            e.printStackTrace();
+        } catch (ParseException e) {
+            // TODO Bloc catch g�n�r� automatiquement
+            e.printStackTrace();
+        }
+
+        return nbVelos;
+
+    }
+
     public static Station getStation(int id_station) {
         Station station = new Station();
 
@@ -367,11 +367,11 @@ public class MysqlRequester {
         ResultSet rs = executerRequete(sqlQuery);
 
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	        }
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
             if (rs.next()) {
                 station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
@@ -399,12 +399,12 @@ public class MysqlRequester {
         Station station;
         String adresse = "", latitude, longitude;
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	        }
-            while(rs.next()) {
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
+            while (rs.next()) {
                 station = new Station();
                 station.setId_station(rs.getInt("id_station"));
                 station.setNom(rs.getString("nom"));
@@ -413,8 +413,7 @@ public class MysqlRequester {
                 latitude = rs.getString("latitude");
                 station.setLatitude(latitude);
                 station.setLongitude(longitude);
-                if (adresse.equals(""))
-                {
+                if (adresse.equals("")) {
                     // adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(station.getLatitude()), new Double(station.getLongitude()));
                 }
                 station.setAdresse(adresse);
@@ -427,18 +426,16 @@ public class MysqlRequester {
         return stations;
     }
 
-    public static List<String> getAdressesToutesLesStations()
-    {
+    public static List<String> getAdressesToutesLesStations() {
         List<Station> stations = MysqlRequester.getToutesLesStations();
         List<String> stationsAdresse = new ArrayList<>();
         String adresse;
-        for(Station s: stations){
+        for (Station s : stations) {
             adresse = s.getAdresse();
-            if (adresse.equals(""))
-            {
+            if (adresse.equals("")) {
                 adresse = GoogleMapApi.rechercherAdresseParLatLong(new Double(s.getLatitude()), new Double(s.getLongitude()));
             }
-                stationsAdresse.add(adresse);
+            stationsAdresse.add(adresse);
 
         }
         return stationsAdresse;
@@ -447,17 +444,17 @@ public class MysqlRequester {
     public static Map<Station, Double> getStationsProximitees(double latitude, double longitude, int nb_stations, double distance) {
 
         Map<Station, Double> mapStations = new HashMap<Station, Double>();
-        
+
         // Merci ? Oleksiy Kovyrin
-        String sqlQuery = "SELECT *,3956 * 2 * ASIN(SQRT( POWER(SIN(('"+ latitude +"' - abs(latitude)) * pi()/180 / 2),2) + COS('"+ latitude +"' * pi()/180 ) * COS( abs(latitude) *  pi()/180) * POWER(SIN(('"+ longitude +"' - longitude) *  pi()/180 / 2), 2) )) as distance FROM velo_malin.stations having distance < '"+ distance +"' ORDER BY distance limit "+ nb_stations +";";
-        
+        String sqlQuery = "SELECT *,3956 * 2 * ASIN(SQRT( POWER(SIN(('" + latitude + "' - abs(latitude)) * pi()/180 / 2),2) + COS('" + latitude + "' * pi()/180 ) * COS( abs(latitude) *  pi()/180) * POWER(SIN(('" + longitude + "' - longitude) *  pi()/180 / 2), 2) )) as distance FROM velo_malin.stations having distance < '" + distance + "' ORDER BY distance limit " + nb_stations + ";";
+
         ResultSet rs = executerRequete(sqlQuery);
         Station station;
-        
+
         try {
-        	if(!rs.next()){
-        		return null;
-        		/*
+            if (!rs.next()) {
+                return null;
+                /*
             	station = new Station();
             	station.setId_station(0);
                 station.setNom("");
@@ -466,20 +463,20 @@ public class MysqlRequester {
                 station.setLongitude("");
                 station.setPlaces(0);
                 mapStations.put(station, 0.0); 
-                */      
-	        } else {
-	          	rs.beforeFirst();
-	            while (rs.next()) {
-	            	station = new Station();
-	            	station.setId_station(rs.getInt("id_station"));
-	                station.setNom(rs.getString("nom"));
-	                station.setAdresse(rs.getString("adresse"));
-	                station.setLatitude(rs.getString("latitude"));
-	                station.setLongitude(rs.getString("longitude"));
-	                station.setPlaces(rs.getInt("places"));
-	                mapStations.put(station, rs.getDouble("distance"));
-	            }
-	        }
+                */
+            } else {
+                rs.beforeFirst();
+                while (rs.next()) {
+                    station = new Station();
+                    station.setId_station(rs.getInt("id_station"));
+                    station.setNom(rs.getString("nom"));
+                    station.setAdresse(rs.getString("adresse"));
+                    station.setLatitude(rs.getString("latitude"));
+                    station.setLongitude(rs.getString("longitude"));
+                    station.setPlaces(rs.getInt("places"));
+                    mapStations.put(station, rs.getDouble("distance"));
+                }
+            }
         } catch (SQLException e) {
             // TODO Bloc catch g?n?r? automatiquement
             e.printStackTrace();
@@ -488,74 +485,43 @@ public class MysqlRequester {
         return mapStations;
     }
 
+    public static boolean insertItineraireFavorit(Client client, String lat_depart, String long_dep, String lat_arrivee, String long_arrivee) {
 
-    public static boolean insertStationFavorite(Client client, int Id_station) {
+        if (! isItineraireFavoriExist(lat_depart, long_dep, lat_arrivee, long_arrivee))
+        {
+            String sqlQuery = "INSERT IGNORE INTO velo_malin.itinerairesfavoris (id_client, depart_longitude, depart_latitude, arrive_longitude, arrive_latitude) VALUES('" + 1 + "','"
+                    + long_dep + "','" + lat_depart + "','" + long_arrivee + "','" + lat_arrivee + "')";
 
-        boolean result_insertion = false;
-
-        String sqlQuery = " INSERT INTO VELO_MALIN.STATIONSFAVORITES (id_client, id_station) VALUES ( " + client.getId_client() + "," + Id_station +
-                ")";
-        //si pb : mettre simple quote pour valeur variable
-
-        executerRequeteInsertDeleteUpdate(sqlQuery);
-
-
-        try {
-            //traitement java pur
-
-            //result_insertion = true;
-        } catch (NumberFormatException e) {
-            // TODO Bloc catch g?n?r? automatiquement
-            e.printStackTrace();
-        } /*catch (SQLException e) {
-            // TODO Bloc catch g?n?r? automatiquement
-			e.printStackTrace();
-		}*/
-
-        return result_insertion;
-    }
-
-    public static void insertItineraireFavorit(Client client, double lat_depart, double long_dep, double lat_arrivee,double long_arrivee) {
-
-        String sqlQuery = "INSERT IGNORE INTO velo_malin.itinerairesfavoris (id_client, depart_longitude, depart_latitude, arrive_longitude, arrive_latitude) VALUES('" + 1 + "','"
-                + long_dep + "','" + lat_depart +  "','" + long_arrivee +  "','" + lat_arrivee + "')";
-
-        executerRequeteInsertDeleteUpdate(sqlQuery);
-
-        try {
-            //traitement java pur
-
-            //result_insertion = true;
-        } catch (NumberFormatException e) {
-            // TODO Bloc catch g?n?r? automatiquement
-            e.printStackTrace();
-        } /*catch (SQLException e) {
-      // TODO Bloc catch g?n?r? automatiquement
-			e.printStackTrace();
-		} */
+            executerRequeteInsertDeleteUpdate(sqlQuery);
+            return true;
+        }
+        else
+        {
+            return false;
+        }
 
     }
-    
+
     public static Map<Integer, List<Double>> getListeItinerairesFavoris() {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris";
         int cpt = 0;
-        
+
         ResultSet rs = executerRequete(sqlQuery);
-        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();       
+        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer, List<Double>>();
 
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	        }
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
             while (rs.next()) {
-            	List<Double> liste_valeurs = new ArrayList<Double>();
+                List<Double> liste_valeurs = new ArrayList<Double>();
                 liste_valeurs.add(rs.getDouble("depart_longitude"));
-            	liste_valeurs.add(rs.getDouble("depart_latitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+                liste_valeurs.add(rs.getDouble("depart_latitude"));
+                liste_valeurs.add(rs.getDouble("arrive_longitude"));
+                liste_valeurs.add(rs.getDouble("arrive_latitude"));
                 liste_itineraires_favoris.put(cpt, liste_valeurs);
                 cpt++;
             }
@@ -564,29 +530,29 @@ public class MysqlRequester {
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-      return liste_itineraires_favoris;
+        return liste_itineraires_favoris;
     }
-    
+
     public static Map<Integer, List<Double>> getItineraireFavoriPlusRecent() {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris WHERE id_itinerairefavori=(SELECT MAX(id_itinerairefavori) FROM velo_malin.itinerairesfavoris)";
         int cpt = 0;
-        
+
         ResultSet rs = executerRequete(sqlQuery);
-        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer,List<Double>>();       
+        Map<Integer, List<Double>> liste_itineraires_favoris = new HashMap<Integer, List<Double>>();
 
         try {
-        	if(!rs.next()){
-        		return null;
-	        } else {
-	          	rs.beforeFirst();
-	        }
+            if (!rs.next()) {
+                return null;
+            } else {
+                rs.beforeFirst();
+            }
             while (rs.next()) {
-            	List<Double> liste_valeurs = new ArrayList<Double>();
+                List<Double> liste_valeurs = new ArrayList<Double>();
                 liste_valeurs.add(rs.getDouble("depart_longitude"));
-            	liste_valeurs.add(rs.getDouble("depart_latitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_longitude"));
-            	liste_valeurs.add(rs.getDouble("arrive_latitude"));
+                liste_valeurs.add(rs.getDouble("depart_latitude"));
+                liste_valeurs.add(rs.getDouble("arrive_longitude"));
+                liste_valeurs.add(rs.getDouble("arrive_latitude"));
                 liste_itineraires_favoris.put(cpt, liste_valeurs);
             }
         } catch (SQLException ex) {
@@ -594,60 +560,57 @@ public class MysqlRequester {
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-      return liste_itineraires_favoris;
+        return liste_itineraires_favoris;
     }
-    
-    
-    
+
+
     public static int getIdStationparNom(String nom_station) {
-        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE nom='"  + nom_station + "';";
+        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE nom='" + nom_station + "';";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> id_station = new ArrayList<Integer>();
-        
+
         try {
             while (rs.next()) {
-            	id_station.add(rs.getInt("id_station"));
+                id_station.add(rs.getInt("id_station"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-        
-      int id = id_station.get(0);
-      return id;
+
+        int id = id_station.get(0);
+        return id;
     }
 
-    
-    public static int getIdStationparCoord(String latitude,String longitude) {
-        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude='"  + latitude + "' AND longitude='"  + longitude + "'  ;";
+
+    public static int getIdStationparCoord(String latitude, String longitude) {
+        String sqlQuery = "SELECT id_station FROM velo_malin.stations WHERE latitude='" + latitude + "' AND longitude='" + longitude + "'  ;";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Integer> id_station = new ArrayList<Integer>();
-        
+
         try {
             while (rs.next()) {
-            	id_station.add(rs.getInt("id_station"));
+                id_station.add(rs.getInt("id_station"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-        
-      int id = id_station.get(0);
-      return id;
+
+        int id = id_station.get(0);
+        return id;
     }
-    
+
     /**
-     *
      * @param idStation id de la station
-     * @param jour date du jour
+     * @param jour      date du jour
      * @return
      */
-    public static Map getVeloDisponiblePourUneStationSur24heure(int idStation, Date jour)
-    {
+    public static Map getVeloDisponiblePourUneStationSur24heure(int idStation, Date jour) {
         Calendar date = Calendar.getInstance();
         date.setTime(jour);
         int day = date.get(Calendar.DAY_OF_MONTH);
@@ -671,12 +634,10 @@ public class MysqlRequester {
     }
 
     /**
-     *
      * @param idStation id de la station
      * @return
      */
-    public static int getNombreDePlaceTotaleSurUneStation(int idStation)
-    {
+    public static int getNombreDePlaceTotaleSurUneStation(int idStation) {
         String sqlQuery = "SELECT * FROM velo_malin.stations WHERE id_station='" + idStation + "';";
         ResultSet rs = executerRequete(sqlQuery);
 
@@ -692,9 +653,8 @@ public class MysqlRequester {
         }
         return placesTotales;
     }
-    
-    public static Map<Integer, Alerte> getListeAlerte()
-    {
+
+    public static Map<Integer, Alerte> getListeAlerte() {
         String sqlQuery = "SELECT id_itinerairefavori,heure, id_alerte FROM velo_malin.alertes ;";
         ResultSet rs = executerRequete(sqlQuery);
 
@@ -719,18 +679,18 @@ public class MysqlRequester {
 
     /**
      * Recupère le temps en miliseconde de la prochaine alerte dans le temps, ainsi que son id
-     * @auth Pec
+     *
      * @return liste_alerte_mili
+     * @auth Pec
      */
-    public static List<Integer> getTimeNextAlert()
-    {
+    public static List<Integer> getTimeNextAlert() {
         String sqlQuery = "SELECT id_itinerairefavori, heure, NOW() as 'now',DATEDIFF(heure,NOW())*86400000+((hour(heure)*3600000+minute(heure)*60000)-( hour(now())*3600000+minute(now())*60000)) AS 'milirestant'FROM velo_malin.alertes WHERE heure > now() ORDER BY heure  ASC;";
         ResultSet rs = executerRequete(sqlQuery);
 
         List<Integer> liste_alerte_id_mili = new ArrayList<Integer>();
 
         try {
-            if(!rs.next()){
+            if (!rs.next()) {
                 return null;
             } else {
                 rs.beforeFirst();
@@ -748,20 +708,21 @@ public class MysqlRequester {
 
     /**
      * Renvoie les coordonnées de départ et d'arrivée d'un trajet favori en fonction de son id_favoris
-     * @auth Pec
+     *
      * @param id_itinerairefavori int
      * @return liste_coord liste(long_dep, lat_dep, long_arr, lat_arr)
+     * @auth Pec
      */
     public static List<Double> getCoordDunItineraireFavori(int id_itinerairefavori) {
 
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris" +
-                "WHERE id_itinerairefavori = "+ id_itinerairefavori+";";
+                "WHERE id_itinerairefavori = " + id_itinerairefavori + ";";
 
         ResultSet rs = executerRequete(sqlQuery);
         List<Double> liste_coord = new ArrayList<Double>();
 
         try {
-            if(!rs.next()){
+            if (!rs.next()) {
                 return null;
             } else {
                 rs.beforeFirst();
@@ -779,16 +740,15 @@ public class MysqlRequester {
         }
         return liste_coord;
     }
-    
-    public static int getListeIdItineraireFavori(double lat_depart, double long_dep, double lat_arrivee,double long_arrivee)
-    {
-        String sqlQuery = "SELECT id_itinerairefavori FROM velo_malin.itinerairesfavoris WHERE depart_longitude='"  + long_dep + "'AND depart_latitude='" + lat_depart + "'AND arrive_longitude='" +  long_arrivee + "'AND arrive_latitude='" +  lat_arrivee + "';";
+
+    public static int getIdItineraireFavoriIdByLocalisation(String lat_depart, String long_dep, String lat_arrivee, String long_arrivee) {
+        String sqlQuery = "SELECT id_itinerairefavori FROM velo_malin.itinerairesfavoris WHERE depart_longitude='" + long_dep + "'AND depart_latitude='" + lat_depart + "'AND arrive_longitude='" + long_arrivee + "'AND arrive_latitude='" + lat_arrivee + "';";
         ResultSet rs = executerRequete(sqlQuery);
-        																			
+
         int id_itineraire_favori = 0;
         try {
             if (rs.next()) {
-            	id_itineraire_favori = rs.getInt("id_itinerairefavori");
+                id_itineraire_favori = rs.getInt("id_itinerairefavori");
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
@@ -797,66 +757,87 @@ public class MysqlRequester {
         }
         return id_itineraire_favori;
     }
-    
-    
-    public static List<Double> getItineraireFavorisViaId(int id_favori)
-    {
+
+
+    public static List<Double> getItineraireFavorisLocalisationViaId(int id_favori) {
         String sqlQuery = "SELECT depart_longitude,depart_latitude,arrive_longitude,arrive_latitude FROM velo_malin.itinerairesfavoris WHERE id_itinerairefavori='" + id_favori + "';";
-        ResultSet rs = executerRequete(sqlQuery);     																			
+        ResultSet rs = executerRequete(sqlQuery);
         List<Double> liste_valeurs = new ArrayList<Double>();
         try {
             while (rs.next()) {
-            	liste_valeurs.add(0,rs.getDouble("depart_longitude"));
-            	liste_valeurs.add(1,rs.getDouble("depart_latitude"));
-            	liste_valeurs.add(2,rs.getDouble("arrive_longitude"));
-            	liste_valeurs.add(3, rs.getDouble("arrive_latitude"));
+                liste_valeurs.add(0, rs.getDouble("depart_longitude"));
+                liste_valeurs.add(1, rs.getDouble("depart_latitude"));
+                liste_valeurs.add(2, rs.getDouble("arrive_longitude"));
+                liste_valeurs.add(3, rs.getDouble("arrive_latitude"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
         }
-      return liste_valeurs;
+        return liste_valeurs;
     }
-    
 
-  public static void supprimerItinerairesFavoris(String lat_station_depart, String long_station_depart, String lat_station_arrivee, String long_station_arrivee)
-  {
-      String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE depart_latitude='" + lat_station_depart + "' AND depart_longitude='" + long_station_depart + "' AND arrive_longitude='" + long_station_arrivee + "' AND arrive_latitude='" + lat_station_arrivee + "' ;";    
-      executerRequeteInsertDeleteUpdate(sqlQuery);    
-     
-  }
 
-    public static void supprimerAlerte(int idItineraireFavoris, Date heure)
-    {
-        String sqlQuery = "DELETE FROM velo_malin.alertes WHERE id_itineraireFavori = '" + idItineraireFavoris + "' and heure = '" + heure + " ;";
+    public static void supprimerItinerairesFavoris(String lat_station_depart, String long_station_depart, String lat_station_arrivee, String long_station_arrivee) {
+        // supression des favoris
+        String sqlQuery = "DELETE FROM velo_malin.itinerairesfavoris WHERE depart_latitude='" + lat_station_depart + "' AND depart_longitude='" + long_station_depart + "' AND arrive_longitude='" + long_station_arrivee + "' AND arrive_latitude='" + lat_station_arrivee + "' ;";
         executerRequeteInsertDeleteUpdate(sqlQuery);
 
+        // suppression des alertes liés à ce favoris
+        int idItineraireFavori = MysqlRequester.getIdItineraireFavoriIdByLocalisation(lat_station_depart, long_station_depart, lat_station_arrivee, long_station_arrivee);
+        supprimerAlerteByItiFavo(idItineraireFavori);
     }
-  
-  
-  /**
-  *
-  * @param
-  * @return
-  */
- public static void setAlerte(Date Heure,int id_itineraire_favori)
- {
-	 SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-	 
-     String sqlQuery = "INSERT INTO velo_malin.alertes(id_client,id_itinerairefavori, heure) VALUES ( 1,'" + id_itineraire_favori + "','"+ datetime.format(Heure) +"')" ;
-     executerRequeteInsertDeleteUpdate(sqlQuery);
- }
- 
- /**
- *
- * @param
- * @return
- */
-public static void deleteAlerte(Date Heure,int id_itineraire_favori)
-{
-    String sqlQuery = "DELETE velo_malin.alertes(id_itinerairefavori, heure) VALUES ( '" + id_itineraire_favori + "','"+ Heure +"')" ;
-    executerRequeteInsertDeleteUpdate(sqlQuery);
-}
 
+    public static boolean isItineraireFavoriExist(String lat_station_depart, String long_station_depart, String lat_station_arrivee, String long_station_arrivee) {
+        String sqlQuery = "Select id_itinerairefavori FROM velo_malin.itinerairesfavoris WHERE depart_latitude='" + lat_station_depart + "' AND depart_longitude='" + long_station_depart + "' AND arrive_longitude='" + long_station_arrivee + "' AND arrive_latitude='" + lat_station_arrivee + "' ;";
+        ResultSet rs = executerRequete(sqlQuery);
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
+
+    public static void supprimerAlerteByItiFavoEtHeure(int idItineraireFavoris, Date heure) {
+        String sqlQuery = "DELETE FROM velo_malin.alertes WHERE id_itineraireFavori = '" + idItineraireFavoris + "' and heure = '" + heure + "' ;";
+        executerRequeteInsertDeleteUpdate(sqlQuery);
+    }
+
+    public static void supprimerAlerteByItiFavo(int idItineraireFavoris) {
+        String sqlQuery = "DELETE FROM velo_malin.alertes WHERE id_itineraireFavori = '" + idItineraireFavoris + ";";
+        executerRequeteInsertDeleteUpdate(sqlQuery);
+    }
+
+    public static boolean isAlerteExist(Date Heure, int id_itineraire_favori)
+    {
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        String sqlQuery = "Select * from  velo_malin.alertes where id_itineraireFavori = '" + id_itineraire_favori + "' and heure = '" + datetime.format(Heure) + "'";
+        ResultSet rs = executerRequete(sqlQuery);
+        try {
+            if (rs.next()) {
+                return true;
+            }
+        } catch (Exception e) {
+
+        }
+        return false;
+    }
+
+    public static boolean insertAlerte(Date Heure, int id_itineraire_favori) {
+        SimpleDateFormat datetime = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+        if (isAlerteExist( Heure, id_itineraire_favori))
+        {
+            return false;
+        }
+        else
+        {
+            String sqlQuery = "INSERT INTO velo_malin.alertes(id_client,id_itinerairefavori, heure) VALUES ( 1,'" + id_itineraire_favori + "','" + datetime.format(Heure) + "')";
+            executerRequeteInsertDeleteUpdate(sqlQuery);
+            return true;
+        }
+    }
 }

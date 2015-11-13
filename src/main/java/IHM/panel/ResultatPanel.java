@@ -91,7 +91,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         double lat_dep = rechercheDonnees.getDepartLat();
         double long_dep = rechercheDonnees.getDepartLong();
         double lat_arrivee = rechercheDonnees.getArriveLat();
-        double long_arrivee = rechercheDonnees.getArriveLong();      
+        double long_arrivee = rechercheDonnees.getArriveLong();
         Date date_depart = rechercheDonnees.getDateHeureDepart().getTime();
         Date date_arrivee = rechercheDonnees.getDateHeureArrive().getTime(); 
         
@@ -630,27 +630,36 @@ public class ResultatPanel extends javax.swing.JPanel {
                     JOptionPane.showMessageDialog(null, "Attention : pas d'itinéraire chargé ", "Erreur", JOptionPane.ERROR_MESSAGE);
                 } 
                 else if((long_dep != 0.00) && (lat_dep != 0.00) && (lat_arrivee != 0.00) && (long_arrivee != 0.00)){
-    	    		MysqlRequester.insertItineraireFavorit(client_actuel, long_dep, lat_dep,long_arrivee,lat_arrivee);
-                	
+    	    		if (MysqlRequester.insertItineraireFavorit(client_actuel,  String.valueOf(lat_dep), String.valueOf(long_dep), String.valueOf(lat_arrivee), String.valueOf(long_arrivee)))
+                    {
+                        JOptionPane.showMessageDialog(null, "Un nouvelle itinéraire a été créé pour ce trajet.", "Confirmation", JOptionPane.INFORMATION_MESSAGE);
+                    }
                     Map<Integer, List<Double>> liste_itinerairefavoris = new HashMap<Integer, List<Double>>();
                     liste_itinerairefavoris = MysqlRequester.getItineraireFavoriPlusRecent();
-                          
-                    for (Map.Entry<Integer, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
-                            double long_station_depart = currentEntry.getValue().get(0);
-                            double lat_station_depart = currentEntry.getValue().get(1);
-                            double long_station_arrivee = currentEntry.getValue().get(2);
-                            double lat_station_arrivee = currentEntry.getValue().get(3);    
-                                                                      
-                            id_itinerairefavoris = MysqlRequester.getListeIdItineraireFavori(lat_station_depart, long_station_depart, lat_station_arrivee, long_station_arrivee);
-                            Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();
 
-                            MysqlRequester.setAlerte(dateAlerte, id_itinerairefavoris);                            
-                            
+                    for (Map.Entry<Integer, List<Double>> currentEntry : liste_itinerairefavoris.entrySet()) {
+                        double long_station_depart = currentEntry.getValue().get(0);
+                        double lat_station_depart = currentEntry.getValue().get(1);
+                        double long_station_arrivee = currentEntry.getValue().get(2);
+                        double lat_station_arrivee = currentEntry.getValue().get(3);
+
+                        id_itinerairefavoris = MysqlRequester.getIdItineraireFavoriIdByLocalisation( String.valueOf(lat_station_depart),  String.valueOf(long_station_depart),  String.valueOf(lat_station_arrivee),  String.valueOf(long_station_arrivee));
+                        Date dateAlerte = rechercheDonnees.getDateHeureDepart().getTime();
+
+                        if (MysqlRequester.insertAlerte(dateAlerte, id_itinerairefavoris))
+                        {
                             ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
                             JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
+                        }
+                        else
+                        {
+                            JOptionPane.showMessageDialog(null, "Une alerte existe déjà pour ce trajet et cette heure.", "Erreur", JOptionPane.INFORMATION_MESSAGE);
+                        }
+
                     }
+
                  }    	
-                IHMApplication.reloadFavoriPanel2();
+                IHMApplication.reloadFavoriPanel();
             }
         });   
 

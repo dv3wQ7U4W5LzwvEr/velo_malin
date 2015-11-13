@@ -1,4 +1,5 @@
 import database.MysqlRequester;
+import model.Client;
 import model.Jours;
 import recherche.StatistiquesStation;
 import was.google_map_api.GoogleMapApi;
@@ -77,6 +78,19 @@ public class VeloMalinTest {
         System.out.println("rechercher lat / long par adresse : " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLatitude() + " " + GoogleMapApi.rechercherLatLongParAdresse(adresse).getLongitude());
         System.out.println("rechercher adresse + lat / long: " + GoogleMapApi.rechercherAdresseParLatLong(45.7797430, 4.8790385));
         System.out.println("Temps de trajet pour 10 km : " + StatistiquesStation.getTempsDeTrajet(45.7797430, 4.8790385, 47.3590900, 3.3852100));
+
+        // test itineraire favori
+
+        System.out.println("itineraire fav exist : " + MysqlRequester.isItineraireFavoriExist("4.8047449", "45.780722", "4.4379189", "45.6917192"));
+        System.out.println("itineraire fav exist pas: " + MysqlRequester.isItineraireFavoriExist("4.8047449", "45.780723", "4.4379189", "45.6917192"));
+
+        MysqlRequester.insertItineraireFavorit(new Client(), "1.1", "2.2", "3.3", "4.4");
+        int idItineraireFavori = MysqlRequester.getIdItineraireFavoriIdByLocalisation("1.1", "2.2", "3.3", "4.4");
+        date = new Date();
+        MysqlRequester.insertAlerte(date, idItineraireFavori);
+        System.out.println("alerte existe : " + MysqlRequester.isAlerteExist(date, idItineraireFavori));
+        System.out.println("alerte existe pas : " + MysqlRequester.isAlerteExist(new Date(), idItineraireFavori));
+
     }
 
 }

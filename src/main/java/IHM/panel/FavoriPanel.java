@@ -66,8 +66,8 @@ public class FavoriPanel extends JPanel {
                     String long_arrivee = String.valueOf(listFavoris.get(cle).get(2));
                     String lat_arrivee = String.valueOf(listFavoris.get(cle).get(3));
 
-                    String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
-                    String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+                    String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
+                    String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
 
                     // création des labels
                     f = new JPanel();
@@ -95,6 +95,8 @@ public class FavoriPanel extends JPanel {
                         public void actionPerformed(ActionEvent evt) {
                             MysqlRequester.supprimerItinerairesFavoris(lat_depart, long_depart, lat_arrivee, long_arrivee);
                             IHMApplication.reloadFavoriPanel();
+                            ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                            JOptionPane.showMessageDialog(null, "L'Itinéraire et les alertes rattachées ont bien été supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
                         }
                     });
                     f.add(boutonSupprimer);
@@ -126,7 +128,7 @@ public class FavoriPanel extends JPanel {
                     Date dateAlerte = alerte.getTime();
 
 		        	//probl�me de r�cup�ration des donn�es
-		        	List<Double> liste_val = MysqlRequester.getItineraireFavorisViaId(alerte.getIdItineraireFavori());
+		        	List<Double> liste_val = MysqlRequester.getItineraireFavorisLocalisationViaId(alerte.getIdItineraireFavori());
 
                     if (liste_val != null)
                     {
@@ -138,8 +140,8 @@ public class FavoriPanel extends JPanel {
                             String long_arrivee = String.valueOf(liste_val.get(2));
                             String lat_arrivee = String.valueOf(liste_val.get(3));
 
-                            String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_depart), Double.parseDouble(lat_depart));
-                            String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(long_arrivee), Double.parseDouble(lat_arrivee));
+                            String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
+                            String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
 
                             // création des labels
                             f = new JPanel();
@@ -171,8 +173,10 @@ public class FavoriPanel extends JPanel {
                             boutonSupprimer.setOpaque(true);
                             boutonSupprimer.addActionListener(new ActionListener() {
                                 public void actionPerformed(ActionEvent evt) {
-                                    MysqlRequester.supprimerAlerte(alerte.getIdItineraireFavori(), dateAlerte);
+                                    MysqlRequester.supprimerAlerteByItiFavoEtHeure(alerte.getIdItineraireFavori(), dateAlerte);
                                     IHMApplication.reloadFavoriPanel();
+                                    ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
+                                    JOptionPane.showMessageDialog(null, "Alerte bien supprimé des favoris", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
                                 }
                             });
                             f.add(boutonSupprimer);
