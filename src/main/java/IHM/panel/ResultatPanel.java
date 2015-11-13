@@ -1,9 +1,13 @@
 package IHM.panel;
 
 import IHM.IHMApplication;
+import IHM.google_map.GoogleMapIHM;
 import IHM.listeners.EcouteurItineraireFavori;
 import data.RechercheData;
 import database.MysqlRequester;
+import javafx.application.Platform;
+import javafx.embed.swing.JFXPanel;
+import javafx.scene.Scene;
 import model.Client;
 import model.Station;
 import recherche.StatistiquesStation;
@@ -225,20 +229,44 @@ public class ResultatPanel extends javax.swing.JPanel {
 
         setBackground(new java.awt.Color(255, 255, 255));
 
-        /*
-            panelCarteResultats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        final JFXPanel panelCarteResultats = new JFXPanel();
 
-            javax.swing.GroupLayout panelCarteResultatsLayout = new javax.swing.GroupLayout(panelCarteResultats);
-            panelCarteResultats.setLayout(panelCarteResultatsLayout);
-            panelCarteResultatsLayout.setHorizontalGroup(
-                    panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGap(0, 389, Short.MAX_VALUE)
-            );
-            panelCarteResultatsLayout.setVerticalGroup(
-                    panelCarteResultatsLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGap(0, 514, Short.MAX_VALUE)
-            );
-        */
+        panelCarteResultats.setBorder(javax.swing.BorderFactory.createEtchedBorder());
+        panelCarteResultats.setPreferredSize(new java.awt.Dimension(522, 584));
+
+        javax.swing.GroupLayout panelCarteLayout = new javax.swing.GroupLayout(panelCarteResultats);
+        panelCarteResultats.setLayout(panelCarteLayout);
+        panelCarteLayout.setHorizontalGroup(
+                panelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+        );
+        panelCarteLayout.setVerticalGroup(
+                panelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 0, Short.MAX_VALUE)
+        );
+
+        Platform.runLater(new Runnable() {
+            @Override
+            public void run() {
+                GoogleMapIHM googleMap = GoogleMapIHM.getInstance();
+                Scene scene = googleMap.getScene();
+                panelCarteResultats.setScene(scene);
+                panelCarteResultats.setSize(new java.awt.Dimension(522, 584));
+            }
+        });
+        /**/
+
+        //javax.swing.GroupLayout panelCarteLayout = new javax.swing.GroupLayout(panelCarte);
+        panelCarteResultats.setLayout(panelCarteLayout);
+        panelCarteLayout.setHorizontalGroup(
+                panelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 613, Short.MAX_VALUE)
+        );
+        panelCarteLayout.setVerticalGroup(
+                panelCarteLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addGap(0, 532, Short.MAX_VALUE)
+        );
+
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "POUR LE DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
