@@ -29,6 +29,7 @@ public class FavoriPanel extends JPanel {
     /*Variables*/
     private int temps_avant_alerte = 2;//setter et getter disponibles...
 
+    private int POLICESIZE = 12;
 
     /*Méthode*/
     @SuppressWarnings("unchecked")
@@ -79,6 +80,7 @@ public class FavoriPanel extends JPanel {
             int nombreDeFavoris = listFavoris.size();
             JLabel labelPresentationFavoris = new JLabel();
             labelPresentationFavoris.setText("LISTE DES FAVORIS");
+            labelPresentationFavoris.setFont(new Font("Tahoma", 1, 16));
             labelPresentationFavoris.setBackground(new java.awt.Color(255, 255, 255));
             panelFavoris.add(labelPresentationFavoris);
 
@@ -92,27 +94,27 @@ public class FavoriPanel extends JPanel {
                     String long_arrivee = String.valueOf(listFavoris.get(cle).get(2));
                     String lat_arrivee = String.valueOf(listFavoris.get(cle).get(3));
 
-                    String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
-                    String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
+                    String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_depart));
+                    String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_arrivee), Double.parseDouble(long_arrivee));
 
                     // création des labels
                     f = new JPanel();
 
                     labelDepart = new JLabel();
-                    labelDepart.setFont(new Font("Tahoma", 1, 14));
+                    labelDepart.setFont(new Font("Tahoma", 1, POLICESIZE));
                     labelDepart.setText(getAdresseDepart(adresse_depart));
                     labelDepart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelDepart);
 
                     labelArrivee = new JLabel();
-                    labelArrivee.setFont(new Font("Tahoma", 1, 14));
+                    labelArrivee.setFont(new Font("Tahoma", 1, POLICESIZE));
                     labelArrivee.setText(getAdresseArrivee(adresse_arrivee));
                     labelArrivee.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelArrivee);
 
                     boutonSupprimer = new JButton();
                     boutonSupprimer.setBackground(new Color(255, 0, 0));
-                    boutonSupprimer.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+                    boutonSupprimer.setFont(new Font("Tahoma", 0, POLICESIZE)); // NOI18N
                     boutonSupprimer.setIcon(new ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
                     boutonSupprimer.setText("Supprimer");
                     boutonSupprimer.setContentAreaFilled(false);
@@ -142,6 +144,7 @@ public class FavoriPanel extends JPanel {
 	    if (listAlerts != null) {
             JLabel labelPresentationAlerte = new JLabel();
             labelPresentationAlerte.setText("LISTE DES ALERTES");
+            labelPresentationAlerte.setFont(new Font("Tahoma", 1, 16));
             labelPresentationAlerte.setBackground(new java.awt.Color(255, 255, 255));
             panelFavoris.add(labelPresentationAlerte);
 
@@ -166,33 +169,33 @@ public class FavoriPanel extends JPanel {
                             String long_arrivee = String.valueOf(liste_val.get(2));
                             String lat_arrivee = String.valueOf(liste_val.get(3));
 
-                            String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
-                            String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_arrivee));
+                            String adresse_depart = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_depart), Double.parseDouble(long_depart));
+                            String adresse_arrivee = GoogleMapApi.rechercherAdresseParLatLong(Double.parseDouble(lat_arrivee), Double.parseDouble(long_arrivee));
 
                             // création des labels
                             f = new JPanel();
 
                             labelDepart_alerte = new JLabel();
-                            labelDepart_alerte.setFont(new Font("Tahoma", 1, 14));
+                            labelDepart_alerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelDepart_alerte.setText(getAdresseDepart(adresse_depart));
                             labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                             f.add(labelDepart_alerte);
 
                             labelArrivee_alerte = new JLabel();
-                            labelArrivee_alerte.setFont(new Font("Tahoma", 1, 14));
+                            labelArrivee_alerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelArrivee_alerte.setText(getAdresseArrivee(adresse_arrivee));
                             labelArrivee_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                             f.add(labelArrivee_alerte);
 
                             labelDateAlerte = new JLabel();
-                            labelDateAlerte.setFont(new Font("Tahoma", 1, 14));
+                            labelDateAlerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelDateAlerte.setText(String.valueOf(dateAlerte));
                             labelDateAlerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                             f.add(labelDateAlerte);
 
                             boutonSupprimer = new JButton();
                             boutonSupprimer.setBackground(new Color(255, 0, 0));
-                            boutonSupprimer.setFont(new Font("Tahoma", 0, 14)); // NOI18N
+                            boutonSupprimer.setFont(new Font("Tahoma", 0, POLICESIZE)); // NOI18N
                             boutonSupprimer.setIcon(new ImageIcon("src/main/resources/img/cross_small.png")); // NOI18N
                             boutonSupprimer.setText("Supprimer");
                             boutonSupprimer.setContentAreaFilled(false);
