@@ -208,11 +208,11 @@ public class ItinerairePanel extends javax.swing.JPanel {
                     }
                     else
                     {
-                        JOptionPane.showMessageDialog(null, "Au moins une des deux adresses n'a pas été trouvé.", "Erreur", JOptionPane.WARNING_MESSAGE);
+                        JOptionPane.showMessageDialog(null, "Au moins une des deux adresses n'a pas été trouvée.", "Erreur", JOptionPane.WARNING_MESSAGE);
                     }
 
                 } else {
-                    JOptionPane.showMessageDialog(null, "Merci de saisir une valeur pour l'adresse de départ et d'arriver", "Erreur", JOptionPane.WARNING_MESSAGE);
+                    JOptionPane.showMessageDialog(null, "Merci de saisir une valeur pour l'adresse de départ et d'arrivée", "Erreur", JOptionPane.WARNING_MESSAGE);
                 }
             }
         });

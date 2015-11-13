@@ -52,7 +52,7 @@ public class FavoriPanel extends JPanel {
 
             int nombreDeFavoris = listFavoris.size();
             JLabel labelPresentationFavoris = new JLabel();
-            labelPresentationFavoris.setText("Liste des favoris");
+            labelPresentationFavoris.setText("LISTE DES FAVORIS");
             labelPresentationFavoris.setBackground(new java.awt.Color(255, 255, 255));
             panelFavoris.add(labelPresentationFavoris);
 
@@ -115,7 +115,7 @@ public class FavoriPanel extends JPanel {
 	      	    
 	    if (listAlerts != null) {
             JLabel labelPresentationAlerte = new JLabel();
-            labelPresentationAlerte.setText("Liste des alertes");
+            labelPresentationAlerte.setText("LISTE DES ALERTES");
             labelPresentationAlerte.setBackground(new java.awt.Color(255, 255, 255));
             panelFavoris.add(labelPresentationAlerte);
 

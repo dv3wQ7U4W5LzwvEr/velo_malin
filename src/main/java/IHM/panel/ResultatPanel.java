@@ -649,7 +649,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                         if (MysqlRequester.insertAlerte(dateAlerte, id_itinerairefavoris))
                         {
                             ImageIcon img = new ImageIcon("src/main/resources/img/cloud_alert.png");
-                            JOptionPane.showMessageDialog(null, "Alerte bien configuré", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
+                            JOptionPane.showMessageDialog(null, "Alerte bien configurée.", "Confirmation", JOptionPane.INFORMATION_MESSAGE, img);
                         }
                         else
                         {
