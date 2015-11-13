@@ -89,6 +89,7 @@ public class FavoriPanel extends JPanel {
 
             if (nombreDeFavoris != 0) {
                 JPanel f;
+
                 JLabel labelDepart, labelArrivee, labelDateTrajet;
                 for (Integer cle : listFavoris.keySet()) {
                     // recuperation latitude longitude
@@ -108,6 +109,7 @@ public class FavoriPanel extends JPanel {
                     labelDepart.setText(getAdresseDepart(adresse_depart));
                     labelDepart.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
                     f.add(labelDepart);
+                    f.setBackground(new java.awt.Color(219, 240, 240));
 
                     labelArrivee = new JLabel();
                     labelArrivee.setFont(new Font("Tahoma", 1, POLICESIZE));
@@ -177,23 +179,24 @@ public class FavoriPanel extends JPanel {
 
                             // création des labels
                             f = new JPanel();
+                            f.setBackground(new java.awt.Color(240, 219, 240));
 
                             labelDepart_alerte = new JLabel();
                             labelDepart_alerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelDepart_alerte.setText(getAdresseDepart(adresse_depart));
-                            labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            labelDepart_alerte.setHorizontalAlignment(javax.swing.SwingConstants.RIGHT);
                             f.add(labelDepart_alerte);
 
                             labelArrivee_alerte = new JLabel();
                             labelArrivee_alerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelArrivee_alerte.setText(getAdresseArrivee(adresse_arrivee));
-                            labelArrivee_alerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            labelArrivee_alerte.setHorizontalAlignment(SwingConstants.RIGHT);
                             f.add(labelArrivee_alerte);
 
                             labelDateAlerte = new JLabel();
                             labelDateAlerte.setFont(new Font("Tahoma", 1, POLICESIZE));
                             labelDateAlerte.setText(String.valueOf(dateAlerte));
-                            labelDateAlerte.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+                            labelDateAlerte.setHorizontalAlignment(SwingConstants.RIGHT);
                             f.add(labelDateAlerte);
 
                             boutonSupprimer = new JButton();

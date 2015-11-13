@@ -1,13 +1,10 @@
 package IHM.panel;
 
 import IHM.IHMApplication;
-import IHM.google_map.GoogleMapIHM;
 import IHM.listeners.EcouteurItineraireFavori;
 import data.RechercheData;
 import database.MysqlRequester;
-import javafx.application.Platform;
 import javafx.embed.swing.JFXPanel;
-import javafx.scene.Scene;
 import model.Client;
 import model.Station;
 import recherche.StatistiquesStation;
@@ -177,7 +174,7 @@ public class ResultatPanel extends javax.swing.JPanel {
     		}
 	    }
     	
-        /*----Code généré*/
+        /*-*/
         groupeArrivee = new javax.swing.ButtonGroup();
         groupeDepart = new javax.swing.ButtonGroup();
         panelCarteResultats = new javax.swing.JPanel();
@@ -351,7 +348,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
         jPanel2Layout.setHorizontalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -408,7 +405,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                                 .addGap(8, 8, 8))))))
         );
         jPanel2Layout.setVerticalGroup(
-                jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel2Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(jPanel2Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(labelDateDepart)
@@ -535,7 +532,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -592,7 +589,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                                 .addGap(12, 12, 12))))))
         );
         jPanel3Layout.setVerticalGroup(
-                jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                jPanel3Layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(jPanel3Layout.createSequentialGroup()
                                 .addGap(4, 4, 4)
                                 .addComponent(labelDateArrivee)
@@ -718,7 +715,7 @@ public class ResultatPanel extends javax.swing.JPanel {
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(IHMApplication.panel2);
         IHMApplication.panel2.setLayout(layout);
         layout.setHorizontalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(GroupLayout.Alignment.CENTER)
                         .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
@@ -734,7 +731,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                                 .addGap(10, 10, 10))
         );
         layout.setVerticalGroup(
-                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                         .addGroup(layout.createSequentialGroup()
                                 .addContainerGap()
                                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -754,7 +751,6 @@ public class ResultatPanel extends javax.swing.JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE)))
                                 .addContainerGap())
         );
-        /*------Fin de code généré*/      
         
     }
 
