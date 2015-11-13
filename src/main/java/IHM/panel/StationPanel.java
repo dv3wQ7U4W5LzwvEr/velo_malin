@@ -249,12 +249,15 @@ public class StationPanel extends javax.swing.JPanel {
 
         labelTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTotal.setText("Places totales:");
+        labelTotal.setEnabled(false);
 
         labelVelos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelVelos.setText("Velos (actuellement):");
+        labelVelos.setEnabled(false);
 
         labelPlaces.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelPlaces.setText("Places (actuellement):");
+        labelPlaces.setEnabled(false);
 
         labelTrafic.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelTrafic.setText("Trafic journalier:");
@@ -267,15 +270,18 @@ public class StationPanel extends javax.swing.JPanel {
 
         labelNombrePlaces.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombrePlaces.setIcon(new javax.swing.ImageIcon("src/main/resources/img/mark.png")); // NOI18N
-        labelNombrePlaces.setText("z");
+        labelNombrePlaces.setText("-");
+        labelNombrePlaces.setEnabled(false);
 
         labelNombreTotal.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombreTotal.setIcon(new javax.swing.ImageIcon("src/main/resources/img/station.png")); // NOI18N
-        labelNombreTotal.setText(String.valueOf(MysqlRequester.getNombreDePlaceTotaleSurUneStation(2470)));//TODO Changer l'id en fonction du choix
+        labelNombreTotal.setText(String.valueOf(MysqlRequester.getNombreDePlaceTotaleSurUneStation(10120)));//TODO Changer l'id en fonction du choix
+        labelNombreTotal.setEnabled(false);
 
         labelNombreVelos.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
         labelNombreVelos.setIcon(new javax.swing.ImageIcon("src/main/resources/img/velo.png")); // NOI18N
-        labelNombreVelos.setText("y");
+        labelNombreVelos.setText("-");
+        labelNombreVelos.setEnabled(false);
         
         panelGraph1 = createPanel(createTableau24h(new DefaultCategoryDataset()));
         panelGraph2 = createPanel(createTableauPlage(new DefaultCategoryDataset()));

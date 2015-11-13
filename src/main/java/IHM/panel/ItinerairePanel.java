@@ -217,7 +217,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
             }
         });
 
-        depart1.setBackground(new java.awt.Color(255, 255, 0));
+        depart1.setBackground(new java.awt.Color(255, 255, 128));
         depart1.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "HORAIRES\n", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
 
         jLabel15.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -284,7 +284,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                                                 .addGap(0, 0, Short.MAX_VALUE))))
         );
 
-        depart2.setBackground(new java.awt.Color(51, 51, 255));
+        depart2.setBackground(new java.awt.Color(77, 148, 255));
         depart2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel8.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
@@ -337,7 +337,7 @@ public class ItinerairePanel extends javax.swing.JPanel {
                                 .addContainerGap())
         );
 
-        depart.setBackground(new java.awt.Color(255, 0, 0));
+        depart.setBackground(new java.awt.Color(255, 102, 102));
         depart.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "ARRIVEE", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14), new java.awt.Color(255, 255, 255))); // NOI18N
 
         jLabel1.setFont(new java.awt.Font("Tahoma", 0, 14)); // NOI18N
