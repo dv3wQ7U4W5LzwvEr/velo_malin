@@ -245,6 +245,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                         .addGap(0, 0, Short.MAX_VALUE)
         );
 
+        /*
         Platform.runLater(new Runnable() {
             @Override
             public void run() {
