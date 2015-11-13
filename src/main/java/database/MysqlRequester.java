@@ -696,7 +696,8 @@ public class MysqlRequester {
                 rs.beforeFirst();
             }
             while (rs.next()) {
-                liste_alerte_id_mili.add(rs.getInt("id_itinerairefavori"), rs.getInt("milirestant"));
+                liste_alerte_id_mili.add(rs.getInt("id_itinerairefavori"));
+                liste_alerte_id_mili.add(rs.getInt("milirestant"));
             }
         } catch (SQLException ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
