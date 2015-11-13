@@ -38,26 +38,29 @@ public class FavoriPanel extends JPanel {
         /*Timer d'Alerte - PEC*/
         List<Integer> infoAllNext =  MysqlRequester.getTimeNextAlert(); //on recup une liste triée
 
-        if(infoAllNext.isEmpty()){
-            //on ne fait rien s'il n'y a pas d'alerte prévue
-        }else{
-            final int id_favori_next_alerte = infoAllNext.get(0);
-            int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
-            ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
+        if (infoAllNext != null)
+        {
+            if(infoAllNext.isEmpty()){
+                //on ne fait rien s'il n'y a pas d'alerte prévue
+            }else{
+                final int id_favori_next_alerte = infoAllNext.get(0);
+                int tempsRestant = (infoAllNext.get(1)-(temps_avant_alerte*60000));//difference de temps en mili
+                ActionListener actionListener = actionEvent-> actionAlerte(id_favori_next_alerte);
             /*test:*JOptionPane.showMessageDialog(null,"alerte dans :"+tempsRestant+" ms, id:"+infoAllNext.get(0));
     	/**/
 
-            //int cle  = iter.next();
-            //int valeur = infoAllNext.get(cle);
+                //int cle  = iter.next();
+                //int valeur = infoAllNext.get(cle);
 
-            //int tempsRestant = iter.next();
-            //int id_itineraire_favori = infoAllNext.get(tempsRestant);
+                //int tempsRestant = iter.next();
+                //int id_itineraire_favori = infoAllNext.get(tempsRestant);
 
-            javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
-            timer.start();
-            timer.setRepeats(false);
+                javax.swing.Timer timer = new javax.swing.Timer(tempsRestant, actionListener);
+                timer.start();
+                timer.setRepeats(false);
+            }
+
         }
-
         /**/
 
         // panel pour alertes
@@ -282,16 +285,11 @@ public class FavoriPanel extends JPanel {
         //Transmission distance de parcours
         double distancekm = StatistiquesStation.getKmFromLatLong(lat_dep, long_dep, long_arr, lat_arr);
         rechercheDonnees.setDistanceKm(distancekm);
-        //maj du resultat panel
+
         IHMApplication.reloadResultatPanel();
-        //redir
         IHMApplication.changerOngletResultat();
     }
 
-    /*à rajouter en fonction du nombre...
-    private void boutonSupprimer1ActionPerformed(java.awt.event.ActionEvent evt) {
-        // TODO add your handling code here:
-    }*/
 
     public int getTemps_avant_alerte() {
         return temps_avant_alerte;

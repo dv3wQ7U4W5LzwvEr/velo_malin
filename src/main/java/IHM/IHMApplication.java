@@ -51,7 +51,7 @@ public class IHMApplication extends JFrame {
             onglets.addTab("Programmer son itinéraire", icon1, panel1);
             onglets.addTab("Résultats de recherche", icon2, panel2);
             onglets.addTab("Statistiques de station", icon3, panel3);
-            onglets.addTab("Alerte sur les favoris", icon4, panel4);
+            onglets.addTab("Gestion des favoris et des alertes", icon4, panel4);
 
         /*----------*\
         * Accueil    *
