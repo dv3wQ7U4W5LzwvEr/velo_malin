@@ -268,6 +268,7 @@ public class ResultatPanel extends javax.swing.JPanel {
                         .addGap(0, 532, Short.MAX_VALUE)
         );
 
+        panelCarteResultats.setVisible(false);
 
         jPanel2.setBackground(new java.awt.Color(153, 255, 153));
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(javax.swing.BorderFactory.createEmptyBorder(1, 1, 1, 1), "POUR LE DEPART", javax.swing.border.TitledBorder.DEFAULT_JUSTIFICATION, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Arial Black", 1, 14))); // NOI18N
