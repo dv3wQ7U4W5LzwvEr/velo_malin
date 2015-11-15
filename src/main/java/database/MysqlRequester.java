@@ -690,6 +690,7 @@ public class MysqlRequester {
         List<Integer> liste_alerte_id_mili = new ArrayList<Integer>();
 
         try {
+            /*
             if (!rs.next()) {
                 return null;
             } else {
@@ -699,7 +700,8 @@ public class MysqlRequester {
                 liste_alerte_id_mili.add(rs.getInt("id_itinerairefavori"));
                 liste_alerte_id_mili.add(rs.getInt("milirestant"));
             }
-        } catch (SQLException ex) {
+            */
+        } catch (Exception ex) {
             Logger lgr = Logger.getLogger(MysqlConnecter.class.getName());
             lgr.log(Level.SEVERE, ex.getMessage(), ex);
             System.out.println("Erreur: " + ex);
